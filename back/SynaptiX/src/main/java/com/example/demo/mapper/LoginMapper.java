@@ -7,4 +7,5 @@ public interface LoginMapper {
 
 	LoginDTO selectName();
 	LoginDTO selectByIdAndPw(String id, String pw);
+	LoginDTO selectById(String id);
 }

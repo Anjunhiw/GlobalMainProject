@@ -23,4 +23,10 @@
         FROM member
         WHERE ID = #{id} AND Password = #{pw}
     </select>
+    <select id="selectById" resultMap="LoginDTOMap">
+        SELECT pk, ID, Name, Years, Salary, Password, Email, Dept
+        FROM member
+        WHERE ID = #{id}
+    </select>
+
 </mapper>

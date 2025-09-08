@@ -15,6 +15,8 @@ import com.example.demo.mapper.*;
 import com.example.demo.model.*;
 import com.example.demo.service.*;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/home")
 public class HomeController {
@@ -23,7 +25,11 @@ public class HomeController {
 
     // 홈 리스트 조회
     @GetMapping("")
-    public String homeList(Model model) {
+    public String homeList(Model model, HttpSession session) {
+        Object user = session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
         model.addAttribute("homeList", homeService.getHomeList());
         return "Home";
     }

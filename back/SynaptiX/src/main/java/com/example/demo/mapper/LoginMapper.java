@@ -6,4 +6,5 @@ import com.example.demo.model.LoginDTO;
 public interface LoginMapper {
 
 	LoginDTO selectName();
+	LoginDTO selectByIdAndPw(String id, String pw);
 }

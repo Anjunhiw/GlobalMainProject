@@ -2,17 +2,21 @@ package com.example.demo.model;
 
 public class LoginDTO {
 
-	private int id;
+	
 	private int years;
+	
 	private long salary;
+	
+	private String id;
 	private String pw;
 	private String name;
 	private String email;
 	private String dept;
+	private int pk;
 	
 	public LoginDTO() {}
 	
-	public LoginDTO(int id, int years, long salary, String pw, String name, String email, String dept) {
+	public LoginDTO(String id, int years, long salary, String pw, String name, String email, String dept) {
 		this.id = id;
 		this.years = years;
 		this.salary = salary;
@@ -24,10 +28,10 @@ public class LoginDTO {
 	
 	
 	//getters and setters
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	
@@ -67,6 +71,12 @@ public class LoginDTO {
 	}
 	public void setDept(String dept) {
 		this.dept = dept;
+	}
+	public int getPk() {
+		return pk;
+	}
+	public void setPk(int pk) {
+		this.pk = pk;
 	}
 	
 }

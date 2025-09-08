@@ -13,4 +13,8 @@ public class LoginService {
 	public LoginDTO getData() {
 		return loginMapper.selectName();
 	}
+	
+	public LoginDTO authenticate(String id, String pw) {
+		return loginMapper.selectByIdAndPw(id, pw);
+	}
 }

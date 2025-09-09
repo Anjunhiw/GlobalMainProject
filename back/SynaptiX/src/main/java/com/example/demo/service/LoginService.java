@@ -11,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class LoginService {
 	@Autowired
 	private LoginMapper loginMapper;
-	
 	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
 	public LoginDTO getData() {
@@ -19,7 +18,12 @@ public class LoginService {
 	}
 	
 	public LoginDTO authenticate(String id, String pw) {
-		return loginMapper.selectByIdAndPw(id, pw);
+		LoginDTO user = loginMapper.selectById(id);
+		if (user == null) return null;
+		if (passwordEncoder.matches(pw, user.getPw())) {
+			return user;
+		}
+		return null;
 	}
 	
 	public LoginDTO getUserInfo(String id) {

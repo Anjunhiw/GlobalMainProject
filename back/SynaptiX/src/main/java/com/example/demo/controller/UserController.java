@@ -31,4 +31,37 @@ public class UserController {
             return "Register";
         }
     }
+
+    @GetMapping("/findId")
+    public String showFindIdForm() {
+        return "FindId"; // FindId.jsp로 이동
+    }
+
+    @PostMapping("/findId")
+    public String findId(String email, String name, Model model) {
+        String userId = userService.findUserIdByEmailAndName(email, name);
+        if (userId != null) {
+            model.addAttribute("message", "아이디는: " + userId + " 입니다.");
+        } else {
+            model.addAttribute("message", "일치하는 정보가 없습니다.");
+        }
+        return "FindId";
+    }
+
+    @GetMapping("/findPassword")
+    public String showFindPasswordForm() {
+        return "FindPassword"; // FindPassword.jsp로 이동
+    }
+
+    @PostMapping("/findPassword")
+    public String findPassword(String userId, String email, Model model) {
+        boolean success = userService.verifyUserForPasswordReset(userId, email);
+        if (success) {
+            // 실제 서비스에서는 임시 비밀번호 발급 또는 이메일 전송 등 추가 구현 필요
+            model.addAttribute("message", "비밀번호 재설정이 가능합니다. 관리자에게 문의하세요.");
+        } else {
+            model.addAttribute("message", "일치하는 정보가 없습니다.");
+        }
+        return "FindPassword";
+    }
 }

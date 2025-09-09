@@ -21,4 +21,12 @@ public class UserService {
         int result = userMapper.insertUser(userDto);
         return result > 0;
     }
+
+    public String findUserIdByEmailAndName(String email, String name) {
+        return userMapper.findUserIdByEmailAndName(email, name);
+    }
+
+    public boolean verifyUserForPasswordReset(String userId, String email) {
+        return userMapper.verifyUserForPasswordReset(userId, email) > 0;
+    }
 }

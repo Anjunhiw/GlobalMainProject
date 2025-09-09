@@ -5,4 +5,12 @@
         INSERT INTO member (ID, Password, Name, Email, Dept, Years, Salary)
         VALUES (#{userId}, #{password}, #{name}, #{email}, #{dept}, #{years}, #{salary})
     </insert>
+
+    <select id="findUserIdByEmailAndName" resultType="string">
+        SELECT ID FROM member WHERE Email = #{email} AND Name = #{name}
+    </select>
+
+    <select id="verifyUserForPasswordReset" resultType="int">
+        SELECT COUNT(*) FROM member WHERE ID = #{userId} AND Email = #{email}
+    </select>
 </mapper>

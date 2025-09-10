@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.model;
 
 public class UserDTO {
     private String userId;
@@ -8,6 +8,8 @@ public class UserDTO {
     private String dept;
     private Integer years;
     private Integer salary;
+    private String rank;
+    private String birth;
 
     public String getUserId() {
         return userId;
@@ -50,5 +52,17 @@ public class UserDTO {
     }
     public void setSalary(Integer salary) {
         this.salary = salary;
+    }
+    public String getRank() {
+        return rank;
+    }
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
+    public String getBirth() {
+        return birth;
+    }
+    public void setBirth(String birth) {
+        this.birth = birth;
     }
 }

@@ -12,11 +12,6 @@
     <p>로그인 이름: ${name}</p>
     <p>user 객체 아이디: ${user.id}</p>
     <p>user 객체 이름: ${user.name}</p>
-    <!-- homeList 정보 출력 -->
-    <c:if test="${not empty homeList}">
-        <p>homeList 아이디: ${homeList[0]['id']}</p>
-        <p>homeList 이름: ${homeList[0]['name']}</p>
-    </c:if>
     <!-- 세션 존재 여부 표시 -->
     <c:choose>
         <c:when test="${not empty user}">

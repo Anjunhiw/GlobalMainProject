@@ -16,6 +16,10 @@
     <input type="email" id="email" name="email" required><br>
     <label for="dept">부서:</label>
     <input type="text" id="dept" name="dept" required><br>
+    <label for="rank">직급:</label>
+    <input type="text" id="rank" name="rank" required><br>
+    <label for="birth">생년월일:</label>
+    <input type="date" id="birth" name="birth" required><br>
     <label for="years">경력(년수):</label>
     <input type="number" id="years" name="years" required><br>
     <label for="salary">연봉:</label>

@@ -55,4 +55,10 @@ public class StockService {
             mapper.deleteProduct(pk);
         }
     }
+    public void deleteMaterial(int pk) {
+        mapper.deleteMaterial(pk);
+    }
+    public void deleteProduct(int pk) {
+        mapper.deleteProduct(pk);
+    }
 }

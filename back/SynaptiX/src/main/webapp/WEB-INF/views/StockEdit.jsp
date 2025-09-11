@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>재고 수정</title>
@@ -8,7 +9,7 @@
 <h2>재고 수정</h2>
 <c:choose>
     <c:when test="${not empty material}">
-        <form action="/stock/edit" method="post">
+        <form action="/stock/editMaterial" method="post">
             <input type="hidden" name="pk" value="${material.pk}" />
             <label for="category">카테고리:</label>
             <input type="text" id="category" name="category" value="${material.category}" required><br>
@@ -28,7 +29,7 @@
         </form>
     </c:when>
     <c:when test="${not empty product}">
-        <form action="/stock/edit" method="post">
+        <form action="/stock/editProduct" method="post">
             <input type="hidden" name="pk" value="${product.pk}" />
             <label for="category">카테고리:</label>
             <input type="text" id="category" name="category" value="${product.category}" required><br>
@@ -38,8 +39,6 @@
             <input type="text" id="model" name="model" value="${product.model}"><br>
             <label for="specification">규격:</label>
             <input type="text" id="specification" name="specification" value="${product.specification}" required><br>
-            <label for="unit">단위:</label>
-            <input type="text" id="unit" name="unit" value="${product.unit}"><br>
             <label for="price">가격:</label>
             <input type="number" id="price" name="price" value="${product.price}" required><br>
             <label for="stock">재고량:</label>
@@ -48,7 +47,10 @@
             <input type="number" id="amount" name="amount" value="${product.amount}" required><br>
             <button type="submit">저장</button>
         </form>
-
+    </c:when>
+    <c:otherwise>
+        <p>수정할 재고 정보가 없습니다.</p>
+    </c:otherwise>
 </c:choose>
 <a href="/stock">목록으로</a>
 </body>

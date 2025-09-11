@@ -6,7 +6,7 @@
 <mapper namespace="com.example.demo.mapper.StockMapper">
     <select id="selectAllMaterials" resultType="com.example.demo.model.MaterialDTO">
         SELECT pk, Category AS category, Name AS name, Specification AS specification, Unit AS unit, Price AS price, Stock AS stock, Amount AS amount
-        FROM materials
+        FROM material
     </select>
     <select id="selectAllProducts" resultType="com.example.demo.model.ProductDTO">
         SELECT pk, Category AS category, Name AS name, Model AS model, Specification AS specification, Price AS price, Stock AS stock, Amount AS amount
@@ -14,7 +14,7 @@
     </select>
     <select id="selectMaterialsByName" resultType="com.example.demo.model.MaterialDTO">
         SELECT pk, Category AS category, Name AS name, Specification AS specification, Unit AS unit, Price AS price, Stock AS stock, Amount AS amount
-        FROM materials
+        FROM material
         WHERE Name LIKE CONCAT('%', #{name}, '%')
     </select>
     <select id="selectProductsByName" resultType="com.example.demo.model.ProductDTO">
@@ -24,7 +24,7 @@
     </select>
     <select id="selectMaterialByPk" resultType="com.example.demo.model.MaterialDTO">
         SELECT pk, Category AS category, Name AS name, Specification AS specification, Unit AS unit, Price AS price, Stock AS stock, Amount AS amount
-        FROM materials
+        FROM material
         WHERE pk = #{pk}
     </select>
     <select id="selectProductByPk" resultType="com.example.demo.model.ProductDTO">
@@ -33,7 +33,7 @@
         WHERE pk = #{pk}
     </select>
     <update id="updateMaterial" parameterType="com.example.demo.model.MaterialDTO">
-        UPDATE materials
+        UPDATE material
         SET Category = #{category}, Name = #{name}, Specification = #{specification}, Unit = #{unit}, Price = #{price}, Stock = #{stock}, Amount = #{amount}
         WHERE pk = #{pk}
     </update>
@@ -43,7 +43,7 @@
         WHERE pk = #{pk}
     </update>
     <delete id="deleteMaterial" parameterType="int">
-        DELETE FROM materials WHERE pk = #{pk}
+        DELETE FROM material WHERE pk = #{pk}
     </delete>
     <delete id="deleteProduct" parameterType="int">
         DELETE FROM product WHERE pk = #{pk}

@@ -81,18 +81,22 @@ public class StockController {
             ProductDTO product = service.getProductByPk(pk);
             model.addAttribute("product", product);
             model.addAttribute("material", null); // 명시적으로 material을 null 처리
-        }
+        } else {
+			model.addAttribute("material", null);
+			model.addAttribute("product", null);
+		}
         return "StockEdit";
     }
 
-    @PostMapping("/stock/edit")
-    public String editStock(@ModelAttribute MaterialDTO material,
-                            @ModelAttribute ProductDTO product) {
-        if (material.getPk() > 0 && material.getName() != null) {
-            service.updateMaterial(material);
-        } else if (product.getPk() > 0 && product.getName() != null) {
-            service.updateProduct(product);
-        }
+    @PostMapping("/stock/editMaterial")
+    public String editMaterial(@ModelAttribute MaterialDTO material) {
+        service.updateMaterial(material);
+        return "redirect:/stock";
+    }
+
+    @PostMapping("/stock/editProduct")
+    public String editProduct(@ModelAttribute ProductDTO product) {
+        service.updateProduct(product);
         return "redirect:/stock";
     }
 

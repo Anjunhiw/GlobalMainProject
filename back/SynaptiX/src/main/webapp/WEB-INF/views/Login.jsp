@@ -1,19 +1,36 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Login Page</title>
+	<link rel="stylesheet" href="<c:url value='/css/style.css?v=1'/>">
+
 </head>
 <body>
-    <h2>로그인</h2>
-    <form action="/login" method="post">
-        <label for="id">아이디:</label>
-        <input type="text" id="id" name="id" required><br><br>
-        <label for="pw">비밀번호:</label>
-        <input type="password" id="pw" name="pw" required><br><br>
-        <button type="submit">로그인</button>
-    </form>
-    <c:if test="${not empty error}">
-        <p style="color:red;">${error}</p>
-    </c:if>
-</body>	
+    <div class="login-container">
+        <h2>로그인</h2>
+        <form action="${pageContext.request.contextPath}/login" method="post">
+            <label for="id" class="styleID">아이디</label>
+            <input type="text" id="id" placeholder="아이디를 입력해주세요."  name="id" required><br><br>
+            <label for="pw" class="styleID">비밀번호</label>
+            <input type="password" id="pw" name="pw" placeholder="비밀번호를 입력해주세요." required><br><br>
+		
+			
+			<div class="links">
+			          <span class="user">아직 계정이 없으신가요? <a href="<c:url value='/register'/>">회원가입</a></span>
+			      </div>  
+				  <div class="finduser">
+				  <a href="<c:url value='/findId'/>" class="findID">아이디 찾기</a> <a class="finds">/</a> 
+				  <a href="<c:url value='/findPassword'/>" class="findID">비밀번호 찾기</a>
+			</div>
+			
+			  <button type="submit">로그인</button>
+        </form>
+        
+        <!-- 에러 메시지 출력 -->
+        <c:if test="${not empty error}">
+            <p style="color:red;">${error}</p>
+        </c:if>
+    </div>
+</body> 
 </html>

@@ -1,0 +1,294 @@
+
+:root { --ui-font: 'Pretendard', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', sans-serif;
+    background-color: #EEF0FF;  /* 연한 보라색 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* 로그인 박스 */
+.login-container{
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    width: 360px;
+
+}
+
+/* 제목 */
+.login-container h2 {
+    margin-bottom: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #222;
+	text-align: center;
+}
+.styleID{
+	text-align: left;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #555;
+}
+/* 입력창 */
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    transition: 0.2s;
+    font-size: 14px;
+}
+.login-container input::placeholder {
+    color: #bbb;
+	font-size: 12px;
+}
+
+.login-container input[type="text"]:focus,
+.login-container input[type="password"]:focus {
+    border-color: #5a6ff0;
+    box-shadow: 0 0 3px rgba(90, 111, 240, 0.3);
+}
+
+/* 버튼 */
+.login-container button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 16px;
+    background-color: #4D6BB8;
+    border: none;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.login-container button:hover {
+    background-color: #364fc7;
+}
+
+/* 회원가입 / 링크 구역 */
+.login-container .links{
+    margin-top: 18px;
+    font-size: 12px;
+    color: #555;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-container .links a {
+    color: #4361ee;
+    text-decoration: none;
+    margin-left: 6px;
+    font-weight: 500;
+}
+
+.login-container .findID{
+	color: #4361ee;
+	 text-decoration: none;
+	 margin-left: 5px;
+	 font-weight: 500;
+	 font-size: 12px;
+	 
+}
+.login-container .findID:hover{
+    text-decoration: underline;
+}
+.login-container .finds{
+     text-decoration: none;
+     margin-left: 5px;
+     font-weight: 500;
+     font-size: 12px;
+}
+
+.login-container .finduser{
+    margin-left:200px;
+	margin-top:30px;
+	margin-bottom:10px;
+    font-size: 12px;
+	
+  
+}
+
+.login-container .finds:hover{
+    text-decoration: underline;
+}
+.login-container .links a:hover {
+    text-decoration: underline;
+}
+
+
+
+/* 회원가입 박스 */
+.register-container {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    width: 420px;
+    max-height: 90vh;        /* 화면 높이 제한 */
+    overflow-y: auto;        /* 내용이 많으면 스크롤 */
+}
+
+/* 스크롤 디자인 */
+.register-container::-webkit-scrollbar {
+    width: 8px;
+	opacity: 10;
+	height: 5px;
+}
+.register-container::-webkit-scrollbar-thumb {
+    background: rgb(201, 201, 201, 0.6);
+    border-radius: 4px;
+	
+}
+.register-container::-webkit-scrollbar-thumb:hover {
+    background: rgb(155, 155, 155);
+
+}
+.register-container::-webkit-scrollbar-track {
+    background: transparent;   /* 트랙 투명 */
+}
+
+/* 제목 */
+.register-container h2 {
+    margin-bottom: 28px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #222;
+    text-align: center;
+}
+
+/* 입력 필드 */
+.register-container label {
+    display: block;
+    margin: 12px 0 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    text-align: left;
+}
+
+.register-container input[type="text"],
+.register-container input[type="password"],
+.register-container input[type="email"],
+.register-container input[type="date"],
+.register-container input[type="number"],
+.register-container select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    transition: 0.2s;
+    box-sizing: border-box;
+	margin-bottom: 10px;
+}
+
+.register-container input:focus,
+.register-container select:focus {
+    border-color: #5a6ff0;
+    background-color: #fff;
+    box-shadow: 0 0 4px rgba(90, 111, 240, 0.3);
+    outline: none;
+}
+
+/* 버튼 */
+.register-container button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+    background-color: #4D6BB8;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.register-container button:hover {
+    background-color: #364fc7;
+}
+
+/* 메시지 */
+.register-container p {
+    margin-top: 16px;
+    font-size: 14px;
+    color: green;
+    text-align: center;
+}
+
+/* 공통 폰트(원하는 폰트로 변경 가능) */
+:root { --ui-font: 'Pretendard', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+
+/* select 래퍼 */
+.select {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+
+.select select {
+  width: 100%;
+  font-family: var(--ui-font);
+  font-size: 14px;
+  color: #333;
+  padding: 12px 40px 12px 12px; /* 오른쪽 여백은 화살표 자리 */
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+
+  /* 기본 화살표 제거 */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  transition: border-color .2s, background-color .2s, box-shadow .2s;
+  box-sizing: border-box;
+}
+.select select:hover {
+  background-color: #fff;
+}
+.select select:focus {
+  border-color: #5a6ff0;
+  box-shadow: 0 0 0 4px rgba(90,111,240,.15);
+  outline: none;
+}
+
+.form-footer {
+    margin-top: 30px;
+    text-align: right;  /* 오른쪽 정렬 */
+    font-size: 13px;
+    color: #777;
+}
+
+.form-footer a {
+    margin-left: 6px;
+    color: #4361ee;       /* 파란색 포인트 */
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+

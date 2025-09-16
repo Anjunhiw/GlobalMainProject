@@ -9,7 +9,8 @@
 <body>
 <div class="register-container">
     <h2>계정 정보 등록</h2>
-    <form action="/user/register" method="post">
+	<form action="<c:url value='/register'/>" method="post">
+
         <label for="userId">아이디</label>
         <input type="text" id="userId" name="userId" placeholder="사용하실 아이디를 적어주세요" required>
 

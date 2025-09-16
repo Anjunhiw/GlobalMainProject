@@ -1,10 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <title>BOM List</title>
-</head>
-<body>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="header.jsp" %>
     <h2>BOM List</h2>
     <!-- 검색 폼 수정: 카테고리 선택 -->
     <form method="get" action="/bom">
@@ -157,5 +152,4 @@
         });
     }
     </script>
-</body>
-</html>
+<%@ include file="footer.jsp" %>

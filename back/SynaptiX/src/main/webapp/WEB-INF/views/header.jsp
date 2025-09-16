@@ -3,7 +3,16 @@
 <!Doctype html>
 <html>
 <head>
-    <title>Header</title>
+    <title>
+        <c:choose>
+            <c:when test="${not empty pageTitle}">
+                ${pageTitle}
+            </c:when>
+            <c:otherwise>
+                SynaptiX
+            </c:otherwise>
+        </c:choose>
+    </title>
     <style>
         /* 헤더 스타일 */
         header {
@@ -26,13 +35,19 @@
 <body>
 	<header>
 		<div class="logo">
-            <h1>My Application</h1>
+            <h1>SynaptiX</h1>
         </div>
         <nav>
             <a href="/home">홈</a>
             <a href="/stock">재고관리</a>
-            <a href="/bom">생산제조</a>
+            <a href="/bom">생산/제조</a>
+			<a href="/">영업/판매</a>
 			<a href="/login">로그인</a>
 			<a href="/register">회원가입</a>
         </nav>
+        <nav class="sub-nav">
+        <c:if test="${not empty subNav}">
+            ${subNav}
+        </c:if>
+    </nav>
 	</header>

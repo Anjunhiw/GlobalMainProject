@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class MPSDTO {
 
-	int pk;
-	int ProductId;
-	Date Period;
-	Float Volume;
+	private int pk;
+	private int ProductId;
+	private Date Period;
+	private Float Volume;
 	
 	public MPSDTO() {}
 	

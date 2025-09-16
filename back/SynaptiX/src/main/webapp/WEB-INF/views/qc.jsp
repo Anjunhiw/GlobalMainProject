@@ -1,7 +1,13 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
+<%
+request.setAttribute("pageTitle", "QC");
+%>
+%>
+<%
+request.setAttribute("subNav", "<a href='/bom'>BOM</a> <a href='/mps'>MPS</a> <a href='/qc'>QC</a>");
+%>
+<%@ include file="header.jsp" %>
     <title>QC List</title>
 </head>
 <body>
@@ -18,5 +24,4 @@
             </tr>
         </c:forEach>
     </table>
-</body>
-</html>
+<%@ include file="footer.jsp" %>

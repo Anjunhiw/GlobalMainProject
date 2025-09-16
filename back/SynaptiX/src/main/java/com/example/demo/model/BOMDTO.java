@@ -2,9 +2,9 @@ package com.example.demo.model;
 
 public class BOMDTO {
 	
-	int ProductId;
-	int MaterialId;
-	Float MaterialAmount;
+	private int ProductId;
+	private int MaterialId;
+	private Float MaterialAmount;
 	
 	public BOMDTO() {}
 	

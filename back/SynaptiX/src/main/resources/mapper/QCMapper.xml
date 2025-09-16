@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.QCMapper">
+    <resultMap id="QCResultMap" type="com.example.demo.model.QCDTO">
+        <result property="mpsId" column="MPSId" />
+        <result property="passed" column="isPassed" jdbcType="TINYINT" javaType="boolean" />
+    </resultMap>
+
+    <select id="selectAllQC" resultMap="QCResultMap">
+        SELECT MPSId, isPassed FROM QC
+    </select>
+
+    <insert id="insertQC" parameterType="com.example.demo.model.QCDTO">
+        INSERT INTO QC (MPSId, isPassed) VALUES (#{mpsId}, #{passed})
+    </insert>
+</mapper>

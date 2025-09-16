@@ -289,6 +289,130 @@ body {
 }
 
 
+/* =========================
+   Find ID (아이디 찾기)
+   ========================= */
+
+/* 카드 */
+.findid-container {
+  background: #fff;
+  width: 420px;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  margin: 0 auto;
+}
+
+/* 페이지 배경/정렬 (전역 body 스타일이 없다면 사용) */
+.findid-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #EEF0FF;
+  font-family: 'Pretendard', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/* 제목 */
+.findid-container h2 {
+  margin: 0 0 24px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #111;
+  text-align: center;
+}
+
+/* 라벨/필드 */
+.findid-container label {
+  display: block;
+  margin: 12px 0 6px;
+  font-size: 13px;
+  color: #616161;
+}
+
+.findid-container input[type="email"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e3e5e9;
+  border-radius: 10px;
+  background: #f7f8fa;
+  font-size: 14px;
+  transition: .2s;
+  box-sizing: border-box;
+}
+.findid-container input[type="email"]::placeholder { color:#b3b8c2; }
+
+.findid-container input[type="email"]:focus {
+  background: #fff;
+  border-color: #5a6ff0;
+  box-shadow: 0 0 0 4px rgba(90,111,240,.12);
+  outline: none;
+}
+
+/* 생년월일 (input 3칸 - 년/월/일) */
+.birth-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr; /* 연도는 넓게 */
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.birth-row input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e3e5e9;
+  border-radius: 10px;
+  background: #f7f8fa;
+  font-size: 14px;
+  color: #333;
+  transition: 0.2s;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.birth-row input::placeholder {
+  color: #b3b8c2;
+}
+
+.birth-row input:focus {
+  background: #fff;
+  border-color: #5a6ff0;
+  box-shadow: 0 0 0 4px rgba(90,111,240,.12);
+  outline: none;
+}
+
+
+/* 버튼 */
+.findid-container .btn-primary {
+  width: 100%;
+  padding: 14px;
+  margin-top: 40px;
+  background: #4D6BB8;
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s ease;
+}
+.findid-container .btn-primary:hover { background: #364fc7; }
+
+/* 하단 링크 영역 */
+.findid-footer {
+  margin-top: 35px;
+  font-size: 13px;
+  color: #9aa0a6;
+  display: grid;
+  row-gap: 6px;
+}
+.findid-footer a {
+  color: #4361ee;
+  text-decoration: none;
+  margin-left: 6px;
+  font-weight: 500;
+}
+.findid-footer a:hover { text-decoration: underline; }
 
 
 

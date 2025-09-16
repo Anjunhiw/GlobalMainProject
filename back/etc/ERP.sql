@@ -1,104 +1,152 @@
-﻿CREATE TABLE `Purchase` (
-	`pk`	INT	NOT NULL,
-	`Cost`	BIGINT	NULL,
-	`MaterialId`	INT	NOT NULL,
-	`Purchase`	FLOAT	NULL
-);
+-- --------------------------------------------------------
+-- 호스트:                          127.0.0.1
+-- 서버 버전:                        11.7.2-MariaDB - mariadb.org binary distribution
+-- 서버 OS:                        Win64
+-- HeidiSQL 버전:                  12.10.0.7000
+-- --------------------------------------------------------
 
-CREATE TABLE `BOM` (
-	`ProductId`	INT	NOT NULL,
-	`MaterialId`	INT	NOT NULL,
-	`MaterialAmount`	FLOAT	NULL
-);
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-CREATE TABLE `EarnCost` (
-	`pk`	VARCHAR(255)	NOT NULL,
-	`Earning`	BIGINT	NULL,
-	`Cost`	BIGINT	NULL
-);
 
-CREATE TABLE `Materials` (
-	`pk`	INT	NOT NULL,
-	`원자재명`	CHAR	NULL,
-	`가격`	INT	NULL,
-	`입고량`	FLOAT	NULL
-);
+-- globalmainproj_01 데이터베이스 구조 내보내기
+CREATE DATABASE IF NOT EXISTS `globalmainproj_01` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci */;
+USE `globalmainproj_01`;
 
-CREATE TABLE `Assets` (
-	`TotalAssets`	BIGINT	NULL,
-	`CurrenAssets`	BIGINT	NULL
-);
+-- 테이블 globalmainproj_01.assets 구조 내보내기
+CREATE TABLE IF NOT EXISTS `assets` (
+  `TotalAssets` bigint(20) DEFAULT NULL COMMENT '총자금',
+  `CurrenAssets` bigint(20) DEFAULT NULL COMMENT '유동자금'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='자금';
 
-CREATE TABLE `Transaction details` (
-	`pk`	INT	NOT NULL,
-	`Earning`	BIGINT	NULL,
-	`ProductId`	INT	NOT NULL,
-	`Date`	DATE	NULL,
-	`Sales`	FLOAT	NULL
-);
+-- 내보낼 데이터가 선택되어 있지 않습니다.
 
-CREATE TABLE `Order` (
-	`MpsId`	INT	NOT NULL
-);
+-- 테이블 globalmainproj_01.bom 구조 내보내기
+CREATE TABLE IF NOT EXISTS `bom` (
+  `ProductId` int(11) NOT NULL COMMENT '제품Id',
+  `MaterialId` int(11) NOT NULL COMMENT '원자재Id',
+  `MaterialAmount` float DEFAULT NULL COMMENT '필요자재량',
+  KEY `ProductId` (`ProductId`),
+  KEY `MaterialId` (`MaterialId`),
+  CONSTRAINT `MaterialId` FOREIGN KEY (`MaterialId`) REFERENCES `material` (`pk`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `ProductId` FOREIGN KEY (`ProductId`) REFERENCES `product` (`pk`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='자재명세서';
 
-CREATE TABLE `MPS` (
-	`pk`	INT	NOT NULL,
-	`ProductId`	INT	NOT NULL,
-	`Period`	DATE	NULL,
-	`Volume`	FLOAT	NULL,
-	`IsPassed`	TINYINT	NULL
-);
+-- 내보낼 데이터가 선택되어 있지 않습니다.
 
-CREATE TABLE `QC` (
-	`ProductId`	INT	NOT NULL,
-	`IsPassed`	TINYINT	NULL
-);
+-- 테이블 globalmainproj_01.earncost 구조 내보내기
+CREATE TABLE IF NOT EXISTS `earncost` (
+  `pk` int(11) NOT NULL AUTO_INCREMENT,
+  `EarningId` int(11) NOT NULL DEFAULT 0 COMMENT '판매수익',
+  `CostId` int(11) NOT NULL DEFAULT 0 COMMENT '구매금액',
+  PRIMARY KEY (`pk`),
+  KEY `FK1` (`EarningId`),
+  KEY `FK_earncost_purchase` (`CostId`),
+  CONSTRAINT `FK1` FOREIGN KEY (`EarningId`) REFERENCES `transaction details` (`pk`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  CONSTRAINT `FK_earncost_purchase` FOREIGN KEY (`CostId`) REFERENCES `purchase` (`pk`) ON DELETE NO ACTION ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='비용/지출';
 
-CREATE TABLE `Member` (
-	`pk`	INT	NOT NULL,
-	`ID`	CHAR	NULL,
-	`Password`	CHAR	NULL,
-	`Name`	CHAR	NULL,
-	`Email`	CHAR	NULL,
-	`Dept`	CHAR	NULL,
-	`Years`	INT	NULL,
-	`Salary`	BIGINT	NULL
-);
+-- 내보낼 데이터가 선택되어 있지 않습니다.
 
-CREATE TABLE `Product` (
-	`pk`	INT	NOT NULL,
-	`제품명`	CHAR	NULL,
-	`재고량`	FLOAT	NULL,
-	`단가`	INT	NULL
-);
+-- 테이블 globalmainproj_01.material 구조 내보내기
+CREATE TABLE IF NOT EXISTS `material` (
+  `pk` int(11) NOT NULL AUTO_INCREMENT,
+  `Category` char(50) DEFAULT '원자재' COMMENT '카테고리',
+  `Name` char(50) DEFAULT NULL COMMENT '원자재명',
+  `Specification` char(50) DEFAULT NULL COMMENT '규격',
+  `Unit` char(10) DEFAULT NULL COMMENT '단위',
+  `Price` int(11) DEFAULT NULL COMMENT '가격',
+  `Stock` float DEFAULT NULL COMMENT '입고량',
+  `Amount` float DEFAULT NULL COMMENT '입고금액',
+  PRIMARY KEY (`pk`)
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='원자재';
 
-ALTER TABLE `Purchase` ADD CONSTRAINT `PK_PURCHASE` PRIMARY KEY (
-	`pk`,
-	`Cost`
-);
+-- 내보낼 데이터가 선택되어 있지 않습니다.
 
-ALTER TABLE `EarnCost` ADD CONSTRAINT `PK_EARNCOST` PRIMARY KEY (
-	`pk`
-);
+-- 테이블 globalmainproj_01.member 구조 내보내기
+CREATE TABLE IF NOT EXISTS `member` (
+  `pk` int(11) NOT NULL AUTO_INCREMENT,
+  `ID` char(10) DEFAULT NULL COMMENT '아이디',
+  `Password` char(100) DEFAULT NULL COMMENT '비밀번호',
+  `Name` char(10) DEFAULT NULL COMMENT '이름',
+  `Birth` date DEFAULT NULL COMMENT '생년월일',
+  `Email` char(20) DEFAULT NULL COMMENT '이메일',
+  `Dept` char(10) DEFAULT NULL COMMENT '부서',
+  `Rank` char(50) DEFAULT NULL COMMENT '직급',
+  `Years` int(11) DEFAULT NULL COMMENT '근속연수',
+  `Salary` bigint(20) DEFAULT NULL COMMENT '급여',
+  PRIMARY KEY (`pk`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='회원';
 
-ALTER TABLE `Materials` ADD CONSTRAINT `PK_MATERIALS` PRIMARY KEY (
-	`pk`
-);
+-- 내보낼 데이터가 선택되어 있지 않습니다.
 
-ALTER TABLE `Transaction details` ADD CONSTRAINT `PK_TRANSACTION DETAILS` PRIMARY KEY (
-	`pk`,
-	`Earning`
-);
+-- 테이블 globalmainproj_01.mps 구조 내보내기
+CREATE TABLE IF NOT EXISTS `mps` (
+  `pk` int(11) NOT NULL AUTO_INCREMENT,
+  `ProductId` int(11) NOT NULL COMMENT '제품Id',
+  `Period` date DEFAULT NULL COMMENT '기간(종료일)',
+  `Volume` float DEFAULT NULL COMMENT '생산량',
+  PRIMARY KEY (`pk`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='기준생산계획';
 
-ALTER TABLE `MPS` ADD CONSTRAINT `PK_MPS` PRIMARY KEY (
-	`pk`
-);
+-- 내보낼 데이터가 선택되어 있지 않습니다.
 
-ALTER TABLE `Member` ADD CONSTRAINT `PK_MEMBER` PRIMARY KEY (
-	`pk`
-);
+-- 테이블 globalmainproj_01.product 구조 내보내기
+CREATE TABLE IF NOT EXISTS `product` (
+  `pk` int(11) NOT NULL AUTO_INCREMENT,
+  `Category` char(50) DEFAULT '제품' COMMENT '카테고리',
+  `Name` char(50) DEFAULT NULL COMMENT '제품명',
+  `Model` char(50) DEFAULT NULL COMMENT '모델명',
+  `Specification` char(50) NOT NULL DEFAULT '0' COMMENT '규격',
+  `Price` int(11) DEFAULT NULL COMMENT '단가',
+  `Stock` float DEFAULT NULL COMMENT '재고량',
+  `Amount` float DEFAULT NULL COMMENT '재고금액',
+  PRIMARY KEY (`pk`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='제품';
 
-ALTER TABLE `Product` ADD CONSTRAINT `PK_PRODUCT` PRIMARY KEY (
-	`pk`
-);
+-- 내보낼 데이터가 선택되어 있지 않습니다.
 
+-- 테이블 globalmainproj_01.purchase 구조 내보내기
+CREATE TABLE IF NOT EXISTS `purchase` (
+  `pk` int(11) NOT NULL AUTO_INCREMENT,
+  `Cost` bigint(20) NOT NULL COMMENT '구매금액',
+  `MaterialId` int(11) NOT NULL COMMENT '원자재Id',
+  `Purchase` float DEFAULT NULL COMMENT '구매량',
+  PRIMARY KEY (`pk`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='원자재 구매';
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
+-- 테이블 globalmainproj_01.qc 구조 내보내기
+CREATE TABLE IF NOT EXISTS `qc` (
+  `MpsId` int(11) NOT NULL COMMENT 'MPS ID',
+  `IsPassed` tinyint(1) DEFAULT NULL COMMENT '합불여부',
+  KEY `MpsId` (`MpsId`),
+  CONSTRAINT `MpsId` FOREIGN KEY (`MpsId`) REFERENCES `mps` (`pk`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='QC';
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
+-- 테이블 globalmainproj_01.transaction details 구조 내보내기
+CREATE TABLE IF NOT EXISTS `transaction details` (
+  `pk` int(11) NOT NULL AUTO_INCREMENT,
+  `Earning` bigint(20) NOT NULL COMMENT '판매수익',
+  `ProductId` int(11) NOT NULL COMMENT '제품Id',
+  `Date` date DEFAULT NULL COMMENT '거래일',
+  `Sales` float DEFAULT NULL COMMENT '판매량',
+  PRIMARY KEY (`pk`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='거래명세서';
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;

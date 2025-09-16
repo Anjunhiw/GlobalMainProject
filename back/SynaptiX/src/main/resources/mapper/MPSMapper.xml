@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.MPSMapper">
+    <select id="selectAllMPS" resultType="com.example.demo.model.MPSDTO">
+        SELECT * FROM MPS
+    </select>
+    <insert id="insertMPS" parameterType="com.example.demo.model.MPSDTO">
+        INSERT INTO MPS (mpsId, mpsName, planDate) VALUES (#{mpsId}, #{mpsName}, #{planDate})
+    </insert>
+</mapper>

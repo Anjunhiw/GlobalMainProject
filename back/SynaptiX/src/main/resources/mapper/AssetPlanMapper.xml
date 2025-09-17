@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.AssetPlanMapper">
+    <select id="selectAssetPlans" resultType="com.example.demo.model.AssetPlanDTO">
+        SELECT 
+            ap.pk,
+            ap.Date AS date,
+            ap.ProductId AS productId,
+            p.name AS productName,
+            p.price AS price,
+            ap.Amount AS amount
+        FROM assetplan ap
+        LEFT JOIN product p ON ap.ProductId = p.pk
+        ORDER BY ap.Date ASC
+    </select>
+</mapper>

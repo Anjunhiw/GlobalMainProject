@@ -1,11 +1,14 @@
 package com.example.demo.model;
 
+import java.util.Date;
 public class PurchaseDTO {
 
 	private int pk;
 	private int MaterialId;
 	private Integer Cost;
 	private Float Purchase;
+	private Date Date;
+	private String materialName;
 	
 	public PurchaseDTO() {}
 	
@@ -47,5 +50,21 @@ public class PurchaseDTO {
 	
 	public void setPurchase(Float purchase) {
 		Purchase = purchase;
+	}
+	
+	public Date getDate() {
+		return Date;
+	}
+	
+	public void setDate(Date date) {
+		Date = date;
+	}
+
+	public String getMaterialName() {
+		return materialName;
+	}
+
+	public void setMaterialName(String materialName) {
+		this.materialName = materialName;
 	}
 }

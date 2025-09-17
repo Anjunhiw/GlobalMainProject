@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.EarningMapper">
+    <select id="selectAllEarnings" resultType="map">
+        SELECT
+          p.pk AS ProductId,
+          t.Date,
+          p.Name AS ProductName,
+          t.Sales AS Amount,
+          p.Price,
+          (t.Sales * p.Price) AS Total,
+          t.Earning,
+          p.Stock
+        FROM transaction_details t
+        LEFT JOIN product p ON t.ProductId = p.pk
+        ORDER BY t.Date DESC
+    </select>
+</mapper>

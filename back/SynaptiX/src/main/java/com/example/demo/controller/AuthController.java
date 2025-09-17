@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("")
+public class AuthController {
     @Autowired
     private UserService userService;
 
     @GetMapping("/register")
     public String showRegisterForm() {
-        return "Register"; // Register.jsp로 이동
+        return "Register";
     }
 
     @PostMapping("/register")
@@ -25,7 +25,7 @@ public class UserController {
         boolean success = userService.registerUser(userDto);
         if (success) {
             model.addAttribute("message", "회원가입이 완료되었습니다.");
-            return "Login"; // 회원가입 성공 시 로그인 페이지로 이동
+            return "Login";
         } else {
             model.addAttribute("message", "회원가입에 실패했습니다.");
             return "Register";
@@ -34,7 +34,7 @@ public class UserController {
 
     @GetMapping("/findId")
     public String showFindIdForm() {
-        return "FindId"; // FindId.jsp로 이동
+        return "FindId";
     }
 
     @PostMapping("/findId")
@@ -50,14 +50,13 @@ public class UserController {
 
     @GetMapping("/findPassword")
     public String showFindPasswordForm() {
-        return "FindPassword"; // FindPassword.jsp로 이동
+        return "FindPassword";
     }
 
     @PostMapping("/findPassword")
     public String findPassword(String userId, String email, Model model) {
         boolean success = userService.verifyUserForPasswordReset(userId, email);
         if (success) {
-            // 실제 서비스에서는 임시 비밀번호 발급 또는 이메일 전송 등 추가 구현 필요
             model.addAttribute("message", "비밀번호 재설정이 가능합니다. 관리자에게 문의하세요.");
         } else {
             model.addAttribute("message", "일치하는 정보가 없습니다.");

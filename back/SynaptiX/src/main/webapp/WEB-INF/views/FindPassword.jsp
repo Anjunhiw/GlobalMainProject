@@ -12,7 +12,7 @@
 <div class="pwfind-card">
     <h1 class="pwfind-title">비밀번호 찾기</h1>
 
- <form method="post" action="<c:url value='/user/findPassword'/>">
+ <form method="post" action="<c:url value='/findPassword'/>">
         <!-- 아이디 -->
         <label class="pwfind-label" for="userId">아이디</label>
         <input class="pwfind-input" type="text" id="userId" name="userId"
@@ -48,8 +48,8 @@
 
         <!-- 도움 링크 -->
         <div class="pwfind-help">
-            <div>아직 계정이 없으신가요? <a href="<c:url value='/user/signup'/>">회원가입</a></div>
-            <div>혹시 아이디가 있으신가요? <a href="<c:url value='/user/login'/>">로그인 하러가기</a></div>
+            <div>아직 계정이 없으신가요? <a href="<c:url value='/register'/>">회원가입</a></div>
+            <div>혹시 아이디가 있으신가요? <a href="<c:url value='login'/>">로그인 하러가기</a></div>
         </div>
 
         <!-- CTA 버튼 -->

@@ -9,15 +9,36 @@
   <div class="form-card">
     <h2 class="form-title">아이디 찾기</h2>
 
-    <label class="label-title">이메일</label>
-    <input type="email" placeholder="가입 시 등록한 이메일을 입력하세요" class="form-input"/>
+	<form method="post" action="<c:url value='/findId'/>">
+	  <!-- 이메일 -->
+	  <label class="form-label" for="email">이메일</label>
+	  <input class="form-input" type="email" id="email" name="email"
+	         placeholder="회원가입하신 이메일을 적어주세요" required/>
 
-    <label class="label-title">생년월일</label>
-    <div class="form-3col">
-      <input type="text" placeholder="년" class="form-input"/>
-      <input type="text" placeholder="월" class="form-input"/>
-      <input type="text" placeholder="일" class="form-input"/>
-    </div>
+	  <!-- 생년월일 : 비밀번호 찾기와 동일 셀렉트 3분할 -->
+	  <label class="form-label" for="birthYear">생년월일</label>
+	  <div class="form-3col">
+	    <select class="form-select" id="birthYear" name="birthYear" required>
+	      <option value="">xxxx년</option>
+	      <c:forEach var="y" begin="1950" end="2025">
+	        <option value="${y}">${y}년</option>
+	      </c:forEach>
+	    </select>
+
+	    <select class="form-select" id="birthMonth" name="birthMonth" required>
+	      <option value="">xx월</option>
+	      <c:forEach var="m" begin="1" end="12">
+	        <option value="${m}">${m}월</option>
+	      </c:forEach>
+	    </select>
+
+	    <select class="form-select" id="birthDay" name="birthDay" required>
+	      <option value="">xx일</option>
+	      <c:forEach var="d" begin="1" end="31">
+	        <option value="${d}">${d}일</option>
+	      </c:forEach>
+	    </select>
+	  </div>
 
 	<div class="form-help">
 		<span>아직 계정이 없으신가요? <a href="<c:url value='/register'/>">회원가입</a></span>

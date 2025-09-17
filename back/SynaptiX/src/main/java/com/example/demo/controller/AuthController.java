@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("")
@@ -47,6 +48,28 @@ public class AuthController {
         }
         return "FindId";
     }
+    
+    
+    @PostMapping("/findId")
+    public String findIdSubmit(@RequestParam String email,
+                               @RequestParam String birthYear,
+                               @RequestParam String birthMonth,
+                               @RequestParam String birthDay,
+                               Model model) {
+
+        String y = birthYear.trim();
+        String m = birthMonth.length()==1 ? "0"+birthMonth : birthMonth;
+        String d = birthDay.length()==1 ? "0"+birthDay : birthDay;
+        String birthYmd = y + m + d; // 19980209
+
+        String userId = userService.findUserIdByEmailAndBirth(email, birthYmd);
+
+        if (userId != null) model.addAttribute("result", userId);
+        else model.addAttribute("error", "일치하는 정보가 없습니다.");
+
+        return "FindId";
+    }
+
 
     @GetMapping("/findPassword")
     public String showFindPasswordForm() {

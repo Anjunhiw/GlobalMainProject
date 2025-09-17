@@ -43,7 +43,7 @@
             <a href="/bom">생산/제조</a>
 			<a href="/sales">영업/판매</a>
 			<a href="/managereport">경리회계</a>
-			<a href="/user/hrm">인사관리</a>
+			<a href="/hrm">인사관리</a>
 			<a href="/login">로그인</a>
 			<a href="/register">회원가입</a>
         </nav>

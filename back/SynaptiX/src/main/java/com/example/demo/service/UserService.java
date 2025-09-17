@@ -29,4 +29,8 @@ public class UserService {
     public boolean verifyUserForPasswordReset(String userId, String email) {
         return userMapper.verifyUserForPasswordReset(userId, email) > 0;
     }
+
+    public java.util.List<UserDTO> getAllUsers() {
+        return userMapper.selectAllUsers();
+    }
 }

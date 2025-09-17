@@ -3,7 +3,6 @@
 <%
 request.setAttribute("pageTitle", "MPS");
 %>
-%>
 <%
 request.setAttribute("subNav", "<a href='/bom'>BOM</a> <a href='/mps'>MPS</a> <a href='/qc'>QC</a>");
 %>

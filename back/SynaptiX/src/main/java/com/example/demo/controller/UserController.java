@@ -64,4 +64,12 @@ public class UserController {
         }
         return "FindPassword";
     }
+
+    // 인사관리 페이지: 전체 사용자 목록 조회
+    @GetMapping("/hrm")
+    public String getHrmPage(Model model) {
+        java.util.List<UserDTO> users = userService.getAllUsers();
+        model.addAttribute("users", users);
+        return "hrm";
+    }
 }

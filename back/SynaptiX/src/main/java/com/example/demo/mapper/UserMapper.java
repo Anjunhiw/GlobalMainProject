@@ -8,4 +8,5 @@ public interface UserMapper {
     int insertUser(UserDTO user);
     String findUserIdByEmailAndName(String email, String name);
     int verifyUserForPasswordReset(String userId, String email);
+    java.util.List<UserDTO> selectAllUsers();
 }

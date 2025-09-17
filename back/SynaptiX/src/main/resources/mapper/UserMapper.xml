@@ -13,4 +13,18 @@
     <select id="verifyUserForPasswordReset" resultType="int">
         SELECT COUNT(*) FROM member WHERE ID = #{userId} AND Email = #{email}
     </select>
+
+    <select id="selectAllUsers" resultType="com.example.demo.model.UserDTO">
+        SELECT 
+            ID AS userId,
+            Password AS password,
+            Name AS name,
+            Email AS email,
+            Dept AS dept,
+            Years AS years,
+            Salary AS salary,
+            Rank AS rank,
+            Birth AS birth
+        FROM member
+    </select>
 </mapper>

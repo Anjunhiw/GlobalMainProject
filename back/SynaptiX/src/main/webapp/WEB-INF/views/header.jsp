@@ -41,7 +41,8 @@
             <a href="/home">홈</a>
             <a href="/stock">재고관리</a>
             <a href="/bom">생산/제조</a>
-			<a href="/">영업/판매</a>
+			<a href="/sales">영업/판매</a>
+			<a href="/hrm">인사관리</a>
 			<a href="/login">로그인</a>
 			<a href="/register">회원가입</a>
         </nav>

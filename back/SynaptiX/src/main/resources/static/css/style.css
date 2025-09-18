@@ -1,294 +1,242 @@
-
-:root { --ui-font: 'Pretendard', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Pretendard', sans-serif;
-    background-color: #EEF0FF;  /* 연한 보라색 배경 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+:root {
+  --ui-font: 'Pretendard', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
 
-/* 로그인 박스 */
-.login-container{
-    background: #fff;
-    padding: 40px 30px;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    width: 360px;
-
+/* ===== 페이지 배경 & 가운데 정렬 ===== */
+.form-page,
+.login-page,
+.register-page,
+.findid-page,
+.pwfind-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #EEF0FF;
+  font-family: var(--ui-font);
+  color: #111;
 }
 
-/* 제목 */
-.login-container h2 {
-    margin-bottom: 50px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #222;
-	text-align: center;
+/* ===== 카드 공통 ===== */
+.form-card,
+.login-container,
+.register-container,
+.findid-container,
+.pwfind-card {
+  background: #fff;
+  padding: 36px 32px 28px;
+  border-radius: 20px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  width: min(560px, 92vw);
+  box-sizing: border-box;
 }
-.styleID{
-	text-align: left;
-    font-size: 14px;
-    margin-bottom: 6px;
-    color: #555;
+
+/* ===== 제목 공통 ===== */
+.form-title,
+.login-container h2,
+.register-container h2,
+.findid-container h2,
+.pwfind-title {
+  font-size: 24px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 28px;
+  color: #222;
 }
-/* 입력창 */
+
+/* ===== 라벨 ===== */
+.form-label,
+.login-container label,
+.register-container label,
+.findid-container label,
+.pwfind-label {
+  display: block;
+  margin: 12px 0 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #555;
+  text-align: left;
+}
+.label-title{
+	display: block;
+	 margin: 14px 0 8px;
+	 font-size: 14px;
+	 color: #62676e;
+ }
+ 
+
+/* ===== 인풋 공통 ===== */
+.form-input,
 .login-container input[type="text"],
-.login-container input[type="password"] {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    outline: none;
-    transition: 0.2s;
-    font-size: 14px;
-}
-.login-container input::placeholder {
-    color: #bbb;
-	font-size: 12px;
-}
-
-.login-container input[type="text"]:focus,
-.login-container input[type="password"]:focus {
-    border-color: #5a6ff0;
-    box-shadow: 0 0 3px rgba(90, 111, 240, 0.3);
-}
-
-/* 버튼 */
-.login-container button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 16px;
-    background-color: #4D6BB8;
-    border: none;
-    color: white;
-    font-size: 15px;
-    font-weight: bold;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.login-container button:hover {
-    background-color: #364fc7;
-}
-
-/* 회원가입 / 링크 구역 */
-.login-container .links{
-    margin-top: 18px;
-    font-size: 12px;
-    color: #555;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.login-container .links a {
-    color: #4361ee;
-    text-decoration: none;
-    margin-left: 6px;
-    font-weight: 500;
-}
-
-.login-container .findID{
-	color: #4361ee;
-	 text-decoration: none;
-	 margin-left: 5px;
-	 font-weight: 500;
-	 font-size: 12px;
-	 
-}
-.login-container .findID:hover{
-    text-decoration: underline;
-}
-.login-container .finds{
-     text-decoration: none;
-     margin-left: 5px;
-     font-weight: 500;
-     font-size: 12px;
-}
-
-.login-container .finduser{
-    margin-left:200px;
-	margin-top:30px;
-	margin-bottom:10px;
-    font-size: 12px;
-	
-  
-}
-
-.login-container .finds:hover{
-    text-decoration: underline;
-}
-.login-container .links a:hover {
-    text-decoration: underline;
-}
-
-
-
-/* 회원가입 박스 */
-.register-container {
-    background: #fff;
-    padding: 40px 30px;
-    border-radius: 20px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-    width: 420px;
-    max-height: 90vh;        /* 화면 높이 제한 */
-    overflow-y: auto;        /* 내용이 많으면 스크롤 */
-}
-
-/* 스크롤 디자인 */
-.register-container::-webkit-scrollbar {
-    width: 8px;
-	opacity: 10;
-	height: 5px;
-}
-.register-container::-webkit-scrollbar-thumb {
-    background: rgb(201, 201, 201, 0.6);
-    border-radius: 4px;
-	
-}
-.register-container::-webkit-scrollbar-thumb:hover {
-    background: rgb(155, 155, 155);
-
-}
-.register-container::-webkit-scrollbar-track {
-    background: transparent;   /* 트랙 투명 */
-}
-
-/* 제목 */
-.register-container h2 {
-    margin-bottom: 28px;
-    font-size: 22px;
-    font-weight: bold;
-    color: #222;
-    text-align: center;
-}
-
-/* 입력 필드 */
-.register-container label {
-    display: block;
-    margin: 12px 0 6px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
-    text-align: left;
-}
-
+.login-container input[type="password"],
 .register-container input[type="text"],
 .register-container input[type="password"],
 .register-container input[type="email"],
 .register-container input[type="date"],
 .register-container input[type="number"],
-.register-container select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 14px;
-    background-color: #f9f9f9;
-    transition: 0.2s;
-    box-sizing: border-box;
-	margin-bottom: 10px;
-}
-
-.register-container input:focus,
-.register-container select:focus {
-    border-color: #5a6ff0;
-    background-color: #fff;
-    box-shadow: 0 0 4px rgba(90, 111, 240, 0.3);
-    outline: none;
-}
-
-/* 버튼 */
-.register-container button {
-    width: 100%;
-    padding: 14px;
-    margin-top: 20px;
-    background-color: #4D6BB8;
-    border: none;
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.register-container button:hover {
-    background-color: #364fc7;
-}
-
-/* 메시지 */
-.register-container p {
-    margin-top: 16px;
-    font-size: 14px;
-    color: green;
-    text-align: center;
-}
-
-/* 공통 폰트(원하는 폰트로 변경 가능) */
-:root { --ui-font: 'Pretendard', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
-
-/* select 래퍼 */
-.select {
-  position: relative;
-  display: inline-block;
+.findid-container input[type="email"],
+.pwfind-input {
   width: 100%;
-}
-
-
-.select select {
-  width: 100%;
-  font-family: var(--ui-font);
-  font-size: 14px;
-  color: #333;
-  padding: 12px 40px 12px 12px; /* 오른쪽 여백은 화살표 자리 */
-  border: 1px solid #ddd;
+  height: 48px;
+  padding: 12px 16px;
+  border: 1px solid #e3e5e9;
   border-radius: 10px;
-  background-color: #f9f9f9;
-
-  /* 기본 화살표 제거 */
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  transition: border-color .2s, background-color .2s, box-shadow .2s;
+  background: #f7f8fa;
+  font-size: 14px;
   box-sizing: border-box;
+  transition: .2s;
 }
-.select select:hover {
-  background-color: #fff;
-}
-.select select:focus {
-  border-color: #5a6ff0;
-  box-shadow: 0 0 0 4px rgba(90,111,240,.15);
-  outline: none;
+.form-input::placeholder,
+.login-container input::placeholder,
+.register-container input::placeholder,
+.findid-container input::placeholder,
+.pwfind-input::placeholder { color: #b3b8c2; font-size: 12px; }
+
+.form-input:focus,
+.login-container input:focus,
+.register-container input:focus,
+.findid-container input:focus,
+.pwfind-input:focus {
+  background:#fff;
+  border-color:#5a6ff0;
+  box-shadow: 0 0 0 4px rgba(90,111,240,.12);
+  outline:none;
 }
 
+/* ===== 셀렉트 공통 ===== */
+.form-select,
+.register-container select,
+.pwfind-select {
+  width: 100%;
+  height: 48px;
+  padding: 0 44px 0 16px;
+  border: 1px solid #e3e5e9;
+  border-radius: 10px;
+  background: #f7f8fa;
+  font-size: 14px;
+  transition: .2s;
+  appearance: none; -webkit-appearance: none; -moz-appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #8a93a3 50%),
+    linear-gradient(135deg, #8a93a3 50%, transparent 50%),
+    linear-gradient(to right, transparent, transparent);
+  background-position:
+    calc(100% - 18px) calc(50% - 3px),
+    calc(100% - 12px) calc(50% - 3px),
+    calc(100% - 42px) 0;
+  background-size: 6px 6px, 6px 6px, 1px 100%;
+  background-repeat: no-repeat;
+}
+.form-select:focus,
+.register-container select:focus,
+.pwfind-select:focus {
+  background:#fff;
+  border-color:#5a6ff0;
+  box-shadow: 0 0 0 4px rgba(90,111,240,.12);
+  outline:none;
+}
+
+/* ===== 3분할 행 (생년월일) ===== */
+.form-3col,
+.birth-row,
+.pwfind-birth {
+  display:grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 10px;
+}
+
+/* ===== 버튼 공통 ===== */
+.btn-primary,
+.login-container button,
+.register-container button,
+.findid-container .btn-primary,
+.pwfind-btn {
+  width: 100%;
+  height: 54px;
+  padding: 14px;
+  margin-top: 20px;
+  background: #4D6BB8;
+  color:#fff;
+  border:0;
+  border-radius:10px;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  transition: background .15s ease, filter .15s ease, transform .04s ease;
+  box-shadow: 0 8px 20px rgba(70,100,201,.28);
+}
+.btn-primary:hover,
+.login-container button:hover,
+.register-container button:hover,
+.findid-container .btn-primary:hover,
+.pwfind-btn:hover { background:#364fc7; }
+.btn-primary:active,
+.pwfind-btn:active,
+.login-container button:active,
+.register-container button:active { transform: translateY(1px); }
+
+/* ===== 헬프/링크 공통 ===== */
+.form-help,
+.login-container .links,
+.findid-footer,
+.pwfind-help,
 .form-footer {
-    margin-top: 30px;
-    text-align: right;  /* 오른쪽 정렬 */
-    font-size: 13px;
-    color: #777;
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  font-size:13px;
+  color:#7b818b;
+  margin:14px 4px 18px;
 }
-
+/* 공통 링크 스타일 */
+.login-container .links a,
+.login-links a,
 .form-footer a {
-    margin-left: 6px;
-    color: #4361ee;       /* 파란색 포인트 */
-    text-decoration: none;
-    font-weight: 500;
+  color: #4361ee;           /* 파란색 */
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 12px;
 }
 
-.form-footer a:hover {
-    text-decoration: underline;
+.login-container .links a:hover,
+.login-links a:hover,
+.form-footer a:hover
+.login-shortcuts a:hover {
+  text-decoration: underline;
 }
 
+.login-shortcuts{
+  display: flex;
+  justify-content: flex-end;  
+  gap: 8px;
+  margin: 10px 2px 14px;     
+  font-size: 13px;
+  color: #9aa0a6;
+}
+.login-shortcuts a{
+  color: #9aa0a6;               
+  text-decoration: none;
+}
+.login-meta{
+  margin: 12px 0 6px;
+  font-size: 13px;
+  color: #8a8f98;
+}
+.login-meta a, .login-shortcuts a:hover{ color:#4361EE; text-decoration:none; font-weight:500; }
+.login-meta a:hover{ text-decoration:underline; }
 
 
-
-
+/* ===== 하단 도움 링크 ===== */
+.form-help {
+  margin-top: 50px;
+  font-size: 13px;
+  color: #7b818b;
+  display: flex;
+  justify-content: space-between;
+  
+}
+.form-help a {
+  color: #4361ee;
+  text-decoration: none;
+  font-weight: 500;
+}
+.form-help a:hover { text-decoration: underline; }

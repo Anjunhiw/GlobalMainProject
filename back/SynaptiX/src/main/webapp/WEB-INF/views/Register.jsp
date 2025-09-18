@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="<c:url value='/css/style.css?v=1'/>">
 	
 </head>
-<body>
+<body class="register-page">
 <div class="register-container">
     <h2>계정 정보 등록</h2>
 	<form action="<c:url value='/register'/>" method="post">

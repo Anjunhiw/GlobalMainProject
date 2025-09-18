@@ -1,45 +1,164 @@
-.dashboard-container {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 20px;
-    background: #f8f9fa;
-    border-radius: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+:root{
+  --bg:#EBEDF9;
+  --card:#ffffff;
+  --ink:#0f172a;
+  --muted:#8a93a3;
+  --primary:#4664C9;
+  --primary-2:#6E8AF0;
+  --accent:#F6C90E;
+  --ring:rgba(72,99,221,.18);
+  --shadow:0 20px 60px rgba(17,24,39,.12);
+  --radius:22px;
+  --radius-lg:28px;
+  --ui: system-ui, -apple-system, "Pretendard", Roboto, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 }
-.dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
+
+/* 페이지 배경 */
+body{
+  margin:0; background:var(--bg); color:var(--ink); font-family:var(--ui);
 }
-.dashboard-cards {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 24px;
+
+/* 레이아웃 */
+.container{ max-width:1180px; margin:24px auto 80px; padding:0 20px; }
+
+/* 카드 공통 */
+.card{
+  background:var(--card); border-radius:var(--radius-lg);
+  box-shadow: var(--shadow); padding:20px;
 }
-.dashboard-card {
-    flex: 1;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    padding: 24px 18px;
-    text-align: center;
+.card h3{ margin:0 0 14px; font-size:16px; }
+.muted{ color:var(--muted); }
+
+/* 상단 큰 그래프 */
+.grid-top{
+  display:grid; grid-template-columns:1fr; gap:22px;
 }
-.dashboard-card-title {
-    font-size: 1.1em;
-    color: #888;
-    margin-bottom: 8px;
+/* 카드 */
+.card.big-card{ background:#fff; border-radius:12px; padding:20px; box-shadow:0 6px 14px rgba(0,0,0,.08); }
+
+/* 탭: 텍스트형 */
+.chart-tabs{
+  display:flex; gap:20px; margin-bottom:16px; border-bottom:2px solid #eee;
 }
-.dashboard-card-value {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #333;
+.chart-tab{
+  appearance:none; border:0; background:transparent;
+  font-size:16px; font-weight:600; color:#9aa0a6;
+  padding:8px 4px; cursor:pointer; transition:color .2s, border-color .2s;
 }
-.dashboard-actions {
-    display: flex;
-    gap: 12px;
-    justify-content: flex-end;
+.chart-tab:hover{ color:#2563eb; }
+.chart-tab.active{ color:#2563eb; border-bottom:2px solid #2563eb; }
+
+/* 패널 show/hide */
+.chart{ display:none; }
+.chart.active{ display:block; }
+
+/* 그래프 컨테이너: 아이템 수만큼 칼럼 자동 생성
+   (월=12개, 연=3~5개여도 꽉 차게 보임) */
+.barplot{
+  height:220px;
+  display:grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap:12px;
+  background:transparent; border:none; border-radius:0; padding:0;
 }
-.dashboard-actions form {
-    display: inline;
+
+/* 막대 공통 */
+.barplot .col{ display:flex; flex-direction:column; justify-content:flex-end; gap:6px; cursor:pointer; }
+.barplot .stack{ position:relative; height:180px; }
+.barplot .bar{ position:absolute; bottom:0; border-radius:6px; transition:opacity .15s, transform .15s, filter .15s; }
+
+/* 파란 메인 막대 */
+.barplot .bar.main{
+  left:0; width:60%; height:var(--h-main,40%);
+  background:linear-gradient(180deg,#7a96ea,#4664C9);
+  box-shadow:0 6px 14px rgba(70,100,201,.25);
 }
+
+/* 노란 전년 월 대비: 기본은 숨김(불투명도 0) → hover 시 나타남 */
+.barplot .bar.yoy{
+  right:0; width:32%; height:var(--h-yoy,0%);
+  background:#F6E75A;
+  opacity:0; transform:translateY(6px);
+}
+.barplot .col:hover .bar.yoy{ opacity:1; transform:translateY(0); }
+
+/* 칩(말풍선)도 hover 때만 */
+.yoy-chip{
+  position:absolute; top:6px; right:0;
+  background:#fff; border:1px solid rgba(0,0,0,.06);
+  border-radius:6px; padding:2px 6px; font-size:11px; color:#6b7280;
+  box-shadow:0 8px 18px rgba(0,0,0,.06);
+  opacity:0; transform:translateY(-4px);
+  transition:opacity .15s, transform .15s;
+}
+.barplot .col:hover .yoy-chip{ opacity:1; transform:translateY(0); }
+
+.label-month{ text-align:center; font-size:12px; color:#9aa0a6; }
+
+/* (선택) 범례 */
+.legend{ display:flex; justify-content:center; align-items:center; gap:8px; margin-top:12px; font-size:12px; color:#6b7280; }
+.legend .dot{ width:12px; height:12px; border-radius:3px; background:#F6E75A; }
+
+/* 중간 2열 */
+.grid-mid{
+  display:grid; grid-template-columns:1fr; gap:22px; margin-top:22px;
+}
+@media (min-width:900px){
+  .grid-mid{ grid-template-columns:1fr 1fr; }
+}
+
+/* 사용자 카드 */
+.user{
+  display:grid; grid-template-columns:92px 1fr; gap:16px;
+}
+.avatar{
+  width:92px; height:92px; border-radius:50%;
+  background: radial-gradient(120% 120% at 30% 30%, #8fb2ff, #4664C9);
+  display:grid; place-items:center; color:#fff; font-size:34px; font-weight:800;
+  box-shadow: inset 0 0 30px rgba(255,255,255,.25);
+}
+.user .meta{ display:grid; gap:8px; align-content:start; }
+.badges{ display:flex; gap:10px; flex-wrap:wrap; }
+.badge{ font-size:12px; color:#2c3e50; padding:6px 10px; background:#f3f6ff; border-radius:999px; border:1px solid #e2e8ff; }
+.table-mini{
+  margin-top:12px; border-radius:14px; overflow:hidden; border:1px solid rgba(0,0,0,.06);
+}
+.table-mini .row{ display:flex; padding:10px 12px; background:#f8f9fc; font-size:13px; }
+.table-mini .row + .row{ border-top:1px solid rgba(0,0,0,.05); }
+.table-mini .row .time{ width:120px; color:#6b7280; }
+.table-mini .row .val{ font-weight:700; color:#e11d48; }
+
+/* 라인 차트 카드 */	
+.linecard{ padding:22px; }
+.linecard .title{
+  display:flex; align-items:center; justify-content:space-between; font-weight:800; margin-bottom:6px;
+}
+.linecard .total{ font-size:24px; font-weight:800; color:#2a3f93; opacity:.9; margin:6px 0 10px; }
+.chart-wrap{
+  border-radius:16px; border:1px solid rgba(0,0,0,.05); background:linear-gradient(#ffffff, #f6f7ff);
+  padding:16px;
+}
+svg#line{
+  width:100%; height:180px;
+}
+svg#line .area{ fill:url(#grad1); }
+svg#line .stroke{ fill:none; stroke:#6E8AF0; stroke-width:3; }
+svg#line .dot{ fill:#6E8AF0; }
+
+/* 알림 카드 */
+.alerts{ margin-top:22px; }
+.alerts .head{ display:flex; align-items:center; gap:10px; }
+.bell{
+  width:32px; height:32px; display:inline-grid; place-items:center;
+  color:#eab308; filter: drop-shadow(0 4px 8px rgba(0,0,0,.15));
+}
+.list{ margin-top:12px; border-radius:16px; border:1px solid rgba(0,0,0,.06); overflow:hidden; }
+.item{ display:grid; grid-template-columns:120px 70px 1fr; gap:10px; font-size:14px; padding:10px 14px; background:#fff; }
+.item:nth-child(odd){ background:#fafbff; }
+.item .type.warn{ color:#ef4444; font-weight:700; }
+.item .type.info{ color:#2563eb; font-weight:700; }
+
+/* 작은 보조 텍스트 */
+.small{ font-size:12px; color:#94a3b8; }
+.hr{ height:1px; background:rgba(0,0,0,.06); margin:8px 0 12px; }

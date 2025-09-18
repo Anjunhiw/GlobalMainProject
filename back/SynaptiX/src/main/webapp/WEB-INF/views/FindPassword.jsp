@@ -13,6 +13,8 @@
     <h1 class="pwfind-title">비밀번호 찾기</h1>
 
  <form method="post" action="<c:url value='/findPassword'/>">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
         <!-- 아이디 -->
         <label class="pwfind-label" for="userId">아이디</label>
         <input class="pwfind-input" type="text" id="userId" name="userId"

@@ -23,8 +23,8 @@ public class UserService {
         return result > 0;
     }
 
-    public String findUserIdByEmailAndName(String email, String name) {
-        return userMapper.findUserIdByEmailAndName(email, name);
+    public String findUserIdByEmailAndBirth(String email, String birthYmd) {
+        return userMapper.findUserIdByEmailAndBirth(email, birthYmd);
     }
 
     public boolean verifyUserForPasswordReset(String userId, String email) {

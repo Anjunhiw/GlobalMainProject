@@ -43,17 +43,16 @@ public class AuthController {
         return "FindId";
     }
 
-    @PostMapping("/findId")
-    public String findId(String email, String name, Model model) {
-        String userId = userService.findUserIdByEmailAndName(email, name);
-        if (userId != null) {
-            model.addAttribute("message", "아이디는: " + userId + " 입니다.");
-        } else {
-            model.addAttribute("message", "일치하는 정보가 없습니다.");
-        }
-        return "FindId";
-    }
-    
+    // @PostMapping("/findId")
+    // public String findId(String email, String name, Model model) {
+    //     String userId = userService.findUserIdByEmailAndName(email, name);
+    //     if (userId != null) {
+    //         model.addAttribute("message", "아이디는: " + userId + " 입니다.");
+    //     } else {
+    //         model.addAttribute("message", "일치하는 정보가 없습니다.");
+    //     }
+    //     return "FindId";
+    // }
     
     @PostMapping("/findId")
     public String findIdSubmit(@RequestParam String email,

@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper {
     int insertUser(UserDTO user);
-    String findUserIdByEmailAndName(String email, String name);
+    String findUserIdByEmailAndBirth(String email, String birthYmd);
     int verifyUserForPasswordReset(String userId, String email);
     java.util.List<UserDTO> selectAllUsers();
     UserDTO findByUserId(String userId);

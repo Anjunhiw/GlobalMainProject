@@ -6,8 +6,8 @@
         VALUES (#{userId}, #{password}, #{name}, #{email}, #{dept}, #{rank}, #{birth}, #{years}, #{salary})
     </insert>
 
-    <select id="findUserIdByEmailAndName" resultType="string">
-        SELECT ID FROM member WHERE Email = #{email} AND Name = #{name}
+    <select id="findUserIdByEmailAndBirth" resultType="string">
+        SELECT ID FROM member WHERE Email = #{email} AND Birth = STR_TO_DATE(#{birthYmd}, '%Y%m%d')
     </select>
 
     <select id="verifyUserForPasswordReset" resultType="int">

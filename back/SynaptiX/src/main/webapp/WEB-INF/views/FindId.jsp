@@ -9,7 +9,16 @@
   <div class="form-card">
     <h2 class="form-title">아이디 찾기</h2>
 
+    <!-- 결과 메시지 출력 영역 필요 시 위치 조정-->
+    <c:if test="${not empty result}">
+      <div class="form-result success">회원님의 아이디는 <strong>${result}</strong> 입니다.</div>
+    </c:if>
+    <c:if test="${not empty errorMsg}">
+      <div class="form-result error">${errorMsg}</div>
+    </c:if>
+
 	<form method="post" action="<c:url value='/findId'/>">
+	  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	  <!-- 이메일 -->
 	  <label class="form-label" for="email">이메일</label>
 	  <input class="form-input" type="email" id="email" name="email"

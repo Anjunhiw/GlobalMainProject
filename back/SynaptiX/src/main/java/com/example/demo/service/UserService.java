@@ -16,6 +16,7 @@ public class UserService {
     public boolean registerUser(UserDTO userDto) {
         // 비밀번호 해시 처리
         String encodedPassword = passwordEncoder.encode(userDto.getPassword());
+        System.out.println("서비스");
         userDto.setPassword(encodedPassword);
         // DB 저장
         int result = userMapper.insertUser(userDto);
@@ -32,5 +33,9 @@ public class UserService {
 
     public java.util.List<UserDTO> getAllUsers() {
         return userMapper.selectAllUsers();
+    }
+
+    public boolean isUserIdDuplicate(String userId) {
+        return userMapper.findByUserId(userId) != null;
     }
 }

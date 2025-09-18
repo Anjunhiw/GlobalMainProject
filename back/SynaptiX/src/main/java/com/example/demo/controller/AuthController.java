@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,7 +22,11 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String register(UserDTO userDto, Model model) {
+    public String register(@ModelAttribute UserDTO userDto, Model model) {
+        if (userService.isUserIdDuplicate(userDto.getUserId())) {
+            model.addAttribute("check_id", "이미 사용 중인 아이디입니다.");
+            return "Register";
+        }
         boolean success = userService.registerUser(userDto);
         if (success) {
             model.addAttribute("message", "회원가입이 완료되었습니다.");

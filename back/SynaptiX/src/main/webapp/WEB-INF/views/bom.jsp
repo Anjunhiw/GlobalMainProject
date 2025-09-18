@@ -1,9 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
 request.setAttribute("pageTitle", "BOM 관리");
-%>
-<%
-request.setAttribute("subNav", "<a href='/bom'>BOM</a> <a href='/mps'>MPS</a> <a href='/qc'>QC</a>");
+request.setAttribute("subNavPage", "common/subnav_bom.jsp");
 %>
 <%@ include file="header.jsp" %>
     <h2>BOM List</h2>

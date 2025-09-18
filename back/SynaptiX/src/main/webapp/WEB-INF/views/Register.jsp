@@ -10,10 +10,15 @@
 <div class="register-container">
     <h2>계정 정보 등록</h2>
 	<form action="<c:url value='/register'/>" method="post">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
         <label for="userId">아이디</label>
         <input type="text" id="userId" name="userId" placeholder="사용하실 아이디를 적어주세요" required>
-
+		
+		<c:if test="${not empty check_id}">
+		        <p>${check_id}</p>
+		</c:if>
+		
         <label for="password">비밀번호</label>
         <input type="password" id="password" name="password" placeholder="비밀번호를 적어주세요" required>
 

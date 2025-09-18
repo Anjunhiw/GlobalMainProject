@@ -6,6 +6,7 @@
 <body>
 <h2>비밀번호 찾기</h2>
 <form method="post" action="/user/findPassword">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <label for="userId">아이디:</label>
     <input type="text" id="userId" name="userId" required><br>
     <label for="email">이메일:</label>

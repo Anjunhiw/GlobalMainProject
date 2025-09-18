@@ -17,6 +17,10 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import java.util.Collections;
 
 
 
@@ -52,6 +56,16 @@ public class LoginController {
 			model.addAttribute("user", userInfo);
 			model.addAttribute("id", userInfo.getId());
 			model.addAttribute("name", userInfo.getName());
+
+            // Spring Security 인증 객체 생성 및 등록
+            UsernamePasswordAuthenticationToken authentication =
+                new UsernamePasswordAuthenticationToken(
+                    userInfo.getId(), // principal (userId)
+                    null, // credentials
+                    Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")) // 권한
+                );
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
 			return "redirect:/home";
 		} else {
 			model.addAttribute("error", "아이디 또는 비밀번호가 올바르지 않습니다.");
@@ -60,16 +74,24 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpSession session, Model model, HttpServletResponse response) {
+	public String logout(HttpSession session, Model model, HttpServletResponse response, HttpServletRequest request) {
 		// 세션 무효화
 		session.invalidate();
 		model.addAttribute("user", null);
 		// JWT 토큰 쿠키 삭제
-		Cookie jwtCookie = new Cookie("jwtToken", null);
+		Cookie jwtCookie = new Cookie("jwtToken", "");
 		jwtCookie.setPath("/");
 		jwtCookie.setMaxAge(0); // 즉시 만료
 		jwtCookie.setHttpOnly(true);
 		response.addCookie(jwtCookie);
-		return "Home";
+
+		// JSESSIONID 쿠키 삭제 (브라우저에 남아있을 수 있으므로 명시적으로 삭제)
+		Cookie jsessionCookie = new Cookie("JSESSIONID", "");
+		jsessionCookie.setPath("/");
+		jsessionCookie.setMaxAge(0);
+		response.addCookie(jsessionCookie);
+
+		// 세션이 새로 생성되지 않도록 리다이렉트 사용
+		return "redirect:/home";
 	}
 }

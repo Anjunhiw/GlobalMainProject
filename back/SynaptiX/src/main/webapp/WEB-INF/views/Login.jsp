@@ -10,6 +10,7 @@
     <div class="login-container">
         <h2>로그인</h2>
         <form action="${pageContext.request.contextPath}/login" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <label for="id" class="styleID">아이디</label>
             <input type="text" id="id" placeholder="아이디를 입력해주세요."  name="id" required><br><br>
             <label for="pw" class="styleID">비밀번호</label>

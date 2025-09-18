@@ -6,6 +6,7 @@
 <body>
 <h2>아이디 찾기</h2>
 <form method="post" action="/user/findId">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <label for="email">이메일:</label>
     <input type="text" id="email" name="email" required><br>
     <label for="name">이름:</label>

@@ -2,9 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 request.setAttribute("pageTitle", "MPS");
-%>
-<%
-request.setAttribute("subNav", "<a href='/bom'>BOM</a> <a href='/mps'>MPS</a> <a href='/qc'>QC</a>");
+request.setAttribute("subNavPage", "common/subnav_bom.jsp");
 %>
 <%@ include file="header.jsp" %>
     <title>MPS List</title>

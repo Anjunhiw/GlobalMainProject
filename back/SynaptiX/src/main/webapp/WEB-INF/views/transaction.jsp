@@ -2,9 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 request.setAttribute("pageTitle", "거래명세서");
-%>
-<%
-request.setAttribute("subNav", "<a href='/sales'>판매출고</a> <a href='/purchase'>구매입고</a><a href='/order'>주문관리</a> <a href='/transaction'>거래명세서</a> <a href='/earning'>매출</a> <a href='/mrp'>MRP</a>");
+request.setAttribute("subNavPage", "common/subnav_sales.jsp");
 %>
 <%@ include file="header.jsp" %>
 <div class="container">

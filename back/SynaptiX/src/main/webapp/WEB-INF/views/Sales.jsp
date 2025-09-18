@@ -5,7 +5,6 @@ request.setAttribute("pageTitle", "판매출고");
 request.setAttribute("subNavPage", "common/subnav_sales.jsp");
 %>
 <%@ include file="header.jsp" %>
-
 <div class="container">
     <h2>판매출고 내역</h2>
     <table border="1" style="width:100%; text-align:center;">

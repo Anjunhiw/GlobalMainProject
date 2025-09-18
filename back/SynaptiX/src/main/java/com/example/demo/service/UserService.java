@@ -27,8 +27,8 @@ public class UserService {
         return userMapper.findUserIdByEmailAndBirth(email, birthYmd);
     }
 
-    public boolean verifyUserForPasswordReset(String userId, String email) {
-        return userMapper.verifyUserForPasswordReset(userId, email) > 0;
+    public boolean verifyUserForPasswordReset(String userId, String email, String birthYmd) {
+        return userMapper.verifyUserForPasswordReset(userId, email, birthYmd) > 0;
     }
 
     public java.util.List<UserDTO> getAllUsers() {
@@ -37,5 +37,10 @@ public class UserService {
 
     public boolean isUserIdDuplicate(String userId) {
         return userMapper.findByUserId(userId) != null;
+    }
+    
+    public boolean updatePassword(String userId, String newPassword) {
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        return userMapper.updatePassword(userId, encodedPassword) > 0;
     }
 }

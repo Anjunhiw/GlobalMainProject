@@ -10,6 +10,7 @@
 <c:choose>
     <c:when test="${not empty material}">
         <form action="/stock/editMaterial" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <input type="hidden" name="pk" value="${material.pk}" />
             <label for="category">카테고리:</label>
             <input type="text" id="category" name="category" value="${material.category}" required><br>
@@ -30,6 +31,7 @@
     </c:when>
     <c:when test="${not empty product}">
         <form action="/stock/editProduct" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <input type="hidden" name="pk" value="${product.pk}" />
             <label for="category">카테고리:</label>
             <input type="text" id="category" name="category" value="${product.category}" required><br>

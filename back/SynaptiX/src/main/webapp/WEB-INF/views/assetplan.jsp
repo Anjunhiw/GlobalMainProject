@@ -1,9 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
 request.setAttribute("pageTitle", "자금계획");
-%>
-<%
-request.setAttribute("subNav", "<a href='/managereport'>경영보고서</a> <a href='/assetplan'>자금계획</a>");
+request.setAttribute("subNavPage", "common/subnav_managereport.jsp");
 %>
 <%@ include file="header.jsp" %>
 <div class="container">

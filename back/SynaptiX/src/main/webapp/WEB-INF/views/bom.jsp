@@ -21,7 +21,10 @@ request.setAttribute("subNavPage", "common/subnav_bom.jsp");
     </form>
     <br/>
     <button type="button" onclick="openBomPopup()">등록</button>
+    <input type="hidden" id="csrfToken" name="${_csrf.parameterName}" value="${_csrf.token}" />
     <script>
+      var csrfHeader = "${_csrf.headerName}";
+      var csrfToken = "${_csrf.token}";
     function openBomPopup() {
         var popup = window.open('', 'BOM 등록', 'width=400,height=400');
         popup.document.write(`
@@ -52,7 +55,8 @@ request.setAttribute("subNavPage", "common/subnav_bom.jsp");
         fetch('/bom', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                [csrfHeader]: csrfToken
             },
             body: JSON.stringify(data)
         }).then(res => {
@@ -143,7 +147,8 @@ request.setAttribute("subNavPage", "common/subnav_bom.jsp");
         fetch('/bom', {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                [csrfHeader]: csrfToken
             },
             body: JSON.stringify(data)
         }).then(res => {

@@ -29,7 +29,10 @@ request.setAttribute("pageTitle", "재고관리");
             cursor: pointer;
         }
     </style>
+    <input type="hidden" id="csrfToken" name="${_csrf.parameterName}" value="${_csrf.token}" />
     <script>
+      var csrfHeader = "${_csrf.headerName}";
+      var csrfToken = "${_csrf.token}";
         function openModal() {
             document.getElementById('resultModal').style.display = 'block';
         }
@@ -42,6 +45,7 @@ request.setAttribute("pageTitle", "재고관리");
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'searchStock', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.setRequestHeader(csrfHeader, csrfToken); // CSRF 토큰 추가
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     document.getElementById('modalResultBody').innerHTML = xhr.responseText;
@@ -111,6 +115,7 @@ request.setAttribute("pageTitle", "재고관리");
                         <form action="/stock/delete" method="post" style="display:inline;" onsubmit="return confirm('정말 삭제하시겠습니까?');">
                             <input type="hidden" name="pk" value="${material.pk}" />
                             <input type="hidden" name="category" value="material" />
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             <button type="submit">삭제</button>
                         </form>
                     </td>
@@ -154,6 +159,7 @@ request.setAttribute("pageTitle", "재고관리");
                         <form action="/stock/delete" method="post" style="display:inline;" onsubmit="return confirm('정말 삭제하시겠습니까?');">
                             <input type="hidden" name="pk" value="${product.pk}" />
                             <input type="hidden" name="category" value="product" />
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             <button type="submit">삭제</button>
                         </form>
                     </td>

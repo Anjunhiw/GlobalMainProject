@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 request.setAttribute("pageTitle", "MRP");
-request.setAttribute("subNavPage", "common/subnav_sales.jsp");
+request.setAttribute("subNavPage", "common/subnav_sales.jsp");	
 %>
 <%@ include file="header.jsp" %>
 <div class="container">

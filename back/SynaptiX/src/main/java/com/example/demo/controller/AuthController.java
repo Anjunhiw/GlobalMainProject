@@ -42,17 +42,6 @@ public class AuthController {
     public String showFindIdForm() {
         return "FindId";
     }
-
-    // @PostMapping("/findId")
-    // public String findId(String email, String name, Model model) {
-    //     String userId = userService.findUserIdByEmailAndName(email, name);
-    //     if (userId != null) {
-    //         model.addAttribute("message", "아이디는: " + userId + " 입니다.");
-    //     } else {
-    //         model.addAttribute("message", "일치하는 정보가 없습니다.");
-    //     }
-    //     return "FindId";
-    // }
     
     @PostMapping("/findId")
     public String findIdSubmit(@RequestParam String email,
@@ -79,15 +68,42 @@ public class AuthController {
     public String showFindPasswordForm() {
         return "FindPassword";
     }
-
+    
     @PostMapping("/findPassword")
-    public String findPassword(String userId, String email, Model model) {
-        boolean success = userService.verifyUserForPasswordReset(userId, email);
+    public String findPasswordSubmit(@RequestParam String userId,
+                                     @RequestParam String email,
+                                     @RequestParam String birthYear,
+                                     @RequestParam String birthMonth,
+                                     @RequestParam String birthDay,
+                                     Model model) {
+
+        String y = birthYear.trim();
+        String m = birthMonth.length()==1 ? "0"+birthMonth : birthMonth;
+        String d = birthDay.length()==1 ? "0"+birthDay : birthDay;
+        String birthYmd = y + m + d; // 19980209
+
+        boolean success = userService.verifyUserForPasswordReset(userId, email, birthYmd);
+
         if (success) {
-            model.addAttribute("message", "비밀번호 재설정이 가능합니다. 관리자에게 문의하세요.");
+            // 랜덤 4자리 문자열 생성
+            String chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+            StringBuilder sb = new StringBuilder(4);
+            java.security.SecureRandom random = new java.security.SecureRandom();
+            for (int i = 0; i < 4; i++) {
+                sb.append(chars.charAt(random.nextInt(chars.length())));
+            }
+            String password = sb.toString();
+            boolean update = userService.updatePassword(userId, password);
+            if (update) {
+                model.addAttribute("result", password);
+            } else {
+                model.addAttribute("error", "비밀번호 변경에 실패했습니다. 관리자에게 문의하세요.");
+            }
         } else {
-            model.addAttribute("message", "일치하는 정보가 없습니다.");
+            model.addAttribute("error", "일치하는 정보가 없습니다.");
         }
         return "FindPassword";
     }
+    
+    
 }

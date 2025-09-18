@@ -53,11 +53,13 @@
             <div>아직 계정이 없으신가요? <a href="<c:url value='/register'/>">회원가입</a></div>
             <div>혹시 아이디가 있으신가요? <a href="<c:url value='login'/>">로그인 하러가기</a></div>
         </div>
-
+		<c:if test="${not empty result}">
+			<p style="margin-top:14px; color:#4664c9;">${result}</p>
+		</c:if>
         <!-- CTA 버튼 -->
         <button type="submit" class="pwfind-btn">비밀번호 찾기</button>
     </form>
-
+	
     <c:if test="${not empty message}">
         <p style="margin-top:14px; color:#4664c9;">${message}</p>
     </c:if>

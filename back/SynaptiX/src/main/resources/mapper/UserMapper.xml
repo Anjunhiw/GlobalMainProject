@@ -11,7 +11,7 @@
     </select>
 
     <select id="verifyUserForPasswordReset" resultType="int">
-        SELECT COUNT(*) FROM member WHERE ID = #{userId} AND Email = #{email}
+        SELECT COUNT(*) FROM member WHERE ID = #{userId} AND Email = #{email} AND Birth = STR_TO_DATE(#{birthYmd}, '%Y%m%d')
     </select>
 
     <select id="selectAllUsers" resultType="com.example.demo.model.UserDTO">
@@ -42,4 +42,10 @@
         FROM member
         WHERE ID = #{userId}
     </select>
+
+    <update id="updatePassword">
+        UPDATE member
+        SET Password = #{encodedPassword}
+        WHERE ID = #{userId}
+    </update>
 </mapper>

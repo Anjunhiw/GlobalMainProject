@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 request.setAttribute("pageTitle", "거래명세서");
 request.setAttribute("active_sales", "active");
@@ -28,10 +29,10 @@ request.setAttribute("active_transaction", "active");
                     <td>${transaction.Date}</td>
                     <td>${transaction.ProductId}</td>
                     <td>${transaction.ProductName}</td>
-                    <td>${transaction.Amount}</td>
-                    <td>${transaction.Price}</td>
-                    <td>${transaction.Total}</td>
-                    <td>${transaction.Earning}</td>
+                    <td><fmt:formatNumber value="${transaction.Amount}" type="number"/></td>
+                    <td><fmt:formatNumber value="${transaction.Price}" type="number"/></td>
+                    <td><fmt:formatNumber value="${transaction.Total}" type="number"/></td>
+                    <td><fmt:formatNumber value="${transaction.Earning}" type="number"/></td>
                 </tr>
             </c:forEach>
         </tbody>

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 request.setAttribute("pageTitle", "인사관리");
 request.setAttribute("active_personal", "active");
@@ -26,7 +27,7 @@ request.setAttribute("active_personal", "active");
                 <td>${user.dept}</td>
                 <td>${user.rank}</td>
                 <td>${user.years}</td>
-                <td>${user.salary}</td>
+                <td><fmt:formatNumber value="${user.salary}" type="number"/></td>
             </tr>
         </c:forEach>
     </table>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 request.setAttribute("pageTitle", "매출");
 request.setAttribute("active_sales", "active");
@@ -27,11 +28,11 @@ request.setAttribute("active_earning", "active");
                     <td>${earning.ProductId}</td>
                     <td>${earning.Date}</td>
                     <td>${earning.ProductName}</td>
-                    <td>${earning.Amount}</td>
-                    <td>${earning.Price}</td>
-                    <td>${earning.Total}</td>
-                    <td>${earning.Earning}</td>
-                    <td>${earning.Stock}</td>
+                    <td><fmt:formatNumber value="${earning.Amount}" type="number"/></td>
+                    <td><fmt:formatNumber value="${earning.Price}" type="number"/></td>
+                    <td><fmt:formatNumber value="${earning.Total}" type="number"/></td>
+                    <td><fmt:formatNumber value="${earning.Earning}" type="number"/></td>
+                    <td><fmt:formatNumber value="${earning.Stock}" type="number"/></td>
                 </tr>
             </c:forEach>
         </tbody>

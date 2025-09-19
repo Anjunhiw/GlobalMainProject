@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 request.setAttribute("pageTitle", "구매입고");
 request.setAttribute("active_purchase", "active");
@@ -22,11 +23,11 @@ request.setAttribute("active_pch", "active");
         <tbody>
             <c:forEach var="purchase" items="${purchaseList}">
                 <tr>
-                    <td>${purchase.date}</td>
+                    <td><fmt:formatDate value="${purchase.date}" pattern="yyyy-MM-dd"/></td>
                     <td>${purchase.materialId}</td>
                     <td>${purchase.materialName}</td>
-                    <td>${purchase.purchase}</td>
-                    <td>${purchase.cost}</td>
+                    <td><fmt:formatNumber value="${purchase.purchase}" type="number"/></td>
+                    <td><fmt:formatNumber value="${purchase.cost}" type="number"/></td>
                 </tr>
             </c:forEach>
         </tbody>

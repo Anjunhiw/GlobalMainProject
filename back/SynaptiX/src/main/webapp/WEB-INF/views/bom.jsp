@@ -1,11 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 request.setAttribute("pageTitle", "BOM 관리");
 request.setAttribute("active_product", "active");
 request.setAttribute("active_bom", "active");
 %>
 <%@ include file="header.jsp" %>
-    <h2>BOM List</h2>
+    <h2>BOM 조회결과</h2>
     <!-- 검색 폼 수정: 카테고리 선택 -->
     <form method="get" action="/bom">
         <label for="category">카테고리:</label>
@@ -72,11 +73,11 @@ request.setAttribute("active_bom", "active");
     </script>
     <table border="1">
         <tr>
-            <th>ProductID</th>
+            <th>제품ID</th>
             <th>제품명</th>
-            <th>MaterialID</th>
+            <th>원자재ID</th>
             <th>원자재명</th>
-            <th>MaterialAmount</th>
+            <th>필요자재량</th>
             <th>수정</th>
         </tr>
         <c:forEach var="bom" items="${bomList}">
@@ -97,7 +98,7 @@ request.setAttribute("active_bom", "active");
                         </c:if>
                     </c:forEach>
                 </td>
-                <td>${bom.materialAmount}</td>
+                <td><fmt:formatNumber value="${bom.materialAmount}" type="number" maxFractionDigits="0"/></td>
                 <td>
                     <button type="button" onclick="openBomEditPopup(
                         encodeURIComponent('${bom.productId}'),

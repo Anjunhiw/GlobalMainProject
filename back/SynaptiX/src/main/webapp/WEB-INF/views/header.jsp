@@ -15,7 +15,7 @@
         </c:choose>
     </title>
 	<link rel="stylesheet" href="/css/header.css?v=3">
-  
+</head>
 <body>
 	
 	

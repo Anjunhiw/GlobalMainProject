@@ -8,6 +8,7 @@ public class MPSDTO {
 	private int ProductId;
 	private Date Period;
 	private Float Volume;
+	private String productName;
 	
 	public MPSDTO() {}
 	
@@ -50,5 +51,13 @@ public class MPSDTO {
 	
 	public void setVolume(Float volume) {
 		Volume = volume;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 }

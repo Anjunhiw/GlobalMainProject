@@ -28,4 +28,19 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .roles("USER")
                 .build();
     }
+    
+    
+    public class CustomUserDetails implements UserDetails {
+        private final User user;
+
+        public CustomUserDetails(User user) {
+            this.user = user;
+        }
+
+        public String getName() {   
+            return user.getName();
+        }
+
+    
+    }
 }

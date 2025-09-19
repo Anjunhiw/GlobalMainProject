@@ -10,6 +10,7 @@
 	
 <link rel="stylesheet" href="/css/home.css?v=7">
 <%@ include file="header.jsp" %>
+<%@ include file="fragments/profileModal.jsp" %>
 </head>
 
 
@@ -93,28 +94,43 @@
   <section class="grid-mid">
 
     <!-- 사용자 카드 -->
-    <div class="card">
-      <div class="user">
-        <div class="avatar">ⓧ</div>
-        <div class="meta">
-          <div style="font-weight:800;">ⓧⓧⓧ님</div>
-          <div class="badges">
-            <span class="badge">최상</span>
-            <span class="badge">판매상황</span>
-            <span class="badge">환경설정</span>
-          </div>
-        </div>
-      </div>
+	<div class="card profile-card">
+	  <div class="user">
+	    <!-- 프로필 이미지 -->
+	    <div class="avatar">
+	      <!-- 나중에 3D 아바타 PNG/SVG 또는 Canvas/WebGL 넣어도 됨 -->
+	     <img src="/images/3d-user.png" alt="3D User 이미지" class="avatar-img">
+	    </div>
 
-      <div class="table-mini">
-        <div class="row"><div class="time">09:00 ~ 12:00</div><div class="val muted">-</div></div>
-        <div class="row"><div class="time">12:00 ~ 13:30</div><div class="val">점심시간</div></div>
-        <div class="row"><div class="time">14:00 ~ 16:00</div><div class="val muted">-</div></div>
-        <div class="row"><div class="time">16:00 ~ 18:00</div><div class="val muted">-</div></div>
-        <div class="row"><div class="time">기타</div><div class="val muted">-</div></div>
-      </div>
-    </div>
+	    <!-- 유저 정보 -->
+	    <div class="meta">
+			<div style="font-weight:800;">
+			  ${user.name}님
+			</div>
+			<div class="actions">
+			  <button class="action" id="btn-profile-edit" type="button">회원수정</button>
+			  <button class="action" type="button">환경설정</button>
+			  <button class="action" type="button">메모</button>
+			  <button onclick="location.reload()" class="action" type="button">새로고침</button>
 
+			  <form action="/logout" method="post" style="display:inline;">
+			    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			    <button type="submit" class="action">로그아웃</button>
+			  </form>
+			</div>
+	    </div>
+	  </div>
+
+	  <!-- 일정표 -->
+	  <div class="schedule">
+	    <div class="schedule-title">하루 일정표</div>
+	    <div class="schedule-row"><span>09:00 ~ 12:00</span><span class="muted">-</span></div>
+	    <div class="schedule-row"><span>12:00 ~ 13:30</span><span class="lunch">점심시간</span></div>
+	    <div class="schedule-row"><span>14:00 ~ 16:00</span><span class="muted">-</span></div>
+	    <div class="schedule-row"><span>16:00 ~ 18:00</span><span class="muted">-</span></div>
+	    <div class="schedule-row"><span>기타</span><span class="muted">-</span></div>
+	  </div>
+	</div>
     <!-- 실시간 매출 현황 -->
     <div class="card linecard">
       <div class="title">
@@ -161,31 +177,63 @@
       <div class="item"><div class="small">2025.08.27</div><div class="type info">알림</div><div>******************</div></div>
       <div class="item"><div class="small">2025.08.25</div><div class="type warn">오류</div><div>******************</div></div>
       <div class="item"><div class="small">2025.08.25</div><div class="type warn">오류</div><div>******************</div></div>
-    </div>
+   
+	  </div>
   </section>
 
 </main>
+<script src="<c:url value='/js/profileModal.js'/>"></script>
+<%@ include file="footer.jsp" %>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="<c:url value='/js/profileModal.js'/>"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // 탭 스위칭 (그대로 유지)
+  const tabs = document.querySelectorAll('.chart-tabs .chart-tab');
+  const panes = document.querySelectorAll('.chart');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+      tab.classList.add('active'); tab.setAttribute('aria-selected','true');
+      const target = tab.dataset.target; // 'monthly' | 'yearly'
+      panes.forEach(p => p.classList.remove('active'));
+      const pane = document.querySelector(`.chart.${target}`);
+      if (pane) pane.classList.add('active');
+    });
+  });
+
+  // === 모달 ===
+  const modal   = document.getElementById('profile-modal');
+  const btnOpen = document.getElementById('btn-profile-edit');   // 홈 카드의 "회원수정" 버튼
+  const btnClose = document.getElementById('btn-profile-close');  // X 버튼
+  const btnCancel = document.getElementById('btn-cancel');        // 취소 버튼
+
+  if (btnOpen && modal) {
+    btnOpen.addEventListener('click', () => modal.classList.add('show'));
+  }
+  if (btnClose && modal) {
+    btnClose.addEventListener('click', () => modal.classList.remove('show'));
+  }
+  if (btnCancel && modal) {
+    btnCancel.addEventListener('click', () => modal.classList.remove('show'));
+  }
+  // 배경 클릭 시 닫기
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('show');
+    });
+  }
+});
+</script>
+<script src="<c:url value='/js/profileModal.js'/>"></script>
+
 </body>
 </html>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-	document.addEventListener('DOMContentLoaded', function () {
-	  const tabs = document.querySelectorAll('.chart-tabs .chart-tab');
-	  const panes = document.querySelectorAll('.chart');
-	  if (!tabs.length) return;
 
-	  tabs.forEach(tab => {
-	    tab.addEventListener('click', () => {
-	      tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
-	      tab.classList.add('active'); tab.setAttribute('aria-selected','true');
 
-	      const target = tab.dataset.target; // 'monthly' | 'yearly'
-	      panes.forEach(p => p.classList.remove('active'));
-	      const pane = document.querySelector(`.chart.${target}`);
-	      if (pane) pane.classList.add('active');
-	    });
-	  });
-	});
-</script>
 
-<%@ include file="footer.jsp" %>

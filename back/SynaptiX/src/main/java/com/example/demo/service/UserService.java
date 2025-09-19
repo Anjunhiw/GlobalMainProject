@@ -2,9 +2,17 @@ package com.example.demo.service;
 
 import com.example.demo.model.UserDTO;
 import com.example.demo.mapper.UserMapper;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Service
 public class UserService {
@@ -43,4 +51,39 @@ public class UserService {
         String encodedPassword = passwordEncoder.encode(newPassword);
         return userMapper.updatePassword(userId, encodedPassword) > 0;
     }
+    
+    
+    @Controller
+    public class ProfileController {
+
+        @Autowired
+        private UserService userService;
+
+        @GetMapping("/profile")
+        public String showProfile(HttpSession session, Model model) {
+            UserDTO user = (UserDTO) session.getAttribute("user");
+            if (user == null) return "redirect:/login";
+            model.addAttribute("user", user);
+            return "profile"; // profile.jsp
+        }
+
+        @PostMapping("/profile/update")
+        public String updateProfile(@ModelAttribute UserDTO userDto, HttpSession session, Model model) {
+            UserDTO sessionUser = (UserDTO) session.getAttribute("user");
+            if (sessionUser == null) return "redirect:/login";
+
+            userDto.setUserId(sessionUser.getUserId()); // 아이디는 고정
+            boolean success = userService.updateUser(userDto);
+
+            if (success) {
+                session.setAttribute("user", userDto); // 세션 갱신
+                model.addAttribute("message", "회원정보가 수정되었습니다.");
+            } else {
+                model.addAttribute("message", "회원정보 수정 실패");
+            }
+
+            return "profile"; // 다시 profile.jsp 로 이동
+        }
+    }
+
 }

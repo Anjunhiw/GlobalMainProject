@@ -2,6 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.model.UserDTO;
 import com.example.demo.service.UserService;
+
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -103,6 +106,36 @@ public class AuthController {
             model.addAttribute("error", "일치하는 정보가 없습니다.");
         }
         return "FindPassword";
+    }
+    
+ 
+
+    // 회원수정 폼 열기
+    @GetMapping("/edit")
+    public String editForm(Model model, Principal principal) {
+        // 로그인된 사용자 아이디 가져오기
+        String userId = principal.getName();
+
+        // DB에서 사용자 정보 조회
+        UserDTO user = userService.findByUserId(userId);
+
+        // 뷰에 사용자 정보 전달
+        model.addAttribute("user", user);
+        return "UserEdit";   // UserEdit.jsp 로 이동
+    }
+
+    // 회원수정 처리
+    @PostMapping("/edit")
+    public String editSubmit(@ModelAttribute UserDTO userDto, Model model) {
+        boolean updated = userService.updateUser(userDto);
+
+        if (updated) {
+            model.addAttribute("message", "회원정보가 수정되었습니다.");
+            return "redirect:/home";
+        } else {
+            model.addAttribute("message", "회원정보 수정에 실패했습니다.");
+            return "UserEdit";
+        }
     }
     
     

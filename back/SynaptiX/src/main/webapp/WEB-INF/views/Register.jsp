@@ -27,6 +27,10 @@
 
         <label for="birth">생년월일</label>
         <input type="date" id="birth" name="birth" required>
+		
+		
+		<label for="name">성명</label>
+		<input type="text" name="name" required> 
 
         <label for="gender">성별</label>
         <select id="gender" name="gender">

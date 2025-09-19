@@ -1,7 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
 request.setAttribute("pageTitle", "자금계획");
-request.setAttribute("subNavPage", "common/subnav_managereport.jsp");
+request.setAttribute("active_account", "active");
+request.setAttribute("active_asp", "active");
 %>
 <%@ include file="header.jsp" %>
 <div class="container">

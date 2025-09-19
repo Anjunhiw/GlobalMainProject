@@ -2,7 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 request.setAttribute("pageTitle", "구매입고");
-request.setAttribute("subNavPage", "common/subnav_sales.jsp");
+request.setAttribute("active_purchase", "active");
+request.setAttribute("active_pch", "active");
 %>
 <%@ include file="header.jsp" %>
 

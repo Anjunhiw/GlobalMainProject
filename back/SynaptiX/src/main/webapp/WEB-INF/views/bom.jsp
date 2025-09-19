@@ -1,7 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
 request.setAttribute("pageTitle", "BOM 관리");
-request.setAttribute("subNavPage", "common/subnav_bom.jsp");
+request.setAttribute("active_product", "active");
+request.setAttribute("active_bom", "active");
 %>
 <%@ include file="header.jsp" %>
     <h2>BOM List</h2>

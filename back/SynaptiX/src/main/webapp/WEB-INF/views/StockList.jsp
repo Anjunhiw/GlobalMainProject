@@ -2,6 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 request.setAttribute("pageTitle", "재고관리");
+request.setAttribute("active_stock", "active");
 %>
 <%@ include file="header.jsp" %>
     <style>

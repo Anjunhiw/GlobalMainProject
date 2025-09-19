@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
 request.setAttribute("pageTitle", "인사관리");
+request.setAttribute("active_personal", "active");
 %>
 <%@ include file="header.jsp" %>
 <div class="container">

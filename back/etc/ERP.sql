@@ -19,10 +19,23 @@
 CREATE DATABASE IF NOT EXISTS `globalmainproj_01` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci */;
 USE `globalmainproj_01`;
 
+-- 테이블 globalmainproj_01.assetplan 구조 내보내기
+CREATE TABLE IF NOT EXISTS `assetplan` (
+  `pk` int(11) NOT NULL AUTO_INCREMENT,
+  `Date` date DEFAULT NULL COMMENT '예정일',
+  `ProductId` int(11) DEFAULT NULL COMMENT '제품아이디',
+  `Amount` int(11) DEFAULT NULL COMMENT '판매량',
+  PRIMARY KEY (`pk`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='자금계획';
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
 -- 테이블 globalmainproj_01.assets 구조 내보내기
 CREATE TABLE IF NOT EXISTS `assets` (
   `TotalAssets` bigint(20) DEFAULT NULL COMMENT '총자금',
-  `CurrenAssets` bigint(20) DEFAULT NULL COMMENT '유동자금'
+  `CurrenAssets` bigint(20) DEFAULT NULL COMMENT '유동자금',
+  `TotalEarning` bigint(20) DEFAULT NULL,
+  `TotalCost` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='자금';
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
@@ -48,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `earncost` (
   PRIMARY KEY (`pk`),
   KEY `FK1` (`EarningId`),
   KEY `FK_earncost_purchase` (`CostId`),
-  CONSTRAINT `FK1` FOREIGN KEY (`EarningId`) REFERENCES `transaction details` (`pk`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  CONSTRAINT `FK1` FOREIGN KEY (`EarningId`) REFERENCES `transaction_details` (`pk`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `FK_earncost_purchase` FOREIGN KEY (`CostId`) REFERENCES `purchase` (`pk`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='비용/지출';
 
@@ -82,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `member` (
   `Years` int(11) DEFAULT NULL COMMENT '근속연수',
   `Salary` bigint(20) DEFAULT NULL COMMENT '급여',
   PRIMARY KEY (`pk`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='회원';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='회원';
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -94,6 +107,34 @@ CREATE TABLE IF NOT EXISTS `mps` (
   `Volume` float DEFAULT NULL COMMENT '생산량',
   PRIMARY KEY (`pk`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='기준생산계획';
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
+-- 테이블 globalmainproj_01.mrp 구조 내보내기
+CREATE TABLE IF NOT EXISTS `mrp` (
+  `pk` int(11) NOT NULL AUTO_INCREMENT,
+  `Date` date DEFAULT NULL,
+  `MaterialId` int(11) DEFAULT NULL,
+  `ProductId` int(11) DEFAULT NULL,
+  `Requirement` float DEFAULT NULL,
+  `MRPStatus` char(50) DEFAULT NULL,
+  PRIMARY KEY (`pk`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='MRP';
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
+-- 테이블 globalmainproj_01.order 구조 내보내기
+CREATE TABLE IF NOT EXISTS `order` (
+  `pk` int(11) NOT NULL AUTO_INCREMENT,
+  `Date` date DEFAULT NULL COMMENT '주문일자',
+  `ProductId` int(11) NOT NULL DEFAULT 0 COMMENT '제품아이디',
+  `ProductName` char(50) DEFAULT NULL COMMENT '제품명',
+  `Amount` bigint(20) DEFAULT NULL COMMENT '수량',
+  `Price` float DEFAULT NULL COMMENT '단가',
+  `Total` float DEFAULT NULL COMMENT '총액',
+  `OrderStatus` char(50) NOT NULL DEFAULT '진행중' COMMENT '주문상태',
+  PRIMARY KEY (`pk`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='주문관리\r\n';
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -115,11 +156,12 @@ CREATE TABLE IF NOT EXISTS `product` (
 -- 테이블 globalmainproj_01.purchase 구조 내보내기
 CREATE TABLE IF NOT EXISTS `purchase` (
   `pk` int(11) NOT NULL AUTO_INCREMENT,
+  `Date` date DEFAULT NULL,
   `Cost` bigint(20) NOT NULL COMMENT '구매금액',
   `MaterialId` int(11) NOT NULL COMMENT '원자재Id',
   `Purchase` float DEFAULT NULL COMMENT '구매량',
   PRIMARY KEY (`pk`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='원자재 구매';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='원자재 구매';
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -133,15 +175,15 @@ CREATE TABLE IF NOT EXISTS `qc` (
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
--- 테이블 globalmainproj_01.transaction details 구조 내보내기
-CREATE TABLE IF NOT EXISTS `transaction details` (
+-- 테이블 globalmainproj_01.transaction_details 구조 내보내기
+CREATE TABLE IF NOT EXISTS `transaction_details` (
   `pk` int(11) NOT NULL AUTO_INCREMENT,
   `Earning` bigint(20) NOT NULL COMMENT '판매수익',
   `ProductId` int(11) NOT NULL COMMENT '제품Id',
   `Date` date DEFAULT NULL COMMENT '거래일',
   `Sales` float DEFAULT NULL COMMENT '판매량',
   PRIMARY KEY (`pk`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='거래명세서';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='거래명세서';
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 

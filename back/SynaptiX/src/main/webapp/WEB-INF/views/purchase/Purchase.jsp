@@ -34,8 +34,8 @@ request.setAttribute("active_pch", "active");
       <div class="select-wrap">
         <select id="mrpStatus" name="mrpStatus">
           <option value="" ${empty param.mrpStatus ? 'selected' : ''}>전체</option>
-          <option value="WAIT" ${param.mrpStatus == 'WAIT' ? 'selected' : ''}>대기</option>
-          <option value="DONE" ${param.mrpStatus == 'DONE' ? 'selected' : ''}>완료</option>
+          <option value="WAIT" ${param.mrpStatus == 'WAIT' ? 'selected' : ''}>계획</option>
+          <option value="DONE" ${param.mrpStatus == 'DONE' ? 'selected' : ''}>미계획</option>
         </select>
       </div>
     </div>

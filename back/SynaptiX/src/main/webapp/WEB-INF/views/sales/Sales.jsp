@@ -56,8 +56,9 @@ request.setAttribute("active_sale", "active");
         <th>출고일</th>
         <th>제품코드</th>
         <th>제품명</th>
+        <th>수량</th>
         <th>단가</th>
-        <th>금액</th>
+		<th>금액</th>
         <th>출고상태</th>
       </tr>
     </thead>
@@ -81,7 +82,7 @@ request.setAttribute("active_sale", "active");
 
       <c:if test="${empty shipments}">
         <tr>
-          <td colspan="7" style="text-align:center;">판매/출고 데이터가 없습니다.</td>
+          <td colspan="8" style="text-align:center;">판매/출고 데이터가 없습니다.</td>
         </tr>
       </c:if>
     </tbody>

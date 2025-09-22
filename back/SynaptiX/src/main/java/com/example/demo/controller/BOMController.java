@@ -21,8 +21,16 @@ public class BOMController {
     private StockService stockService;
 
     @GetMapping("")
-    public String showBOM(Model model) {
-        List<BOMDTO> bomList = bomService.getAllBOM();
+    public String showBOM(@RequestParam(value = "category", required = false) String category,
+                         @RequestParam(value = "name", required = false) String name,
+                         @RequestParam(value = "id", required = false) String id,
+                         Model model) {
+        List<BOMDTO> bomList;
+        if ((category != null && !category.isEmpty()) || (id != null && !id.isEmpty())) {
+            bomList = bomService.getFilteredBOM(category, id);
+        } else {
+            bomList = bomService.getAllBOM();
+        }
         List<ProductDTO> productList = stockService.getAllProducts();
         List<MaterialDTO> materialList = stockService.getAllMaterials();
         model.addAttribute("bomList", bomList);

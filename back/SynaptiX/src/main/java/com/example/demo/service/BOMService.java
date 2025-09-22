@@ -18,4 +18,8 @@ public class BOMService {
     public void addBOM(BOMDTO bomDTO) {
         bomMapper.insertBOM(bomDTO);
     }
+
+    public List<BOMDTO> getFilteredBOM(String category, String id) {
+        return bomMapper.selectFilteredBOM(category, id);
+    }
 }

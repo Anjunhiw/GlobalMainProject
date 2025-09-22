@@ -8,4 +8,6 @@ import java.util.List;
 public interface BOMMapper {
     List<BOMDTO> selectAllBOM();
     void insertBOM(BOMDTO bomDTO);
+    List<BOMDTO> selectFilteredBOM(@org.apache.ibatis.annotations.Param("category") String category,
+                                   @org.apache.ibatis.annotations.Param("id") String id);
 }

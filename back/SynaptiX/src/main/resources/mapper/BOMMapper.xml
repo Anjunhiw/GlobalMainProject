@@ -7,4 +7,22 @@
     <insert id="insertBOM" parameterType="com.example.demo.model.BOMDTO">
         INSERT INTO BOM (ProductId, MaterialId, MaterialAmount) VALUES (#{ProductId}, #{MaterialId}, #{MaterialAmount})
     </insert>
+    <select id="selectFilteredBOM" resultType="com.example.demo.model.BOMDTO">
+        SELECT * FROM BOM
+        <where>
+            <if test="category != null and category != ''">
+                <choose>
+                    <when test="category == '제품'">
+                        AND ProductId = #{id}
+                    </when>
+                    <when test="category == '원자재'">
+                        AND MaterialId = #{id}
+                    </when>
+                </choose>
+            </if>
+            <if test="(category == null or category == '') and id != null and id != ''">
+                AND (ProductId = #{id} OR MaterialId = #{id})
+            </if>
+        </where>
+    </select>
 </mapper>

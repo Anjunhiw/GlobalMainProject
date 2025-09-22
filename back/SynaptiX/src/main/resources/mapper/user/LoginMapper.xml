@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.user.LoginMapper">
+    <!-- 기본 형태의 HomeMapper.xml 예시 -->
+    <!-- resultMap 예시 -->
+    <resultMap id="LoginDTOMap" type="com.example.demo.model.LoginDTO">
+        <id property="pk" column="pk" />
+        <result property="id" column="ID" />
+        <result property="name" column="Name" />
+        <result property="years" column="Years" />
+        <result property="salary" column="Salary" />
+        <result property="pw" column="Password" />
+        <result property="email" column="Email" />
+        <result property="dept" column="Dept" />
+    </resultMap>
+
+    <!-- select 예시 -->
+    <select id="selectName" resultMap="LoginDTOMap">
+        SELECT pk, Name FROM member WHERE ID = #{id} AND Password = #{pw}
+    </select>
+    <select id="selectByIdAndPw" resultMap="LoginDTOMap">
+        SELECT pk, ID, Name, Years, Salary, Password, Email, Dept
+        FROM member
+        WHERE ID = #{id} AND Password = #{pw}
+    </select>
+    <select id="selectById" resultMap="LoginDTOMap">
+        SELECT pk, ID, Name, Years, Salary, Password, Email, Dept
+        FROM member
+        WHERE ID = #{id}
+    </select>
+
+</mapper>

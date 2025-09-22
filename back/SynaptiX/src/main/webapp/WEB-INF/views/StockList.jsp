@@ -4,7 +4,7 @@
 request.setAttribute("pageTitle", "재고관리");
 request.setAttribute("active_stock", "active");
 %>
-<%@ include file="header.jsp" %>
+<%@ include file="common/header.jsp" %>
     <style>
         table { border-collapse: collapse; width: 100%; margin-bottom: 30px; }
         th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
@@ -168,4 +168,4 @@ request.setAttribute("active_stock", "active");
             </c:forEach>
         </tbody>
     </table>
-<%@ include file="footer.jsp" %>
+<%@ include file="common/footer.jsp" %>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.sales.TransactionMapper">
+    <select id="selectAllTransactions" resultType="map">
+        SELECT 
+          t.pk,
+          t.Date,
+          t.ProductId,
+          m.Name AS ProductName,
+          t.Sales AS Amount,
+          m.Price,
+          (t.Sales * m.Price) AS Total,
+          t.Earning
+        FROM transaction_details t
+        LEFT JOIN material m ON t.ProductId = m.pk
+    </select>
+</mapper>

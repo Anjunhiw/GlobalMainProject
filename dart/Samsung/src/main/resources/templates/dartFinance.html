@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>OpenDART 재무제표</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f8f9fa; margin: 0; padding: 0; }
+        .container { max-width: 900px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        h1 { text-align: center; color: #333; }
+        .status { margin-bottom: 20px; text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        th { background: #007bff; color: #fff; }
+        tr:nth-child(even) { background: #f2f2f2; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>OpenDART 재무제표</h1>
+    <div class="status">
+        <b>상태:</b> <span th:text="${response.status}"></span>
+        <b>메시지:</b> <span th:text="${response.message}"></span>
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <div style="font-size: 1.5em; font-weight: bold;">[[${year}]]년</div>
+        <div>
+            <a th:if="${year > 2015}" th:href="@{'/dart/finance/page'(year=${year - 1})}" style="font-size: 2em; text-decoration: none; margin-right: 10px;">&#8592;</a>
+            <a th:if="${year < 2024}" th:href="@{'/dart/finance/page'(year=${year + 1})}" style="font-size: 2em; text-decoration: none;">&#8594;</a>
+        </div>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>접수번호</th>
+            <th>회사코드</th>
+            <th>사업연도</th>
+            <th>보고서코드</th>
+            <th>계정명</th>
+            <th>당기금액<br><span style="font-size:12px; font-weight:normal;">(단위: 원)</span></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${response.list}">
+            <td th:text="${item.rcept_no}"></td>
+            <td th:text="${item.corp_code}"></td>
+            <td th:text="${item.bsns_year}"></td>
+            <td th:text="${item.reprt_code}"></td>
+            <td th:text="${item.account_nm}"></td>
+            <td th:text="${#numbers.formatInteger(item.thstrm_amount, 0, 'COMMA') + ' 원'}"></td>
+        </tr>
+        <tr th:if="${response.list == null or #lists.isEmpty(response.list)}">
+            <td colspan="6">데이터가 없습니다.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

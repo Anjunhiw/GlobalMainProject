@@ -49,6 +49,7 @@
 		    <a class="link ${active_bom}" href="/bom">BOM</a>
 		    <a class="link ${active_mps}" href="/mps">MPS</a>
 		    <a class="link ${active_qc}" href="/qc">QC</a>
+			<a class="link ${active_profit}" href="/profit">이익관리</a>
 		</c:if>
 		<c:if test="${not empty active_sales}">
 		    <a class="link ${active_sale}" href="/sales">판매/출고</a>

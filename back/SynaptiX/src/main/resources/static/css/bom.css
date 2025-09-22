@@ -1,0 +1,39 @@
+
+
+/* 표 */
+.tbl { width:100%; border-collapse:collapse; background:#fff; }
+.tbl th, .tbl td { border:1px solid #e5e8f0; padding:10px; text-align:center; }
+.tbl thead th { background:#f6f8ff; color:#123; font-weight:800; }
+.empty-row { color:#6b7280; padding:24px 0; }
+
+/* 레이아웃 카드/타이틀 – stock.css 톤과 맞춤 */
+.card { background:#fff; border-radius:16px; padding:12px; box-shadow:0 8px 24px rgba(2,8,20,.04); }
+.title.center { text-align:center; font-weight:800; margin-bottom:12px; }
+
+/* 입력/버튼 – stock.css의 .filters/.btn 재사용 전제 */
+.table-wrap { overflow:auto; }
+
+.filter-small{
+	display:flex; flex-wrap:wrap; align-items:flex-end; gap:24px;
+	 margin:18px 0 8px;
+	 margin-left:550px;
+	 
+}
+.filter-small .field{display:flex; flex-direction:column; gap:6px; min-width:180px}
+.filter-small label{
+  font-size:13px; font-weight:700; color:#173b9e; letter-spacing:.02em;
+}
+.filter-small input[type="text"]{
+  height:34px; padding:0 12px;
+  border:1px solid #e1e6f0; border-radius:8px;
+  background:#fff; outline:none; transition:border .15s, box-shadow .15s;
+}
+.filter-small input[type="text"]::placeholder{color:#b8c0d0}
+.filter-small input[type="text"]:focus{
+  border-color:#8fa8ff; box-shadow:0 0 0 3px rgba(143,168,255,.25);
+}
+
+/* 반응형 살짝 */
+@media (max-width: 960px) {
+  .filters { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}

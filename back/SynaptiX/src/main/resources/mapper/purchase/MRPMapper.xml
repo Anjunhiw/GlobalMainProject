@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.purchase.MRPMapper">
+    <select id="selectAllMRP" resultType="map">
+        SELECT
+          mrp.pk,
+          p.Name AS ProductName,
+          m.Name AS MaterialName,
+          m.Stock AS StockQuantity,
+          mrp.Requirement AS RequiredQuantity,
+          mrp.Date AS ProductionPlan,
+          mrp.MRPStatus
+        FROM mrp
+        LEFT JOIN product p ON mrp.ProductId = p.pk
+        LEFT JOIN material m ON mrp.MaterialId = m.pk
+    </select>
+</mapper>

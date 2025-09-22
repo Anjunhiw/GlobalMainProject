@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.stock.StockMapper">
+    <select id="selectAllMaterials" resultType="com.example.demo.model.MaterialDTO">
+        SELECT pk, Category AS category, Name AS name, Specification AS specification, Unit AS unit, Price AS price, Stock AS stock, Amount AS amount
+        FROM material
+    </select>
+    <select id="selectAllProducts" resultType="com.example.demo.model.ProductDTO">
+        SELECT pk, Category AS category, Name AS name, Model AS model, Specification AS specification, Price AS price, Stock AS stock, Amount AS amount
+        FROM product
+    </select>
+    <select id="selectMaterialsByName" resultType="com.example.demo.model.MaterialDTO">
+        SELECT pk, Category AS category, Name AS name, Specification AS specification, Unit AS unit, Price AS price, Stock AS stock, Amount AS amount
+        FROM material
+        WHERE Name LIKE CONCAT('%', #{name}, '%')
+    </select>
+    <select id="selectProductsByName" resultType="com.example.demo.model.ProductDTO">
+        SELECT pk, Category AS category, Name AS name, Model AS model, Specification AS specification, Price AS price, Stock AS stock, Amount AS amount
+        FROM product
+        WHERE Name LIKE CONCAT('%', #{name}, '%')
+    </select>
+    <select id="selectMaterialByPk" resultType="com.example.demo.model.MaterialDTO">
+        SELECT pk, Category AS category, Name AS name, Specification AS specification, Unit AS unit, Price AS price, Stock AS stock, Amount AS amount
+        FROM material
+        WHERE pk = #{pk}
+    </select>
+    <select id="selectProductByPk" resultType="com.example.demo.model.ProductDTO">
+        SELECT pk, Category AS category, Name AS name, Model AS model, Specification AS specification, Price AS price, Stock AS stock, Amount AS amount
+        FROM product
+        WHERE pk = #{pk}
+    </select>
+    <update id="updateMaterial" parameterType="com.example.demo.model.MaterialDTO">
+        UPDATE material
+        SET Category = #{category}, Name = #{name}, Specification = #{specification}, Unit = #{unit}, Price = #{price}, Stock = #{stock}, Amount = #{amount}
+        WHERE pk = #{pk}
+    </update>
+    <update id="updateProduct" parameterType="com.example.demo.model.ProductDTO">
+        UPDATE product
+        SET Category = #{category}, Name = #{name}, Model = #{model}, Specification = #{specification}, Price = #{price}, Stock = #{stock}, Amount = #{amount}
+        WHERE pk = #{pk}
+    </update>
+    <delete id="deleteMaterial" parameterType="int">
+        DELETE FROM material WHERE pk = #{pk}
+    </delete>
+    <delete id="deleteProduct" parameterType="int">
+        DELETE FROM product WHERE pk = #{pk}
+    </delete>
+</mapper>

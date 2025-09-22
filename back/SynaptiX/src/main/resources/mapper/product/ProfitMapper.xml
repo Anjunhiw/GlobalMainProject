@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.product.ProfitMapper">
+    <select id="selectProfitList" resultType="map">
+        SELECT
+            CONCAT('prod2025', p.pk) AS item_code,
+            p.Name AS item_name,
+            td.Sales AS sales_qty,
+            p.Price AS sales_unit_price,
+            td.Earning AS sales_amount,
+            m.Price AS cost_unit_price,
+            pu.Cost AS cost_amount,
+            (p.Price - m.Price) AS profit_unit_price,
+            (td.Earning - pu.Cost) AS profit_amount,
+            CASE WHEN td.Earning = 0 THEN 0
+                 ELSE ROUND((td.Earning - pu.Cost) / td.Earning * 100, 2)
+            END AS profit_rate
+        FROM transaction_details td
+        JOIN purchase pu
+            ON td.Date = pu.Date
+        JOIN product p ON td.ProductId = p.pk
+        JOIN material m ON pu.MaterialId = m.pk
+    </select>
+</mapper>

@@ -7,34 +7,99 @@ request.setAttribute("active_sales", "active");
 request.setAttribute("active_transaction", "active");
 %>
 <%@ include file="../common/header.jsp" %>
-<div class="container">
-    <h2>거래명세서 내역</h2>
-    <table border="1" style="width:100%; text-align:center;">
-        <thead>
-            <tr>
-                <th>거래명세서번호</th>
-                <th>거래일자</th>
-                <th>제품아이디</th>
-                <th>제품명</th>
-                <th>수량</th>
-                <th>단가</th>
-                <th>총액</th>
-				<th>판매수익</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="transaction" items="${transactionList}">
-                <tr>
-                    <td>${transaction.pk}</td>
-                    <td>${transaction.Date}</td>
-                    <td>${transaction.ProductId}</td>
-                    <td>${transaction.ProductName}</td>
-                    <td><fmt:formatNumber value="${transaction.Amount}" type="number"/></td>
-                    <td><fmt:formatNumber value="${transaction.Price}" type="number"/></td>
-                    <td><fmt:formatNumber value="${transaction.Total}" type="number"/></td>
-                    <td><fmt:formatNumber value="${transaction.Earning}" type="number"/></td>
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
+<link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
+<link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
+<body>
+
+  <h2>거래명세서</h2>
+
+  <!-- 상단 검색 필터 -->
+  <div class="filter-smalli">
+    <div class="field">
+      <label>제품코드</label>
+      <input type="text" id="prodCode" name="prodCode" placeholder="예: P-1001">
+    </div>
+
+    <div class="field">
+      <label>제품명</label>
+      <input type="text" id="prodName" name="prodName" placeholder="예: 전동드릴">
+    </div>
+
+    <div class="field">
+      <label>거래업자</label>
+      <input type="text" id="partner" name="partner" placeholder="예: ABC상사">
+    </div>
+
+    <div class="field">
+      <label>거래명세서번호</label>
+      <input type="text" id="stmtNo" name="stmtNo" placeholder="예: IV-2025-0001">
+    </div>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary" id="btnSearch">조회</button>
+    </div>
+  </div>
+
+  <h2>거래명세서 현황</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>거래명세서번호</th>
+        <th>거래일자</th>
+        <th>제품코드</th>
+        <th>제품명</th>
+        <th>수량</th>
+        <th>단가</th>
+        <th>금액</th>
+        <th>판매수익</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 컨트롤러에서 statements 리스트를 내려주세요 -->
+      <c:forEach var="row" items="${statements}">
+        <tr>
+          <td>${row.statementNo}</td>
+          <td><fmt:formatDate value="${row.txDate}" pattern="yyyy-MM-dd"/></td>
+          <td>${row.prodCode}</td>
+          <td>${row.prodName}</td>
+          <td class="text-right">
+            <fmt:formatNumber value="${row.qty}" type="number" maxFractionDigits="0" groupingUsed="true"/>
+          </td>
+          <td class="text-right">
+            <fmt:formatNumber value="${row.unitPrice}" type="number" groupingUsed="true"/>
+          </td>
+          <td class="text-right">
+            <fmt:formatNumber value="${row.amount}" type="number" groupingUsed="true"/>
+          </td>
+          <td class="text-right">
+            <fmt:formatNumber value="${row.profit}" type="number" groupingUsed="true"/>
+          </td>
+        </tr>
+      </c:forEach>
+
+      <c:if test="${empty statements}">
+        <tr>
+          <td colspan="8" style="text-align:center;">거래명세서 데이터가 없습니다.</td>
+        </tr>
+      </c:if>
+    </tbody>
+  </table>
+
+  <!-- 조회 버튼 동작 (GET 파라미터로 재조회) -->
+  <script>
+    document.getElementById('btnSearch')?.addEventListener('click', function () {
+      const p = new URLSearchParams({
+        prodCode: document.getElementById('prodCode').value || '',
+        prodName: document.getElementById('prodName').value || '',
+        partner : document.getElementById('partner').value  || '',
+        stmtNo  : document.getElementById('stmtNo').value   || ''
+      });
+      // 컨트롤러 매핑에 맞게 수정 (예: GET /sales/statements)
+      location.href = '/sales/statements?' + p.toString();
+    });
+  </script>
+
+</body>
+</html>
 <%@ include file="../common/footer.jsp" %>

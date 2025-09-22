@@ -5,7 +5,7 @@ request.setAttribute("pageTitle", "QC");
 request.setAttribute("active_product", "active");
 request.setAttribute("active_qc", "active");
 %>
-<%@ include file="header.jsp" %>
+<%@ include file="../common/header.jsp" %>
 <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
 
@@ -96,4 +96,4 @@ request.setAttribute("active_qc", "active");
   </script>
 </body>
 </html>
-<%@ include file="footer.jsp" %>
+<%@ include file="../common/footer.jsp" %>

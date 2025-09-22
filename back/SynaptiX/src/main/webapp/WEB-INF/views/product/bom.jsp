@@ -5,7 +5,7 @@ request.setAttribute("pageTitle", "BOM 관리");
 request.setAttribute("active_product", "active");
 request.setAttribute("active_bom", "active");
 %>
-<%@ include file="header.jsp" %>
+<%@ include file="../common/header.jsp" %>
 
 <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">

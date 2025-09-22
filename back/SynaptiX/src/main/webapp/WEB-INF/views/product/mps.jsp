@@ -6,7 +6,7 @@ request.setAttribute("pageTitle", "MPS관리");
 request.setAttribute("active_product", "active");
 request.setAttribute("active_mps", "active");
 %>
-<%@ include file="header.jsp" %>
+<%@ include file="../common/header.jsp" %>
 
 <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
@@ -28,7 +28,7 @@ request.setAttribute("active_mps", "active");
 
    
 
-    <div class="btn-group">
+    <div class="btn-groups">
       <button type="button" class="btn btn-success">등록</button>
       <button type="button" class="btn btn-primary">조회</button>
     </div>
@@ -77,4 +77,4 @@ request.setAttribute("active_mps", "active");
   </script>
 </body>
 </html>
-<%@ include file="footer.jsp" %>
+<%@ include file="../common/footer.jsp" %>

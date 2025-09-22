@@ -1,5 +1,7 @@
 
-
+.btn-groups{
+	display:flex; gap:12px; margin-top:12px; margin-left:450px;
+}
 /* 표 */
 .tbl { width:100%; border-collapse:collapse; background:#fff; }
 .tbl th, .tbl td { border:1px solid #e5e8f0; padding:10px; text-align:center; }
@@ -16,7 +18,7 @@
 .filter-small{
 	display:flex; flex-wrap:wrap; align-items:flex-end; gap:24px;
 	 margin:18px 0 8px;
-	 margin-left:550px;
+	 margin-left:450px;
 	 
 }
 .filter-small .field{display:flex; flex-direction:column; gap:6px; min-width:180px}
@@ -32,6 +34,54 @@
 .filter-small input[type="text"]:focus{
   border-color:#8fa8ff; box-shadow:0 0 0 3px rgba(143,168,255,.25);
 }
+
+input[type="date"]{
+	height:34px; padding:0 12px;
+	 border:1px solid #e1e6f0; border-radius:8px;
+	 background:#fff; outline:none; transition:border .15s, box-shadow .15s;
+	
+}
+
+.filter-smalli{
+	display:flex; flex-wrap:wrap; align-items:flex-end; gap:24px;
+	 margin:18px 0 8px;
+	 margin-left:450px;
+	 
+}
+.filter-smalli .field{display:flex; flex-direction:column; gap:6px; min-width:180px}
+.filter-smalli label{
+  font-size:13px; font-weight:700; color:#173b9e; letter-spacing:.02em;
+}
+.filter-smalli input[type="text"]{
+  height:34px; padding:0 12px;
+  border:1px solid #e1e6f0; border-radius:8px;
+  background:#fff; outline:none; transition:border .15s, box-shadow .15s;
+}
+.filter-smalli input[type="text"]::placeholder{color:#b8c0d0}
+.filter-smalli input[type="text"]:focus{
+  border-color:#8fa8ff; box-shadow:0 0 0 3px rgba(143,168,255,.25);
+}
+
+.filter-smalll{
+	display:flex; flex-wrap:wrap; align-items:flex-end; gap:24px;
+	 margin:18px 0 8px;
+	 margin-left:350px;
+	 
+}
+.filter-smalll .field{display:flex; flex-direction:column; gap:6px; min-width:180px}
+.filter-smalll label{
+  font-size:13px; font-weight:700; color:#173b9e; letter-spacing:.02em;
+}
+.filter-smalll input[type="text"]{
+  height:34px; padding:0 12px;
+  border:1px solid #e1e6f0; border-radius:8px;
+  background:#fff; outline:none; transition:border .15s, box-shadow .15s;
+}
+.filter-smalll input[type="text"]::placeholder{color:#b8c0d0}
+.filter-smalll input[type="text"]:focus{
+  border-color:#8fa8ff; box-shadow:0 0 0 3px rgba(143,168,255,.25);
+}
+
 
 /* 반응형 살짝 */
 @media (max-width: 960px) {

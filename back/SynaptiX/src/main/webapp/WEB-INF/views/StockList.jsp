@@ -4,7 +4,7 @@
 <%
 request.setAttribute("active_stock", "재고");
 %>
-<%@ include file="header.jsp" %>
+<%@ include file="common/header.jsp" %>
 
 <!doctype html>
 <html lang="ko">

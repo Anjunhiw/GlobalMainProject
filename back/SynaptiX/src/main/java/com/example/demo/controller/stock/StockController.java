@@ -1,9 +1,9 @@
 // StockController.java
-package com.example.demo.controller;
+package com.example.demo.controller.stock;
 
 import com.example.demo.model.MaterialDTO;
 import com.example.demo.model.ProductDTO;
-import com.example.demo.service.StockService;
+import com.example.demo.service.stock.StockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

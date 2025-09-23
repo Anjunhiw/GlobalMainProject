@@ -16,6 +16,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StockController {
     private final StockService service;
+    public StockController(StockService service) {
+		this.service = service;
+	}
 	 
   
     @GetMapping("/stock")

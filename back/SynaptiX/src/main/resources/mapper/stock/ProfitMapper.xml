@@ -22,5 +22,16 @@
             ON td.Date = pu.Date
         JOIN product p ON td.ProductId = p.pk
         JOIN material m ON pu.MaterialId = m.pk
+        <where>
+            <if test="itemCode != null and itemCode != ''">
+                AND CONCAT('prod2025', p.pk) LIKE CONCAT('%', #{itemCode}, '%')
+            </if>
+            <if test="itemName != null and itemName != ''">
+                AND p.Name LIKE CONCAT('%', #{itemName}, '%')
+            </if>
+            <if test="category != null and category != ''">
+                AND '제품' = #{category}
+            </if>
+        </where>
     </select>
 </mapper>

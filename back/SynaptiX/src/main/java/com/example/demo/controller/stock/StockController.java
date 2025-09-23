@@ -15,11 +15,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class StockController {
-	
-	 private final StockService service;
-	 public StockController(StockService service) {
-	        this.service = service;
-	    }
+    private final StockService service;
 	 
   
     @GetMapping("/stock")
@@ -147,8 +143,8 @@ public class StockController {
         @RequestParam(value = "specification", required = false) String specification,
         @RequestParam(value = "unit", required = false) String unit,
         @RequestParam("price") int price,
-        @RequestParam("stock") int stock,
-        @RequestParam("amount") int amount
+        @RequestParam("stock") float stock,
+        @RequestParam("amount") float amount
     ) {
         java.util.Map<String, Object> result = new java.util.HashMap<>();
         try {

@@ -6,5 +6,5 @@ import java.util.Map;
 
 @Mapper
 public interface ProfitMapper {
-    List<Map<String, Object>> selectProfitList();
+    List<Map<String, Object>> selectProfitList(String itemCode, String itemName, String category);
 }

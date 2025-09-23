@@ -48,4 +48,48 @@
     <delete id="deleteProduct" parameterType="int">
         DELETE FROM product WHERE pk = #{pk}
     </delete>
+    <select id="selectMaterialsByCondition" resultType="com.example.demo.model.MaterialDTO">
+        SELECT pk, Category AS category, Name AS name, Specification AS specification, Unit AS unit, Price AS price, Stock AS stock, Amount AS amount
+        FROM material
+        <where>
+            <if test="code != null and code != ''">
+                AND pk = #{code}
+            </if>
+            <if test="name != null and name != ''">
+                AND Name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="model != null and model != ''">
+                AND Specification LIKE CONCAT('%', #{model}, '%')
+            </if>
+            <if test="category != null and category != ''">
+                AND Category = #{category}
+            </if>
+        </where>
+    </select>
+    <select id="selectProductsByCondition" resultType="com.example.demo.model.ProductDTO">
+        SELECT pk, Category AS category, Name AS name, Model AS model, Specification AS specification, Price AS price, Stock AS stock, Amount AS amount
+        FROM product
+        <where>
+            <if test="code != null and code != ''">
+                AND pk = #{code}
+            </if>
+            <if test="name != null and name != ''">
+                AND Name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="model != null and model != ''">
+                AND Model LIKE CONCAT('%', #{model}, '%')
+            </if>
+            <if test="category != null and category != ''">
+                AND Category = #{category}
+            </if>
+        </where>
+    </select>
+    <insert id="insertMaterial" parameterType="com.example.demo.model.MaterialDTO">
+        INSERT INTO material (Category, Name, Specification, Unit, Price, Stock, Amount)
+        VALUES (#{category}, #{name}, #{specification}, #{unit}, #{price}, #{stock}, #{amount})
+    </insert>
+    <insert id="insertProduct" parameterType="com.example.demo.model.ProductDTO">
+        INSERT INTO product (Category, Name, Model, Specification, Price, Stock, Amount)
+        VALUES (#{category}, #{name}, #{model}, #{specification}, #{price}, #{stock}, #{amount})
+    </insert>
 </mapper>

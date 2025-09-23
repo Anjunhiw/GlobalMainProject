@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.mapper.product.ProfitMapper">
+<mapper namespace="com.example.demo.mapper.stock.ProfitMapper">
     <select id="selectProfitList" resultType="map">
         SELECT
             CONCAT('prod2025', p.pk) AS item_code,

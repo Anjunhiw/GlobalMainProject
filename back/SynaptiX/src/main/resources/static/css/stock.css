@@ -149,99 +149,108 @@ form#searchForm button:hover {
   background: #27ae60;
 }
 
-
-
-
-/* 수정 버튼 (주황) */
-form[action$="/edit"] button,
-button.edit {
-  background: #f39c12;
-  color: #fff;
-}
-form[action$="/edit"] button:hover,
-button.edit:hover {
-  background: #d35400;
-}
-
-/* 삭제 버튼 (빨강) */
-form[action$="/delete"] button,
-button.delete {
-  background: #e74c3c;
-  color: #fff;
-}
-form[action$="/delete"] button:hover,
-button.delete:hover {
-  background: #c0392b;
-}
-/* 이름 입력 + 검색 버튼 묶음 */
-.input-with-btn{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  min-width:260px;
-}
-.input-with-btn input[type="text"]{
-  flex:1 1 auto;
-  height:34px;
-  padding:0 12px;
-  border:1px solid #e1e6f0;
-  border-radius:8px;
-  background:#fff;
-  outline:none;
-  transition:border .15s, box-shadow .15s;
-}
-.input-with-btn input[type="text"]:focus{
-  border-color:#8fa8ff;
-  box-shadow:0 0 0 3px rgba(143,168,255,.25);
-}
-
-.input-with-btn input[type="date"]{
-  flex:1 1 auto;
-  height:34px;
-  padding:0 12px;
-  border:1px solid #e1e6f0;
-  border-radius:8px;
-  background:#fff;
-  outline:none;
-  transition:border .15s, box-shadow .15s;
-}
-
-/* 버튼 높이 맞춤 */
-.input-with-btn .btn{
-  height:34px;
-  padding:0 14px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-}
-
-
-/* ===================== 모달 ===================== */
+/* --- Modal (팝업) 스타일 --- */
 .modal {
   display: none;
   position: fixed;
   z-index: 1000;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background: rgba(0,0,0,0.35);
+  transition: background 0.2s;
 }
-
 .modal-content {
-  background: #fff;
-  margin: 8vh auto;
-  padding: 20px;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 1000px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  background: #c6ccfa;
+  margin: 60px auto;
+  padding: 32px 28px 24px 28px;
+  border-radius: 12px;
+  max-width: 800px;
+  min-width: 320px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+  position: relative;
+  font-family: inherit;
 }
-
-.close {
-  float: right;
-  font-size: 26px;
-  font-weight: 700;
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 18px;
+  font-size: 1.25rem;
+  color: #222;
+  font-weight: 600;
+  letter-spacing: -1px;
+}
+.modal .close {
+  position: absolute;
+  right: 18px;
+  top: 16px;
+  font-size: 1.5rem;
+  color: #888;
   cursor: pointer;
+  transition: color 0.2s;
+}
+.modal .close:hover {
+  color: #e74c3c;
+}
+#registerForm .field {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+#registerForm label {
+  font-size: 0.98rem;
+  color: #333;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+#registerForm input,
+#registerForm select {
+  padding: 7px 10px;
+  border: 1px solid #cfd8dc;
+  border-radius: 5px;
+  font-size: 1rem;
+  background: #fafbfc;
+  transition: border 0.2s;
+}
+#registerForm input:focus,
+#registerForm select:focus {
+  border: 1.5px solid #4a90e2;
+  outline: none;
+}
+#registerForm .btn-group {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+#registerForm .btn {
+  padding: 7px 18px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+#registerForm .btn-success {
+  background: #4a90e2;
+  color: #fff;
+}
+#registerForm .btn-success:hover {
+  background: #357abd;
+}
+#registerForm .btn-secondary {
+  background: #e0e0e0;
   color: #333;
 }
-.close:hover {
-  color: #e74c3c;
+#registerForm .btn-secondary:hover {
+  background: #bdbdbd;
+}
+@media (max-width: 600px) {
+  .modal-content {
+    max-width: 98vw;
+    min-width: 0;
+    padding: 18px 6vw 18px 6vw;
+  }
 }

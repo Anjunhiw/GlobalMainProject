@@ -30,6 +30,13 @@ public class StockService {
         return mapper.selectProductsByName(name);
     }
 
+    public List<MaterialDTO> searchMaterials(String code, String name, String model, String category) {
+        return mapper.selectMaterialsByCondition(code, name, model, category);
+    }
+    public List<ProductDTO> searchProducts(String code, String name, String model, String category) {
+        return mapper.selectProductsByCondition(code, name, model, category);
+    }
+
     public Object getStockByPk(int pk) {
         MaterialDTO material = mapper.selectMaterialByPk(pk);
         if (material != null) return material;
@@ -60,5 +67,11 @@ public class StockService {
     }
     public void deleteProduct(int pk) {
         mapper.deleteProduct(pk);
+    }
+    public void insertMaterial(MaterialDTO dto) {
+        mapper.insertMaterial(dto);
+    }
+    public void insertProduct(ProductDTO dto) {
+        mapper.insertProduct(dto);
     }
 }

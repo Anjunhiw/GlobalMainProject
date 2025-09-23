@@ -1,10 +1,10 @@
-package com.example.demo.controller.product;
+package com.example.demo.controller.stock;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import com.example.demo.mapper.product.ProfitMapper;
+import com.example.demo.mapper.stock.ProfitMapper;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +17,6 @@ public class ProfitController {
     public String profitPage(Model model) {
         List<Map<String, Object>> profitList = profitMapper.selectProfitList();
         model.addAttribute("profitList", profitList);
-        return "product/profit";
+        return "stock/profit";
     }
 }

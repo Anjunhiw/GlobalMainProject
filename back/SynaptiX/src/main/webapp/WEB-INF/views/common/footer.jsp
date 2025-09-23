@@ -1,5 +1,5 @@
 	<footer>
-        <p>&copy; 2024 My Website</p>
+        <p>&copy; 2025 SynaptiX</p>
     </footer>
 </body>
 </html>

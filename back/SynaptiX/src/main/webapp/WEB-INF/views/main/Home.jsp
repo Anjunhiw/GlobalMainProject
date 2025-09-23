@@ -101,14 +101,13 @@
 			  <button class="action" type="button">환경설정</button>
 			  <button class="action" type="button">메모</button>
 			  <button onclick="location.reload()" class="action" type="button">새로고침</button>
-
-			  <form action="/logout" method="post" style="display:inline;">
+			  <form action="/logout" method="post">
 			    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			    <button type="submit" class="action">로그아웃</button>
 			  </form>
 			</div>
 	    </div>
-	  </div>
+       </div>
 
 	  <!-- 일정표 -->
 	  <div class="schedule">
@@ -220,5 +219,3 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 <script src="<c:url value='/js/profileModal.js'/>"></script>
 <%@ include file="../common/footer.jsp" %>
-
-

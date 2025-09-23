@@ -2,9 +2,10 @@
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <%
-request.setAttribute("active_stock", "재고");
+request.setAttribute("active_stock", "active");
+request.setAttribute("active_stl", "active");
 %>
-<%@ include file="common/header.jsp" %>
+<%@ include file="../common/header.jsp" %>
 
 <!doctype html>
 <html lang="ko">
@@ -179,11 +180,7 @@ request.setAttribute("active_stock", "재고");
 	      <td><fmt:formatNumber value="${product.price}"  type="number" groupingUsed="true"/></td>
 	      <td><fmt:formatNumber value="${product.stock}"  type="number" maxFractionDigits="0" groupingUsed="true"/></td>
 	      <td><fmt:formatNumber value="${product.amount}" type="number" maxFractionDigits="0" groupingUsed="true"/></td>
-
-	       관리 
 	      <td><span class="muted">-</span></td>
-
-	       품목수정 
 	      <td>
 	        <form action="/stock/edit" method="get">
 	          <input type="hidden" name="pk" value="${product.pk}">
@@ -191,8 +188,6 @@ request.setAttribute("active_stock", "재고");
 	          <button type="submit" class="btn btn-sm btn-warning">수정</button>
 	        </form>
 	      </td>
-
-		               품목삭제 
 	      <td>
 	        <form action="/stock/delete" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
 	          <input type="hidden" name="pk" value="${product.pk}">
@@ -249,6 +244,4 @@ request.setAttribute("active_stock", "재고");
 	}
 
   </script>
-
-</body>
-</html>
+<%@ include file="../common/footer.jsp" %>

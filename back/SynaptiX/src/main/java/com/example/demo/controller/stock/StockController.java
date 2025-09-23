@@ -67,7 +67,7 @@ public class StockController {
         mv.addAttribute("q_model", model);
         mv.addAttribute("q_category", category);
 
-        return "StockList";
+        return "stock/StockList";
     }
 
     // 수정 폼 이동
@@ -85,7 +85,7 @@ public class StockController {
             mv.addAttribute("material", null);
             mv.addAttribute("product", null);
         }
-        return "StockEdit";
+        return "stock/StockEdit";
     }
 
     @PostMapping("/stock/editMaterial")

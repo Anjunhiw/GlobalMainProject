@@ -1,4 +1,4 @@
-package com.example.demo.mapper.product;
+package com.example.demo.mapper.stock;
 
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;

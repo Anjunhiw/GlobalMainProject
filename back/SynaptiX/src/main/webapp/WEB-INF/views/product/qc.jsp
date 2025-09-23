@@ -14,7 +14,7 @@ request.setAttribute("active_qc", "active");
   <h2>QC 검사 결과 조회</h2>
 
   <!-- 상단 필터 -->
-  <div class="filter-small">
+  <div class="filter-smallq">
     <div class="field">
       <label>기간</label>
       <div class="input-with-btn">

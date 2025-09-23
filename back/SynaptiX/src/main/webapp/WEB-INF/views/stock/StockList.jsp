@@ -8,6 +8,7 @@ request.setAttribute("active_stl", "active");
 <%@ include file="../common/header.jsp" %>
 
   <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
+  <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
 
   <!-- CSRF를 JS에서 쓰기 위해 노출 -->
   <meta name="_csrf_header" content="${_csrf.headerName}">
@@ -16,7 +17,7 @@ request.setAttribute("active_stl", "active");
 <body>
   <h2>창고재고관리</h2>
 
-  <div class="filters">
+  <div class="filter-smallb">
     <div class="field">
       <label>품목코드</label>
       <input type="text" id="code" name="code" placeholder="예: A-1001">
@@ -46,7 +47,7 @@ request.setAttribute("active_stl", "active");
 	  <label>이름</label>
 	  <div class="input-with-btn">
 	    <input type="text" id="searchName" name="name" placeholder="이름 입력">
-	    <button type="button" id="btn-search" class="btn btn-primary">검색</button>
+	   
 	  </div>
 	</div>
     <div class="btn-group">

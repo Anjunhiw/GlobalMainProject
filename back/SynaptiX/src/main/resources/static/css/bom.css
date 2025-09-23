@@ -129,6 +129,27 @@ input[type="number"]{
   border-color:#8fa8ff; box-shadow:0 0 0 3px rgba(143,168,255,.25);
 }
 
+.filter-smallb{
+	display:flex; flex-wrap:wrap; align-items:flex-end; gap:54px;
+	 margin:18px 0 8px;
+	 margin-left:250px;
+	 
+}
+.filter-smallb .field{display:flex; flex-direction:column; gap:6px; min-width:180px}
+.filter-smallb label{
+  font-size:13px; font-weight:700; color:#173b9e; letter-spacing:.02em;
+}
+.filter-smallb input[type="text"]{
+  height:34px; padding:0 12px;
+  border:1px solid #e1e6f0; border-radius:8px;
+  background:#fff; outline:none; transition:border .15s, box-shadow .15s;
+}
+.filter-smallb input[type="text"]::placeholder{color:#b8c0d0}
+.filter-smallb input[type="text"]:focus{
+  border-color:#8fa8ff; box-shadow:0 0 0 3px rgba(143,168,255,.25);
+}
+
+
 
 /* 반응형 살짝 */
 @media (max-width: 960px) {

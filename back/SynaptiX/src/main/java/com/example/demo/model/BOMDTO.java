@@ -5,6 +5,8 @@ public class BOMDTO {
 	private int ProductId;
 	private int MaterialId;
 	private Float MaterialAmount;
+	private String productName;
+	private String materialName;
 	
 	public BOMDTO() {}
 	
@@ -36,6 +38,19 @@ public class BOMDTO {
 	
 	public void setMaterialAmount(Float materialAmount) {
 		MaterialAmount = materialAmount;
+	}
+
+	public String getProductName() { 
+		return productName; 
+	}
+	public void setProductName(String productName) { 
+		this.productName = productName; 
+	}
+	public String getMaterialName() { 
+		return materialName; 
+	}
+	public void setMaterialName(String materialName) { 
+		this.materialName = materialName; 
 	}
 		
 }

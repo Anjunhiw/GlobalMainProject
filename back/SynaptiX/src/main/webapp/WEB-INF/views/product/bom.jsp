@@ -46,9 +46,6 @@ request.setAttribute("active_bom", "active");
      <label>원자재명</label>
      <input type="text" id="model" name="model" placeholder="예: 모터">
    </div>
-
-
-    
 	  <div class="btn-group">
 		<button type="button" id="btn-search" class="btn btn-primary">검색</button>
 	       <button type="button" class="btn btn-success" onclick="openRegister()">등록</button>
@@ -64,78 +61,102 @@ request.setAttribute("active_bom", "active");
   var csrfHeader = "${_csrf.headerName}";
   var csrfToken  = "${_csrf.token}";
 
-  // 등록 팝업 (ID와 수량만)
-  function openBomPopup() {
-    var w = window.open('', 'BOM 등록', 'width=360,height=320');
-    w.document.write(`
-      <html><head><meta charset="UTF-8"><title>BOM 등록</title></head>
-      <body>
-        <h3>BOM 등록</h3>
-        <form id='bomForm'>
-          <label for='productId'>제품ID:</label>
-          <input type='number' id='productId' name='productId' required><br/>
-          <label for='materialId'>원자재ID:</label>
-          <input type='number' id='materialId' name='materialId' required><br/>
-          <label for='materialAmount'>필요자재량:</label>
-          <input type='number' step='0.01' id='materialAmount' name='materialAmount' required><br/><br/>
-          <button type='button' onclick='window.opener.submitBomForm(this.form);window.close();'>등록</button>
-          <button type='button' onclick='window.close();'>취소</button>
-        </form>
-      </body></html>
-    `);
+  // 등록 모달 열기
+  function openRegister() {
+    document.getElementById('bomRegisterModal').style.display = 'block';
+    document.getElementById('bomRegisterForm').reset();
   }
 
-  // 등록 전송 (ID/수량만)
-  function submitBomForm(form) {
-    var payload = {
-      productId: form.productId.value,
-      materialId: form.materialId.value,
-      materialAmount: form.materialAmount.value
-    };
-    fetch('/bom', {
+  // 등록 모달 닫기
+  function closeBomRegisterModal() {
+    document.getElementById('bomRegisterModal').style.display = 'none';
+  }
+
+  // BOM 등록 전송
+  function submitBomRegister() {
+    const form = document.getElementById('bomRegisterForm');
+    const formData = new FormData(form);
+    const params = {};
+    for (const [key, value] of formData.entries()) {
+      params[key] = value;
+    }
+    fetch('/bom/register', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', [csrfHeader]: csrfToken },
-      body: JSON.stringify(payload)
-    }).then(r => r.ok ? (alert('등록 완료'), location.reload()) : alert('등록 실패'));
+      headers: {
+        'Content-Type': 'application/json',
+        [csrfHeader]: csrfToken
+      },
+      body: JSON.stringify(params)
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert('등록되었습니다.');
+        closeBomRegisterModal();
+        location.reload();
+      } else {
+        alert('등록 실패: ' + (data.message || '오류'));
+      }
+    })
+    .catch(() => {
+      alert('등록 중 오류가 발생했습니다.');
+    });
   }
 
-  // 수정 팝업 (ID/수량만)
-  function openBomEditPopup(productId, materialId, materialAmount) {
-    var w = window.open('', 'BOM 수정', 'width=360,height=320');
-    w.document.write(`
-      <html><head><meta charset="UTF-8"><title>BOM 수정</title></head>
-      <body>
-        <h3>BOM 수정</h3>
-        <form id='bomEditForm'>
-          <label>제품ID:</label>
-          <input type='number' name='productId' value='${productId}' readonly><br/>
-          <label>원자재ID:</label>
-          <input type='number' name='materialId' value='${materialId}' readonly><br/>
-          <label>필요자재량:</label>
-          <input type='number' step='0.01' name='materialAmount' value='${materialAmount}' required><br/><br/>
-          <button type='button' onclick='window.opener.submitBomEditForm(this.form);window.close();'>저장</button>
-          <button type='button' onclick='window.close();'>취소</button>
-        </form>
-      </body></html>
-    `);
+  // 검색/조회 버튼 이벤트 연결
+  function searchBom() {
+    const code = document.getElementById('code').value;
+    const name = document.getElementById('name').value;
+    const category = document.getElementById('category').value;
+    const model = document.getElementById('model').value;
+    fetch('/bom/search', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        [csrfHeader]: csrfToken
+      },
+      body: JSON.stringify({ code, name, category, model })
+    })
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('bomResultBody').innerHTML = html;
+    })
+    .catch(() => {
+      alert('검색 중 오류가 발생했습니다.');
+    });
   }
-
-  // 수정 전송 (ID/수량만)
-  function submitBomEditForm(form) {
-    var payload = {
-      productId: form.productId.value,
-      materialId: form.materialId.value,
-      materialAmount: form.materialAmount.value
-    };
-    fetch('/bom', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json', [csrfHeader]: csrfToken },
-      body: JSON.stringify(payload)
-    }).then(r => r.ok ? (alert('수정 완료'), location.reload()) : alert('수정 실패'));
-  }
+  document.getElementById('btn-search')?.addEventListener('click', searchBom);
 </script>
 
-<!-- 테이블: 고유코드/수량만 표시 -->
+<!-- 등록 모달 -->
+<div id="bomRegisterModal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="bomRegisterModalTitle">
+  <div class="modal-content">
+    <span class="close" onclick="closeBomRegisterModal()" aria-label="닫기">&times;</span>
+    <h3 id="bomRegisterModalTitle">BOM 등록</h3>
+    <form id="bomRegisterForm">
+      <div class="field">
+        <label>제품ID</label>
+        <input type="number" id="regProductId" name="productId" required>
+      </div>
+      <div class="field">
+        <label>원자재ID</label>
+        <input type="number" id="regMaterialId" name="materialId" required>
+      </div>
+      <div class="field">
+        <label>필요자재량</label>
+        <input type="number" step="0.01" id="regMaterialAmount" name="materialAmount" required>
+      </div>
+      <div class="btn-group">
+        <button type="button" class="btn btn-success" onclick="submitBomRegister()">저장</button>
+        <button type="button" class="btn btn-secondary" onclick="closeBomRegisterModal()">취소</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 검색 결과 표시 영역 -->
+<div id="bomResultBody">
+<!-- 기존 테이블 영역을 여기에 옮기면 Ajax로 갱신 가능 -->
 <table border="1">
   <tr>
     <th>제품코드</th>
@@ -148,8 +169,9 @@ request.setAttribute("active_bom", "active");
 
   <c:forEach var="bom" items="${bomList}">
     <tr>
-      <td>${bom.productId}</td>
-      <td>${bom.materialId}</td>
+      <td>prod2025<c:choose><c:when test="${bom.productId lt 10}">0${bom.productId}</c:when><c:otherwise>${bom.productId}</c:otherwise></c:choose></td>
+      <td>${bom.productName}</td>
+      <td>${bom.materialName}</td>
       <td><fmt:formatNumber value="${bom.materialAmount}" type="number" maxFractionDigits="2"/></td>
       <td>
         <button type="button"
@@ -166,9 +188,16 @@ request.setAttribute("active_bom", "active");
     <tr><td colspan="6	">데이터가 없습니다.</td></tr>
   </c:if>
 </table>
-    <script>
+</div>
+
+<script>
     function openBomEditPopup(productId, materialId, materialAmount) {
         var popup = window.open('', 'BOM 수정', 'width=400,height=400');
+        if (!popup) {
+            alert('팝업이 차단되었습니다. 팝업 차단을 해제해주세요.');
+            return;
+        }
+        // 팝업에 HTML만 먼저 작성
         popup.document.write(`
             <html>
             <head><title>BOM 수정</title></head>
@@ -181,21 +210,55 @@ request.setAttribute("active_bom", "active");
                     <input type='number' id='materialId' name='materialId' readonly><br/>
                     <label for='materialAmount'>MaterialAmount:</label>
                     <input type='number' step='0.01' id='materialAmount' name='materialAmount' required><br/>
-                    <button type='button' onclick='window.opener.submitBomEditForm(this.form);window.close();'>수정</button>
+                    <button type='submit' onclick='window.close();'>수정</button>
                     <button type='button' onclick='window.close();'>취소</button>
                 </form>
             </body>
             </html>
         `);
-        // 팝업이 열린 후 input value를 직접 설정
-        setTimeout(function() {
-            if (popup.document.getElementById('productId')) {
-                popup.document.getElementById('productId').value = productId;
-                popup.document.getElementById('materialId').value = materialId;
-                popup.document.getElementById('materialAmount').value = materialAmount;
-            }
-        }, 100);
         popup.document.close();
+        // 폼이 완전히 로드될 때까지 폴링
+        var trySetValues = function() {
+            if (!popup || popup.closed) return;
+            var pid = popup.document.getElementById('productId');
+            var mid = popup.document.getElementById('materialId');
+            var mam = popup.document.getElementById('materialAmount');
+            var form = popup.document.getElementById('bomEditForm');
+            if (pid && mid && mam && form) {
+                pid.value = productId;
+                mid.value = materialId;
+                mam.value = materialAmount;
+                form.onsubmit = function(e) {
+                    e.preventDefault();
+                    var data = {
+                        productId: pid.value,
+                        materialId: mid.value,
+                        materialAmount: mam.value
+                    };
+                    fetch('/bom', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            [csrfHeader]: csrfToken
+                        },
+                        body: JSON.stringify(data)
+                    }).then(function(res) {
+                        if(res.ok) {
+                            alert('수정 완료');
+                            if(window.opener && !window.opener.closed) {
+                                window.opener.location.reload();
+                            }
+                            setTimeout(function() { safeClosePopup(); }, 100);
+                        } else {
+                            alert('수정 실패');
+                        }
+                    });
+                };
+            } else {
+                setTimeout(trySetValues, 50);
+            }
+        };
+        trySetValues();
     }
     function submitBomEditForm(form) {
         var data = {
@@ -218,6 +281,16 @@ request.setAttribute("active_bom", "active");
                 alert('수정 실패');
             }
         });
+    }
+    // 안전하게 팝업을 닫는 함수 추가
+    function safeClosePopup() {
+        window.close();
+        setTimeout(function() {
+            if (!window.closed) {
+                window.open('', '_self', '');
+                window.close();
+            }
+        }, 200);
     }
     </script>
 <%@ include file="../common/footer.jsp" %>

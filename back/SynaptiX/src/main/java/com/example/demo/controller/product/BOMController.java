@@ -27,9 +27,9 @@ public class BOMController {
                          Model model) {
         List<BOMDTO> bomList;
         if ((category != null && !category.isEmpty()) || (id != null && !id.isEmpty())) {
-            bomList = bomService.getFilteredBOM(category, id);
+            bomList = bomService.getFilteredBOMWithNames(category, id);
         } else {
-            bomList = bomService.getAllBOM();
+            bomList = bomService.getAllBOMWithNames();
         }
         List<ProductDTO> productList = stockService.getAllProducts();
         List<MaterialDTO> materialList = stockService.getAllMaterials();
@@ -42,5 +42,14 @@ public class BOMController {
     @PostMapping
     public void addBOM(@RequestBody BOMDTO bomDTO) {
         bomService.addBOM(bomDTO);
+    }
+
+    @PutMapping("")
+    @ResponseBody
+    public java.util.Map<String, Object> updateBOM(@RequestBody BOMDTO bomDTO) {
+        bomService.updateBOM(bomDTO);
+        java.util.Map<String, Object> result = new java.util.HashMap<>();
+        result.put("success", true);
+        return result;
     }
 }

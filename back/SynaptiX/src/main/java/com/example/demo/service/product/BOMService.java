@@ -22,4 +22,16 @@ public class BOMService {
     public List<BOMDTO> getFilteredBOM(String category, String id) {
         return bomMapper.selectFilteredBOM(category, id);
     }
+
+    public List<BOMDTO> getAllBOMWithNames() {
+        return bomMapper.selectAllBOMWithNames();
+    }
+
+    public List<BOMDTO> getFilteredBOMWithNames(String category, String id) {
+        return bomMapper.selectFilteredBOMWithNames(category, id);
+    }
+
+    public void updateBOM(BOMDTO bomDTO) {
+        bomMapper.updateBOM(bomDTO);
+    }
 }

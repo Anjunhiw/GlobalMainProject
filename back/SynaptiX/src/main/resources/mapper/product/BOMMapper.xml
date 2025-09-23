@@ -7,6 +7,11 @@
     <insert id="insertBOM" parameterType="com.example.demo.model.BOMDTO">
         INSERT INTO BOM (ProductId, MaterialId, MaterialAmount) VALUES (#{ProductId}, #{MaterialId}, #{MaterialAmount})
     </insert>
+    <update id="updateBOM" parameterType="com.example.demo.model.BOMDTO">
+        UPDATE BOM
+        SET MaterialAmount = #{materialAmount}
+        WHERE ProductId = #{productId} AND MaterialId = #{materialId}
+    </update>
     <select id="selectFilteredBOM" resultType="com.example.demo.model.BOMDTO">
         SELECT * FROM BOM
         <where>
@@ -22,6 +27,33 @@
             </if>
             <if test="(category == null or category == '') and id != null and id != ''">
                 AND (ProductId = #{id} OR MaterialId = #{id})
+            </if>
+        </where>
+    </select>
+    <select id="selectAllBOMWithNames" resultType="com.example.demo.model.BOMDTO">
+        SELECT b.ProductId, p.Name AS productName, b.MaterialId, m.Name AS materialName, b.MaterialAmount
+        FROM BOM b
+        JOIN product p ON b.ProductId = p.pk
+        JOIN material m ON b.MaterialId = m.pk
+    </select>
+    <select id="selectFilteredBOMWithNames" resultType="com.example.demo.model.BOMDTO">
+        SELECT b.ProductId, p.Name AS productName, b.MaterialId, m.Name AS materialName, b.MaterialAmount
+        FROM BOM b
+        JOIN product p ON b.ProductId = p.pk
+        JOIN material m ON b.MaterialId = m.pk
+        <where>
+            <if test="category != null and category != ''">
+                <choose>
+                    <when test="category == '제품'">
+                        AND b.ProductId = #{id}
+                    </when>
+                    <when test="category == '원자재'">
+                        AND b.MaterialId = #{id}
+                    </when>
+                </choose>
+            </if>
+            <if test="(category == null or category == '') and id != null and id != ''">
+                AND (b.ProductId = #{id} OR b.MaterialId = #{id})
             </if>
         </where>
     </select>

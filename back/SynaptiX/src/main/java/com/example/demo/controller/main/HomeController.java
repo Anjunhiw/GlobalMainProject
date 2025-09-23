@@ -16,15 +16,22 @@ public class HomeController {
     @Autowired
     private HomeService homeService;
 
-    // 홈 리스트 조회
+    // 공통 렌더링
     @GetMapping("")
     public String homeList(Model model, HttpSession session) {
         Object user = session.getAttribute("user");
-        if (user == null) {
-            return "redirect:/login";
-        }
+        if (user == null) return "redirect:/login";
+
         model.addAttribute("homeList", homeService.getHomeList());
+        model.addAttribute("active_main", "sales"); // ✅ 기본 탭 활성화
         return "main/Home";
     }
 
+
+    @GetMapping("/costs")
+    public String costs(Model model, HttpSession session){
+        model.addAttribute("active_main", "costs"); // ✅ 비용 탭 활성화
+        return "main/Home";
+    }
+   
 }

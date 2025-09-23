@@ -195,9 +195,9 @@ body{
 /* 라인 차트 카드 */	
 .linecard{ padding:22px; }
 .linecard .title{
-  display:flex; align-items:center; justify-content:space-between; font-weight:800; margin-bottom:6px;
+  display:flex; align-items:center; justify-content:space-between; font-weight:600; margin-bottom:6px;
 }
-.linecard .total{ font-size:24px; font-weight:800; color:#2a3f93; opacity:.9; margin:6px 0 10px; }
+.linecard .total{ font-size:24px; font-weight:700; color:#2a3f93; opacity:.9; margin:6px 0 10px; }
 .chart-wrap{
   border-radius:16px; border:1px solid rgba(0,0,0,.05); background:linear-gradient(#ffffff, #f6f7ff);
   padding:16px;

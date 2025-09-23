@@ -66,6 +66,7 @@ public class StockController {
         mv.addAttribute("q_name", name);
         mv.addAttribute("q_model", model);
         mv.addAttribute("q_category", category);
+        mv.addAttribute("active_stock", "active");
 
         return "StockList";
     }

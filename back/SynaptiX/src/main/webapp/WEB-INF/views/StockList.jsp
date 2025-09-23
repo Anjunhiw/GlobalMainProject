@@ -1,23 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
-<%
-request.setAttribute("active_stock", "재고");
-%>
+<% request.setAttribute("active_stock", "active"); %>
+
 <%@ include file="common/header.jsp" %>
 
-<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>재고관리</title>
-  
   <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 
   <!-- CSRF를 JS에서 쓰기 위해 노출 -->
   <meta name="_csrf_header" content="${_csrf.headerName}">
   <meta name="_csrf"        content="${_csrf.token}">
-</head>
 
 <body>
   <h2>창고재고관리</h2>

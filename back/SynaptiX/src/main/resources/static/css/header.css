@@ -10,14 +10,13 @@
   --shadow:0 20px 60px rgba(17,24,39,.12);
   --radius:22px;
   --radius-lg:28px;
-  --ui: system-ui, -apple-system, "Pretendard", Roboto, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --ui: system-ui, -apple-system, "Pretendard", Roboto, , "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 }
 
 /* 페이지 배경 */
 body{
   margin:0; background:var(--bg); color:var(--ink); font-family:var(--ui);
 }
-
 .tab:not(.active){
   filter:saturate(.85) brightness(.98);
   opacity:.7;
@@ -76,7 +75,10 @@ body{
   color:#1c2a59; background:linear-gradient(135deg, #e8eeff, #dfe7ff);
   box-shadow:none; font-weight:700;
 }
-.tab.sub.active{ color:#2a3f93; border-bottom-left-radius:10px; border-bottom-right-radius:10px; }
+.tab.sub.active{
+	color:#2a3f93; 
+	border-bottom-left-radius:10px;
+	border-bottom-right-radius:10px; }
 
 /* 첫 탭은 음수 마진 제거 */
 .tab:first-child{ margin-left:0; }
@@ -101,7 +103,9 @@ body{
 .tab:hover{ transform:translateY(-2px); opacity:.95; z-index:7; }
 
 .subtabs{
-  max-width:1180px; margin:10px auto 16px; padding:0 20px; display:flex; align-items:center; gap:18px;
+  max-width:1180px; margin:10px auto 16px;
+  padding:0 20px; display:flex; align-items:center; gap:18px;
+ 
 }
 .subtabs .link{
   position: relative;
@@ -110,26 +114,33 @@ body{
   text-decoration: none;
   transition: color .15s ease;
 }
-.subtabs .link.active{
-  color: #2a3f93;
+.subtabs .link.active {
+  border-bottom: 2.5px solid #2563eb;
+  color: #2563eb;
   font-weight: 800;
 }
-.subtabs .link.active::after{
+.subtabs .link.active::after {
   transform: scaleX(1);
 }
-.subtabs .link::after{
+/* 밑줄 기본 */
+.subtabs .link::after {
   content: "";
   position: absolute;
   left: 0; right: 0; bottom: -2px;
   height: 2px;
-  background: #9db1ff;        /* 기존 라인색과 어울리는 톤 */
-  transform: scaleX(0);
+  background: #9db1ff;
+  transform: scaleX(0);         /* 기본은 안 보임 */
   transform-origin: left;
   transition: transform .18s ease;
 }
+
 .subtabs .link:hover{
   color: #2a3f93;
+  font-weight: 800;
 }
+
+
+
 /* 검색 아이콘 */
 .search{ margin-left:auto; width:28px; height:28px; display:grid; place-items:center; opacity:.8; }
 .search svg{ width:20px; height:20px; }

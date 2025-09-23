@@ -1,46 +1,39 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!Doctype html>
-<html>
-<head>
-    <title>
-        <c:choose>
-            <c:when test="${not empty pageTitle}">
-                ${pageTitle}
-            </c:when>
-            <c:otherwise>
-                SynaptiX
-            </c:otherwise>
-        </c:choose>
-    </title>
-	<link rel="stylesheet" href="/css/header.css?v=3">
-</head>
-<body>
+
+
+<c:set var="active" value="${empty active_main ? 'sales' : active_main}"/>
+<c:set var="uri" value="${pageContext.request.requestURI}" />
+<link rel="stylesheet" href="/css/header.css?v=3">
+
+
+
+
 	
 	
 	<header class="nav">
 	  <div class="top">
 	    
 	    <div class="tabbar">
-		  <div class="tab ${active_main}" onclick="location.href='/home'">메인</div>
-	      <div class="tab ${active_stock}" onclick="location.href='/stock'">재고 / 유통</div>
-	      <div class="tab ${active_product}" onclick="location.href='/bom'">생산 / 제조</div>
-	      <div class="tab ${active_sales}" onclick="location.href='/sales'">영업 / 판매</div>
-	      <div class="tab ${active_purchase}" onclick="location.href='/purchase'">구매</div>
-	      <div class="tab ${active_asset}" onclick="location.href='/managereport'">경리회계</div>
-	      <div class="tab ${active_personal}" onclick="location.href='/hrm'">인사 / 급여</div>
+		  <div class="tab${active_main eq 'active' ? ' active' : ''}" onclick="location.href='/home'">메인</div>
+	      <div class="tab${active_stock eq 'active' ? ' active' : ''}" onclick="location.href='/stock'">재고 / 유통</div>
+	      <div class="tab${active_product eq 'active' ? ' active' : ''}" onclick="location.href='/bom'">생산 / 제조</div>
+	      <div class="tab${active_sales eq 'active' ? ' active' : ''}" onclick="location.href='/sales'">영업 / 판매</div>
+	      <div class="tab${active_purchase eq 'active' ? ' active' : ''}" onclick="location.href='/purchase'">구매</div>
+	      <div class="tab${active_asset eq 'active' ? ' active' : ''}" onclick="location.href='/managereport'">경리회계</div>
+	      <div class="tab${active_personal eq 'active' ? ' active' : ''}" onclick="location.href='/hrm'">인사 / 급여</div>
 	    </div>
 	  </div>
 
 	  <div class="subtabs">
 		<c:if test="${not empty active_main}">
-		    <a class="link active" href="#">매출현황</a>
-		    <a class="link" href="#">비용현황</a>
-		    <a class="link" href="#">재고현황</a>
-		    <a class="link" href="#">생산현황</a>
-		    <a class="link" href="#">인사/급여현황</a>
-		    <a class="link" href="#">알림영역</a>
+			<a class="link ${active_main eq 'sales' ? 'active' : ''}" href="<c:url value='/home'/>">매출현황</a>
+			  <a class="link ${active_main eq 'costs' ? 'active' : ''}" href="<c:url value='/home/costs'/>">비용현황</a>
+			  <a class="link ${active_main eq 'stock' ? 'active' : ''}" href="<c:url value='/home/stock'/>">재고현황</a>
+			  <a class="link ${active_main eq 'production' ? 'active' : ''}" href="<c:url value='/home/production'/>">생산현황</a>
+			  <a class="link ${active_main eq 'hr' ? 'active' : ''}" href="<c:url value='/home/hr'/>">인사/급여현황</a>
+			  <a class="link ${active_main eq 'alert' ? 'active' : ''}" href="<c:url value='/home/alert'/>">알림영역</a>
 		</c:if>
 		<c:if test="${not empty active_stock}">
 			<a class="link active" href="/stock">재고</a>

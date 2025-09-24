@@ -45,16 +45,15 @@ request.setAttribute("active_personal", "active");
       </tr>
     </thead>
     <tbody>
-      <!-- 컨트롤러에서 employees(List<EmployeeDTO>)를 내려준다고 가정 -->
       <c:forEach var="emp" items="${employees}">
         <tr>
-          <td>${emp.empNo}</td>
+          <td>${emp.userId}</td>
           <td>${emp.name}</td>
           <td><fmt:formatDate value="${emp.birth}" pattern="yyyy-MM-dd"/></td>
           <td>${emp.email}</td>
-          <td>${emp.deptName}</td>
-          <td>${emp.position}</td>
-          <td><fmt:formatNumber value="${emp.yearsOfService}" type="number" maxFractionDigits="0"/></td>
+          <td>${emp.dept}</td>
+          <td>${emp.rank}</td>
+          <td><fmt:formatNumber value="${emp.years}" type="number" maxFractionDigits="0"/></td>
           <td class="text-right"><fmt:formatNumber value="${emp.salary}" type="number"/></td>
         </tr>
       </c:forEach>

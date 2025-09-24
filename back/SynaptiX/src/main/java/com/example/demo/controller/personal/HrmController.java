@@ -16,8 +16,8 @@ public class HrmController {
 
     @GetMapping("/hrm")
     public String getHrmPage(Model model) {
-        java.util.List<UserDTO> users = userService.getAllUsers();
-        model.addAttribute("users", users);
+        java.util.List<UserDTO> employees = userService.getAllUsers();
+        model.addAttribute("employees", employees);
         return "personal/hrm";
     }
 }

@@ -10,6 +10,11 @@ public class PurchaseDTO {
 	private Date Date;
 	private String materialName;
 	
+	private int stock; // 구매량
+	private int price; // 단가
+	private int amount; // 구매금액
+	private Date purchaseDate; // 구매일자(매핑용)
+	
 	public PurchaseDTO() {}
 	
 	public PurchaseDTO(int pk, int materialId, Integer cost, Float purchase) {
@@ -66,5 +71,37 @@ public class PurchaseDTO {
 
 	public void setMaterialName(String materialName) {
 		this.materialName = materialName;
+	}
+
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+	public Date getPurchaseDate() {
+		return purchaseDate;
+	}
+
+	public void setPurchaseDate(Date purchaseDate) {
+		this.purchaseDate = purchaseDate;
 	}
 }

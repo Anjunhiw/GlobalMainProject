@@ -1,17 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
-
 <c:set var="active" value="${empty active_main ? 'sales' : active_main}"/>
 <c:set var="uri" value="${pageContext.request.requestURI}" />
 <link rel="stylesheet" href="/css/header.css?v=3">
 
-
-
-
-	
-	
 	<header class="nav">
 	  <div class="top">
 	    
@@ -56,7 +49,8 @@
 		</c:if>
 		<c:if test="${not empty active_asset}">
 		    <a class="link ${active_mr}" href="/managereport">경영보고서</a>
-		    <a class="link ${active_asp}" href="/assetplan">자금계획</a>
+			<a class="link ${active_control}" href="/costcon">비용지출통제</a>
+			<a class="link ${active_asp}" href="/assetplan">자금계획</a>
 		</c:if>
 		<c:if test="${not empty active_personal}">
 		    <a class="link active" href="/hrm">인사관리</a>

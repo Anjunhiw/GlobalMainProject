@@ -1,0 +1,146 @@
+:root{
+  --bg:#EBEDF9;
+  --card:#ffffff;
+  --ink:#0f172a;
+  --muted:#8a93a3;
+  --primary:#4664C9;
+  --primary-2:#6E8AF0;
+  --accent:#F6C90E;
+  --ring:rgba(72,99,221,.18);
+  --shadow:0 20px 60px rgba(17,24,39,.12);
+  --radius:22px;
+  --radius-lg:28px;
+  --ui: system-ui, -apple-system, "Pretendard", Roboto, , "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+
+/* 페이지 배경 */
+body{
+  margin:0; background:var(--bg); color:var(--ink); font-family:var(--ui);
+}
+.tab:not(.active){
+  filter:saturate(.85) brightness(.98);
+  opacity:.7;
+}
+
+.tab.active{
+  background:linear-gradient(180deg, #5b8cff, #1867dd);
+  color:#fff;
+  border-color:rgba(24,103,221,.55);
+  z-index:9;
+}
+/* 상단 네비 */
+.nav{
+  position:sticky; top:0; z-index:10;
+  backdrop-filter: blur(6px);
+  background: linear-gradient(180deg, rgba(255,255,255,.65), rgba(255,255,255,.25));
+  border-bottom: 1px solid rgba(0,0,0,.04);
+  border-bottom:none; 
+}
+.tab:nth-child(2):not(.active){ background:linear-gradient(180deg,#AFD9FF,rgb(193, 220, 255));color:#fff; }
+.tab:nth-child(3):not(.active){ background:linear-gradient(180deg,rgb(130, 176, 255),rgb(89, 168, 255)); color:#fff;}
+.tab:nth-child(4):not(.active){ background:linear-gradient(180deg,rgb(87, 158, 255),rgb(19, 119, 255));color:#fff; }
+.tab:nth-child(5):not(.active){ background:linear-gradient(180deg,rgb(0, 73, 196),rgb(0, 50, 132));color:#fff; }
+.tab:nth-child(6):not(.active){ background:linear-gradient(180deg,rgb(0, 39, 98),rgb(0, 7, 19)); color:#fff; }
+.nav .top{
+  max-width:1180px; margin:0 auto; padding:16px 20px 0;
+  display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+}
+.brand{ font-weight:800; letter-spacing:.2px; }
+
+.tabbar{
+  display:flex; gap:10px; flex-wrap:wrap; margin-left:8px;
+}
+.tab{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  height:46px;              /* 실제 탭 높이 */
+  padding:0 22px;
+  margin-left:-18px;        /* 포개기 */
+  border-radius:18px 18px 0 0;  /* 상단 둥글게 */
+  background:linear-gradient(180deg, #eaf2ff, #dbe6ff);
+  color:#6b7aa6;
+  font-weight:800;
+  font-size:14px;
+  box-shadow:
+     0 10px 22px rgba(70,100,201,.18),
+     inset 0 -1px 0 rgba(255,255,255,.8);
+  border:1px solid rgba(110,140,220,.25);
+  border-bottom:none;       /* 카드와 자연스럽게 이어지게 */
+  cursor:pointer;
+  user-select:none;
+  transition:transform .14s ease, filter .14s ease, color .14s ease, background .14s ease;
+}
+.tab.sub{
+  color:#1c2a59; background:linear-gradient(135deg, #e8eeff, #dfe7ff);
+  box-shadow:none; font-weight:700;
+}
+.tab.sub.active{
+	color:#2a3f93; 
+	border-bottom-left-radius:10px;
+	border-bottom-right-radius:10px; }
+
+/* 첫 탭은 음수 마진 제거 */
+.tab:first-child{ margin-left:0; }
+
+/* 깊이감: 겹칠 때 경계 부드럽게 */
+.tab::after{
+  content:"";
+  position:absolute; inset:auto -14px -1px -14px;
+  height:10px;
+  border-radius:0 0 16px 16px;
+  background:linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,0));
+  filter:blur(4px); opacity:.25; pointer-events:none;
+}
+
+/* 비활성 탭 색/투명도 */
+.tab:not(.active){
+  filter:saturate(.85) brightness(.98);
+  opacity:.7;
+}
+
+/* 호버 시 살짝 앞으로 */
+.tab:hover{ transform:translateY(-2px); opacity:.95; z-index:7; }
+
+.subtabs{
+  max-width:1180px; margin:10px auto 16px;
+  padding:0 20px; display:flex; align-items:center; gap:18px;
+ 
+}
+.subtabs .link{
+  position: relative;
+  padding: 10px 0;            /* 기존 여백 유지 */
+  color: #6b7280;             /* 기존 색 */
+  text-decoration: none;
+  transition: color .15s ease;
+}
+.subtabs .link.active {
+  border-bottom: 2.5px solid #2563eb;
+  color: #2563eb;
+  font-weight: 800;
+}
+.subtabs .link.active::after {
+  transform: scaleX(1);
+}
+/* 밑줄 기본 */
+.subtabs .link::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 2px;
+  background: #9db1ff;
+  transform: scaleX(0);         /* 기본은 안 보임 */
+  transform-origin: left;
+  transition: transform .18s ease;
+}
+
+.subtabs .link:hover{
+  color: #2a3f93;
+  font-weight: 800;
+}
+
+
+
+/* 검색 아이콘 */
+.search{ margin-left:auto; width:28px; height:28px; display:grid; place-items:center; opacity:.8; }
+.search svg{ width:20px; height:20px; }

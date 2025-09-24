@@ -68,22 +68,22 @@ request.setAttribute("active_earning", "active");
     </thead>
     <tbody>
       <!-- 컨트롤러: model.addAttribute("sales", list) -->
-      <c:forEach var="s" items="${sales}">
+      <c:forEach var="s" items="${earningList}">
         <tr>
-          <td>${s.prodCode}</td>
-          <td><fmt:formatDate value="${s.salesDate}" pattern="yyyy-MM-dd"/></td>
-          <td>${s.prodName}</td>
-          <td class="text-right"><fmt:formatNumber value="${s.qty}" type="number" maxFractionDigits="0" groupingUsed="true"/></td>
-          <td class="text-right"><fmt:formatNumber value="${s.salesAmount}" type="number" groupingUsed="true"/></td>
-          <td class="text-right"><fmt:formatNumber value="${s.costAmount}"  type="number" groupingUsed="true"/></td>
+          <td>${s.ProductId}</td>
+          <td><fmt:formatDate value="${s.Date}" pattern="yyyy-MM-dd"/></td>
+          <td>${s.ProductName}</td>
+          <td class="text-right"><fmt:formatNumber value="${s.Amount}" type="number" maxFractionDigits="0" groupingUsed="true"/></td>
+          <td class="text-right"><fmt:formatNumber value="${s.Price}" type="number" groupingUsed="true"/></td>
+          <td class="text-right"><fmt:formatNumber value="${s.Total}"  type="number" groupingUsed="true"/></td>
           <td class="text-right">
-            <fmt:formatNumber value="${s.salesAmount - s.costAmount}" type="number" groupingUsed="true"/>
+            <fmt:formatNumber value="${s.Earning}" type="number" groupingUsed="true"/>
           </td>
-          <td class="text-right"><fmt:formatNumber value="${s.remainStock}" type="number" maxFractionDigits="0" groupingUsed="true"/></td>
+          <td class="text-right"><fmt:formatNumber value="${s.Stock}" type="number" maxFractionDigits="0" groupingUsed="true"/></td>
         </tr>
       </c:forEach>
 
-      <c:if test="${empty sales}">
+      <c:if test="${empty earningList}">
         <tr><td colspan="8" style="text-align:center;">매출 데이터가 없습니다.</td></tr>
       </c:if>
     </tbody>

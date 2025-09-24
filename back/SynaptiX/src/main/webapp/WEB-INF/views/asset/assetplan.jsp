@@ -52,7 +52,7 @@ request.setAttribute("active_asp", "active");
           <td class="text-right"><fmt:formatNumber value="${plan.expectedProfit}" type="number"/></td>
         </tr>
       </c:forEach>
-      <c:if test="${empty planList}">
+      <c:if test="${empty assetPlans}">
         <tr><td colspan="5" style="text-align:center;">자금계획 데이터가 없습니다.</td></tr>
       </c:if>
     </tbody>

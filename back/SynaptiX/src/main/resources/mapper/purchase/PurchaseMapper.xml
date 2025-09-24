@@ -3,11 +3,15 @@
 <mapper namespace="com.example.demo.mapper.purchase.PurchaseMapper">
     <select id="selectAllPurchases" resultType="com.example.demo.model.PurchaseDTO">
         SELECT
+        	p.pk,
             p.MaterialId AS MaterialId,
             p.Cost AS Cost,
             p.Purchase AS Purchase,
             p.Date AS Date,
-            m.Name AS materialName
+            m.Name AS materialName,
+            m.Price,
+            m.Stock,
+            m.Amount
         FROM purchase p
         INNER JOIN material m ON p.MaterialId = m.pk
     </select>

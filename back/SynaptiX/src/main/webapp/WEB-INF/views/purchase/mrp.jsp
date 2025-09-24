@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 request.setAttribute("pageTitle", "MRP");
 request.setAttribute("active_purchase", "active");
@@ -63,20 +64,20 @@ request.setAttribute("active_mrp", "active");
     <tbody>
       <!-- mrps: 서버에서 내려주는 리스트 -->
       <!-- 예시 DTO 필드: productName, materialName, requiredQty, currentStock, shortageQty, planDate -->
-      <c:forEach var="m" items="${mrps}">
+      <c:forEach var="m" items="${mrpList}">
         <tr>
-          <td>${m.productName}</td>
-          <td>${m.materialName}</td>
-          <td class="text-right"><fmt:formatNumber value="${m.requiredQty}" type="number" maxFractionDigits="0"/></td>
-          <td class="text-right"><fmt:formatNumber value="${m.currentStock}" type="number" maxFractionDigits="0"/></td>
+          <td>${m.ProductName}</td>
+          <td>${m.MaterialName}</td>
+          <td class="text-right"><fmt:formatNumber value="${m.RequiredQuantity}" type="number" maxFractionDigits="0"/></td>
+          <td class="text-right"><fmt:formatNumber value="${m.StockQuantity}" type="number" maxFractionDigits="0"/></td>
           <td class="text-right">
-            <fmt:formatNumber value="${m.shortageQty}" type="number" maxFractionDigits="0"/>
+            <fmt:formatNumber value="${m.Shortage}" type="number" maxFractionDigits="0"/>
           </td>
-          <td><fmt:formatDate value="${m.planDate}" pattern="yyyy-MM-dd"/></td>
+          <td><fmt:formatDate value="${m.ProductionPlan}" pattern="yyyy-MM-dd"/></td>
         </tr>
       </c:forEach>
 
-      <c:if test="${empty mrps}">
+      <c:if test="${empty mrpList}">
         <tr><td colspan="6" style="text-align:center;">표시할 MRP 데이터가 없습니다.</td></tr>
       </c:if>
     </tbody>

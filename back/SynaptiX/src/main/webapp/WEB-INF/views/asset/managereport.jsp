@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 request.setAttribute("pageTitle", "경영보고서");
 request.setAttribute("active_asset", "active");
@@ -35,13 +37,11 @@ request.setAttribute("active_mr", "active");
       </tr>
     </thead>
     <tbody>
-      <c:forEach var="f" items="${funds}">
         <tr>
-          <td class="text-right"><fmt:formatNumber value="${f.total}" type="number" /></td>
-          <td class="text-right"><fmt:formatNumber value="${f.current}" type="number" /></td>
+          <td class="text-right"><fmt:formatNumber value="${asset.totalAssets}" type="number" /></td>
+          <td class="text-right"><fmt:formatNumber value="${asset.currentAssets}" type="number" /></td>
         </tr>
-      </c:forEach>
-      <c:if test="${empty funds}">
+      <c:if test="${empty asset}">
         <tr><td colspan="2" style="text-align:center;">자금 데이터가 없습니다.</td></tr>
       </c:if>
     </tbody>
@@ -57,13 +57,11 @@ request.setAttribute("active_mr", "active");
       </tr>
     </thead>
     <tbody>
-      <c:forEach var="p" items="${profits}">
         <tr>
-          <td class="text-right"><fmt:formatNumber value="${p.sales}" type="number" /></td>
-          <td class="text-right"><fmt:formatNumber value="${p.purchases}" type="number" /></td>
+          <td class="text-right"><fmt:formatNumber value="${asset.totalEarning}" type="number" /></td>
+          <td class="text-right"><fmt:formatNumber value="${asset.totalCost}" type="number" /></td>
         </tr>
-      </c:forEach>
-      <c:if test="${empty profits}">
+      <c:if test="${empty asset}">
         <tr><td colspan="2" style="text-align:center;">수익/비용 데이터가 없습니다.</td></tr>
       </c:if>
     </tbody>

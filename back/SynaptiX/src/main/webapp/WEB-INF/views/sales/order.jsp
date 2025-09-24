@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 request.setAttribute("pageTitle", "주문관리");
 request.setAttribute("active_sales", "active");
@@ -66,28 +67,20 @@ request.setAttribute("active_order", "active");
     </thead>
     <tbody>
       <!-- 컨트롤러: model.addAttribute("orders", list); -->
-      <c:forEach var="o" items="${orders}">
+      <c:forEach var="o" items="${orderList}">
         <tr>
           <td>${o.orderNo}</td>
           <td><fmt:formatDate value="${o.orderDate}" pattern="yyyy-MM-dd"/></td>
-          <td>${o.prodCode}</td>
+          <td>prod2025<c:choose><c:when test="${o.prodCode lt 10}">0${o.prodCode}</c:when><c:otherwise>${o.prodCode}</c:otherwise></c:choose></td>
           <td>${o.prodName}</td>
           <td class="text-right"><fmt:formatNumber value="${o.qty}" type="number" maxFractionDigits="0" groupingUsed="true"/></td>
           <td class="text-right"><fmt:formatNumber value="${o.unitPrice}" type="number" groupingUsed="true"/></td>
           <td class="text-right"><fmt:formatNumber value="${o.amount}" type="number" groupingUsed="true"/></td>
-          <td>
-            <c:choose>
-              <c:when test="${o.status == 'REQUESTED'}">접수</c:when>
-              <c:when test="${o.status == 'CONFIRMED'}">확정</c:when>
-              <c:when test="${o.status == 'SHIPPED'}">출고</c:when>
-              <c:when test="${o.status == 'CANCELLED'}">취소</c:when>
-              <c:otherwise>${o.status}</c:otherwise>
-            </c:choose>
-          </td>
+          <td>${o.status}</td>
         </tr>
       </c:forEach>
 
-      <c:if test="${empty orders}">
+      <c:if test="${empty orderList}">
         <tr><td colspan="8" style="text-align:center;">주문 데이터가 없습니다.</td></tr>
       </c:if>
     </tbody>

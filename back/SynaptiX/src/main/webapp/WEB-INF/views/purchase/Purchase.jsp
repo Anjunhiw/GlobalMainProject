@@ -50,29 +50,31 @@ request.setAttribute("active_pch", "active");
   <table class="table">
     <thead>
       <tr>
-        <th>출고번호</th>
-        <th>출고일</th>
-        <th>제품코드</th>
-        <th>제품명</th>
+        <th>구매번호</th>
+        <th>원자재명</th>
         <th>단가</th>
-        <th>금액</th>
-        <th>출고상태</th>
+        <th>구매량</th>
+        <th>구매금액</th>
+        <th>입고일</th>
+        <th>재고량</th>
+		<th>재고금액</th>
       </tr>
     </thead>
     <tbody>
-      <c:forEach var="p" items="${purchases}">
+      <c:forEach var="p" items="${purchaseList}">
         <tr>
-          <td>${p.outNo}</td>
-          <td><fmt:formatDate value="${p.outDate}" pattern="yyyy-MM-dd"/></td>
-          <td>${p.prodCode}</td>
-          <td>${p.prodName}</td>
-          <td class="text-right"><fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/></td>
-          <td class="text-right"><fmt:formatNumber value="${p.amount}" type="number" groupingUsed="true"/></td>
-          <td>${p.status}</td>
+          <td>${p.pk}</td>
+          <td>${p.materialName}</td>
+          <td><fmt:formatNumber value="${p.price}"/></td>
+          <td class="text-right"><fmt:formatNumber value="${p.purchase}" type="number" groupingUsed="true"/></td>
+          <td class="text-right"><fmt:formatNumber value="${p.cost}" type="number" groupingUsed="true"/></td>
+		  <td><fmt:formatDate value="${p.date}" pattern="yyyy-MM-dd"/></td>
+		  <td><fmt:formatNumber value="${p.stock}" type="number" groupingUsed="true"/></td>
+		  <td><fmt:formatNumber value="${p.amount}" type="number" groupingUsed="true"/></td>
         </tr>
       </c:forEach>
 
-      <c:if test="${empty purchases}">
+      <c:if test="${empty purchaseList}">
         <tr><td colspan="7" style="text-align:center;">입고 데이터가 없습니다.</td></tr>
       </c:if>
     </tbody>

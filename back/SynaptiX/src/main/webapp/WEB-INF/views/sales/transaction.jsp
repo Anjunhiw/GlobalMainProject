@@ -51,7 +51,7 @@ request.setAttribute("active_transaction", "active");
         <th>제품명</th>
         <th>수량</th>
         <th>단가</th>
-        <th>금액</th>
+		<th>금액</th>
         <th>판매수익</th>
       </tr>
     </thead>
@@ -61,10 +61,10 @@ request.setAttribute("active_transaction", "active");
         <tr>
           <td><fmt:formatDate value="${row.Date}" pattern="yyyyMM"/>-${row.pk}</td>
           <td><fmt:formatDate value="${row.Date}" pattern="yyyy-MM-dd"/></td>
-          <td>${row.productId}</td>
+          <td>prod2025<c:choose><c:when test="${row.ProductId lt 10}">0${row.ProductId}</c:when><c:otherwise>${row.ProductId}</c:otherwise></c:choose></td>
           <td>${row.prodName}</td>
           <td class="text-right">
-            <fmt:formatNumber value="${row.qty}" type="number" maxFractionDigits="0" groupingUsed="true"/>
+            <fmt:formatNumber value="${row.Sales}" type="number" maxFractionDigits="0" groupingUsed="true"/>
           </td>
           <td class="text-right">
             <fmt:formatNumber value="${row.unitPrice}" type="number" groupingUsed="true"/>
@@ -73,7 +73,7 @@ request.setAttribute("active_transaction", "active");
             <fmt:formatNumber value="${row.amount}" type="number" groupingUsed="true"/>
           </td>
           <td class="text-right">
-            <fmt:formatNumber value="${row.profit}" type="number" groupingUsed="true"/>
+            <fmt:formatNumber value="${row.Earning}" type="number" groupingUsed="true"/>
           </td>
         </tr>
       </c:forEach>

@@ -1,4 +1,9 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<link rel="stylesheet" href="<c:url value='/css/pfofile.css?v=1'/>">
+
 <div id="profile-modal">
   <div class="modal-content">
     <span id="btn-profile-close" class="close">&times;</span>

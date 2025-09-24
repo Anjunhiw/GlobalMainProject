@@ -66,53 +66,87 @@ request.setAttribute("active_stl", "active");
   </div>
 
   <!-- 등록 모달 -->
-  <div id="registerModal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="registerModalTitle">
+  <div id="registerModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="registerModalTitle">
     <div class="modal-content">
       <span class="close" onclick="closeRegisterModal()" aria-label="닫기">&times;</span>
-      <h3 id="registerModalTitle">원자재/제품 등록</h3>
-      <form id="registerForm">
-        <div class="field">
-          <label>카테고리</label>
-          <select id="regCategory" name="category" required onchange="toggleRegisterFields()">
-            <option value="material">원자재</option>
-            <option value="product">제품</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>품목명</label>
-          <input type="text" id="regName" name="name" required>
-        </div>
-        <div class="field product-only" style="display:none;">
-          <label>모델명</label>
-          <input type="text" id="regModel" name="model">
-        </div>
-        <div class="field">
-          <label>규격</label>
-          <input type="text" id="regSpec" name="specification">
-        </div>
-        <div class="field material-only">
-          <label>단위</label>
-          <input type="text" id="regUnit" name="unit">
-        </div>
-        <div class="field">
-          <label>단가</label>
-          <input type="number" id="regPrice" name="price" required>
-        </div>
-        <div class="field">
-          <label>재고수량</label>
-          <input type="number" id="regStock" name="stock" min="0" value="0" required>
-        </div>
-        <div class="field">
-          <label>재고금액</label>
-          <input type="number" id="regAmount" name="amount" min="0" value="0" required>
-        </div>
-        <div class="btn-group">
-          <button type="button" class="btn btn-success" onclick="submitRegister()">저장</button>
-          <button type="button" class="btn btn-secondary" onclick="closeRegisterModal()">취소</button>
-        </div>
-      </form>
-    </div>
-  </div>
+	  
+	   <h3 id="registerModalTitle">품목등록</h3>
+
+	      <form id="registerForm" class="form-rows">
+	        
+	        <div class="field">
+	          <label for="regCategory" class="label">품목등록</label>
+	          <div class="control">
+	            <select id="regCategory" name="category" required onchange="toggleRegisterFields()">
+	              <option value="material">원자재</option>
+	              <option value="product">제품</option>
+	            </select>
+	          </div>
+	        </div>
+
+			<div class="field">
+			     <label for="regName" class="label">품목명</label>
+			     <div class="control">
+			       <input type="text" id="regName" name="name" required />
+			     </div>
+			   </div>
+			
+	        <!-- 제품에서만 보이는 모델명 -->
+	        <div class="field product-only" style="display:none;">
+	          <label for="regModel" class="label">모델명</label>
+	          <div class="control">
+	            <input type="text" id="regModel" name="model" />
+	          </div>
+	        </div>
+
+	
+	        <!-- 공통 -->
+	        <div class="field">
+	          <label for="regSpec" class="label">규격</label>
+	          <div class="control">
+	            <input type="text" id="regSpec" name="specification" />
+	          </div>
+	        </div>
+				
+	
+			
+			
+	        <!-- 원자재에서만 보이는 단위 -->
+	        <div class="field material-only">
+	          <label for="regUnit" class="label">단위</label>
+	          <div class="control narrow">
+	            <input type="text" id="regUnit" name="unit" />
+	          </div>
+	        </div>
+
+	        <div class="field">
+	          <label for="regPrice" class="label">단가</label>
+	          <div class="control narrow">
+	            <input type="number" id="regPrice" name="price" required />
+	          </div>
+	        </div>
+
+	        <div class="field">
+	          <label for="regStock" class="label">재고수량</label>
+	          <div class="control narrow">
+	            <input type="number" id="regStock" name="stock" min="0" value="0" required />
+	          </div>
+	        </div>
+
+	        <div class="field">
+	          <label for="regAmount" class="label">재고금액</label>
+	          <div class="control">
+	            <input type="number" id="regAmount" name="amount" min="0" value="0" />
+	          </div>
+	        </div>
+
+	        <!-- 버튼 영역: 가운데, 초록색 알약 버튼 -->
+	        <div class="actions">
+	          <button type="button" class="btn-pill" onclick="submitRegister()">등록</button>
+	        </div>
+	      </form>
+	    </div>
+	  </div>
 
   <h2>원자재 재고 목록</h2>
   <table>

@@ -19,6 +19,13 @@ h2 {
   font-weight: 700;
 }
 
+h3 {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
 /* =========== 상단 필터 바 =========== */
 .filters{
   display:flex; flex-wrap:wrap; align-items:flex-end; gap:24px;
@@ -109,8 +116,16 @@ th{background:#eef3ff; color:#0f2d71; font-weight:800}
 td.empty{padding:28px 12px; color:#8a94a7; font-weight:600; background:#fafbff}
 
 /* 모달(사용 중이면 유지) */
-.modal{display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:1000}
-.modal-content{background:#fff; margin:8vh auto; padding:20px; border-radius:12px; width:80%; max-width:1000px}
+.modal{display:none;
+	 position:fixed; inset:0; 
+	 background:rgba(0,0,0,.5); z-index:1000
+ }
+.modal-content{background:#fff; 
+	margin:8vh auto; padding:20px; 
+	border-radius:12px; width:80%; 
+	max-width:700px;
+
+}
 .close{float:right; font-size:26px; font-weight:800; cursor:pointer}
 
 
@@ -149,104 +164,99 @@ form#searchForm button:hover {
   background: #27ae60;
 }
 
-/* --- Modal (팝업) 스타일 --- */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: auto;
-  background: rgba(0,0,0,0.35);
-  transition: background 0.2s;
+* 모달 박스 살짝 컴팩트하게 */
+.modal-content.modal-compact{
+  max-width: 520px;
+  padding: 25px 24px 32px;
+  
 }
-.modal-content {
-  background: #c6ccfa;
-  margin: 60px auto;
-  padding: 32px 28px 24px 28px;
-  border-radius: 12px;
-  max-width: 800px;
-  min-width: 320px;
-  box-shadow: 0 4px 32px rgba(0,0,0,0.18);
-  position: relative;
-  font-family: inherit;
-}
-.modal-content h3 {
-  margin-top: 0;
-  margin-bottom: 18px;
-  font-size: 1.25rem;
+
+
+.modal-content h3{
+  font-size: 22px;
+  font-weight: 700;
   color: #222;
-  font-weight: 600;
-  letter-spacing: -1px;
+  margin: 8px 0 22px;
+  text-align: center;
 }
-.modal .close {
-  position: absolute;
-  right: 18px;
-  top: 16px;
-  font-size: 1.5rem;
-  color: #888;
-  cursor: pointer;
-  transition: color 0.2s;
+
+#registerForm.form-rows {
+   max-width: 480px;
+    margin: 0 auto;
 }
-.modal .close:hover {
-  color: #e74c3c;
+
+#registerForm.form-rows .field{
+  display: grid;
+  grid-template-columns: 110px 1fr; /* 라벨 110px, 입력 나머지 */
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+  padding:  16px;
+  
 }
-#registerForm .field {
-  margin-bottom: 16px;
-  display: flex;
-  flex-direction: column;
+
+#registerForm.form-rows .label{
+  font-size: 16px;
+  color: #7a7f8a;
+  text-align: right;
 }
-#registerForm label {
-  font-size: 0.98rem;
-  color: #333;
-  margin-bottom: 5px;
-  font-weight: 500;
+
+#registerForm.form-rows .control input,
+#registerForm.form-rows .control select{
+  width: 250px;
+  height: 40px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #f8fafc;
+  padding: 0 12px;
+  font-size: 14px;
+  transition: border-color .15s ease, background .15s ease;
 }
-#registerForm input,
-#registerForm select {
-  padding: 7px 10px;
-  border: 1px solid #cfd8dc;
-  border-radius: 5px;
-  font-size: 1rem;
-  background: #fafbfc;
-  transition: border 0.2s;
-}
-#registerForm input:focus,
-#registerForm select:focus {
-  border: 1.5px solid #4a90e2;
+#registerForm.form-rows .control input:focus,
+#registerForm.form-rows .control select:focus{
   outline: none;
+  border-color: #b9d0ff;
+  background: #fff;
 }
-#registerForm .btn-group {
+
+/* 스샷처럼 좁은 입력 필드(단위/단가/재고수량) */
+#registerForm.form-rows .control.narrow input{
+  width: 140px;
+}
+
+/* 버튼 영역: 가운데 정렬 */
+#registerForm.form-rows .actions{
   display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-  margin-top: 10px;
+  justify-content: center;
+  margin-top: 25px;	
+  margin-bottom: 5px;
+  
 }
-#registerForm .btn {
-  padding: 7px 18px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-}
-#registerForm .btn-success {
-  background: #4a90e2;
+
+/* 초록 알약 버튼 */
+#registerForm.form-rows .btn-pill{
+  min-width: 120px;
+  height: 44px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 999px;
+  background: #137c46;     /* 진한 초록 */
   color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: .3px;
+  cursor: pointer;
+  box-shadow: 0 5px 14px rgba(19,124,70,.25);
+  transition: transform .04s ease, box-shadow .15s ease, background .15s ease;
 }
-#registerForm .btn-success:hover {
-  background: #357abd;
+#registerForm.form-rows .btn-pill:hover{
+  background: #0f6a3b;
+  box-shadow: 0 6px 18px rgba(19,124,70,.32);
 }
-#registerForm .btn-secondary {
-  background: #e0e0e0;
-  color: #333;
+#registerForm.form-rows .btn-pill:active{
+  transform: translateY(1px);
 }
-#registerForm .btn-secondary:hover {
-  background: #bdbdbd;
-}
+
 @media (max-width: 600px) {
   .modal-content {
     max-width: 98vw;

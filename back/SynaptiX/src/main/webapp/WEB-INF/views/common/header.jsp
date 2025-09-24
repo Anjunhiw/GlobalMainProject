@@ -21,12 +21,12 @@
 
 	  <div class="subtabs">
 		<c:if test="${not empty active_main}">
-			<a class="link ${active_main eq 'sales' ? 'active' : ''}" href="<c:url value='/home'/>">매출현황</a>
-			  <a class="link ${active_main eq 'costs' ? 'active' : ''}" href="<c:url value='/home/costs'/>">비용현황</a>
-			  <a class="link ${active_main eq 'stock' ? 'active' : ''}" href="<c:url value='/home/stock'/>">재고현황</a>
-			  <a class="link ${active_main eq 'production' ? 'active' : ''}" href="<c:url value='/home/production'/>">생산현황</a>
-			  <a class="link ${active_main eq 'hr' ? 'active' : ''}" href="<c:url value='/home/hr'/>">인사/급여현황</a>
-			  <a class="link ${active_main eq 'alert' ? 'active' : ''}" href="<c:url value='/home/alert'/>">알림영역</a>
+			<a class="link ${active_mains eq 'sales' ? 'active' : ''}" href="<c:url value='/home'/>">매출현황</a>
+			  <a class="link ${active_mains eq 'costs' ? 'active' : ''}" href="<c:url value='/home/costs'/>">비용현황</a>
+			  <a class="link ${active_mains eq 'stock' ? 'active' : ''}" href="<c:url value='/home/stock'/>">재고현황</a>
+			  <a class="link ${active_mains eq 'production' ? 'active' : ''}" href="<c:url value='/home/production'/>">생산현황</a>
+			  <a class="link ${active_mains eq 'hr' ? 'active' : ''}" href="<c:url value='/home/hr'/>">인사/급여현황</a>
+			  <a class="link ${active_mains eq 'alert' ? 'active' : ''}" href="<c:url value='/home/alert'/>">알림영역</a>
 		</c:if>
 		<c:if test="${not empty active_stock}">
 			<a class="link ${active_stl}" href="/stock">재고</a>

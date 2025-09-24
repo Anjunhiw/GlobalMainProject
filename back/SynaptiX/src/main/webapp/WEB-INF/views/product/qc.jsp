@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.util.Date, java.text.SimpleDateFormat" %>
 <%
 request.setAttribute("pageTitle", "QC");
 request.setAttribute("active_product", "active");
@@ -60,16 +62,13 @@ request.setAttribute("active_qc", "active");
     </thead>
     <tbody>
       <!-- 컨트롤러에서 model.addAttribute("qcList", 리스트) 로 전달 -->
-      <c:forEach var="qc" items="${qcList}">
+      <c:forEach var="qc" items="${list}">
         <tr>
-          <td>${qc.prodCode}</td>
-          <td>${qc.prodName}</td>
+          <td>prod2025<c:choose><c:when test="${qc.code lt 10}">0${qc.code}</c:when><c:otherwise>${qc.code}</c:otherwise></c:choose></td>
+          <td>${qc.name}</td>
           <td>${qc.model}</td>
-          <td>${qc.specification}</td>
-          <td>
-            <fmt:formatDate value="${qc.inspectedAt}" pattern="yyyy-MM-dd"/>
-          </td>
-          <td>${qc.inspector}</td>
+		  <td>${qc.specification}</td>
+          <td><fmt:formatDate value="${qc.period}" pattern="yyyy-MM-dd"/></td>
           <td>
             <c:choose>
               <c:when test="${qc.passed}">합격</c:when>
@@ -79,7 +78,7 @@ request.setAttribute("active_qc", "active");
         </tr>
       </c:forEach>
 
-      <c:if test="${empty qcList}">
+      <c:if test="${empty list}">
         <tr>
           <td colspan="6" style="text-align:center;">QC 검사 데이터가 없습니다.</td>
         </tr>

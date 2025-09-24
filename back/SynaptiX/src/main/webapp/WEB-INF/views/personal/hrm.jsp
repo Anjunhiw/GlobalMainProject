@@ -49,7 +49,7 @@ request.setAttribute("active_personal", "active");
         <tr>
           <td>${emp.userId}</td>
           <td>${emp.name}</td>
-          <td><fmt:formatDate value="${emp.birth}" pattern="yyyy-MM-dd"/></td>
+          <td>"${emp.birth}"</td>
           <td>${emp.email}</td>
           <td>${emp.dept}</td>
           <td>${emp.rank}</td>

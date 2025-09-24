@@ -47,10 +47,6 @@ request.setAttribute("active_stl", "active");
 	  <label>이름</label>
 	  <div class="input-with-btn">
 	    <input type="text" id="searchName" name="name" placeholder="이름 입력">
-<<<<<<< Updated upstream
-	   
-=======
->>>>>>> Stashed changes
 	  </div>
 	</div>
     <div class="btn-group">

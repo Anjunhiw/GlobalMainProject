@@ -5,18 +5,18 @@
 <mapper namespace="com.example.demo.mapper.stock.ProfitMapper">
     <select id="selectProfitList" resultType="map">
         SELECT
-            CONCAT('prod2025', p.pk) AS item_code,
-            p.Name AS item_name,
-            td.Sales AS sales_qty,
-            p.Price AS sales_unit_price,
-            td.Earning AS sales_amount,
-            m.Price AS cost_unit_price,
-            pu.Cost AS cost_amount,
-            (p.Price - m.Price) AS profit_unit_price,
-            (td.Earning - pu.Cost) AS profit_amount,
+            CONCAT('prod2025', p.pk) AS code,
+            p.Name AS name,
+            td.Sales AS salesQty,
+            p.Price AS salesPrice,
+            td.Earning AS salesAmount,
+            m.Price AS costPrice,
+            pu.Cost AS costAmount,
+            (p.Price - m.Price) AS profitUnit,
+            (td.Earning - pu.Cost) AS profitAmount,
             CASE WHEN td.Earning = 0 THEN 0
                  ELSE ROUND((td.Earning - pu.Cost) / td.Earning * 100, 2)
-            END AS profit_rate
+            END AS profitRate
         FROM transaction_details td
         JOIN purchase pu
             ON td.Date = pu.Date

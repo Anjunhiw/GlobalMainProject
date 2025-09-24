@@ -9,6 +9,7 @@ public class MPSDTO {
 	private Date Period;
 	private Float Volume;
 	private String productName;
+	private Float price;
 	
 	public MPSDTO() {}
 	
@@ -59,5 +60,13 @@ public class MPSDTO {
 
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+
+	public Float getPrice() {
+		return price;
+	}
+
+	public void setPrice(Float price) {
+		this.price = price;
 	}
 }

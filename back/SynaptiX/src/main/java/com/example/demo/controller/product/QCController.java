@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class QCController {
     @Autowired
     private QCService qcService;
-
+    
     @GetMapping("")
     public String showQC(Model model) {
         model.addAttribute("list", qcService.getAllQC());

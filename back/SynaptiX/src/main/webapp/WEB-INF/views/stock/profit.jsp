@@ -80,7 +80,7 @@ request.setAttribute("active_profit", "active");
           <td><fmt:formatNumber value="${item.costAmount}" /></td>
           <td><fmt:formatNumber value="${item.profitUnit}" /></td>
           <td><fmt:formatNumber value="${item.profitAmount}" /></td>
-          <td><fmt:formatNumber value="${item.profitRate}" type="percent" /></td>
+          <td><fmt:formatNumber value="${item.profitRate}" />%</td>
         </tr>
       </c:forEach>
       <c:if test="${empty profitList}">

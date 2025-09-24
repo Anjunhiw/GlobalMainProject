@@ -10,6 +10,9 @@ request.setAttribute("active_sale", "active");
 <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
 
+<jsp:useBean id="now" class="java.util.Date"/>
+<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
+
 <body>
 
   <h2>판매/출고</h2>
@@ -63,24 +66,30 @@ request.setAttribute("active_sale", "active");
       </tr>
     </thead>
     <tbody>
-      <!-- 컨트롤러에서 shipments 리스트를 내려주세요 -->
-      <c:forEach var="row" items="${shipments}">
+      <c:forEach var="row" items="${salesList}">
+        <fmt:formatDate value="${row.saleDate}" pattern="yyyy-MM-dd" var="saleDateStr"/>
         <tr>
-          <td>${row.shipNo}</td>
-          <td><fmt:formatDate value="${row.shipDate}" pattern="yyyy-MM-dd"/></td>
-          <td>${row.prodCode}</td>
-          <td>${row.prodName}</td>
+          <td>${row.pk}</td>
+          <td><fmt:formatDate value="${row.saleDate}" pattern="yyyy-MM-dd"/></td>
+          <td>prod2025<c:choose><c:when test="${row.productId lt 10}">0${row.productId}</c:when><c:otherwise>${row.productId}</c:otherwise></c:choose></td>
+          <td>${row.productName}</td>
           <td class="text-right">
-            <fmt:formatNumber value="${row.unitPrice}" type="number" groupingUsed="true"/>
+            <fmt:formatNumber value="${row.quantity}" type="number" groupingUsed="true"/>
           </td>
+		  <td><fmt:formatNumber value="${row.price}" type="number" groupingUsed="true"/></td>
           <td class="text-right">
-            <fmt:formatNumber value="${row.amount}" type="number" groupingUsed="true"/>
+            <fmt:formatNumber value="${row.earning}" type="number" groupingUsed="true"/>
           </td>
-          <td>${row.status}</td> <!-- 예: '출고완료', '부분출고', '대기' -->
+          <td>
+            <c:choose>
+              <c:when test="${saleDateStr lt today}">출고완료</c:when>
+              <c:otherwise>출고준비</c:otherwise>
+            </c:choose>
+          </td>
         </tr>
       </c:forEach>
 
-      <c:if test="${empty shipments}">
+      <c:if test="${empty salesList}">
         <tr>
           <td colspan="8" style="text-align:center;">판매/출고 데이터가 없습니다.</td>
         </tr>

@@ -57,11 +57,11 @@ request.setAttribute("active_transaction", "active");
     </thead>
     <tbody>
       <!-- 컨트롤러에서 statements 리스트를 내려주세요 -->
-      <c:forEach var="row" items="${statements}">
+      <c:forEach var="row" items="${transactionList}">
         <tr>
-          <td>${row.statementNo}</td>
-          <td><fmt:formatDate value="${row.txDate}" pattern="yyyy-MM-dd"/></td>
-          <td>${row.prodCode}</td>
+          <td><fmt:formatDate value="${row.Date}" pattern="yyyyMM"/>-${row.pk}</td>
+          <td><fmt:formatDate value="${row.Date}" pattern="yyyy-MM-dd"/></td>
+          <td>${row.productId}</td>
           <td>${row.prodName}</td>
           <td class="text-right">
             <fmt:formatNumber value="${row.qty}" type="number" maxFractionDigits="0" groupingUsed="true"/>
@@ -78,7 +78,7 @@ request.setAttribute("active_transaction", "active");
         </tr>
       </c:forEach>
 
-      <c:if test="${empty statements}">
+      <c:if test="${empty transactionList}">
         <tr>
           <td colspan="8" style="text-align:center;">거래명세서 데이터가 없습니다.</td>
         </tr>

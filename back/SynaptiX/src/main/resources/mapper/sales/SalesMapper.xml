@@ -3,11 +3,13 @@
 <mapper namespace="com.example.demo.mapper.sales.SalesMapper">
     <select id="selectAllSales" resultType="com.example.demo.model.Sales">
         SELECT
+            td.pk AS pk,
             td.Date AS saleDate,
             td.ProductId AS productId,
             p.Name AS productName,
             td.Sales AS quantity,
-            td.Earning AS amount
+            td.Earning AS earning,
+            p.price AS price
         FROM `transaction_details` td
         INNER JOIN product p ON td.ProductId = p.pk
     </select>

@@ -31,7 +31,30 @@ public class HomeController {
     @GetMapping("/costs")
     public String costs(Model model, HttpSession session){
         model.addAttribute("active_main", "costs"); // ✅ 비용 탭 활성화
-        return "main/Home";
+        return "main/costs";
     }
-   
+
+    @GetMapping("/stock")
+    public String stock(Model model, HttpSession session) {
+        model.addAttribute("active_main", "stock");
+        return "main/stock";
+    }
+
+    @GetMapping("/production")
+    public String production(Model model, HttpSession session) {
+        model.addAttribute("active_main", "production");
+        return "main/production";
+    }
+
+    @GetMapping("/hr")
+    public String hr(Model model, HttpSession session) {
+        model.addAttribute("active_main", "hr");
+        return "main/hr";
+    }
+
+    @GetMapping("/alert")
+    public String alert(Model model, HttpSession session) {
+        model.addAttribute("active_main", "alert");
+        return "main/alert";
+    }
 }

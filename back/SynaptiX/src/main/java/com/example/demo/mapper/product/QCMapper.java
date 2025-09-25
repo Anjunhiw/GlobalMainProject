@@ -8,4 +8,5 @@ import java.util.List;
 public interface QCMapper {
     List<QCDTO> selectAllQC();
     void insertQC(QCDTO qcDTO);
+    List<QCDTO> searchQC(String dateFrom, String dateTo, String prodName, String category);
 }

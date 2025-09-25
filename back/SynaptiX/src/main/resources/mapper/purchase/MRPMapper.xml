@@ -9,6 +9,7 @@
           m.Stock AS StockQuantity,
           mrp.Requirement AS RequiredQuantity,
           mrp.Date AS ProductionPlan,
+          (mrp.Requirement - m.Stock) AS Shortage,
           mrp.MRPStatus
         FROM mrp
         LEFT JOIN product p ON mrp.ProductId = p.pk

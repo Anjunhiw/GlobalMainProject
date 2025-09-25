@@ -18,4 +18,12 @@ public class MPSService {
     public void addMPS(MPSDTO mpsDTO) {
         mpsMapper.insertMPS(mpsDTO);
     }
+
+    public void updateMPS(MPSDTO mpsDTO) {
+        mpsMapper.updateMPS(mpsDTO);
+    }
+
+    public List<MPSDTO> searchMPS(String prodCode, String prodName) {
+        return mpsMapper.searchMPS(prodCode, prodName);
+    }
 }

@@ -34,4 +34,8 @@ public class BOMService {
     public void updateBOM(BOMDTO bomDTO) {
         bomMapper.updateBOM(bomDTO);
     }
+
+    public List<BOMDTO> searchBOM(String code, String name, String category, String model, String materialName) {
+        return bomMapper.searchBOM(code, name, category, model, materialName);
+    }
 }

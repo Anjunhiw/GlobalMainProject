@@ -8,4 +8,6 @@ import java.util.List;
 public interface MPSMapper {
     List<MPSDTO> selectAllMPS();
     void insertMPS(MPSDTO mpsDTO);
+    void updateMPS(MPSDTO mpsDTO);
+    List<MPSDTO> searchMPS(String prodCode, String prodName);
 }

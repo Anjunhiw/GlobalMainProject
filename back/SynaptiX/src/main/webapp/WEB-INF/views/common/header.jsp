@@ -67,3 +67,9 @@
 		
 	  </div>
 	</header>
+	<c:if test="${_csrf != null}">
+<script>
+  window.csrfHeader = "${_csrf.headerName}";
+  window.csrfToken = "${_csrf.token}";
+</script>
+</c:if>

@@ -52,4 +52,29 @@ public class BOMController {
         result.put("success", true);
         return result;
     }
+
+    @PostMapping("/search")
+    public String searchBOM(@RequestBody java.util.Map<String, String> params, Model model) {
+        String code = params.getOrDefault("code", null);
+        String name = params.getOrDefault("name", null);
+        // 카테고리는 입력만 받고 실제 검색 조건에는 반영하지 않음
+        String modelCode = params.getOrDefault("model", null);
+        String materialName = params.getOrDefault("materialName", null);
+        List<BOMDTO> bomList = bomService.searchBOM(code, name, null, modelCode, materialName);
+        List<ProductDTO> productList = stockService.getAllProducts();
+        List<MaterialDTO> materialList = stockService.getAllMaterials();
+        model.addAttribute("bomList", bomList);
+        model.addAttribute("productList", productList);
+        model.addAttribute("materialList", materialList);
+        return "fragments/bom_search_result";
+    }
+
+    @PostMapping("/register")
+    @ResponseBody
+    public java.util.Map<String, Object> registerBOM(@RequestBody BOMDTO bomDTO) {
+        bomService.addBOM(bomDTO);
+        java.util.Map<String, Object> result = new java.util.HashMap<>();
+        result.put("success", true);
+        return result;
+    }
 }

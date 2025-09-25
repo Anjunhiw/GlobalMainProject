@@ -6,10 +6,10 @@
           t.pk,
           t.Date,
           t.ProductId,
-          m.Name AS ProductName,
-          t.Sales AS Amount,
-          m.Price,
-          (t.Sales * m.Price) AS Total,
+          m.Name AS prodName,
+          t.Sales AS Sales,
+          m.Price AS unitPrice,
+          (t.Sales * m.Price) AS amount,
           t.Earning
         FROM transaction_details t
         LEFT JOIN material m ON t.ProductId = m.pk

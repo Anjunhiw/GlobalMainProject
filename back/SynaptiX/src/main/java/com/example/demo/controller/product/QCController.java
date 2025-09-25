@@ -19,8 +19,28 @@ public class QCController {
         return "product/qc";
     }
 
-    @PostMapping
-    public void addQC(@RequestBody QCDTO qcDTO) {
-        qcService.addQC(qcDTO);
+    @PostMapping("/search")
+    @ResponseBody
+    public java.util.List<QCDTO> searchQC(@RequestBody java.util.Map<String, String> params) {
+        String dateFrom = params.get("dateFrom");
+        String dateTo = params.get("dateTo");
+        String prodName = params.get("prodName");
+        String category = params.get("category");
+        return qcService.searchQC(dateFrom, dateTo, prodName, category);
+    }
+
+    @PostMapping("")
+    @ResponseBody
+    public java.util.Map<String, Object> addQC(@RequestBody QCDTO qcDTO) {
+        System.out.println("QC 등록 요청: mpsId=" + qcDTO.getMpsId() + ", passed=" + qcDTO.isPassed());
+        java.util.Map<String, Object> result = new java.util.HashMap<>();
+        try {
+            qcService.addQC(qcDTO);
+            result.put("success", true);
+        } catch (Exception e) {
+            result.put("success", false);
+            result.put("message", e.getMessage());
+        }
+        return result;
     }
 }

@@ -18,4 +18,8 @@ public class QCService {
     public void addQC(QCDTO qcDTO) {
         qcMapper.insertQC(qcDTO);
     }
+
+    public List<QCDTO> searchQC(String dateFrom, String dateTo, String prodName, String category) {
+        return qcMapper.searchQC(dateFrom, dateTo, prodName, category);
+    }
 }

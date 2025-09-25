@@ -1,12 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.product.MPSMapper">
-    <select id="selectAllMPS" resultType="com.example.demo.model.MPSDTO">
+    <resultMap id="MPSResultMap" type="com.example.demo.model.MPSDTO">
+        <id property="pk" column="pk"/>
+        <result property="ProductId" column="ProductId"/>
+        <result property="Period" column="Period" javaType="java.lang.String"/>
+        <result property="Volume" column="Volume"/>
+        <result property="productName" column="productName"/>
+        <result property="price" column="price"/>
+    </resultMap>
+
+    <select id="selectAllMPS" resultMap="MPSResultMap">
         SELECT mps.*, p.name AS productName, p.price AS price
         FROM MPS mps
         JOIN Product p ON mps.ProductId = p.pk
     </select>
     <insert id="insertMPS" parameterType="com.example.demo.model.MPSDTO">
-        INSERT INTO MPS (mpsId, mpsName, planDate) VALUES (#{mpsId}, #{mpsName}, #{planDate})
+        INSERT INTO mps (ProductId, Period, Volume) VALUES (#{ProductId}, #{Period}, #{Volume})
     </insert>
+    <update id="updateMPS" parameterType="com.example.demo.model.MPSDTO">
+        UPDATE mps
+        SET ProductId = #{productId},
+            Period = #{period},
+            Volume = #{volume}
+        WHERE pk = #{pk}
+    </update>
+    <select id="searchMPS" resultMap="MPSResultMap">
+        SELECT mps.*, p.name AS productName, p.price AS price
+        FROM MPS mps
+        JOIN Product p ON mps.ProductId = p.pk
+        <where>
+            <if test="prodCode != null and prodCode != ''">
+                AND p.pk = #{prodCode}
+            </if>
+            <if test="prodName != null and prodName != ''">
+                AND p.name LIKE CONCAT('%', #{prodName}, '%')
+            </if>
+        </where>
+    </select>
 </mapper>

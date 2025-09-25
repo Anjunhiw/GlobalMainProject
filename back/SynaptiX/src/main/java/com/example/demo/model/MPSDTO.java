@@ -1,19 +1,17 @@
 package com.example.demo.model;
 
-import java.util.Date;
-
 public class MPSDTO {
 
 	private int pk;
 	private int ProductId;
-	private Date Period;
+	private String Period;
 	private Float Volume;
 	private String productName;
 	private Float price;
 	
 	public MPSDTO() {}
 	
-	public MPSDTO(int pk, int productId, Date period, Float volume) {
+	public MPSDTO(int pk, int productId, String period, Float volume) {
 		this.pk = pk;
 		this.ProductId = productId;
 		this.Period = period;
@@ -38,11 +36,11 @@ public class MPSDTO {
 		ProductId = productId;
 	}
 	
-	public Date getPeriod() {
+	public String getPeriod() {
 		return Period;
 	}
 	
-	public void setPeriod(Date period) {
+	public void setPeriod(String period) {
 		Period = period;
 	}
 	

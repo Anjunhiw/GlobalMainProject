@@ -28,4 +28,36 @@
     <insert id="insertQC" parameterType="com.example.demo.model.QCDTO">
         INSERT INTO QC (MPSId, isPassed) VALUES (#{mpsId}, #{passed})
     </insert>
+
+    <select id="searchQC" resultMap="QCResultMap">
+        SELECT 
+            p.pk AS code,
+            p.name,
+            p.model,
+            p.specification,
+            m.period,
+            m.pk AS mpsId,
+            QC.isPassed AS passed
+        FROM QC
+        JOIN MPS m ON QC.MPSId = m.pk
+        JOIN Product p ON m.ProductId = p.pk
+        <where>
+            <if test="dateFrom != null and dateFrom != ''">
+                AND m.period &gt;= #{dateFrom}
+            </if>
+            <if test="dateTo != null and dateTo != ''">
+                AND m.period &lt;= #{dateTo}
+            </if>
+            <if test="prodName != null and prodName != ''">
+                AND LOWER(p.name) LIKE CONCAT('%', LOWER(#{prodName}), '%')
+            </if>
+            <if test="category != null and category != ''">
+                AND QC.isPassed =
+                <choose>
+                    <when test="category == 'passed'">1</when>
+                    <when test="category == 'failed'">0</when>
+                </choose>
+            </if>
+        </where>
+    </select>
 </mapper>

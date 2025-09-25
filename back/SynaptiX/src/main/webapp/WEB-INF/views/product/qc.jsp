@@ -20,7 +20,9 @@ request.setAttribute("active_qc", "active");
     <div class="field">
       <label>기간</label>
       <div class="input-with-btn">
-        <input type="date" id="dateFrom" name="dateFrom">
+        <input type="date" id="dateFrom" name="dateFrom" placeholder="시작일">
+        ~
+        <input type="date" id="dateTo" name="dateTo" placeholder="종료일">
       </div>
     </div>
 
@@ -93,28 +95,8 @@ request.setAttribute("active_qc", "active");
       <h3 id="qcRegisterModalTitle">QC 등록</h3>
       <form id="qcRegisterForm">
         <div class="field">
-          <label>제품코드</label>
-          <input type="text" id="regProdCode" name="prodCode" required>
-        </div>
-        <div class="field">
-          <label>제품명</label>
-          <input type="text" id="regProdName" name="prodName" required>
-        </div>
-        <div class="field">
-          <label>모델명</label>
-          <input type="text" id="regModel" name="model">
-        </div>
-        <div class="field">
-          <label>규격</label>
-          <input type="text" id="regSpec" name="specification">
-        </div>
-        <div class="field">
-          <label>검사일자</label>
-          <input type="date" id="regInspectedAt" name="inspectedAt" required>
-        </div>
-        <div class="field">
-          <label>검사자</label>
-          <input type="text" id="regInspector" name="inspector" required>
+          <label>MPS ID</label>
+          <input type="number" id="regMpsId" name="mpsId" required>
         </div>
         <div class="field">
           <label>합격여부</label>
@@ -131,6 +113,19 @@ request.setAttribute("active_qc", "active");
     </div>
   </div>
 
+  <!-- 조회 결과 모달 -->
+  <div id="qcSearchModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:#fff; padding:30px; border-radius:8px; min-width:600px; position:relative; max-height:80vh; overflow:auto;">
+      <h4>QC 검사 결과</h4>
+      <div id="qcSearchResult">
+        <!-- 검색 결과 테이블이 여기에 동적으로 렌더링됩니다. -->
+      </div>
+      <div class="btn-group" style="margin-top:15px;">
+        <button type="button" class="btn btn-secondary" onclick="closeQcSearchModal()">닫기</button>
+      </div>
+    </div>
+  </div>
+
   <!-- (선택) 검색버튼에 대한 간단한 자바스크립트 자리만 잡아둠 -->
   <script>
     function openQcRegister() {
@@ -140,14 +135,15 @@ request.setAttribute("active_qc", "active");
     function closeQcRegisterModal() {
       document.getElementById('qcRegisterModal').style.display = 'none';
     }
+    function closeQcSearchModal() {
+      document.getElementById('qcSearchModal').style.display = 'none';
+    }
     function submitQcRegister() {
       const form = document.getElementById('qcRegisterForm');
-      const formData = new FormData(form);
-      const params = {};
-      for (const [key, value] of formData.entries()) {
-        params[key] = value;
-      }
-      fetch('/qc/register', {
+      const mpsId = form.querySelector('[name="mpsId"]').value;
+      const passed = form.querySelector('[name="passed"]').value === 'true';
+      const params = { mpsId: Number(mpsId), passed };
+      fetch('/qc', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -171,6 +167,7 @@ request.setAttribute("active_qc", "active");
     }
     document.getElementById('btnSearch')?.addEventListener('click', function () {
       const dateFrom = document.getElementById('dateFrom').value;
+      const dateTo = document.getElementById('dateTo').value;
       const prodName = document.getElementById('prodName').value;
       const category = document.getElementById('category').value;
       fetch('/qc/search', {
@@ -179,14 +176,35 @@ request.setAttribute("active_qc", "active");
           'Content-Type': 'application/json',
           [csrfHeader]: csrfToken
         },
-        body: JSON.stringify({ dateFrom, prodName, category })
+        body: JSON.stringify({ dateFrom, dateTo, prodName, category })
       })
-      .then(res => res.text())
-      .then(html => {
-        document.querySelector('tbody').innerHTML = html;
+      .then(res => res.json())
+      .then(data => {
+        let html = '';
+        if (data && data.length > 0) {
+          html += '<table class="table"><thead><tr>';
+          html += '<th>제품코드</th><th>제품명</th><th>모델명</th><th>규격</th><th>검사일자</th><th>합격여부</th>';
+          html += '</tr></thead><tbody>';
+          data.forEach(function(qc) {
+            html += '<tr>';
+            html += '<td>prod2025' + (qc.code < 10 ? '0' + qc.code : qc.code) + '</td>';
+            html += '<td>' + qc.name + '</td>';
+            html += '<td>' + (qc.model || '') + '</td>';
+            html += '<td>' + (qc.specification || '') + '</td>';
+            html += '<td>' + (qc.period ? qc.period.substring(0, 10) : '') + '</td>';
+            html += '<td>' + (qc.passed ? '합격' : '불합격') + '</td>';
+            html += '</tr>';
+          });
+          html += '</tbody></table>';
+        } else {
+          html = '<div style="text-align:center; padding:30px;">검색 결과가 없습니다.</div>';
+        }
+        document.getElementById('qcSearchResult').innerHTML = html;
+        document.getElementById('qcSearchModal').style.display = 'flex';
       })
       .catch(() => {
-        alert('검색 중 오류가 발생했습니다.');
+        document.getElementById('qcSearchResult').innerHTML = '<div style="text-align:center; padding:30px; color:red;">검색 중 오류가 발생했습니다.</div>';
+        document.getElementById('qcSearchModal').style.display = 'flex';
       });
     });
   </script>

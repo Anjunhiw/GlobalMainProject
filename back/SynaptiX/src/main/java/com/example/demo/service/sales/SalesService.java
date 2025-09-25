@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface SalesService {
     List<Sales> getAllSales();
+    List<Sales> searchSales(String code, String name, String outDate, String category);
 }

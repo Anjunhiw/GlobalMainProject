@@ -15,4 +15,9 @@ public class SalesServiceImpl implements SalesService {
     public List<Sales> getAllSales() {
         return salesMapper.selectAllSales();
     }
+
+    @Override
+    public List<Sales> searchSales(String code, String name, String outDate, String category) {
+        return salesMapper.selectSalesByCondition(code, name, outDate, category);
+    }
 }

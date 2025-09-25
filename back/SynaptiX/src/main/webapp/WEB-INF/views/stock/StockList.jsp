@@ -69,10 +69,8 @@ request.setAttribute("active_stl", "active");
   <div id="registerModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="registerModalTitle">
     <div class="modal-content">
       <span class="close" onclick="closeRegisterModal()" aria-label="닫기">&times;</span>
-	  
-	   <h3 id="registerModalTitle">품목등록</h3>
-
-	      <form id="registerForm" class="form-rows">
+      <h3 id="registerModalTitle">품목등록</h3>
+      <form id="registerForm" class="form-rows">
 	        
 	        <div class="field">
 	          <label for="regCategory" class="label">품목등록</label>
@@ -99,7 +97,6 @@ request.setAttribute("active_stl", "active");
 	          </div>
 	        </div>
 
-	
 	        <!-- 공통 -->
 	        <div class="field">
 	          <label for="regSpec" class="label">규격</label>
@@ -108,9 +105,6 @@ request.setAttribute("active_stl", "active");
 	          </div>
 	        </div>
 				
-	
-			
-			
 	        <!-- 원자재에서만 보이는 단위 -->
 	        <div class="field material-only">
 	          <label for="regUnit" class="label">단위</label>
@@ -148,6 +142,72 @@ request.setAttribute("active_stl", "active");
 	    </div>
 	  </div>
 
+  <!-- 수정 모달 -->
+  <div id="editModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="editModalTitle" style="display:none;">
+    <div class="modal-content">
+      <span class="close" onclick="closeEditModal()" aria-label="닫기">&times;</span>
+      <h3 id="editModalTitle">품목수정</h3>
+      <form id="editForm" class="form-rows" method="post" action="/stock/edit">
+        <input type="hidden" id="editPk" name="pk" />
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <div class="field">
+          <label for="editCategory" class="label">카테고리</label>
+          <div class="control">
+            <select id="editCategory" name="category" required onchange="toggleEditFields()">
+              <option value="material">원자재</option>
+              <option value="product">제품</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="editName" class="label">품목명</label>
+          <div class="control">
+            <input type="text" id="editName" name="name" required />
+          </div>
+        </div>
+        <div class="field product-only-edit" style="display:none;">
+          <label for="editModel" class="label">모델명</label>
+          <div class="control">
+            <input type="text" id="editModel" name="model" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="editSpec" class="label">규격</label>
+          <div class="control">
+            <input type="text" id="editSpec" name="specification" />
+          </div>
+        </div>
+        <div class="field material-only-edit">
+          <label for="editUnit" class="label">단위</label>
+          <div class="control narrow">
+            <input type="text" id="editUnit" name="unit" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="editPrice" class="label">단가</label>
+          <div class="control narrow">
+            <input type="number" id="editPrice" name="price" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="editStock" class="label">재고수량</label>
+          <div class="control narrow">
+            <input type="number" id="editStock" name="stock" min="0" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="editAmount" class="label">재고금액</label>
+          <div class="control">
+            <input type="number" id="editAmount" name="amount" min="0" />
+          </div>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn-pill">수정</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <h2>원자재 재고 목록</h2>
   <table>
     <thead>
@@ -169,12 +229,8 @@ request.setAttribute("active_stl", "active");
 	      <td><fmt:formatNumber value="${material.amount}" type="number" maxFractionDigits="0" groupingUsed="true"/></td>
 	      <td><span class="muted">-</span></td>
 	      <td>
-	        <form action="/stock/edit" method="get">
-	          <input type="hidden" name="pk" value="${material.pk}">
-	          <input type="hidden" name="category" value="material">
-	          <button type="submit" class="btn btn-sm btn-warning">수정</button>
-	        </form>
-	      </td> 
+        <button type="button" class="btn btn-sm btn-warning" onclick="openEditModal('${material.pk}', 'material', this)">수정</button>
+      </td> 
 	      <td>
 	        <form action="/stock/delete" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
 	          <input type="hidden" name="pk" value="${material.pk}">
@@ -240,12 +296,8 @@ request.setAttribute("active_stl", "active");
 	      <td><fmt:formatNumber value="${product.amount}" type="number" maxFractionDigits="0" groupingUsed="true"/></td>
 	      <td><span class="muted">-</span></td>
 	      <td>
-	        <form action="/stock/edit" method="get">
-	          <input type="hidden" name="pk" value="${product.pk}">
-	          <input type="hidden" name="category" value="product">
-	          <button type="submit" class="btn btn-sm btn-warning">수정</button>
-	        </form>
-	      </td>
+        <button type="button" class="btn btn-sm btn-warning" onclick="openEditModal('${product.pk}', 'product', this)">수정</button>
+      </td>
 	      <td>
 	        <form action="/stock/delete" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
 	          <input type="hidden" name="pk" value="${product.pk}">
@@ -314,6 +366,38 @@ request.setAttribute("active_stl", "active");
       .catch(() => {
         alert('등록 중 오류가 발생했습니다.');
       });
+    }
+
+    // 수정 모달 열기
+    function openEditModal(pk, category, btn) {
+      // 테이블에서 데이터 추출
+      let tr = btn.closest('tr');
+      document.getElementById('editPk').value = pk;
+      document.getElementById('editCategory').value = category;
+      document.getElementById('editName').value = tr.children[1].innerText;
+      if (category === 'product') {
+        document.getElementById('editModel').value = tr.children[3].innerText;
+        document.querySelector('.product-only-edit').style.display = '';
+        document.querySelector('.material-only-edit').style.display = 'none';
+      } else {
+        document.getElementById('editModel').value = '';
+        document.querySelector('.product-only-edit').style.display = 'none';
+        document.querySelector('.material-only-edit').style.display = '';
+      }
+      document.getElementById('editSpec').value = tr.children[4].innerText;
+      document.getElementById('editUnit').value = (category === 'material') ? tr.children[4].nextElementSibling.innerText : '';
+      document.getElementById('editPrice').value = tr.children[5].innerText.replace(/,/g, '');
+      document.getElementById('editStock').value = tr.children[6].innerText.replace(/,/g, '');
+      document.getElementById('editAmount').value = tr.children[7].innerText.replace(/,/g, '');
+      document.getElementById('editModal').style.display = 'block';
+    }
+    function closeEditModal() {
+      document.getElementById('editModal').style.display = 'none';
+    }
+    function toggleEditFields() {
+      const cat = document.getElementById('editCategory').value;
+      document.querySelector('.product-only-edit').style.display = (cat === 'product' ? '' : 'none');
+      document.querySelector('.material-only-edit').style.display = (cat === 'material' ? '' : 'none');
     }
 
     // 검색/조회 버튼: Ajax로 검색 결과를 모달에 표시

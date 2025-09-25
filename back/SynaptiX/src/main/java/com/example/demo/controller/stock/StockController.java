@@ -181,4 +181,18 @@ public class StockController {
         }
         return result;
     }
+
+    @PostMapping("/stock/edit")
+    public String editStock(
+        @RequestParam("category") String category,
+        @ModelAttribute MaterialDTO material,
+        @ModelAttribute ProductDTO product
+    ) {
+        if ("material".equals(category)) {
+            service.updateMaterial(material);
+        } else if ("product".equals(category)) {
+            service.updateProduct(product);
+        }
+        return "redirect:/stock";
+    }
 }

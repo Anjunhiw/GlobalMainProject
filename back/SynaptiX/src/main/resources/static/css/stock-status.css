@@ -1,0 +1,47 @@
+
+:root{
+  --bg:#EBEDF9;
+  --card:#ffffff;
+  --ink:#0f172a;
+  --muted:#8a93a3;
+  --primary:#4664C9;
+  --primary-2:#6E8AF0;
+  --accent:#F6C90E;
+  --ring:rgba(72,99,221,.18);
+  --shadow:0 20px 60px rgba(17,24,39,.12);
+  --radius:22px;
+  --radius-lg:28px;
+  --ui: system-ui, -apple-system, "Pretendard", Roboto, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+
+.container{
+  max-width:1180px; margin:20px auto 40px; padding:0 20px;
+  font-family: system-ui, -apple-system, "Pretendard", Roboto, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+
+.card{ background:#fff; border-radius:14px; box-shadow:0 6px 22px rgba(0,0,0,.06); padding:18px 18px 20px; }
+.card + .card{ margin-top:18px; }
+.card-wide{ grid-column: 1 / -1; }
+.card-header{ padding:6px 6px 12px; border-bottom:1px solid #eef2f7; margin-bottom:12px; }
+.card-header h4{ margin:0; font-size:1.05rem; color:#1f2a44; }
+
+.grid-2{
+  display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:18px;
+}
+
+.table{ width:100%; border-collapse:collapse; }
+.table th, .table td{ padding:12px 10px; border-bottom:1px solid #eef2f7; font-size:.95rem; color:#334155; }
+.table thead th{ background:#f8fafc; color:#1f2a44; font-weight:700; }
+.table .left{ text-align:left; }
+.table .right{ text-align:right; }
+.table tfoot .total td{ background:#2a4ea7; color:#fff; font-weight:700; }
+
+.table.compact th, .table.compact td{ padding:8px 10px; font-size:.92rem; }
+
+.split{ display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-top:16px; }
+.mini-table .table{ margin:0; }
+.chart-box{ display:flex; align-items:center; justify-content:center; }
+
+.mt-16{ margin-top:16px; }
+.mt-0{ margin-top:0; }
+.center{ text-align:center; }

@@ -244,12 +244,20 @@ svg#line .dot{ fill:#6E8AF0; }
  .lg-bar{background:#5b7cff}
  .lg-line{background:#f4a63a}
  .calendar{width:100%;border-collapse:separate;border-spacing:0}
- .calendar th,.calendar td{border:1px solid #eef2f7;padding:8px;text-align:center;font-size:12px}
+ .calendar th,.calendar td{border:1px solid #eef2f7;padding:15px;text-align:center;font-size:12px}
  .calendar thead th{background:#f8fafc;font-weight:700}
+ .calendar tbody td{font-size:11px;
+	}
  .note-box{margin-top:12px;background:#f7fafc;border:1px solid #e6effa;border-radius:12px;padding:12px}
  .note-box h5{margin:0 0 8px 0}
  .small{font-size:12px;color:#667085;margin:0 0 6px 16px}
- .inline-input{display:flex;gap:8px}
+ .inline-input{display:flex;
+	gap:8px;
+	margin-top:13px;
+}
+.sun{
+	color:#d93025;
+}
  .inline-input input{flex:1;border:1px solid #e5e7eb;border-radius:10px;padding:10px}
  .btn{border:none;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}
  .btn-primary{background:#1f53ff;color:#fff}
@@ -266,4 +274,9 @@ svg#line .dot{ fill:#6E8AF0; }
  .right{text-align:right}
  .center{text-align:center}
  .muted{color:#98a2b3}
+ 
+
+
+
+ 
  @media (max-width:1100px){.dashboard-grid{grid-template-columns:1fr}}

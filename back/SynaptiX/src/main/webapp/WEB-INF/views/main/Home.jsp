@@ -5,7 +5,7 @@
 <%request.setAttribute("active_mains", "sales	");%>
 <link rel="stylesheet" href="/css/home.css?v=7">
 <%@ include file="../common/header.jsp" %>
-<%@ include file="../fragments/profileModal.jsp" %>
+
 <main class="container">
 
 	<section class="grid-top">
@@ -96,16 +96,6 @@
 	    <div class="meta">
 			<div style="font-weight:800;">
 			  ${user.name}님
-			</div>
-			<div class="actions">
-			  <button class="action" id="btn-profile-edit" type="button">회원수정</button>
-			  <button class="action" type="button">환경설정</button>
-			  <button class="action" type="button">메모</button>
-			  <button onclick="location.reload()" class="action" type="button">새로고침</button>
-			  <form action="/logout" method="post">
-			    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			    <button type="submit" class="action">로그아웃</button>
-			  </form>
 			</div>
 	    </div>
        </div>

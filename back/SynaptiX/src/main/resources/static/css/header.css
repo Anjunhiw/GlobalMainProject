@@ -141,6 +141,30 @@ body{
 
 
 
-/* 검색 아이콘 */
-.search{ margin-left:auto; width:28px; height:28px; display:grid; place-items:center; opacity:.8; }
-.search svg{ width:20px; height:20px; }
+.action {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px;
+  margin-top: 16px;
+}
+.action {
+  font-size: 14px;
+  background: none;
+  border: none;
+  color: #444;
+  cursor: pointer;
+}
+.action:hover {
+  color: #2a3f93;
+}
+.action form {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+
+.edit{
+	margin-left:auto;
+	
+}

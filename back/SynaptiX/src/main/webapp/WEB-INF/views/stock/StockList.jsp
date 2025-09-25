@@ -186,27 +186,10 @@ request.setAttribute("active_stl", "active");
 	    </tr>
 	</c:forEach>	  
 	<c:if test="${empty materials}">
-	    <!-- 샘플/플레이스홀더 2줄 -->
 	    <c:forEach begin="1" end="2">
 	      <tr class="placeholder">
-	        <td>—</td>
-	        <td>materials</td>
-	        <td>샘플 원자재</td>
-	        <td>규격</td>
-	        <td>EA</td>
-	        <td>0</td>
-	        <td>0</td>
-	        <td>0</td>
-	        <!-- 관리 -->
-	        <td><span class="muted">-</span></td>
-	        <!-- 품목수정 -->
-	        <td><button type="button" class="btn btn-sm btn-warning" disabled>수정</button></td>
-	        <!-- 품목삭제 -->
-	        <td><button type="button" class="btn btn-sm btn-danger"  disabled>삭제</button></td>
-	      </tr>
+	
 	    </c:forEach>
-
-	    <!-- 안내 문구 행 (11칸 맞춤) -->
 	    <tr>
 	      <td colspan="11" class="empty-msg">원자재 데이터가 없습니다. 상단 [등록]을 눌러 추가하세요.</td>
 	    </tr>

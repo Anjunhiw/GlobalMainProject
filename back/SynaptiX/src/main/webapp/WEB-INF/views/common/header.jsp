@@ -5,6 +5,7 @@
 <c:set var="uri" value="${pageContext.request.requestURI}" />
 <link rel="stylesheet" href="/css/header.css?v=3">
 
+
 	<header class="nav">
 	  <div class="top">
 	    
@@ -55,11 +56,14 @@
 		<c:if test="${not empty active_personal}">
 		    <a class="link active" href="/hrm">인사관리</a>
 		</c:if>
-	    <div class="search" title="검색">
-	      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-	        <circle cx="11" cy="11" r="7" stroke-width="2"/>
-	        <line x1="21" y1="21" x2="16.65" y2="16.65" stroke-width="2"/>
-	      </svg>
+	    <div class="edit" title="회원정보수정">
+			<a class="link" href="/edit">마이페이지</a>
 	    </div>
+	
+		<form action="/logout" method="post">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							<button type="submit" class="action">로그아웃</button>
+				  </form>
+		
 	  </div>
 	</header>

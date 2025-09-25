@@ -48,16 +48,14 @@ request.setAttribute("active_profit", "active");
   <table class="profit-table">
     <thead>
       <tr>
-        <th>품목코드</th>
-        <th>품목명</th>
+        <th rowspan="2">품목코드</th>
+        <th rowspan="2">품목명</th>
         <th colspan="3">판매</th>
         <th colspan="2">원가</th>
         <th colspan="2">이익</th>
-        <th>이익률</th>
+        <th rowspan="2">이익률</th>
       </tr>
       <tr>
-        <th></th>
-        <th></th>
         <th>수량</th>
         <th>단가</th>
         <th>금액</th>
@@ -65,9 +63,9 @@ request.setAttribute("active_profit", "active");
         <th>금액</th>
         <th>단가</th>
         <th>금액</th>
-        <th></th>
       </tr>
     </thead>
+
     <tbody>
       <c:forEach var="item" items="${profitList}">
         <tr>

@@ -14,4 +14,11 @@ public interface BOMMapper {
     List<BOMDTO> selectAllBOMWithNames();
     List<BOMDTO> selectFilteredBOMWithNames(@org.apache.ibatis.annotations.Param("category") String category,
                                             @org.apache.ibatis.annotations.Param("id") String id);
+    List<BOMDTO> searchBOM(
+            @org.apache.ibatis.annotations.Param("code") String code,
+            @org.apache.ibatis.annotations.Param("name") String name,
+            @org.apache.ibatis.annotations.Param("category") String category,
+            @org.apache.ibatis.annotations.Param("model") String model,
+            @org.apache.ibatis.annotations.Param("materialName") String materialName
+        );
 }

@@ -57,4 +57,25 @@
             </if>
         </where>
     </select>
+    <select id="searchBOM" resultType="com.example.demo.model.BOMDTO">
+        SELECT b.ProductId, p.Name AS productName, b.MaterialId, m.Name AS materialName, b.MaterialAmount
+        FROM BOM b
+        JOIN product p ON b.ProductId = p.pk
+        JOIN material m ON b.MaterialId = m.pk
+        <where>
+            <if test="code != null and code != ''">
+                AND p.pk = #{code}
+            </if>
+            <if test="name != null and name != ''">
+                AND p.name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <!-- category는 무시 -->
+            <if test="model != null and model != ''">
+                AND m.pk = #{model}
+            </if>
+            <if test="materialName != null and materialName != ''">
+                AND m.name LIKE CONCAT('%', #{materialName}, '%')
+            </if>
+        </where>
+    </select>
 </mapper>

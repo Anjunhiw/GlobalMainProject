@@ -15,4 +15,32 @@
         LEFT JOIN product p ON mrp.ProductId = p.pk
         LEFT JOIN material m ON mrp.MaterialId = m.pk
     </select>
+    <select id="searchMRP" resultType="map">
+        SELECT
+          mrp.pk,
+          p.Name AS ProductName,
+          m.Name AS MaterialName,
+          m.Stock AS StockQuantity,
+          mrp.Requirement AS RequiredQuantity,
+          mrp.Date AS ProductionPlan,
+          (mrp.Requirement - m.Stock) AS Shortage,
+          mrp.MRPStatus
+        FROM mrp
+        LEFT JOIN product p ON mrp.ProductId = p.pk
+        LEFT JOIN material m ON mrp.MaterialId = m.pk
+        <where>
+            <if test="prodCode != null and prodCode != ''">
+                AND p.pk = #{prodCode}
+            </if>
+            <if test="prodName != null and prodName != ''">
+                AND p.Name LIKE CONCAT('%', #{prodName}, '%')
+            </if>
+            <if test="inDate != null and inDate != ''">
+                AND mrp.Date = #{inDate}
+            </if>
+            <if test="mrpStatus != null and mrpStatus != ''">
+                AND mrp.MRPStatus = #{mrpStatus}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -7,4 +7,5 @@ import java.util.Map;
 @Mapper
 public interface MRPMapper {
     List<Map<String, Object>> selectAllMRP();
+    List<Map<String, Object>> searchMRP(Map<String, Object> params);
 }

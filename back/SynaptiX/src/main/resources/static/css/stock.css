@@ -180,12 +180,20 @@ form#searchForm button:hover {
   text-align: center;
 }
 
-#registerForm.form-rows {
+#registerForm.form-rows,
+ #editForm.form-rows,
+#registerMpsForm.form-rows,
+#bomRegisterForm.form-rows{
    max-width: 480px;
     margin: 0 auto;
 }
 
-#registerForm.form-rows .field{
+
+
+#registerForm .field,
+#editForm .field,
+#registerMpsForm .field,
+#bomRegisterForm .field{
   display: grid;
   grid-template-columns: 110px 1fr; /* 라벨 110px, 입력 나머지 */
   align-items: center;
@@ -195,15 +203,24 @@ form#searchForm button:hover {
   
 }
 
-#registerForm.form-rows .label{
+#registerForm.form-rows .label,
+#editForm.form-rows .label,
+#registerMpsForm.form-rows.label,
+#bomRegisterForm.form-rows .label{
   font-size: 16px;
   color: #7a7f8a;
   text-align: right;
 }
 
 #registerForm.form-rows .control input,
-#registerForm.form-rows .control select{
-  width: 250px;
+#registerForm.form-rows .control select,
+#editForm.form-rows .control input,
+#editForm.form-rows .control select,
+#registerMpsForm  input[type="number"],
+#registerMpsForm  input[type="date"],
+#bomRegisterForm input[type="number"]
+{
+  width: 350px;
   height: 40px;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
@@ -213,19 +230,30 @@ form#searchForm button:hover {
   transition: border-color .15s ease, background .15s ease;
 }
 #registerForm.form-rows .control input:focus,
-#registerForm.form-rows .control select:focus{
+#registerForm.form-rows .control select:focus
+#editForm.form-rows .control input:focus,
+#editForm.form-rows .control select:focus,
+#registerMpsForm  input[type="number"]:focus,
+#registerMpsForm  input[type="date"]:focus,
+#bomRegisterForm input[type="number"]:focus{
   outline: none;
   border-color: #b9d0ff;
   background: #fff;
 }
 
 /* 스샷처럼 좁은 입력 필드(단위/단가/재고수량) */
-#registerForm.form-rows .control.narrow input{
+#registerForm.form-rows .control.narrow input,
+#editForm.form-rows .control.narrow input
+{
   width: 140px;
 }
 
 /* 버튼 영역: 가운데 정렬 */
-#registerForm.form-rows .actions{
+#registerForm.form-rows .actions,
+#editForm.form-rows .actions,
+#registerMpsForm.form-rows .actions,
+#bomRegisterForm.form-rows .actions,
+#qcRegisterForm.form-rows .actions{
   display: flex;
   justify-content: center;
   margin-top: 25px;	
@@ -234,7 +262,11 @@ form#searchForm button:hover {
 }
 
 /* 초록 알약 버튼 */
-#registerForm.form-rows .btn-pill{
+#registerForm.form-rows .btn-pill,
+#editForm.form-rows .btn-pill,
+#registerMpsForm.form-rows .btn-pill,
+#bomRegisterForm.form-rows .btn-pill,
+#qcRegisterForm.form-rows .btn-pill{
   min-width: 120px;
   height: 44px;
   padding: 0 24px;
@@ -249,11 +281,17 @@ form#searchForm button:hover {
   box-shadow: 0 5px 14px rgba(19,124,70,.25);
   transition: transform .04s ease, box-shadow .15s ease, background .15s ease;
 }
-#registerForm.form-rows .btn-pill:hover{
+#registerForm.form-rows .btn-pill:hover,
+#registerMpsForm .btn-pill:hover,
+#qcRegisterForm .btn-pill:hover,
+#bomRegisterForm .btn-pill:hover{
   background: #0f6a3b;
   box-shadow: 0 6px 18px rgba(19,124,70,.32);
 }
-#registerForm.form-rows .btn-pill:active{
+#registerForm.form-rows .btn-pill:active,
+#registerMpsForm .btn-pill:active,
+#qcRegisterForm .btn-pill:active,
+#bomRegisterForm .btn-pill:active{
   transform: translateY(1px);
 }
 

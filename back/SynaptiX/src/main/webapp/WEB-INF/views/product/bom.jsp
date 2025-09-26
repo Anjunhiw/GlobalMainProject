@@ -127,7 +127,7 @@ request.setAttribute("active_bom", "active");
   <div class="modal-content">
     <span class="close" onclick="closeBomRegisterModal()" aria-label="닫기">&times;</span>
     <h3 id="bomRegisterModalTitle">BOM 등록</h3>
-    <form id="bomRegisterForm">
+    <form id="bomRegisterForm" class="form-rows">
       <div class="field">
         <label>제품ID</label>
         <input type="number" id="regProductId" name="productId" required>
@@ -140,9 +140,10 @@ request.setAttribute("active_bom", "active");
         <label>필요자재량</label>
         <input type="number" step="0.01" id="regMaterialAmount" name="materialAmount" required>
       </div>
-      <div class="btn-group">
-        <button type="button" class="btn btn-success" onclick="submitBomRegister()">저장</button>
-        <button type="button" class="btn btn-secondary" onclick="closeBomRegisterModal()">취소</button>
+
+        <div class="actions">
+          <button type="button" class="btn-pill" onclick="submitBomRegister()">저장</button>
+        </div>
       </div>
     </form>
   </div>

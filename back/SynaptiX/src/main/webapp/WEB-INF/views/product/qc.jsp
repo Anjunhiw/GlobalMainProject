@@ -93,7 +93,7 @@ request.setAttribute("active_qc", "active");
     <div class="modal-content">
       <span class="close" onclick="closeQcRegisterModal()" aria-label="닫기">&times;</span>
       <h3 id="qcRegisterModalTitle">QC 등록</h3>
-      <form id="qcRegisterForm">
+      <form id="qcRegisterForm" class="form-rows">
         <div class="field">
           <label>MPS ID</label>
           <input type="number" id="regMpsId" name="mpsId" required>
@@ -105,9 +105,8 @@ request.setAttribute("active_qc", "active");
             <option value="false">불합격</option>
           </select>
         </div>
-        <div class="btn-group">
-          <button type="button" class="btn btn-success" onclick="submitQcRegister()">저장</button>
-          <button type="button" class="btn btn-secondary" onclick="closeQcRegisterModal()">취소</button>
+        <div class="actions">
+          <button type="button" class="btn-pill" onclick="submitQcRegister()">저장</button>
         </div>
       </form>
     </div>

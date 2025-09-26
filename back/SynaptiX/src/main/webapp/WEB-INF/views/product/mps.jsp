@@ -32,30 +32,30 @@ request.setAttribute("active_mps", "active");
   </div>
 
   <!-- 등록 모달 -->
-  <div id="registerMpsModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); z-index:9999; align-items:center; justify-content:center;">
-    <div style="background:#fff; padding:30px; border-radius:8px; min-width:350px; position:relative;">
-      <h4>MPS 등록</h4>
-      <form id="registerMpsForm">
+  <div id="registerMpsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="registerMpsModalTitle">
+	<div class="modal-content" style="height:420px;">
+		<span class="close" onclick="closeEditModal()" aria-label="닫기">&times;</span>
+      <h3 id="registerMpsModalTitle">MPS 등록</h3>
+      <form id="registerMpsForm" class="form-rows">
         <div class="field">
-          <label>제품ID</label>
+          <label class="label">제품ID</label>
           <input type="number" name="ProductId" id="registerProductId" required>
         </div>
         <div class="field">
-          <label>기간(종료날짜)</label>
+          <label class="label">기간(종료날짜)</label>
           <input type="date" name="Period" id="registerPeriod" required>
         </div>
         <div class="field">
-          <label>생산량</label>
+          <label class="label">생산량</label>
           <input type="number" name="Volume" id="registerVolume" min="0" required>
         </div>
-        <div class="btn-groups" style="margin-top:15px;">
-          <button type="submit" class="btn btn-success">등록</button>
-          <button type="button" class="btn btn-secondary" id="closeRegisterModal">취소</button>
+        <div class="actions">
+          <button type="submit" class="btn-pill">등록</button>
         </div>
       </form>
     </div>
   </div>
-
+</div>
   <!-- 조회 모달 -->
   <div id="searchMpsModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); z-index:9999; align-items:center; justify-content:center;">
     <div style="background:#fff; padding:30px; border-radius:8px; min-width:500px; position:relative; max-height:80vh; overflow:auto;">
@@ -151,7 +151,11 @@ request.setAttribute("active_mps", "active");
     document.getElementById('closeRegisterModal').onclick = function() {
       document.getElementById('registerMpsModal').style.display = 'none';
     };
-
+	function closeEditModal() {
+	  document.getElementById('registerMpsModal').style.display = 'none';
+	};
+	
+	
     // 조회 모달 열기/닫기
     document.getElementById('openSearchModal').onclick = function() {
       // 입력폼에서 값 읽기

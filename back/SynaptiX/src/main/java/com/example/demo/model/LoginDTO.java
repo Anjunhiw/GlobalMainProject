@@ -12,11 +12,12 @@ public class LoginDTO {
 	private String name;
 	private String email;
 	private String dept;
+	private String rank;
 	private int pk;
 	
 	public LoginDTO() {}
 	
-	public LoginDTO(String id, int years, long salary, String pw, String name, String email, String dept) {
+	public LoginDTO(String id, int years, long salary, String pw, String name, String email, String dept, String rank) {
 		this.id = id;
 		this.years = years;
 		this.salary = salary;
@@ -24,6 +25,7 @@ public class LoginDTO {
 		this.name = name;
 		this.email = email;
 		this.dept = dept;
+		this.rank = rank;
 	}
 	
 	
@@ -72,6 +74,14 @@ public class LoginDTO {
 	public void setDept(String dept) {
 		this.dept = dept;
 	}
+	public String getrank() {
+		return rank;
+	}
+	public void setrank(String rank) {
+		this.rank = rank;
+	}
+	
+	
 	public int getPk() {
 		return pk;
 	}

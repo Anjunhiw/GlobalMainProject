@@ -14,7 +14,7 @@ request.setAttribute("active_stl", "active");
   <meta name="_csrf_header" content="${_csrf.headerName}">
   <meta name="_csrf"        content="${_csrf.token}">
 
-<body>
+
   <h2>창고재고관리</h2>
 
   <div class="filter-smallb">
@@ -231,25 +231,24 @@ request.setAttribute("active_stl", "active");
 	      <td>
         <button type="button" class="btn btn-sm btn-warning" onclick="openEditModal('${material.pk}', 'material', this)">수정</button>
       </td> 
-	      <td>
-	        <form action="/stock/delete" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+	      <td> 
+
+	        <form action="/stock/delete" method="post" class="form-delete" onsubmit="return confirm('정말 삭제하시겠습니까?');">
 	          <input type="hidden" name="pk" value="${material.pk}">
 	          <input type="hidden" name="category" value="material">
 	          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-	          <button type="submit" class="btn btn-sm btn-danger">삭제</button>
+			  <button type="submit" class="btn btn-sm btn-danger">삭제</button>	
 	        </form>
 	      </td>
 	    </tr>
 	</c:forEach>	  
 	<c:if test="${empty materials}">
-	    <c:forEach begin="1" end="2">
-	      <tr class="placeholder">
-	
-	    </c:forEach>
-	    <tr>
-	      <td colspan="11" class="empty-msg">원자재 데이터가 없습니다. 상단 [등록]을 눌러 추가하세요.</td>
-	    </tr>
-	  </c:if>
+	  <tr>
+	    <td colspan="11" class="empty-msg">
+	      원자재 데이터가 없습니다. 상단 [등록]을 눌러 추가하세요.
+	    </td>
+	  </tr>
+	</c:if>
 	</tbody>
 
   </table>
@@ -282,10 +281,10 @@ request.setAttribute("active_stl", "active");
         <button type="button" class="btn btn-sm btn-warning" onclick="openEditModal('${product.pk}', 'product', this)">수정</button>
       </td>
 	      <td>
-	        <form action="/stock/delete" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
 	          <input type="hidden" name="pk" value="${product.pk}">
 	          <input type="hidden" name="category" value="product">
 	          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+			  <form action="/stock/delete" method="post" class="form-delete" onsubmit="return confirm('정말 삭제하시겠습니까?');">
 	          <button type="submit" class="btn btn-sm btn-danger">삭제</button>
 	        </form>
 	      </td>
@@ -297,9 +296,8 @@ request.setAttribute("active_stl", "active");
 	  <c:if test="${empty products}">
 	    <tr><td colspan="11">제품 데이터가 없습니다.</td></tr>
 	  </c:if>
-	</tbody>
-
-  </table>
+</table>
+</tbody>
   <!-- stock.jsp 하단 script 일부만 발췌/수정 -->
   <script>
     // 등록 버튼: 등록 폼 페이지로 이동

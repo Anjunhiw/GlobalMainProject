@@ -57,7 +57,7 @@
 		    <a class="link active" href="/hrm">인사관리</a>
 		</c:if>
 	    <div class="edit" title="회원정보수정">
-			<a class="link" href="/edit">마이페이지</a>
+			<a class="link" href="/useredit">마이페이지</a>
 	    </div>
 	
 		<form action="/logout" method="post">

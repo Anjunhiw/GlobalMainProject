@@ -176,7 +176,6 @@
 	];
 
 	function renderTimeline() {
-		console.log(timelineData);
 	  const timeline = document.getElementById('timeline');
 	  if (!timeline) return;
 	  timeline.innerHTML = '';
@@ -187,7 +186,7 @@
 	  timelineData.forEach(item => {
 	    const dotClass = item.type === '오류' ? 'red' : (item.type === '알림' ? 'blue' : 'gray');
 	    const tagClass = item.type === '오류' ? 'danger' : (item.type === '알림' ? 'info' : 'muted');
-		console.log(item.date)
+	
 	    const li = document.createElement('li');
 	    li.className = 't-item';
 	    li.innerHTML = `

@@ -1,0 +1,88 @@
+
+.auth-container{
+  min-height: calc(100vh - 120px);
+  display:flex; align-items:center; justify-content:center;
+  background:#f3f6fb;
+  padding:34px 16px;
+}
+.auth-card{
+  width:100%; max-width:720px;
+  background:#fff; border-radius:16px;
+  box-shadow:0 12px 28px rgba(20,30,60,.08);
+  padding:28px 26px 24px;
+}
+.auth-title{
+  margin:0; font-size:1.5rem; font-weight:800; color:#1f2a44; letter-spacing:-0.2px;
+}
+.auth-sub{
+  margin:4px 0 20px; font-size:.95rem; color:#6b7280;
+}
+
+/* 아바타 */
+.avatar-row{
+  display:flex; align-items:center; gap:14px; margin:6px 0 18px;
+}
+.avatar-wrap{
+  position:relative; width:72px; height:72px; border-radius:50%;
+  overflow:hidden; cursor:pointer; flex:0 0 72px;
+  background:#f1f5f9; border:1px solid #e5e7eb;
+}
+.avatar-wrap img{
+  width:100%; height:100%; object-fit:cover; display:block;
+}
+.avatar-edit{
+  position:absolute; bottom:0; left:0; right:0;
+  background:rgba(0,0,0,.45); color:#fff; text-align:center;
+  font-size:.8rem; padding:3px 0;
+}
+.avatar-help{ color:#374151; font-size:.95rem; }
+.avatar-help .help-sub{ color:#6b7280; font-size:.88rem; }
+
+/* 폼 */
+.auth-form{ width:100%; }
+.grid{ display:grid; gap:14px; }
+.grid.two{ grid-template-columns: 1fr 1fr; }
+@media (max-width: 720px){
+  .grid.two{ grid-template-columns: 1fr; }
+}
+
+.field{ display:flex; flex-direction:column; gap:6px; }
+.field label{ font-size:.92rem; color:#374151; font-weight:600; }
+.field input, .field select{
+  appearance:none; -webkit-appearance:none;
+  width:100%; padding:10px 12px;
+  background:#f9fbff; border:1px solid #e5e7eb; border-radius:10px;
+  font-size:0.98rem; color:#111827; outline:none;
+  transition: border .15s, box-shadow .15s, background .15s;
+}
+.field input:focus, .field select:focus{
+  border-color:#5b8cff;
+  box-shadow:0 0 0 3px rgba(91,140,255,.15);
+  background:#fff;
+}
+.field input[disabled]{ background:#f3f4f6; color:#9ca3af; }
+
+/* 비밀번호 변경 */
+
+.pw-box > summary{
+  cursor:pointer; font-weight:700; color:#1f2a44; margin-bottom:8px;
+  list-style:none; outline:none;
+}
+.pw-box > summary::-webkit-details-marker{ display:none; }
+.pw-box > summary:hover{ 
+color:#2563eb; 
+}
+/* 액션 */
+.form-actions{
+  gap:10px; margin-top:16px; margin-left: auto;
+}
+.btn{
+  padding:10px 16px; border-radius:10px; border:none; cursor:pointer;
+  font-weight:700; font-size:.98rem; transition:filter .15s, transform .02s;
+  border-radius: 999px;
+}
+
+.btn.primary{ background:linear-gradient(180deg,#5b8cff,#1867dd); color:#fff; }
+.btn.primary:hover{ filter:brightness(1.03); }
+.btn.ghost{ background:#eef2ff; color:#1e3a8a; }
+.btn.ghost:hover{ filter:brightness(1.02); }

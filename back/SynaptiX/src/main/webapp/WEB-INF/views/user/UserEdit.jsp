@@ -2,7 +2,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<link rel="stylesheet" href="<c:url value='/css/pfofile.css?v=1'/>">
+
+<link rel="stylesheet" href="<c:url value='/css/edit.css?v=1'/>">
 
 
 <main class="auth-container">
@@ -27,7 +28,7 @@
       <div class="grid two">
         <div class="field">
           <label>이름</label>
-          <input type="text" name="name" value="<c:out value='${username}'/>" required>
+          <input type="text" name="name" value="<c:out value='${user.name}'/>" required>
         </div>
         <div class="field">
           <label>아이디</label>
@@ -40,11 +41,7 @@
           <label>이메일</label>
           <input type="email" name="email" value="<c:out value='${user.email}'/>" required>
         </div>
-        <div class="field">
-          <label>연락처</label>
-          <input type="tel" name="phone" placeholder="010-1234-5678" value="<c:out value='${user.phone}'/>">
-        </div>
-      </div>
+
 
       <div class="grid two">
         <div class="field">
@@ -82,4 +79,4 @@
       </div>
     </form>
   </section>
-</main>
+  </main>

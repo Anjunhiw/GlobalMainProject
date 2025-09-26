@@ -70,7 +70,7 @@ h3 {
   border:none; cursor:pointer; font-weight:700; letter-spacing:.02em;
   padding:8px 16px; border-radius:10px; color:#fff; transition:transform .05s ease, filter .15s;
 }
-.btn:active{transform:translateY(1px)}
+
 .pill{border-radius:999px}
 
 /* 테이블 내부 폼 버튼들이 꽉 차 보이지 않게 */
@@ -83,10 +83,12 @@ table td form { display:inline-block; }
   line-height: 1;
   border-radius: 999px;
 }
-
+.form-delete .btn-sm{position:relative; 
+	  top:6px;
+  }
 /* 색상 */
 .btn-warning{ background:#f0ad4e; color:#fff; border:none; }
-.btn-danger{  background:#e74c3c; color:#fff; border:none; }
+.btn-danger{  background:#e74c3c; color:#fff; border:none; } }
 .btn-warning:hover{ filter:brightness(0.95); }
 .btn-danger:hover{  filter:brightness(0.95); }
 

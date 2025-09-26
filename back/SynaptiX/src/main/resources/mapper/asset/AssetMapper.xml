@@ -10,4 +10,21 @@
         FROM assets
         LIMIT 1
     </select>
+    <select id="searchAsset" resultType="com.example.demo.model.AssetDTO">
+        SELECT 
+            TotalAssets AS totalAssets,
+            CurrenAssets AS currentAssets,
+            TotalEarning AS totalEarning,
+            TotalCost AS totalCost
+        FROM assets
+        <where>
+            <if test="startDate != null and startDate != ''">
+                AND date &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND date &lt;= #{endDate}
+            </if>
+        </where>
+        LIMIT 1
+    </select>
 </mapper>

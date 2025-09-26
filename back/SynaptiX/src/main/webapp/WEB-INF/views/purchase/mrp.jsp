@@ -2,6 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
+    java.util.Calendar cal = java.util.Calendar.getInstance();
+    cal.set(java.util.Calendar.DAY_OF_MONTH, 1);
+    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+    String firstDayOfMonth = sdf.format(cal.getTime());
+    request.setAttribute("firstDayOfMonth", firstDayOfMonth);
+%>
+<%
 request.setAttribute("pageTitle", "MRP");
 request.setAttribute("active_purchase", "active");
 request.setAttribute("active_mrp", "active");
@@ -28,7 +35,7 @@ request.setAttribute("active_mrp", "active");
 
     <div class="field">
       <label>입고일자</label>
-      <input type="date" id="inDate" name="inDate" value="${param.inDate}">
+      <input type="date" id="inDate" name="inDate" value="<c:choose><c:when test='${not empty param.inDate}'>${param.inDate}</c:when><c:otherwise>${firstDayOfMonth}</c:otherwise></c:choose>">
     </div>
 
     <div class="field">

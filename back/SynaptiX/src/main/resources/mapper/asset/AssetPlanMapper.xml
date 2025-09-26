@@ -13,4 +13,27 @@
         LEFT JOIN product p ON ap.ProductId = p.pk
         ORDER BY ap.Date ASC
     </select>
+    <select id="searchAssetPlans" resultType="com.example.demo.model.AssetPlanDTO">
+        SELECT 
+            ap.pk,
+            ap.Date AS date,
+            ap.ProductId AS productId,
+            p.name AS productName,
+            p.price AS price,
+            ap.Amount AS amount
+        FROM assetplan ap
+        LEFT JOIN product p ON ap.ProductId = p.pk
+        <where>
+            <if test="planDate != null and planDate != ''">
+                AND ap.Date = #{planDate}
+            </if>
+            <if test="productName != null and productName != ''">
+                AND p.name LIKE CONCAT('%', #{productName}, '%')
+            </if>
+            <if test="salesQty != null and salesQty != ''">
+                AND ap.Amount = #{salesQty}
+            </if>
+        </where>
+        ORDER BY ap.Date ASC
+    </select>
 </mapper>

@@ -13,4 +13,32 @@
             o.OrderStatus AS status
         FROM `order` o
     </select>
+
+    <select id="searchOrders" resultType="com.example.demo.model.OrderDTO">
+        SELECT 
+            o.pk AS orderNo,
+            o.Date AS orderDate,
+            o.ProductId AS prodCode,
+            o.ProductName AS prodName,
+            o.Amount AS qty,
+            o.Price AS unitPrice,
+            o.Total AS amount,
+            o.OrderStatus AS status
+        FROM `order` o
+        <where>
+            <if test="prodCode != null and prodCode != ''">
+                AND o.ProductId = #{prodCode}
+            </if>
+            <if test="prodName != null and prodName != ''">
+                AND o.ProductName LIKE CONCAT('%', #{prodName}, '%')
+            </if>
+            <if test="orderDate != null and orderDate != ''">
+                AND o.Date = #{orderDate}
+            </if>
+            <if test="status != null and status != ''">
+                AND o.OrderStatus = #{status}
+            </if>
+        </where>
+        ORDER BY o.Date DESC, o.pk DESC
+    </select>
 </mapper>

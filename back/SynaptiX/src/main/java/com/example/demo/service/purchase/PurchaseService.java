@@ -14,4 +14,8 @@ public class PurchaseService {
     public List<PurchaseDTO> getAllPurchases() {
         return purchaseMapper.selectAllPurchases();
     }
+
+    public List<PurchaseDTO> searchPurchases(java.util.Map<String, Object> params) {
+        return purchaseMapper.searchPurchases(params);
+    }
 }

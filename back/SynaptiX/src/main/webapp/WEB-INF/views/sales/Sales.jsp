@@ -2,6 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
+    java.util.Calendar cal = java.util.Calendar.getInstance();
+    cal.set(java.util.Calendar.DAY_OF_MONTH, 1);
+    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+    String firstDayOfMonth = sdf.format(cal.getTime());
+    request.setAttribute("firstDayOfMonth", firstDayOfMonth);
+%>
+<%
 request.setAttribute("pageTitle", "판매출고");
 request.setAttribute("active_sales", "active");
 request.setAttribute("active_sale", "active");
@@ -31,7 +38,7 @@ request.setAttribute("active_sale", "active");
 
     <div class="field">
       <label>출고일자</label>
-      <input type="date" id="outDate" name="outDate">
+      <input type="date" id="outDate" name="outDate" value="<c:choose><c:when test='${not empty param.outDate}'>${param.outDate}</c:when><c:otherwise>${firstDayOfMonth}</c:otherwise></c:choose>">
     </div>
 
     <div class="field">

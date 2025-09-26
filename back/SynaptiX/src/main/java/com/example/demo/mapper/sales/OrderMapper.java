@@ -7,4 +7,5 @@ import java.util.Map;
 @Mapper
 public interface OrderMapper {
     List<Map<String, Object>> selectAllOrders();
+    List<Map<String, Object>> searchOrders(Map<String, Object> params);
 }

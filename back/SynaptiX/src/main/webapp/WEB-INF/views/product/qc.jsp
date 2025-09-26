@@ -3,6 +3,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.Date, java.text.SimpleDateFormat" %>
 <%
+    java.util.Calendar cal = java.util.Calendar.getInstance();
+    cal.set(java.util.Calendar.DAY_OF_MONTH, 1);
+    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+    String firstDayOfMonth = sdf.format(cal.getTime());
+    cal.set(java.util.Calendar.DAY_OF_MONTH, cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH));
+    String lastDayOfMonth = sdf.format(cal.getTime());
+    request.setAttribute("firstDayOfMonth", firstDayOfMonth);
+    request.setAttribute("lastDayOfMonth", lastDayOfMonth);
+%>
+<%
 request.setAttribute("pageTitle", "QC");
 request.setAttribute("active_product", "active");
 request.setAttribute("active_qc", "active");
@@ -20,9 +30,9 @@ request.setAttribute("active_qc", "active");
     <div class="field">
       <label>기간</label>
       <div class="input-with-btn">
-        <input type="date" id="dateFrom" name="dateFrom" placeholder="시작일">
+        <input type="date" id="dateFrom" name="dateFrom" placeholder="시작일" value="<c:choose><c:when test='${not empty param.dateFrom}'>${param.dateFrom}</c:when><c:otherwise>${firstDayOfMonth}</c:otherwise></c:choose>">
         ~
-        <input type="date" id="dateTo" name="dateTo" placeholder="종료일">
+        <input type="date" id="dateTo" name="dateTo" placeholder="종료일" value="<c:choose><c:when test='${not empty param.dateTo}'>${param.dateTo}</c:when><c:otherwise>${lastDayOfMonth}</c:otherwise></c:choose>">
       </div>
     </div>
 

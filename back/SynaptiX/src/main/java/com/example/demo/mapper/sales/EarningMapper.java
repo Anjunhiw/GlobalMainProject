@@ -7,4 +7,5 @@ import java.util.Map;
 @Mapper
 public interface EarningMapper {
     List<Map<String, Object>> selectAllEarnings();
+    List<Map<String, Object>> searchEarnings(Map<String, Object> params);
 }

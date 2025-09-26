@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface AssetPlanMapper {
     List<AssetPlanDTO> selectAssetPlans();
+    List<AssetPlanDTO> searchAssetPlans(java.util.Map<String, Object> params);
 }

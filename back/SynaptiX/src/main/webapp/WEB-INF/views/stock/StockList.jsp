@@ -51,7 +51,7 @@ request.setAttribute("active_stl", "active");
 	</div>
     <div class="btn-group">
       <button type="button" class="btn btn-success" onclick="openRegister()">등록</button>
-      <button type="button" class="btn btn-primary" onclick="searchData()">조회</button>
+      <button type="button" class="btn btn-primary" id="btn-search" onclick="searchData()">조회</button>
     </div>
   </div>
  

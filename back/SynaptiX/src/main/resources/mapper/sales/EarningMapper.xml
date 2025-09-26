@@ -15,4 +15,35 @@
         LEFT JOIN product p ON t.ProductId = p.pk
         ORDER BY t.Date DESC
     </select>
+    <select id="searchEarnings" resultType="map">
+        SELECT
+          p.pk AS ProductId,
+          t.Date,
+          p.Name AS ProductName,
+          t.Sales AS Amount,
+          p.Price,
+          (t.Sales * p.Price) AS Total,
+          t.Earning,
+          p.Stock
+        FROM transaction_details t
+        LEFT JOIN product p ON t.ProductId = p.pk
+        <where>
+            <if test="prodCode != null and prodCode != ''">
+                AND p.pk = #{prodCode}
+            </if>
+            <if test="prodName != null and prodName != ''">
+                AND p.Name LIKE CONCAT('%', #{prodName}, '%')
+            </if>
+            <if test="qc != null and qc != ''">
+                AND t.QC = #{qc}
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND t.Date &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND t.Date &lt;= #{endDate}
+            </if>
+        </where>
+        ORDER BY t.Date DESC
+    </select>
 </mapper>

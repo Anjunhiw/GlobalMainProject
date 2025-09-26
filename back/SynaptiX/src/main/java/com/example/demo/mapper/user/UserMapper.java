@@ -11,4 +11,5 @@ public interface UserMapper {
     java.util.List<UserDTO> selectAllUsers();
     UserDTO findByUserId(String userId);
     int updatePassword(String userId, String encodedPassword);
+    java.util.List<UserDTO> searchUsers(java.util.Map<String, Object> params);
 }

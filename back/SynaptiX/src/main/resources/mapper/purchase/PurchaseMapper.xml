@@ -15,4 +15,33 @@
         FROM purchase p
         INNER JOIN material m ON p.MaterialId = m.pk
     </select>
+    <select id="searchPurchases" resultType="com.example.demo.model.PurchaseDTO">
+        SELECT
+            p.pk,
+            p.MaterialId AS MaterialId,
+            p.Cost AS Cost,
+            p.Purchase AS Purchase,
+            p.Date AS Date,
+            m.Name AS materialName,
+            m.Price,
+            m.Stock,
+            m.Amount
+        FROM purchase p
+        INNER JOIN material m ON p.MaterialId = m.pk
+        <where>
+            <if test="prodCode != null and prodCode != ''">
+                AND m.pk = #{prodCode}
+            </if>
+            <if test="prodName != null and prodName != ''">
+                AND m.Name LIKE CONCAT('%', #{prodName}, '%')
+            </if>
+            <if test="inDate != null and inDate != ''">
+                AND p.Date = #{inDate}
+            </if>
+            <if test="mrpStatus != null and mrpStatus != ''">
+                AND m.MrpStatus = #{mrpStatus}
+            </if>
+        </where>
+        ORDER BY p.Date DESC, p.pk DESC
+    </select>
 </mapper>

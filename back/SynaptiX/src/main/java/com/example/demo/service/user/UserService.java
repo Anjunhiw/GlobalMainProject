@@ -52,6 +52,9 @@ public class UserService {
         return userMapper.updatePassword(userId, encodedPassword) > 0;
     }
     
+    public java.util.List<UserDTO> searchUsers(java.util.Map<String, Object> params) {
+        return userMapper.searchUsers(params);
+    }
     
     @Controller
     public class ProfileController {

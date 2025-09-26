@@ -14,4 +14,8 @@ public class AssetPlanService {
     public List<AssetPlanDTO> getAssetPlans() {
         return assetPlanMapper.selectAssetPlans();
     }
+
+    public List<AssetPlanDTO> searchAssetPlans(java.util.Map<String, Object> params) {
+        return assetPlanMapper.searchAssetPlans(params);
+    }
 }

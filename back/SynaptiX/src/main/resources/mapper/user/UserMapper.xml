@@ -48,4 +48,29 @@
         SET Password = #{encodedPassword}
         WHERE ID = #{userId}
     </update>
+
+    <select id="searchUsers" resultType="com.example.demo.model.UserDTO">
+        SELECT 
+            ID AS userId,
+            Password AS password,
+            Name AS name,
+            Email AS email,
+            Dept AS dept,
+            Years AS years,
+            Salary AS salary,
+            Rank AS rank,
+            Birth AS birth
+        FROM member
+        <where>
+            <if test="dept != null and dept != ''">
+                AND Dept LIKE CONCAT('%', #{dept}, '%')
+            </if>
+            <if test="position != null and position != ''">
+                AND Rank LIKE CONCAT('%', #{position}, '%')
+            </if>
+            <if test="empName != null and empName != ''">
+                AND Name LIKE CONCAT('%', #{empName}, '%')
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -66,16 +66,60 @@ request.setAttribute("active_personal", "active");
     </tbody>
   </table>
 
+  <!-- 모달 구조 추가 -->
+  <div id="searchModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h3>검색 결과</h3>
+      <div id="modalResults">
+        <!-- AJAX results will be injected here -->
+      </div>
+    </div>
+  </div>
+
+  <style>
+  .modal {
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.4);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-content {
+    background: #fff; padding: 20px; border-radius: 8px; min-width: 400px; max-width: 90vw;
+    max-height: 80vh; overflow-y: auto; position: relative;
+  }
+  .close {
+    position: absolute; right: 16px; top: 10px; font-size: 24px; cursor: pointer;
+  }
+  </style>
+
   <script>
-    // 조회 버튼 → 쿼리 파라미터로 새로고침
-    document.getElementById('btn-search')?.addEventListener('click', () => {
+    document.getElementById('btn-search')?.addEventListener('click', function (e) {
+      e.preventDefault();
       const params = new URLSearchParams({
         dept: document.getElementById('dept').value || '',
         position: document.getElementById('position').value || '',
         empName: document.getElementById('empName').value || ''
       });
-      // 컨트롤러 매핑에 맞게 경로만 조정
-      location.href = '/hr?'+ params.toString();
+      fetch('/hr/search?' + params.toString(), { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById('modalResults').innerHTML = html;
+          document.getElementById('searchModal').style.display = 'flex';
+        })
+        .catch(() => {
+          document.getElementById('modalResults').innerHTML = '<p style="color:red;">검색 결과를 불러오지 못했습니다.</p>';
+          document.getElementById('searchModal').style.display = 'flex';
+        });
+    });
+    document.getElementById('closeModal')?.addEventListener('click', function () {
+      document.getElementById('searchModal').style.display = 'none';
+    });
+    window.addEventListener('click', function(e) {
+      if (e.target === document.getElementById('searchModal')) {
+        document.getElementById('searchModal').style.display = 'none';
+      }
     });
   </script>
 </body>

@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface PurchaseMapper {
     List<PurchaseDTO> selectAllPurchases();
+    List<PurchaseDTO> searchPurchases(java.util.Map<String, Object> params);
 }

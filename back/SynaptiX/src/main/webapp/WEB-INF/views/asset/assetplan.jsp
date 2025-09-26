@@ -1,6 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
+    java.util.Calendar cal = java.util.Calendar.getInstance();
+    cal.set(java.util.Calendar.DAY_OF_MONTH, 1);
+    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+    String firstDayOfMonth = sdf.format(cal.getTime());
+    request.setAttribute("firstDayOfMonth", firstDayOfMonth);
+%>
+<%
 request.setAttribute("pageTitle", "자금계획");
 request.setAttribute("active_asset", "active");
 request.setAttribute("active_asp", "active");
@@ -16,7 +23,7 @@ request.setAttribute("active_asp", "active");
   <div class="filter-smallq">
     <div class="field">
       <label>예상기간</label>
-      <input type="date" id="planDate" name="planDate" value="${param.planDate}">
+      <input type="date" id="planDate" name="planDate" value="<c:choose><c:when test='${not empty param.planDate}'>${param.planDate}</c:when><c:otherwise>${firstDayOfMonth}</c:otherwise></c:choose>">
     </div>
     <div class="field">
       <label>제품명</label>
@@ -59,14 +66,60 @@ request.setAttribute("active_asp", "active");
     </tbody>
   </table>
 
+  <!-- 모달 구조 추가 -->
+  <div id="searchModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h3>검색 결과</h3>
+      <div id="modalResults">
+        <!-- AJAX results will be injected here -->
+      </div>
+    </div>
+  </div>
+
+  <style>
+  .modal {
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.4);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-content {
+    background: #fff; padding: 20px; border-radius: 8px; min-width: 400px; max-width: 90vw;
+    max-height: 80vh; overflow-y: auto; position: relative;
+  }
+  .close {
+    position: absolute; right: 16px; top: 10px; font-size: 24px; cursor: pointer;
+  }
+  </style>
+
   <script>
-    document.getElementById('btnSearch')?.addEventListener('click', () => {
-      const params = new URLSearchParams({
+    document.getElementById('btnSearch')?.addEventListener('click', function (e) {
+      e.preventDefault();
+      const p = new URLSearchParams({
         planDate: document.getElementById('planDate').value || '',
         productName: document.getElementById('productName').value || '',
         salesQty: document.getElementById('salesQty').value || ''
       });
-      location.href = '/fund/plan?' + params.toString(); // 컨트롤러 매핑에 맞게 수정
+      fetch('/fund/plan/search?' + p.toString(), { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById('modalResults').innerHTML = html;
+          document.getElementById('searchModal').style.display = 'flex';
+        })
+        .catch(() => {
+          document.getElementById('modalResults').innerHTML = '<p style="color:red;">검색 결과를 불러오지 못했습니다.</p>';
+          document.getElementById('searchModal').style.display = 'flex';
+        });
+    });
+    document.getElementById('closeModal')?.addEventListener('click', function () {
+      document.getElementById('searchModal').style.display = 'none';
+    });
+    window.addEventListener('click', function(e) {
+      if (e.target === document.getElementById('searchModal')) {
+        document.getElementById('searchModal').style.display = 'none';
+      }
     });
   </script>
 </body>

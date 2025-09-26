@@ -2,6 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
+    java.util.Calendar cal = java.util.Calendar.getInstance();
+    cal.set(java.util.Calendar.DAY_OF_MONTH, 1);
+    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+    String firstDayOfMonth = sdf.format(cal.getTime());
+    cal.set(java.util.Calendar.DAY_OF_MONTH, cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH));
+    String lastDayOfMonth = sdf.format(cal.getTime());
+    request.setAttribute("firstDayOfMonth", firstDayOfMonth);
+    request.setAttribute("lastDayOfMonth", lastDayOfMonth);
+%>
+<%
 request.setAttribute("pageTitle", "매출");
 request.setAttribute("active_sales", "active");
 request.setAttribute("active_earning", "active");
@@ -38,12 +48,12 @@ request.setAttribute("active_earning", "active");
 
     <div class="field">
       <label>시작일자</label>
-      <input type="date" id="startDate" name="startDate" value="${param.startDate}">
+      <input type="date" id="startDate" name="startDate" value="<c:choose><c:when test='${not empty param.startDate}'>${param.startDate}</c:when><c:otherwise>${firstDayOfMonth}</c:otherwise></c:choose>">
     </div>
 
     <div class="field">
       <label>종료일자</label>
-      <input type="date" id="endDate" name="endDate" value="${param.endDate}">
+      <input type="date" id="endDate" name="endDate" value="<c:choose><c:when test='${not empty param.endDate}'>${param.endDate}</c:when><c:otherwise>${lastDayOfMonth}</c:otherwise></c:choose>">
     </div>
 
     <div class="btn-group">
@@ -89,9 +99,38 @@ request.setAttribute("active_earning", "active");
     </tbody>
   </table>
 
-  <!-- 조회 버튼: GET 파라미터로 재조회 -->
+  <!-- 모달 구조 추가 -->
+  <div id="searchModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h3>검색 결과</h3>
+      <div id="modalResults">
+        <!-- AJAX results will be injected here -->
+      </div>
+    </div>
+  </div>
+
+  <style>
+  .modal {
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.4);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-content {
+    background: #fff; padding: 20px; border-radius: 8px; min-width: 400px; max-width: 90vw;
+    max-height: 80vh; overflow-y: auto; position: relative;
+  }
+  .close {
+    position: absolute; right: 16px; top: 10px; font-size: 24px; cursor: pointer;
+  }
+  </style>
+
+  <!-- 조회 버튼: 모달 AJAX 조회로 변경 -->
   <script>
-    document.getElementById('btnSearch')?.addEventListener('click', function () {
+    document.getElementById('btnSearch')?.addEventListener('click', function (e) {
+      e.preventDefault();
       const p = new URLSearchParams({
         prodCode : document.getElementById('prodCode').value || '',
         prodName : document.getElementById('prodName').value || '',
@@ -99,8 +138,24 @@ request.setAttribute("active_earning", "active");
         startDate: document.getElementById('startDate').value || '',
         endDate  : document.getElementById('endDate').value || ''
       });
-      // 컨트롤러 매핑에 맞게 경로만 바꿔주세요 (예: GET /sales/revenue)
-      location.href = '/sales/revenue?' + p.toString();
+      fetch('/sales/earning/search?' + p.toString(), { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById('modalResults').innerHTML = html;
+          document.getElementById('searchModal').style.display = 'flex';
+        })
+        .catch(() => {
+          document.getElementById('modalResults').innerHTML = '<p style="color:red;">검색 결과를 불러오지 못했습니다.</p>';
+          document.getElementById('searchModal').style.display = 'flex';
+        });
+    });
+    document.getElementById('closeModal')?.addEventListener('click', function () {
+      document.getElementById('searchModal').style.display = 'none';
+    });
+    window.addEventListener('click', function(e) {
+      if (e.target === document.getElementById('searchModal')) {
+        document.getElementById('searchModal').style.display = 'none';
+      }
     });
   </script>
 

@@ -1,17 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.sales.TransactionMapper">
-    <select id="selectAllTransactions" resultType="map">
+    <select id="selectAllTransactions" resultType="com.example.demo.model.TransactionDTO">
         SELECT 
-          t.pk,
-          t.Date,
-          t.ProductId,
-          m.Name AS prodName,
-          t.Sales AS Sales,
-          m.Price AS unitPrice,
-          (t.Sales * m.Price) AS amount,
-          t.Earning
+          t.pk AS pk,
+          t.Date AS date,
+          t.ProductId AS productId,
+          p.Name AS prodName,
+          t.Sales AS sales,
+          CAST(p.Price AS DOUBLE) AS unitPrice,
+          CAST((t.Sales * p.Price) AS DOUBLE) AS amount,
+          t.Earning AS earning
         FROM transaction_details t
-        LEFT JOIN material m ON t.ProductId = m.pk
+        LEFT JOIN product p ON t.ProductId = p.pk
+    </select>
+    <select id="selectTransactionsByCondition" resultType="com.example.demo.model.TransactionDTO" parameterType="map">
+        SELECT 
+          t.pk AS pk,
+          t.Date AS date,
+          t.ProductId AS productId,
+          p.Name AS prodName,
+          t.Sales AS sales,
+          CAST(p.Price AS DOUBLE) AS unitPrice,
+          CAST((t.Sales * p.Price) AS DOUBLE) AS amount,
+          t.Earning AS earning
+        FROM transaction_details t
+        LEFT JOIN product p ON t.ProductId = p.pk
+        <where>
+            <if test="prodCode != null and prodCode != ''">
+                AND p.pk = #{prodCode}
+            </if>
+            <if test="prodName != null and prodName != ''">
+                AND p.Name LIKE CONCAT('%', #{prodName}, '%')
+            </if>
+            <if test="date != null and date != ''">
+                AND t.Date LIKE CONCAT('%', #{date}, '%')
+            </if>
+            <if test="stmtNo != null and stmtNo != ''">
+                AND CONCAT(DATE_FORMAT(t.Date, '%Y%m'), '-', t.pk) LIKE CONCAT('%', #{stmtNo}, '%')
+            </if>
+        </where>
+        ORDER BY t.Date DESC, t.pk DESC
     </select>
 </mapper>

@@ -26,4 +26,27 @@
     </where>
     ORDER BY p.date DESC
   </select>
+  <select id="searchCostConList" resultType="com.example.demo.model.PurchaseDTO">
+    SELECT
+      p.date,
+      m.name AS materialName,
+      p.purchase,
+      m.price AS price,
+      p.cost
+    FROM
+      purchase p
+      JOIN material m ON p.materialId = m.pk
+    <where>
+      <if test="startDate != null and startDate != ''">
+        AND p.date &gt;= #{startDate}
+      </if>
+      <if test="endDate != null and endDate != ''">
+        AND p.date &lt;= #{endDate}
+      </if>
+      <if test="mtrName != null and mtrName != ''">
+        AND m.name LIKE CONCAT('%', #{mtrName}, '%')
+      </if>
+    </where>
+    ORDER BY p.date DESC
+  </select>
 </mapper>

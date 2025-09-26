@@ -5,6 +5,8 @@ import com.example.demo.mapper.asset.AssetMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public class AssetService {
     @Autowired
@@ -12,5 +14,9 @@ public class AssetService {
 
     public AssetDTO getAsset() {
         return assetMapper.selectAsset();
+    }
+
+    public AssetDTO searchAsset(Map<String, Object> params) {
+        return assetMapper.searchAsset(params);
     }
 }

@@ -28,4 +28,18 @@ public class CostConController {
         model.addAttribute("mtrName", materialName);
         return "asset/costcon";
     }
+
+    @GetMapping("/fund/cost/search")
+    public String searchCostConList(@RequestParam(required = false) String startDate,
+                                    @RequestParam(required = false) String endDate,
+                                    @RequestParam(required = false) String mtrName,
+                                    Model model) {
+        java.util.Map<String, Object> params = new java.util.HashMap<>();
+        params.put("startDate", startDate);
+        params.put("endDate", endDate);
+        params.put("mtrName", mtrName);
+        java.util.List<com.example.demo.model.PurchaseDTO> costList = costConService.searchCostConList(params);
+        model.addAttribute("costList", costList);
+        return "asset/CostConModalResult";
+    }
 }

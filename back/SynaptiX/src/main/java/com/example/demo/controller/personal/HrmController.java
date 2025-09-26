@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("")
@@ -19,5 +20,19 @@ public class HrmController {
         java.util.List<UserDTO> employees = userService.getAllUsers();
         model.addAttribute("employees", employees);
         return "personal/hrm";
+    }
+
+    @GetMapping("/hr/search")
+    public String searchEmployees(@RequestParam(required = false) String dept,
+                                 @RequestParam(required = false) String position,
+                                 @RequestParam(required = false) String empName,
+                                 Model model) {
+        java.util.Map<String, Object> params = new java.util.HashMap<>();
+        params.put("dept", dept);
+        params.put("position", position);
+        params.put("empName", empName);
+        java.util.List<com.example.demo.model.UserDTO> employees = userService.searchUsers(params);
+        model.addAttribute("employees", employees);
+        return "personal/HrmModalResult";
     }
 }

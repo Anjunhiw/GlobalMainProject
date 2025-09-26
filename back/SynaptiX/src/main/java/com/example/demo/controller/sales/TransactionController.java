@@ -3,6 +3,7 @@ package com.example.demo.controller.sales;
 import com.example.demo.model.TransactionDTO;
 import com.example.demo.mapper.sales.TransactionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ public class TransactionController {
     @Autowired
     private TransactionMapper transactionMapper;
 
+    @PreAuthorize("hasAuthority('DEPT_PRODUCTION') or hasAuthority('ROLE_ADMIN')")
     @GetMapping("/transaction")
     public String transactionList(Model model) {
         List<TransactionDTO> transactionList = transactionMapper.selectAllTransactions();
@@ -24,6 +26,7 @@ public class TransactionController {
         return "sales/transaction";
     }
 
+    @PreAuthorize("hasAuthority('DEPT_PRODUCTION') or hasAuthority('ROLE_ADMIN')")
     @GetMapping("/transaction/search")
     public String searchTransactions(
             @RequestParam(value = "prodCode", required = false) String prodCode,

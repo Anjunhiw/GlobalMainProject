@@ -2,6 +2,7 @@ package com.example.demo.controller.sales;
 
 import com.example.demo.mapper.sales.EarningMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ public class EarningController {
     @Autowired
     private EarningMapper earningMapper;
 
+    @PreAuthorize("hasAuthority('DEPT_PRODUCTION') or hasAuthority('ROLE_ADMIN')")
     @GetMapping("/earning")
     public String earningList(Model model) {
         List<Map<String, Object>> earningList = earningMapper.selectAllEarnings();
@@ -22,6 +24,7 @@ public class EarningController {
         return "sales/earning";
     }
 
+    @PreAuthorize("hasAuthority('DEPT_PRODUCTION') or hasAuthority('ROLE_ADMIN')")
     @GetMapping("/sales/earning/search")
     public String searchEarnings(@RequestParam(required = false) String prodCode,
                                  @RequestParam(required = false) String prodName,

@@ -12,19 +12,20 @@
         <result property="pw" column="Password" />
         <result property="email" column="Email" />
         <result property="dept" column="Dept" />
+        <result property="rank" column="Rank" />
     </resultMap>
 
     <!-- select 예시 -->
     <select id="selectName" resultMap="LoginDTOMap">
-        SELECT pk, Name FROM member WHERE ID = #{id} AND Password = #{pw}
+        SELECT pk, Name, Rank FROM member WHERE ID = #{id} AND Password = #{pw}
     </select>
     <select id="selectByIdAndPw" resultMap="LoginDTOMap">
-        SELECT pk, ID, Name, Years, Salary, Password, Email, Dept
+        SELECT pk, ID, Name, Years, Salary, Password, Email, Dept, Rank
         FROM member
         WHERE ID = #{id} AND Password = #{pw}
     </select>
     <select id="selectById" resultMap="LoginDTOMap">
-        SELECT pk, ID, Name, Years, Salary, Password, Email, Dept
+        SELECT pk, ID, Name, Years, Salary, Password, Email, Dept, Rank
         FROM member
         WHERE ID = #{id}
     </select>

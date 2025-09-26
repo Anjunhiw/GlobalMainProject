@@ -1,6 +1,7 @@
 package com.example.demo.controller.stock;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ public class ProfitController {
     @Autowired
     private ProfitMapper profitMapper;
 
+    @PreAuthorize("hasAuthority('DEPT_PRODUCTION') or hasAuthority('ROLE_ADMIN')")
     @GetMapping("/profit")
     public String profitPage(
         @RequestParam(value = "item_code", required = false) String itemCode,

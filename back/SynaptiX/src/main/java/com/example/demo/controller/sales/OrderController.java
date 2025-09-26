@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @PreAuthorize("hasAuthority('DEPT_PRODUCTION') or hasAuthority('ROLE_ADMIN')")
     @GetMapping("/order")
     public String orderList(Model model) {
         List<Map<String, Object>> orderList = orderService.getAllOrders();
@@ -26,6 +28,7 @@ public class OrderController {
     }
 
     // 주문 검색 AJAX (모달)
+    @PreAuthorize("hasAuthority('DEPT_PRODUCTION') or hasAuthority('ROLE_ADMIN')")
     @GetMapping("/sales/orders/search")
     public String searchOrders(@RequestParam(required = false) String prodCode,
                                @RequestParam(required = false) String prodName,

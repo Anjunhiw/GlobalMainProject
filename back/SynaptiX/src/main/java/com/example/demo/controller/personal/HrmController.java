@@ -3,12 +3,14 @@ package com.example.demo.controller.personal;
 import com.example.demo.model.UserDTO;
 import com.example.demo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+@PreAuthorize("hasAuthority('DEPT_HR') or hasAuthority('ROLE_ADMIN')")
 @Controller
 @RequestMapping("")
 public class HrmController {

@@ -19,7 +19,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PreAuthorize("hasAuthority('DEPT_PRODUCTION') or hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('DEPT_SALES') or hasAuthority('ROLE_ADMIN')")
     @GetMapping("/order")
     public String orderList(Model model) {
         List<Map<String, Object>> orderList = orderService.getAllOrders();

@@ -18,7 +18,7 @@ public class TransactionController {
     @Autowired
     private TransactionMapper transactionMapper;
 
-    @PreAuthorize("hasAuthority('DEPT_PRODUCTION') or hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('DEPT_SALES') or hasAuthority('ROLE_ADMIN')")
     @GetMapping("/transaction")
     public String transactionList(Model model) {
         List<TransactionDTO> transactionList = transactionMapper.selectAllTransactions();

@@ -10,12 +10,13 @@ import com.example.demo.mapper.stock.ProfitMapper;
 import java.util.List;
 import java.util.Map;
 
+@PreAuthorize("hasAuthority('DEPT_STOCK') or hasAuthority('ROLE_ADMIN')")
 @Controller
 public class ProfitController {
     @Autowired
     private ProfitMapper profitMapper;
 
-    @PreAuthorize("hasAuthority('DEPT_PRODUCTION') or hasAuthority('ROLE_ADMIN')")
+
     @GetMapping("/profit")
     public String profitPage(
         @RequestParam(value = "item_code", required = false) String itemCode,

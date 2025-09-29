@@ -16,7 +16,7 @@ public class EarningController {
     @Autowired
     private EarningMapper earningMapper;
 
-    @PreAuthorize("hasAuthority('DEPT_PRODUCTION') or hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('DEPT_SALES') or hasAuthority('ROLE_ADMIN')")
     @GetMapping("/earning")
     public String earningList(Model model) {
         List<Map<String, Object>> earningList = earningMapper.selectAllEarnings();

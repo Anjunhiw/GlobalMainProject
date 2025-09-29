@@ -47,6 +47,7 @@ public class LoginController {
             case "기술개발": return "DEPT_MAIN";
             case "영업": return "DEPT_SALES";
             case "재무": return "DEPT_ACCOUNTING";
+            case "회계": return "DEPT_AUDIT";
             case "인사": return "DEPT_HR";
             case "개발":
             case "이사회": return "ROLE_ADMIN";

@@ -5,7 +5,6 @@ import com.example.demo.model.MaterialDTO;
 import com.example.demo.model.ProductDTO;
 import com.example.demo.service.stock.StockService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@PreAuthorize("hasAuthority('DEPT_STOCK') or hasAuthority('ROLE_ADMIN')")
 @Controller
 @RequiredArgsConstructor
 public class StockController {
@@ -119,6 +117,7 @@ public class StockController {
         @RequestParam(value = "searchName", required = false) String searchName,
         Model mv
     ) {
+    	System.out.println("오호이");
         // 입력된 값만 넘기기 위해 null/빈값은 null로 전달
         code = (code != null && !code.isBlank()) ? code : null;
         String searchKey = (searchName != null && !searchName.isBlank()) ? searchName : (name != null && !name.isBlank() ? name : null);

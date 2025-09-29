@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@PreAuthorize("hasAuthority('DEPT_AUDIT') or hasAuthority('ROLE_ADMIN')")
 @Controller
 public class CostConController {
     @Autowired

@@ -18,7 +18,6 @@ public class TransactionController {
     @Autowired
     private TransactionMapper transactionMapper;
 
-    @PreAuthorize("hasAuthority('DEPT_SALES') or hasAuthority('ROLE_ADMIN')")
     @GetMapping("/transaction")
     public String transactionList(Model model) {
         List<TransactionDTO> transactionList = transactionMapper.selectAllTransactions();
@@ -26,7 +25,6 @@ public class TransactionController {
         return "sales/transaction";
     }
 
-    @PreAuthorize("hasAuthority('DEPT_PRODUCTION') or hasAuthority('ROLE_ADMIN')")
     @GetMapping("/transaction/search")
     public String searchTransactions(
             @RequestParam(value = "prodCode", required = false) String prodCode,

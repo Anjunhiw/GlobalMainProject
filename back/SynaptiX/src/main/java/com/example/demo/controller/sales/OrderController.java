@@ -19,7 +19,6 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PreAuthorize("hasAuthority('DEPT_SALES') or hasAuthority('ROLE_ADMIN')")
     @GetMapping("/order")
     public String orderList(Model model) {
         List<Map<String, Object>> orderList = orderService.getAllOrders();
@@ -28,7 +27,6 @@ public class OrderController {
     }
 
     // 주문 검색 AJAX (모달)
-    @PreAuthorize("hasAuthority('DEPT_PRODUCTION') or hasAuthority('ROLE_ADMIN')")
     @GetMapping("/sales/orders/search")
     public String searchOrders(@RequestParam(required = false) String prodCode,
                                @RequestParam(required = false) String prodName,

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Map;
 
-@PreAuthorize("hasAuthority('DEPT_ACCOUNTING') or hasAuthority('ROLE_ADMIN')")
 @Controller
 public class MRPController {
     @Autowired

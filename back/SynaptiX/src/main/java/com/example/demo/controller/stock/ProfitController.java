@@ -10,7 +10,6 @@ import com.example.demo.mapper.stock.ProfitMapper;
 import java.util.List;
 import java.util.Map;
 
-@PreAuthorize("hasAuthority('DEPT_STOCK') or hasAuthority('ROLE_ADMIN')")
 @Controller
 public class ProfitController {
     @Autowired

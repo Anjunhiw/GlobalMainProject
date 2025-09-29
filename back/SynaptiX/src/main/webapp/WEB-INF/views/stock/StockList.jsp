@@ -154,8 +154,8 @@ request.setAttribute("active_stl", "active");
           <label for="editCategory" class="label">카테고리</label>
           <div class="control">
             <select id="editCategory" name="category" required onchange="toggleEditFields()">
-              <option value="material">원자재</option>
-              <option value="product">제품</option>
+              <option value="원자재">원자재</option>
+              <option value="제품">제품</option>
             </select>
           </div>
         </div>
@@ -229,7 +229,7 @@ request.setAttribute("active_stl", "active");
 	      <td><fmt:formatNumber value="${material.amount}" type="number" maxFractionDigits="0" groupingUsed="true"/></td>
 	      <td><span class="muted">-</span></td>
 	      <td>
-        <button type="button" class="btn btn-sm btn-warning" onclick="openEditModal('${material.pk}', 'material', this)">수정</button>
+        <button type="button" class="btn btn-sm btn-warning" onclick="openEditModal('${material.pk}', '원자재', this)">수정</button>
       </td> 
 	      <td> 
 
@@ -278,7 +278,7 @@ request.setAttribute("active_stl", "active");
 	      <td><fmt:formatNumber value="${product.amount}" type="number" maxFractionDigits="0" groupingUsed="true"/></td>
 	      <td><span class="muted">-</span></td>
 	      <td>
-        <button type="button" class="btn btn-sm btn-warning" onclick="openEditModal('${product.pk}', 'product', this)">수정</button>
+        <button type="button" class="btn btn-sm btn-warning" onclick="openEditModal('${product.pk}', '제품', this)">수정</button>
       </td>
 	      <td>
 	          <input type="hidden" name="pk" value="${product.pk}">
@@ -356,7 +356,7 @@ request.setAttribute("active_stl", "active");
       document.getElementById('editPk').value = pk;
       document.getElementById('editCategory').value = category;
       document.getElementById('editName').value = tr.children[1].innerText;
-      if (category === 'product') {
+      if (category === '제품') {
         document.getElementById('editModel').value = tr.children[3].innerText;
         document.querySelector('.product-only-edit').style.display = '';
         document.querySelector('.material-only-edit').style.display = 'none';
@@ -366,7 +366,7 @@ request.setAttribute("active_stl", "active");
         document.querySelector('.material-only-edit').style.display = '';
       }
       document.getElementById('editSpec').value = tr.children[4].innerText;
-      document.getElementById('editUnit').value = (category === 'material') ? tr.children[4].nextElementSibling.innerText : '';
+      document.getElementById('editUnit').value = (category === '원자재') ? tr.children[4].nextElementSibling.innerText : '';
       document.getElementById('editPrice').value = tr.children[5].innerText.replace(/,/g, '');
       document.getElementById('editStock').value = tr.children[6].innerText.replace(/,/g, '');
       document.getElementById('editAmount').value = tr.children[7].innerText.replace(/,/g, '');

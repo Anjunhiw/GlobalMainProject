@@ -11,7 +11,9 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException)
             throws IOException, ServletException {
-        // 권한이 없을 때 /access-denied로 리다이렉트
-        response.sendRedirect(request.getContextPath() + "/access-denied");
+        response.setContentType("text/html;charset=UTF-8");
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.getWriter().write("<script>alert('권한이 없습니다.'); location.href='/home';</script>");
+        response.getWriter().flush();
     }
 }

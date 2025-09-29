@@ -16,7 +16,6 @@ public class EarningController {
     @Autowired
     private EarningMapper earningMapper;
 
-    @PreAuthorize("hasAuthority('DEPT_SALES') or hasAuthority('ROLE_ADMIN')")
     @GetMapping("/earning")
     public String earningList(Model model) {
         List<Map<String, Object>> earningList = earningMapper.selectAllEarnings();
@@ -24,7 +23,6 @@ public class EarningController {
         return "sales/earning";
     }
 
-    @PreAuthorize("hasAuthority('DEPT_PRODUCTION') or hasAuthority('ROLE_ADMIN')")
     @GetMapping("/sales/earning/search")
     public String searchEarnings(@RequestParam(required = false) String prodCode,
                                  @RequestParam(required = false) String prodName,

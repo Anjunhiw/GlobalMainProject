@@ -20,6 +20,10 @@ request.setAttribute("active_sale", "active");
 <jsp:useBean id="now" class="java.util.Date"/>
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
 
+<!-- CSRF를 JS에서 쓰기 위해 노출 -->
+<meta name="_csrf_header" content="${_csrf.headerName}">
+<meta name="_csrf" content="${_csrf.token}">
+
 <body>
 
   <h2>판매/출고</h2>
@@ -57,6 +61,10 @@ request.setAttribute("active_sale", "active");
     </div>
   </div>
 
+  <div style="text-align:right; margin-bottom:10px;">
+     <button type="button" class="btn btn-info" id="downloadExcel">엑셀 다운로드</button>
+   </div>
+  
   <h2>판매현황</h2>
 
   <table class="table">
@@ -112,6 +120,9 @@ request.setAttribute("active_sale", "active");
       <div id="modalResults">
         <!-- AJAX results will be injected here -->
       </div>
+      <div style="text-align:right; margin-top:10px;">
+        <button type="button" class="btn btn-info" id="downloadExcelModal">엑셀 다운로드</button>
+      </div>
     </div>
   </div>
 
@@ -161,6 +172,67 @@ request.setAttribute("active_sale", "active");
         document.getElementById('searchModal').style.display = 'none';
       }
     });
+    // 첫페이지 엑셀 다운로드
+    document.getElementById('downloadExcel').onclick = function() {
+      fetch('/sales/excel')
+        .then(response => {
+          if (!response.ok) throw new Error('엑셀 다운로드 실패');
+          return response.blob();
+        })
+        .then(blob => {
+          var url = window.URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = '판매출고_전체리스트.xlsx';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          window.URL.revokeObjectURL(url);
+        })
+        .catch(() => {
+          alert('엑셀 다운로드 중 오류가 발생했습니다.');
+        });
+    };
+    // 모달 엑셀 다운로드
+    document.getElementById('downloadExcelModal').onclick = function() {
+      var code = document.getElementById('code').value;
+      var name = document.getElementById('name').value;
+      var outDate = document.getElementById('outDate').value;
+      var category = document.getElementById('category').value;
+      var csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content;
+      var csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
+      var headers = {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+      };
+      if (csrfHeader && csrfToken) headers[csrfHeader] = csrfToken;
+      var params = new URLSearchParams();
+      if (code) params.append('code', code);
+      if (name) params.append('name', name);
+      if (outDate) params.append('outDate', outDate);
+      if (category) params.append('category', category);
+      fetch('/sales/excel-modal', {
+        method: 'POST',
+        headers: headers,
+        body: params.toString()
+      })
+      .then(response => {
+        if (!response.ok) throw new Error('엑셀 다운로드 실패');
+        return response.blob();
+      })
+      .then(blob => {
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = '판매출고_검색결과.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch(() => {
+        alert('엑셀 다운로드 중 오류가 발생했습니다.');
+      });
+    };
   </script>
 </body>
 </html>

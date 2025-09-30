@@ -4,23 +4,26 @@ package com.example.demo.controller.stock;
 import com.example.demo.model.MaterialDTO;
 import com.example.demo.model.ProductDTO;
 import com.example.demo.service.stock.StockService;
-import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 
 @Controller
-@RequiredArgsConstructor
 public class StockController {
     private final StockService service;
-//    public StockController(StockService service) {
-//		this.service = service;
-//	}
-	 
-  
+    public StockController(StockService service) {
+        this.service = service;
+    }
+    
+    
+    
     @GetMapping("/stock")
     public String showStockList(
             @RequestParam(value = "code", required = false) String code,
@@ -29,7 +32,6 @@ public class StockController {
             @RequestParam(value = "category", required = false) String category,
             Model mv
     ) {
-        // category 값: "", null, "materials", "product" 를 모두 허용
         List<MaterialDTO> materials;
         List<ProductDTO> products;
 
@@ -39,19 +41,16 @@ public class StockController {
                 || (category != null && !category.isBlank());
 
         if (!filtered) {
-            // 전체 조회
             materials = service.getAllMaterials();
             products  = service.getAllProducts();
         } else {
-            // 필터 조회 (서비스에 메서드 없다면 간단히 name만으로도 먼저 구현)
-            if ("materials".equalsIgnoreCase(category)) {
+            if ("원자재".equals(category)) {
                 materials = service.searchMaterialsByName(name == null ? "" : name);
                 products  = List.of();
-            } else if ("product".equalsIgnoreCase(category)) {
+            } else if ("제품".equals(category)) {
                 products  = service.searchProductsByName(name == null ? "" : name);
                 materials = List.of();
             } else {
-                // 카테고리 전체, 이름 필터만 적용
                 materials = service.searchMaterialsByName(name == null ? "" : name);
                 products  = service.searchProductsByName(name == null ? "" : name);
             }
@@ -59,8 +58,6 @@ public class StockController {
 
         mv.addAttribute("materials", materials);
         mv.addAttribute("products", products);
-
-        // 폼 값 유지 (검색 후에도 입력값 남도록)
         mv.addAttribute("q_code", code);
         mv.addAttribute("q_name", name);
         mv.addAttribute("q_model", model);
@@ -75,10 +72,10 @@ public class StockController {
     public String showEditForm(@RequestParam("pk") int pk,
                                @RequestParam("category") String cat,
                                Model mv) {
-        if ("material".equals(cat)) {
+        if ("원자재".equals(cat)) {
             mv.addAttribute("material", service.getMaterialByPk(pk));
             mv.addAttribute("product", null);
-        } else if ("product".equals(cat)) {
+        } else if ("제품".equals(cat)) {
             mv.addAttribute("product", service.getProductByPk(pk));
             mv.addAttribute("material", null);
         } else {
@@ -103,8 +100,8 @@ public class StockController {
     @PostMapping("/stock/delete")
     public String deleteStock(@RequestParam("pk") int pk,
                               @RequestParam("category") String cat) {
-        if ("material".equals(cat)) service.deleteMaterial(pk);
-        else if ("product".equals(cat)) service.deleteProduct(pk);
+        if ("원자재".equals(cat)) service.deleteMaterial(pk);
+        else if ("제품".equals(cat)) service.deleteProduct(pk);
         return "redirect:/stock";
     }
 
@@ -117,22 +114,12 @@ public class StockController {
         @RequestParam(value = "searchName", required = false) String searchName,
         Model mv
     ) {
-    	System.out.println("오호이");
-        // 입력된 값만 넘기기 위해 null/빈값은 null로 전달
         code = (code != null && !code.isBlank()) ? code : null;
         String searchKey = (searchName != null && !searchName.isBlank()) ? searchName : (name != null && !name.isBlank() ? name : null);
         model = (model != null && !model.isBlank()) ? model : null;
         category = (category != null && !category.isBlank() && !"전체".equals(category)) ? category : null;
-        // category 값 변환: material → 원자재, product → 제품, 전체/빈값/null → null
-        if ("material".equals(category)) {
-            category = "원자재";
-        } else if ("product".equals(category)) {
-            category = "제품";
-        } else {
-            category = null;
-        }
-        List<MaterialDTO> materials = service.searchMaterials(code, searchKey, model, category);
-        List<ProductDTO> products = service.searchProducts(code, searchKey, model, category);
+        List<MaterialDTO> materials = service.searchMaterials(code, searchKey, model, "원자재".equals(category) ? "원자재" : null);
+        List<ProductDTO> products = service.searchProducts(code, searchKey, model, "제품".equals(category) ? "제품" : null);
         mv.addAttribute("materials", materials);
         mv.addAttribute("products", products);
         return "stock/StockSearchResult";
@@ -152,7 +139,7 @@ public class StockController {
     ) {
         java.util.Map<String, Object> result = new java.util.HashMap<>();
         try {
-            if ("material".equals(category)) {
+            if ("원자재".equals(category)) {
                 com.example.demo.model.MaterialDTO dto = new com.example.demo.model.MaterialDTO();
                 dto.setCategory("원자재");
                 dto.setName(name);
@@ -162,7 +149,7 @@ public class StockController {
                 dto.setStock(stock);
                 dto.setAmount(amount);
                 service.insertMaterial(dto);
-            } else if ("product".equals(category)) {
+            } else if ("제품".equals(category)) {
                 com.example.demo.model.ProductDTO dto = new com.example.demo.model.ProductDTO();
                 dto.setCategory("제품");
                 dto.setName(name);
@@ -189,11 +176,72 @@ public class StockController {
         @ModelAttribute MaterialDTO material,
         @ModelAttribute ProductDTO product
     ) {
-        if ("material".equals(category)) {
+        if ("원자재".equals(category)) {
             service.updateMaterial(material);
-        } else if ("product".equals(category)) {
+        } else if ("제품".equals(category)) {
             service.updateProduct(product);
         }
         return "redirect:/stock";
+    }
+
+    @GetMapping("/stock/excel")
+    public void downloadExcel(HttpServletResponse response) throws IOException {
+        List<MaterialDTO> materials = service.getAllMaterials();
+        List<ProductDTO> products = service.getAllProducts();
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("재고목록");
+        int rowIdx = 0;
+        Row header = sheet.createRow(rowIdx++);
+        String[] headers = {"구분", "품목코드", "품목명", "카테고리", "모델명", "규격", "단위", "단가", "재고수량", "재고금액"};
+        for (int i = 0; i < headers.length; i++) header.createCell(i).setCellValue(headers[i]);
+        for (MaterialDTO m : materials) {
+            Row row = sheet.createRow(rowIdx++);
+            row.createCell(0).setCellValue("원자재");
+            row.createCell(1).setCellValue("mtr2025" + (m.getPk() < 10 ? "0" + m.getPk() : m.getPk()));
+            row.createCell(2).setCellValue(m.getName());
+            row.createCell(3).setCellValue(m.getCategory());
+            row.createCell(4).setCellValue("");
+            row.createCell(5).setCellValue(m.getSpecification());
+            row.createCell(6).setCellValue(m.getUnit());
+            row.createCell(7).setCellValue(m.getPrice());
+            row.createCell(8).setCellValue(m.getStock());
+            row.createCell(9).setCellValue(m.getAmount());
+        }
+        for (ProductDTO p : products) {
+            Row row = sheet.createRow(rowIdx++);
+            row.createCell(0).setCellValue("제품");
+            row.createCell(1).setCellValue("prod2025" + (p.getPk() < 10 ? "0" + p.getPk() : p.getPk()));
+            row.createCell(2).setCellValue(p.getName());
+            row.createCell(3).setCellValue(p.getCategory());
+            row.createCell(4).setCellValue(p.getModel());
+            row.createCell(5).setCellValue(p.getSpecification());
+            row.createCell(6).setCellValue("");
+            row.createCell(7).setCellValue(p.getPrice());
+            row.createCell(8).setCellValue(p.getStock());
+            row.createCell(9).setCellValue(p.getAmount());
+        }
+        for (int i = 0; i < headers.length; i++) sheet.autoSizeColumn(i);
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setHeader("Content-Disposition", "attachment; filename=stock_list.xlsx");
+        workbook.write(response.getOutputStream());
+        workbook.close();
+    }
+
+    @PostMapping("/stock/excel-modal")
+    public void downloadExcelFromModal(
+            @RequestParam(value = "code", required = false) String code,
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "model", required = false) String model,
+            @RequestParam(value = "category", required = false) String category,
+            @RequestParam(value = "searchName", required = false) String searchName,
+            HttpServletResponse response
+    ) throws IOException {
+        // 검색 조건에 따라 데이터 조회
+        List<MaterialDTO> materials = service.searchMaterials(code, name, model, category);
+        List<ProductDTO> products = service.searchProducts(code, name, model, category);
+        // 엑셀 생성 및 응답
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setHeader("Content-Disposition", "attachment; filename=검색결과.xlsx");
+        service.writeExcel(materials, products, response.getOutputStream());
     }
 }

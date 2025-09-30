@@ -23,4 +23,9 @@ public class AssetPlanDTO {
     public void setPrice(int price) { this.price = price; }
     public int getAmount() { return amount; }
     public void setAmount(int amount) { this.amount = amount; }
+
+    // 예상수익 getter (단가 × 판매량)
+    public int getProfit() {
+        return price * amount;
+    }
 }

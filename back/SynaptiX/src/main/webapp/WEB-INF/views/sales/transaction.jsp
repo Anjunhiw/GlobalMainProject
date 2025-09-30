@@ -18,6 +18,10 @@ request.setAttribute("active_transaction", "active");
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
 <body>
 
+  <!-- CSRF를 JS에서 쓰기 위해 노출 -->
+  <meta name="_csrf_header" content="${_csrf.headerName}">
+  <meta name="_csrf" content="${_csrf.token}">
+
   <h2>거래명세서</h2>
 
   <!-- 상단 검색 필터 -->
@@ -47,6 +51,11 @@ request.setAttribute("active_transaction", "active");
     </div>
   </div>
 
+  <div style="text-align:right; margin-bottom:10px;">
+    <button type="button" class="btn btn-info" id="downloadExcel">엑셀 다운로드</button>
+  </div>
+  
+  
   <h2>거래명세서 현황</h2>
 
   <table class="table">
@@ -100,6 +109,9 @@ request.setAttribute("active_transaction", "active");
       <div id="modalResults">
         <!-- AJAX results will be injected here -->
       </div>
+      <div style="text-align:right; margin-top:10px;">
+        <button type="button" class="btn btn-info" id="downloadExcelModal">엑셀 다운로드</button>
+      </div>
     </div>
   </div>
 
@@ -149,6 +161,67 @@ request.setAttribute("active_transaction", "active");
         document.getElementById('searchModal').style.display = 'none';
       }
     });
+    // 첫페이지 엑셀 다운로드
+    document.getElementById('downloadExcel').onclick = function() {
+      fetch('/transaction/excel')
+        .then(response => {
+          if (!response.ok) throw new Error('엑셀 다운로드 실패');
+          return response.blob();
+        })
+        .then(blob => {
+          var url = window.URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = '거래명세서_전체리스트.xlsx';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          window.URL.revokeObjectURL(url);
+        })
+        .catch(() => {
+          alert('엑셀 다운로드 중 오류가 발생했습니다.');
+        });
+    };
+    // 모달 엑셀 다운로드
+    document.getElementById('downloadExcelModal').onclick = function() {
+      var prodCode = document.getElementById('prodCode').value;
+      var prodName = document.getElementById('prodName').value;
+      var date = document.getElementById('date').value;
+      var stmtNo = document.getElementById('stmtNo').value;
+      var csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content;
+      var csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
+      var headers = {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+      };
+      if (csrfHeader && csrfToken) headers[csrfHeader] = csrfToken;
+      var params = new URLSearchParams();
+      if (prodCode) params.append('prodCode', prodCode);
+      if (prodName) params.append('prodName', prodName);
+      if (date) params.append('date', date);
+      if (stmtNo) params.append('stmtNo', stmtNo);
+      fetch('/transaction/excel-modal', {
+        method: 'POST',
+        headers: headers,
+        body: params.toString()
+      })
+      .then(response => {
+        if (!response.ok) throw new Error('엑셀 다운로드 실패');
+        return response.blob();
+      })
+      .then(blob => {
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = '거래명세서_검색결과.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch(() => {
+        alert('엑셀 다운로드 중 오류가 발생했습니다.');
+      });
+    };
   </script>
 
 </body>

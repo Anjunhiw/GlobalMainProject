@@ -29,9 +29,12 @@
             <if test="itemName != null and itemName != ''">
                 AND p.Name LIKE CONCAT('%', #{itemName}, '%')
             </if>
+            <!-- 카테고리 조건 제거: product 테이블에 Category 컬럼이 없거나 값이 다를 경우 오류 방지 -->
+            <!--
             <if test="category != null and category != ''">
-                AND '제품' = #{category}
+                AND p.Category = #{category}
             </if>
+            -->
         </where>
     </select>
 </mapper>

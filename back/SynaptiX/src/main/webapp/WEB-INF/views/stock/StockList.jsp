@@ -38,8 +38,8 @@ request.setAttribute("active_stl", "active");
       <div class="select-wrap">
         <select id="category" name="category">
           <option value="">전체</option>
-          <option value="material">원자재</option>
-          <option value="product">제품</option>
+          <option value="원자재">원자재</option>
+          <option value="제품">제품</option>
         </select>
       </div>
     </div>
@@ -52,6 +52,9 @@ request.setAttribute("active_stl", "active");
     <div class="btn-group">
       <button type="button" class="btn btn-success" onclick="openRegister()">등록</button>
       <button type="button" class="btn btn-primary" id="btn-search" onclick="searchData()">조회</button>
+      <a href="/stock/excel" class="btn btn-info" style="margin-left:8px;">
+		<button type=button class="btn">엑셀 다운로드</button>
+	  </a>
     </div>
   </div>
  
@@ -62,6 +65,9 @@ request.setAttribute("active_stl", "active");
       <span class="close" onclick="closeModal()" aria-label="닫기">&times;</span>
       <h3 id="modalTitle">검색 결과</h3>
       <div id="modalResultBody"><!-- Ajax 결과 테이블이 여기에 표시 --></div>
+      <div style="text-align:right; margin-top:10px;">
+        <button type="button" class="btn btn-info" onclick="downloadExcelFromModal()">엑셀 다운로드</button>
+      </div>
     </div>
   </div>
 
@@ -76,8 +82,8 @@ request.setAttribute("active_stl", "active");
 	          <label for="regCategory" class="label">품목등록</label>
 	          <div class="control">
 	            <select id="regCategory" name="category" required onchange="toggleRegisterFields()">
-	              <option value="material">원자재</option>
-	              <option value="product">제품</option>
+	              <option value="원자재">원자재</option>
+	              <option value="제품">제품</option>
 	            </select>
 	          </div>
 	        </div>
@@ -234,10 +240,10 @@ request.setAttribute("active_stl", "active");
 	      <td> 
 
 	        <form action="/stock/delete" method="post" class="form-delete" onsubmit="return confirm('정말 삭제하시겠습니까?');">
-	          <input type="hidden" name="pk" value="${material.pk}">
-	          <input type="hidden" name="category" value="material">
-	          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-			  <button type="submit" class="btn btn-sm btn-danger">삭제</button>	
+                <input type="hidden" name="pk" value="${material.pk}">
+                <input type="hidden" name="category" value="원자재">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+				<button type="submit" class="btn btn-sm btn-danger">삭제</button>	
 	        </form>
 	      </td>
 	    </tr>
@@ -284,8 +290,8 @@ request.setAttribute("active_stl", "active");
 	          <input type="hidden" name="pk" value="${product.pk}">
 	          <input type="hidden" name="category" value="product">
 	          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-			  <form action="/stock/delete" method="post" class="form-delete" onsubmit="return confirm('정말 삭제하시겠습니까?');">
-	          <button type="submit" class="btn btn-sm btn-danger">삭제</button>
+	          <form action="/stock/delete" method="post" class="form-delete" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                <button type="submit" class="btn btn-sm btn-danger">삭제</button>
 	        </form>
 	      </td>
 	    </tr>
@@ -313,8 +319,8 @@ request.setAttribute("active_stl", "active");
     // 카테고리 선택에 따라 입력 필드 표시
     function toggleRegisterFields() {
       const cat = document.getElementById('regCategory').value;
-      document.querySelectorAll('.product-only').forEach(e => e.style.display = (cat === 'product' ? '' : 'none'));
-      document.querySelectorAll('.material-only').forEach(e => e.style.display = (cat === 'material' ? '' : 'none'));
+      document.querySelectorAll('.product-only').forEach(e => e.style.display = (cat === '제품' ? '' : 'none'));
+      document.querySelectorAll('.material-only').forEach(e => e.style.display = (cat === '원자재' ? '' : 'none'));
     }
     // 등록 폼 제출
     function submitRegister() {
@@ -377,8 +383,8 @@ request.setAttribute("active_stl", "active");
     }
     function toggleEditFields() {
       const cat = document.getElementById('editCategory').value;
-      document.querySelector('.product-only-edit').style.display = (cat === 'product' ? '' : 'none');
-      document.querySelector('.material-only-edit').style.display = (cat === 'material' ? '' : 'none');
+      document.querySelector('.product-only-edit').style.display = (cat === '제품' ? '' : 'none');
+      document.querySelector('.material-only-edit').style.display = (cat === '원자재' ? '' : 'none');
     }
 
     // 검색/조회 버튼: Ajax로 검색 결과를 모달에 표시
@@ -461,5 +467,61 @@ request.setAttribute("active_stl", "active");
 	  });
 	}
 
+    // 검색 결과 모달에서 엑셀 다운로드
+    function downloadExcelFromModal() {
+      const code = document.getElementById('code').value;
+      const name = document.getElementById('name').value;
+      const model = document.getElementById('model').value;
+      const category = document.getElementById('category').value;
+      const searchName = document.getElementById('searchName').value;
+      const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
+      const CSRF_TOKEN  = document.querySelector('meta[name="_csrf"]').content;
+      const params = new URLSearchParams();
+      if (code) params.append('code', code);
+      if (name) params.append('name', name);
+      if (model) params.append('model', model);
+      if (category) params.append('category', category);
+      if (searchName) params.append('searchName', searchName);
+      // 엑셀 다운로드 요청
+      fetch('/stock/excel-modal', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+          [CSRF_HEADER]: CSRF_TOKEN
+        },
+        body: params.toString()
+      })
+      .then(response => {
+        if (!response.ok) throw new Error('엑셀 다운로드 실패');
+        return response.blob();
+      })
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = '검색결과.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch(() => {
+        alert('엑셀 다운로드 중 오류가 발생했습니다.');
+      });
+    }
+
   </script>
+  <style>
+    #resultModal .modal-content {
+      max-width: 800px;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+    }
+    #modalResultBody {
+      max-height: 400px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+    }
+  </style>
 <%@ include file="../common/footer.jsp" %>

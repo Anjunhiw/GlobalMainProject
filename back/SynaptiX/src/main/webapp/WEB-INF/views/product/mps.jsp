@@ -20,7 +20,7 @@ request.setAttribute("active_mps", "active");
 <body>
   <h2>MPS</h2>
   <!-- 상단 검색/입력 필터 -->
-  <div class="filter-small">
+  <div class="filter-smallq">
     <div class="field">
       <label>제품코드</label>
       <input type="text" id="prodCode" placeholder="예: P-1001">
@@ -29,7 +29,7 @@ request.setAttribute("active_mps", "active");
       <label>제품명</label>
       <input type="text" id="prodName" placeholder="예: 전동드릴">
     </div>
-    <div class="btn-groups">
+    <div class="btn-group">
       <button type="button" class="btn btn-ee" id="openRegisterModal">등록</button>
       <button type="button" class="btn btn-primary" id="openSearchModal">조회</button>
 	  

@@ -45,8 +45,15 @@
         <input type="text" id="dept" name="dept" placeholder="본인의 부서를 적어주세요" required>
 
         <label for="rank">직급</label>
-        <input type="text" id="rank" name="rank" placeholder="본인의 직급을 적어주세요" required>
-
+		<select id="rank" name="rank" required>
+			<option value="인턴">인턴</option>
+            <option value="사원">사원</option>
+            <option value="대리">대리</option>
+            <option value="과장">과장</option>
+            <option value="차장">차장</option>
+            <option value="부장">부장</option>
+	</select>
+		
         <label for="years">경력(년수)</label>
         <input type="number" id="years" name="years" required>
 

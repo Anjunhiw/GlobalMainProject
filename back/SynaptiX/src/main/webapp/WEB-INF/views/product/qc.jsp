@@ -29,7 +29,7 @@ request.setAttribute("active_qc", "active");
   <h2>QC 검사 결과 조회</h2>
 
   <!-- 상단 필터 -->
-  <div class="filter-smallq">
+  <div class="filter-smalli">
     <div class="field">
       <label>기간</label>
       <div class="input-with-btn">
@@ -58,13 +58,11 @@ request.setAttribute("active_qc", "active");
 
     <div class="btn-group">
       <button type="button" class="btn btn-primary" id="btnSearch">조회</button>
-      <button type="button" class="btn btn-success" onclick="openQcRegister()">등록</button>
+      <button type="button" class="btn btn-ee" onclick="openQcRegister()">등록</button>
+	  <button type="button" class="btn btn-success" id="downloadExcel">엑셀 다운로드</button>
     </div>
   </div>
-  
-  <div style="text-align:right; margin-bottom:10px;">
-    <button type="button" class="btn btn-info" id="downloadExcel">엑셀 다운로드</button>
-  </div>
+ 
   
 
   <h2>QC 검사 결과</h2>

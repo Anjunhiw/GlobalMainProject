@@ -104,6 +104,8 @@ table td form { display:inline-block; }
 .btn-edit:hover{filter:brightness(1.05)}
 .btn-delete{background:#e74c3c}
 .btn-delete:hover{filter:brightness(1.05)}
+.btn-ee{background:rgb(249, 206, 4)}
+.btn-ee:hover{filter:brightness(1.08)}
 
 /* =========== 테이블 =========== */
 table{border-collapse:collapse; width:100%; background:#fff; border-radius:12px; overflow:hidden}

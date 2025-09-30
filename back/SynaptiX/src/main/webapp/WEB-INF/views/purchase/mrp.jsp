@@ -52,6 +52,7 @@ request.setAttribute("active_mrp", "active");
 
     <div class="btn-group">
       <button type="button" id="btnSearch" class="btn btn-primary">조회</button>
+      <button type="button" id="btnExcel" class="btn btn-success" >엑셀 다운로드</button>
     </div>
   </div>
 
@@ -97,6 +98,9 @@ request.setAttribute("active_mrp", "active");
       <h3>검색 결과</h3>
       <div id="modalResults">
         <!-- AJAX results will be injected here -->
+      </div>
+      <div style="text-align:right; margin-top:10px;">
+        <button type="button" id="btnModalExcel" class="btn btn-info">엑셀 다운로드</button>
       </div>
     </div>
   </div>
@@ -145,6 +149,39 @@ request.setAttribute("active_mrp", "active");
       if (e.target === document.getElementById('searchModal')) {
         document.getElementById('searchModal').style.display = 'none';
       }
+    });
+    // 엑셀 다운로드 (첫페이지)
+    document.getElementById('btnExcel')?.addEventListener('click', function () {
+      window.location.href = '/mrp/excel';
+    });
+    // 모달 엑셀 다운로드
+    document.getElementById('btnModalExcel')?.addEventListener('click', function () {
+      const prodCode = document.getElementById('prodCode')?.value || '';
+      const prodName = document.getElementById('prodName')?.value || '';
+      const inDate = document.getElementById('inDate')?.value || '';
+      const mrpStatus = document.getElementById('mrpStatus')?.value || '';
+      const params = new URLSearchParams({ prodCode, prodName, inDate, mrpStatus });
+      fetch('/mrp/excel-modal?' + params.toString(), {
+        method: 'GET',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      })
+      .then(response => {
+        if (!response.ok) throw new Error('엑셀 다운로드 실패');
+        return response.blob();
+      })
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = '검색결과_MRP.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch(() => {
+        alert('엑셀 다운로드 중 오류가 발생했습니다.');
+      });
     });
   </script>
 </body>

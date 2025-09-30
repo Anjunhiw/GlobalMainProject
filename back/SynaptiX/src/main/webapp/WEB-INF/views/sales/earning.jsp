@@ -62,12 +62,10 @@ request.setAttribute("active_earning", "active");
 
     <div class="btn-group">
       <button type="button" id="btnSearch" class="btn btn-primary">조회</button>
+	  <button type="button" class="btn btn-success" id="downloadExcel">엑셀 다운로드</button>
     </div>
   </div>
-  
-  <div style="text-align:right; margin-bottom:10px;">
-    <button type="button" class="btn btn-info" id="downloadExcel">엑셀 다운로드</button>
-  </div>
+
 
   <h2>매출현황</h2>
 
@@ -115,28 +113,10 @@ request.setAttribute("active_earning", "active");
       <div id="modalResults">
         <!-- AJAX results will be injected here -->
       </div>
-      <div style="text-align:right; margin-top:10px;">
-        <button type="button" class="btn btn-info" id="downloadExcelModal">엑셀 다운로드</button>
-      </div>
     </div>
   </div>
 
-  <style>
-  .modal {
-    position: fixed;
-    z-index: 9999;
-    left: 0; top: 0; width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.4);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .modal-content {
-    background: #fff; padding: 20px; border-radius: 8px; min-width: 400px; max-width: 90vw;
-    max-height: 80vh; overflow-y: auto; position: relative;
-  }
-  .close {
-    position: absolute; right: 16px; top: 10px; font-size: 24px; cursor: pointer;
-  }
-  </style>
+</body>
 
   <!-- 조회 버튼: 모달 AJAX 조회로 변경 -->
   <script>
@@ -233,6 +213,6 @@ request.setAttribute("active_earning", "active");
     };
   </script>
 
-</body>
+
 </html>
 <%@ include file="../common/footer.jsp" %>

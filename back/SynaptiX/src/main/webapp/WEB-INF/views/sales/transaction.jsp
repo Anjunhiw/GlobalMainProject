@@ -48,12 +48,11 @@ request.setAttribute("active_transaction", "active");
 
     <div class="btn-group">
       <button type="button" class="btn btn-primary" id="btnSearch">조회</button>
+	  <button type="button" class="btn btn-success" id="downloadExcel">엑셀 다운로드</button>
     </div>
   </div>
 
-  <div style="text-align:right; margin-bottom:10px;">
-    <button type="button" class="btn btn-info" id="downloadExcel">엑셀 다운로드</button>
-  </div>
+
   
   
   <h2>거래명세서 현황</h2>

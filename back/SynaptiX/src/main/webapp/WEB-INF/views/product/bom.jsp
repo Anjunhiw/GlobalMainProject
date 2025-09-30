@@ -101,7 +101,6 @@ request.setAttribute("active_bom", "active");
     const name = document.getElementById('name').value;
     const category = document.getElementById('category').value;
     const model = document.getElementById('model').value;
-	console.log({code, name, category, model});
     fetch('/bom/search', {
       method: 'POST',
       headers: {
@@ -114,12 +113,53 @@ request.setAttribute("active_bom", "active");
     .then(html => {
       document.getElementById('bomResultBodyModal').innerHTML = html;
       openBomResultModal();
+      bindModalExcelButton(); // 검색 결과 삽입 후 이벤트 연결
     })
     .catch(() => {
       alert('검색 중 오류가 발생했습니다.');
     });
   }
   document.getElementById('btn-search')?.addEventListener('click', searchBom);
+
+  // 엑셀 다운로드 (첫페이지)
+  document.getElementById('btnExcel')?.addEventListener('click', function () {
+    window.location.href = '/bom/excel';
+  });
+
+  // 모달 엑셀 다운로드 버튼 이벤트 연결 함수
+  function bindModalExcelButton() {
+    const btn = document.getElementById('btnModalExcel');
+    if (!btn) return;
+    btn.onclick = function () {
+      const code = document.getElementById('code')?.value || '';
+      const name = document.getElementById('name')?.value || '';
+      const category = document.getElementById('category')?.value || '';
+      const model = document.getElementById('model')?.value || '';
+      const materialName = document.getElementById('model')?.value || '';
+      const params = new URLSearchParams({ code, name, category, model, materialName });
+      fetch('/bom/excel-modal?' + params.toString(), {
+        method: 'GET',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      })
+      .then(response => {
+        if (!response.ok) throw new Error('엑셀 다운로드 실패');
+        return response.blob();
+      })
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = '검색결과_BOM.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch(() => {
+        alert('엑셀 다운로드 중 오류가 발생했습니다.');
+      });
+    };
+  }
 </script>
 
 <!-- 등록 모달 -->
@@ -182,6 +222,7 @@ request.setAttribute("active_bom", "active");
     <h3 id="bomResultModalTitle">검색 결과</h3>
     <div id="bomResultBodyModal"></div>
     <div class="btn-group" style="margin-top:12px;">
+      <button type="button" class="btn btn-info" id="btnModalExcel">엑셀 다운로드</button>
       <button type="button" class="btn btn-secondary" onclick="closeBomResultModal()">닫기</button>
     </div>
   </div>

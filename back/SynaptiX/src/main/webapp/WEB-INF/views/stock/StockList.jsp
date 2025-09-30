@@ -52,7 +52,6 @@ request.setAttribute("active_stl", "active");
     <div class="btn-group">
       <button type="button" class="btn btn-ee" onclick="openRegister()">등록</button>
       <button type="button" class="btn btn-primary" id="btn-search" onclick="searchData()">조회</button>
-      <a href="/stock/excel" style="margin-left:8px;">
 		<button type=button class="btn btn-success">엑셀 다운로드</button>
 	  </a>
     </div>

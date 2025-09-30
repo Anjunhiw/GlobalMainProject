@@ -32,10 +32,7 @@ request.setAttribute("active_mps", "active");
     <div class="btn-group">
       <button type="button" class="btn btn-ee" id="openRegisterModal">등록</button>
       <button type="button" class="btn btn-primary" id="openSearchModal">조회</button>
-	  
 	    <button type="button" class="btn btn-success" id="downloadExcel">엑셀 다운로드</button>
-	 
-
     </div>
   </div>
 

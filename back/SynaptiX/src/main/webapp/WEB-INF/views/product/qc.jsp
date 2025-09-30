@@ -18,6 +18,9 @@ request.setAttribute("active_product", "active");
 request.setAttribute("active_qc", "active");
 %>
 <%@ include file="../common/header.jsp" %>
+<!-- CSRF를 JS에서 쓰기 위해 노출 -->
+<meta name="_csrf_header" content="${_csrf.headerName}">
+<meta name="_csrf" content="${_csrf.token}">
 <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
 
@@ -58,6 +61,11 @@ request.setAttribute("active_qc", "active");
       <button type="button" class="btn btn-success" onclick="openQcRegister()">등록</button>
     </div>
   </div>
+  
+  <div style="text-align:right; margin-bottom:10px;">
+    <button type="button" class="btn btn-info" id="downloadExcel">엑셀 다운로드</button>
+  </div>
+  
 
   <h2>QC 검사 결과</h2>
 
@@ -130,6 +138,7 @@ request.setAttribute("active_qc", "active");
         <!-- 검색 결과 테이블이 여기에 동적으로 렌더링됩니다. -->
       </div>
       <div class="btn-group" style="margin-top:15px;">
+        <button type="button" class="btn btn-info" id="downloadExcelModal">엑셀 다운로드</button>
         <button type="button" class="btn btn-secondary" onclick="closeQcSearchModal()">닫기</button>
       </div>
     </div>
@@ -216,6 +225,64 @@ request.setAttribute("active_qc", "active");
         document.getElementById('qcSearchModal').style.display = 'flex';
       });
     });
+
+    // QC 전체 리스트 엑셀 다운로드
+    document.getElementById('downloadExcel').onclick = function() {
+      fetch('/qc/excel')
+        .then(response => {
+          if (!response.ok) throw new Error('엑셀 다운로드 실패');
+          return response.blob();
+        })
+        .then(blob => {
+          var url = window.URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = 'QC_전체리스트.xlsx';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          window.URL.revokeObjectURL(url);
+        })
+        .catch(() => {
+          alert('엑셀 다운로드 중 오류가 발생했습니다.');
+        });
+    };
+    // QC 조회 모달 엑셀 다운로드
+    document.getElementById('downloadExcelModal').onclick = function() {
+      var dateFrom = document.getElementById('dateFrom').value;
+      var dateTo = document.getElementById('dateTo').value;
+      var prodName = document.getElementById('prodName').value;
+      var category = document.getElementById('category').value;
+      var csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content;
+      var csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
+      var headers = {
+        'Content-Type': 'application/json'
+      };
+      if (csrfHeader && csrfToken) headers[csrfHeader] = csrfToken;
+      var body = JSON.stringify({ dateFrom, dateTo, prodName, category });
+      fetch('/qc/excel-modal', {
+        method: 'POST',
+        headers: headers,
+        body: body
+      })
+      .then(response => {
+        if (!response.ok) throw new Error('엑셀 다운로드 실패');
+        return response.blob();
+      })
+      .then(blob => {
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'QC_검색결과.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch(() => {
+        alert('엑셀 다운로드 중 오류가 발생했습니다.');
+      });
+    };
   </script>
 </body>
 </html>

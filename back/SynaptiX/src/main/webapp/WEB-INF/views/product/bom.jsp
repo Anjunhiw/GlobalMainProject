@@ -214,7 +214,7 @@ request.setAttribute("active_bom", "active");
       <td><fmt:formatNumber value="${bom.materialAmount}" type="number" maxFractionDigits="2"/></td>
       <td><fmt:formatNumber value="${bom.materialAmount * price}" type="number" maxFractionDigits="0"/></td>
 	  <td>
-        <button type="button"
+        <button type="button" class="btn btn-edit"
           onclick="openBomEditModal('${bom.productId}', '${bom.materialId}', '${bom.materialAmount != null ? bom.materialAmount : ''}')"
         >수정</button>
       </td>

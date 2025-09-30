@@ -49,7 +49,7 @@ request.setAttribute("active_pch", "active");
 
     <div class="btn-group">
       <button type="button" id="btnSearch" class="btn btn-primary">조회</button>
-      <button type="button" id="btnExcel" class="btn btn-info" style="margin-left:8px;">엑셀 다운로드</button>
+      <button type="button" id="btnExcel" class="btn btn-success" >엑셀 다운로드</button>
     </div>
   </div>
 

@@ -38,14 +38,15 @@ request.setAttribute("active_profit", "active");
 	  </div>
       <div class="btn-group">
         <button type="submit" class="btn btn-primary">조회</button>
+		<div >
+		  <button type="button" class="btn btn-success" onclick="downloadProfitExcel()">엑셀 다운로드</button>
+		</div>
       </div>
     </div>
   </form>
 
   <!-- 이익현황 엑셀 다운로드 버튼 -->
-  <div style="text-align:right; margin-bottom:10px;">
-    <button type="button" class="btn btn-info" onclick="downloadProfitExcel()">엑셀 다운로드</button>
-  </div>
+
 
   <!-- 이익현황 -->
   <h2>품목별 이익현황</h2>

@@ -42,7 +42,7 @@ request.setAttribute("active_bom", "active");
   </div>
   <div class="btn-group">
     <button type="button" id="btn-search" class="btn btn-primary">검색</button>
-    <button type="button" class="btn btn-success" onclick="openRegister()">등록</button>
+    <button type="button" class="btn btn-ee" onclick="openRegister()">등록</button>
   </div>
 </div>
 

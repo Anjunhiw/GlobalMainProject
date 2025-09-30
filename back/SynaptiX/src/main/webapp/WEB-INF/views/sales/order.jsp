@@ -1,7 +1,9 @@
-<!DOCTYPE html>
+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
 <%
     java.util.Calendar cal = java.util.Calendar.getInstance();
     cal.set(java.util.Calendar.DAY_OF_MONTH, 1);
@@ -9,12 +11,15 @@
     String firstDayOfMonth = sdf.format(cal.getTime());
     request.setAttribute("firstDayOfMonth", firstDayOfMonth);
 %>
+
 <%
 request.setAttribute("pageTitle", "주문관리");
 request.setAttribute("active_sales", "active");
 request.setAttribute("active_order", "active");
 %>
+
 <%@ include file="../common/header.jsp" %>
+
 
 <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
@@ -45,28 +50,27 @@ request.setAttribute("active_order", "active");
         value="<c:choose><c:when test='${not empty param.orderDate}'>${param.orderDate}</c:when><c:otherwise>${firstDayOfMonth}</c:otherwise></c:choose>">
     </div>
 
-    <div class="field">
-      <label for="status">주문상태</label>
-      <div class="select-wrap">
-        <select id="status" name="status">
-          <option value=""  ${empty param.status ? 'selected' : ''}>전체</option>
-          <option value="REQUESTED" ${param.status == 'REQUESTED' ? 'selected' : ''}>접수</option>
-          <option value="CONFIRMED" ${param.status == 'CONFIRMED' ? 'selected' : ''}>확정</option>
-          <option value="SHIPPED"   ${param.status == 'SHIPPED'   ? 'selected' : ''}>출고</option>
-          <option value="CANCELLED" ${param.status == 'CANCELLED' ? 'selected' : ''}>취소</option>
-        </select>
-      </div>
+  <div class="field">
+    <label for="status">주문상태</label>
+    <div class="select-wrap">
+      <select id="status" name="status">
+        <option value=""  ${empty param.status ? 'selected' : ''}>전체</option>
+        <option value="REQUESTED" ${param.status == 'REQUESTED' ? 'selected' : ''}>접수</option>
+        <option value="CONFIRMED" ${param.status == 'CONFIRMED' ? 'selected' : ''}>확정</option>
+        <option value="SHIPPED"   ${param.status == 'SHIPPED'   ? 'selected' : ''}>출고</option>
+        <option value="CANCELLED" ${param.status == 'CANCELLED' ? 'selected' : ''}>취소</option>
+      </select>
     </div>
+  </div>
 
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary" id="btnSearch">조회</button>
-    </div>
-  </div>
-  
-  <div style="text-align:right; margin-bottom:10px;">
-    <button type="button" class="btn btn-info" id="downloadExcel">엑셀 다운로드</button>
-  </div>
-  
+  <div class="btn-group">
+       <button type="button" class="btn btn-primary" id="btnSearch">조회</button>
+    <button type="button" class="btn btn-success" id="downloadExcel">엑셀 다운로드</button>
+     </div>
+   </div>
+   
+
+
 
   <h2>주문현황</h2>
 
@@ -112,28 +116,9 @@ request.setAttribute("active_order", "active");
       <div id="modalResults">
         <!-- AJAX results will be injected here -->
       </div>
-      <div style="text-align:right; margin-top:10px;">
-        <button type="button" class="btn btn-info" id="downloadExcelModal">엑셀 다운로드</button>
-      </div>
-    </div>
+  </div>
   </div>
 
-  <style>
-  .modal {
-    position: fixed;
-    z-index: 9999;
-    left: 0; top: 0; width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.4);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .modal-content {
-    background: #fff; padding: 20px; border-radius: 8px; min-width: 400px; max-width: 90vw;
-    max-height: 80vh; overflow-y: auto; position: relative;
-  }
-  .close {
-    position: absolute; right: 16px; top: 10px; font-size: 24px; cursor: pointer;
-  }
-  </style>
 
   <!-- 조회 버튼: 모달 AJAX 조회로 변경 -->
   <script>
@@ -228,5 +213,5 @@ request.setAttribute("active_order", "active");
   </script>
 
 </body>
-</html>
+
 <%@ include file="../common/footer.jsp" %>

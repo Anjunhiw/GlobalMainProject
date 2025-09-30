@@ -58,12 +58,11 @@ request.setAttribute("active_sale", "active");
 
     <div class="btn-group">
       <button type="button" class="btn btn-primary" id="btnSearch">조회</button>
+	  <button type="button" class="btn btn-success" id="downloadExcel">엑셀 다운로드</button>
     </div>
   </div>
 
-  <div style="text-align:right; margin-bottom:10px;">
-     <button type="button" class="btn btn-info" id="downloadExcel">엑셀 다운로드</button>
-   </div>
+
   
   <h2>판매현황</h2>
 
@@ -120,9 +119,7 @@ request.setAttribute("active_sale", "active");
       <div id="modalResults">
         <!-- AJAX results will be injected here -->
       </div>
-      <div style="text-align:right; margin-top:10px;">
-        <button type="button" class="btn btn-info" id="downloadExcelModal">엑셀 다운로드</button>
-      </div>
+  
     </div>
   </div>
 

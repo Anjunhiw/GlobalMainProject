@@ -30,12 +30,13 @@ request.setAttribute("active_mps", "active");
       <input type="text" id="prodName" placeholder="예: 전동드릴">
     </div>
     <div class="btn-groups">
-      <button type="button" class="btn btn-success" id="openRegisterModal">등록</button>
+      <button type="button" class="btn btn-ee" id="openRegisterModal">등록</button>
       <button type="button" class="btn btn-primary" id="openSearchModal">조회</button>
+	  
+	    <button type="button" class="btn btn-success" id="downloadExcel">엑셀 다운로드</button>
+	 
+
     </div>
-  </div>
-  <div style="text-align:right; margin-bottom:10px;">
-	  <button type="button" class="btn btn-info" id="downloadExcel">엑셀 다운로드</button>
   </div>
 
   <!-- 등록 모달 -->
@@ -70,8 +71,6 @@ request.setAttribute("active_mps", "active");
       <div id="searchMpsResult">
         <!-- 검색 결과 테이블이 여기에 동적으로 렌더링됩니다. -->
       </div>
-      <div class="btn-groups" style="margin-top:15px;">
-        <button type="button" class="btn btn-info" id="downloadExcelModal">엑셀 다운로드</button>
         <button type="button" class="btn btn-secondary" id="closeSearchModal">닫기</button>
       </div>
     </div>

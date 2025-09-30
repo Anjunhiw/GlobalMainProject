@@ -23,7 +23,7 @@ request.setAttribute("active_control", "active");
   <h2>비용/지출통제</h2>
 
   <!-- 검색 영역 -->
-  <div class="filter-smally">
+  <div class="filter-smallq">
     <div class="field">
       <label>시작일자</label>
       <input type="date" id="startDate" name="startDate" value="<c:choose><c:when test='${not empty param.startDate}'>${param.startDate}</c:when><c:otherwise>${firstDayOfMonth}</c:otherwise></c:choose>">
@@ -38,7 +38,7 @@ request.setAttribute("active_control", "active");
 	</div>
     <div class="btn-group">
       <button type="button" id="btnSearch" class="btn btn-primary">조회</button>
-      <button type="button" id="btnExcel" class="btn btn-info" style="margin-left:8px;">엑셀 다운로드</button>
+      <button type="button" id="btnExcel" class="btn btn-success">엑셀 다운로드</button>
     </div>
   </div>
 

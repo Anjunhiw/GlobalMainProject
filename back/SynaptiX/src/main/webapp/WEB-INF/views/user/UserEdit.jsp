@@ -11,7 +11,7 @@
     <h1 class="auth-title">마이페이지</h1>
     <p class="auth-sub">내 정보 확인 및 수정</p>
 
-    <form id="myForm" class="auth-form" method="post" action="<c:url value='/mypage/save'/>" enctype="multipart/form-data">
+    <form id="myForm" class="auth-form" method="post" action="<c:url value='/edit/save'/>" enctype="multipart/form-data">
       <c:if test="${not empty _csrf}">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
       </c:if>

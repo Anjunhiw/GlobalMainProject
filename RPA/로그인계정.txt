@@ -1,4 +1,4 @@
 {
-	'id' : 'admin',
-	'password' : 'admin'
+	"id":"admin",
+	"password":"admin"
 }

@@ -7,19 +7,48 @@ set "PY="
 for /f "delims=" %%P in ('where py 2^>nul') do set "PY=py -3"
 if not defined PY for /f "delims=" %%P in ('where python 2^>nul') do set "PY=python"
 if not defined PY for /f "delims=" %%P in ('where python3 2^>nul') do set "PY=python3"
-REM 필요 시 절대경로 지정:
-REM set "PY=C:\Python313\python.exe"
 
 if not defined PY (
-  echo [치명] Python을 찾지 못했습니다. Python 설치 또는 절대경로 지정이 필요합니다.
-  pause & exit /b 1
+  echo [안내] 이 PC에 Python이 없습니다.
+  set /p INSTALL=지금 Python을 설치할까요? (winget 사용) [Y/N]: 
+  if /i "%INSTALL%"=="Y" (
+    where winget >nul 2>&1
+    if errorlevel 1 (
+      echo [경고] winget이 없습니다. python.org 다운로드 페이지를 엽니다...
+      start "" "https://www.python.org/downloads/windows/"
+      echo 설치를 완료한 뒤, 아무 키나 누르세요...
+      pause >nul
+    ) else (
+      echo [정보] winget으로 Python 설치를 시도합니다...
+      winget install -e --id Python.Python.3.13 -h
+      if errorlevel 1 (
+        echo [경고] winget 설치 실패. python.org 페이지를 엽니다...
+        start "" "https://www.python.org/downloads/windows/"
+        echo 설치를 완료한 뒤, 아무 키나 누르세요...
+        pause >nul
+      )
+    )
+    REM 재검사
+    for /f "delims=" %%P in ('where py 2^>nul') do set "PY=py -3"
+    if not defined PY for /f "delims=" %%P in ('where python 2^>nul') do set "PY=python"
+    if not defined PY for /f "delims=" %%P in ('where python3 2^>nul') do set "PY=python3"
+    if not defined PY (
+      echo [치명] 여전히 Python이 보이지 않습니다. 설치 후 다시 실행하세요.
+      pause & exit /b 1
+    )
+  ) else (
+    echo [중단] 사용자가 N을 선택하여 종료합니다.
+    exit /b 1
+  )
 )
+
 %PY% --version || ( echo [치명] Python 실행 실패 (PY=%PY%) & pause & exit /b 1 )
 
 REM ===== 경로 =====
 set "BASE=%~dp0"
 set "SCRIPTS=%BASE%scripts"
 set "REPORTS=%BASE%reports"
+set "REQUIRE=%BASE%requirements.txt"
 
 REM ===== 출력 디렉터리 =====
 if not exist "%REPORTS%" mkdir "%REPORTS%"
@@ -31,6 +60,19 @@ echo   GMP_ML 파이프라인 시작
 echo   Python: %PY%
 echo   로그:   reports\logs
 echo =======================================
+echo.
+
+REM ===== Step 0: requirements 설치/검증 =====
+echo [Step 0] 의존성 설치/검증 (requirements.txt) ...
+if exist "%REQUIRE%" (
+  "%PY%" -m pip --version  1>>"%REPORTS%\logs\00_setup.log" 2>&1 || (
+    "%PY%" -m ensurepip --upgrade 1>>"%REPORTS%\logs\00_setup.log" 2>&1
+  )
+  "%PY%" -m pip install -r "%REQUIRE%" --upgrade 1>>"%REPORTS%\logs\00_setup.log" 2>&1
+  if errorlevel 1 echo [경고] requirements 설치 실패. reports\logs\00_setup.log 확인
+) else (
+  echo [정보] requirements.txt 없음 → 설치 스킵
+)
 echo.
 
 echo [Step 1] IR 파싱 ...

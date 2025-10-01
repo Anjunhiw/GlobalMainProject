@@ -1,24 +1,54 @@
 @echo off
 setlocal EnableExtensions
 
-REM ===== Python runtime autodetect (ASCII only) =====
+REM ===== Python runtime auto-detect =====
 set "PY="
+
 for /f "delims=" %%P in ('where py 2^>nul') do set "PY=py -3"
 if not defined PY for /f "delims=" %%P in ('where python 2^>nul') do set "PY=python"
 if not defined PY for /f "delims=" %%P in ('where python3 2^>nul') do set "PY=python3"
-REM Set absolute path if needed:
-REM set "PY=C:\Python313\python.exe"
 
 if not defined PY (
-  echo [FATAL] Python not found. Install Python or set PY to absolute path.
-  pause & exit /b 1
+  echo [INFO] Python not found.
+  set /p INSTALL=Install Python now via winget? [Y/N]: 
+  if /i "%INSTALL%"=="Y" (
+    where winget >nul 2>&1
+    if errorlevel 1 (
+      echo [WARN] winget not found. Opening python.org downloads page...
+      start "" "https://www.python.org/downloads/windows/"
+      echo After installation completes, press any key to continue...
+      pause >nul
+    ) else (
+      echo [INFO] Installing Python via winget...
+      winget install -e --id Python.Python.3.13 -h
+      if errorlevel 1 (
+        echo [WARN] winget install failed. Opening python.org downloads page...
+        start "" "https://www.python.org/downloads/windows/"
+        echo After installation completes, press any key to continue...
+        pause >nul
+      )
+    )
+    REM re-detect
+    for /f "delims=" %%P in ('where py 2^>nul') do set "PY=py -3"
+    if not defined PY for /f "delims=" %%P in ('where python 2^>nul') do set "PY=python"
+    if not defined PY for /f "delims=" %%P in ('where python3 2^>nul') do set "PY=python3"
+    if not defined PY (
+      echo [FATAL] Python is still not available. Please install Python and re-run.
+      pause & exit /b 1
+    )
+  ) else (
+    echo [ABORT] User selected N. Exiting.
+    exit /b 1
+  )
 )
+
 %PY% --version || ( echo [FATAL] Python failed to run. (PY=%PY%) & pause & exit /b 1 )
 
 REM ===== Paths =====
 set "BASE=%~dp0"
 set "SCRIPTS=%BASE%scripts"
 set "REPORTS=%BASE%reports"
+set "REQUIRE=%BASE%requirements.txt"
 
 REM ===== Output dirs =====
 if not exist "%REPORTS%" mkdir "%REPORTS%"
@@ -30,6 +60,19 @@ echo   GMP_ML Pipeline START
 echo   Python: %PY%
 echo   Logs:   reports\logs
 echo =======================================
+echo.
+
+REM ===== Step 0: requirements install/verify =====
+echo [Step 0] Setup (requirements check/install) ...
+if exist "%REQUIRE%" (
+  "%PY%" -m pip --version  1>>"%REPORTS%\logs\00_setup.log" 2>&1 || (
+    "%PY%" -m ensurepip --upgrade 1>>"%REPORTS%\logs\00_setup.log" 2>&1
+  )
+  "%PY%" -m pip install -r "%REQUIRE%" --upgrade 1>>"%REPORTS%\logs\00_setup.log" 2>&1
+  if errorlevel 1 echo [WARN] Requirements install failed. See reports\logs\00_setup.log
+) else (
+  echo [INFO] requirements.txt not found. Skipping install.
+)
 echo.
 
 echo [Step 1] IR Parsing ...

@@ -8,6 +8,97 @@
 <%@ include file="../common/header.jsp" %>
 <main class="container">
 <section class="alerts-wrap">
+	
+
+	<div class="section row">
+	    <div class="row row-2">
+	    <div class="card kpi-card">
+	      <div class="kpi-grid">
+	        <div class="tile pink">
+	          <div class="tile-row">
+	            <div class="meta">
+	              <div class="t-title">출고처리</div>
+	              <div class="t-num" id="kpiProc">651건</div>
+	            </div>
+	            <div class="ico">
+	              <!-- paper-plane -->
+	              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+	                <path d="M22 2L11 13" stroke-linecap="round" stroke-linejoin="round"/>
+	                <path d="M22 2L15 22l-4-9-9-4 20-7z" stroke-linecap="round" stroke-linejoin="round"/>
+	              </svg>
+	            </div>
+	          </div>
+	        </div>
+
+	        <!-- 출고지연 -->
+	        <div class="tile amber">
+	          <div class="tile-row">
+	            <div class="meta">
+	              <div class="t-title">출고지연</div>
+	              <div class="t-num" id="kpiDelay">130건</div>
+	            </div>
+	            <div class="ico">
+	              <!-- alert-triangle -->
+	              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+	                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+	                <line x1="12" y1="9" x2="12" y2="13"/>
+	                <line x1="12" y1="17" x2="12" y2="17"/>
+	              </svg>
+	            </div>
+	          </div>
+	        </div>
+
+	        <!-- 출고중 -->
+	        <div class="tile violet">
+	          <div class="tile-row">
+	            <div class="meta">
+	              <div class="t-title">출고중</div>
+	              <div class="t-num" id="kpiProgress">211건</div>
+	            </div>
+	            <div class="ico">
+	              <!-- truck -->
+	              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+	                <rect x="1" y="3" width="13" height="13" rx="2" ry="2"/>
+	                <path d="M16 8h3l4 4v4h-7z"/>
+	                <circle cx="5.5" cy="18.5" r="1.5"/>
+	                <circle cx="18.5" cy="18.5" r="1.5"/>
+	              </svg>
+	            </div>
+	          </div>
+	        </div>
+
+	        <!-- 출고완료 -->
+	        <div class="tile indigo">
+	          <div class="tile-row">
+	            <div class="meta">
+	              <div class="t-title">출고완료</div>
+	              <div class="t-num" id="kpiDone">221건</div>
+	            </div>
+	            <div class="ico">
+	              <!-- check-circle -->
+	              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+	                <circle cx="12" cy="12" r="9"/>
+	                <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+	              </svg>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div> 	
+		<!-- 오류/알림 -->
+			<div class="card list-card">
+			  <div class="list-head">
+			    <h4 class="title">오류/알림</h4>
+			    <span class="badge">!</span>
+			  </div>
+
+			  <ul class="timeline" id="timeline">
+			  </ul>
+			</div>
+			</div>
+			</div>
+		  </div>
+	
   <!-- 알림 4종 -->
   <div class="row row-4">
     <div class="note-card">
@@ -71,95 +162,7 @@
     </div>
   </div>
 
-<div class="section row">
-    <div class="row row-2">
-    <div class="card kpi-card">
-      <div class="kpi-grid">
-        <div class="tile pink">
-          <div class="tile-row">
-            <div class="meta">
-              <div class="t-title">출고처리</div>
-              <div class="t-num" id="kpiProc">651건</div>
-            </div>
-            <div class="ico">
-              <!-- paper-plane -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M22 2L11 13" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M22 2L15 22l-4-9-9-4 20-7z" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        <!-- 출고지연 -->
-        <div class="tile amber">
-          <div class="tile-row">
-            <div class="meta">
-              <div class="t-title">출고지연</div>
-              <div class="t-num" id="kpiDelay">130건</div>
-            </div>
-            <div class="ico">
-              <!-- alert-triangle -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-                <line x1="12" y1="9" x2="12" y2="13"/>
-                <line x1="12" y1="17" x2="12" y2="17"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        <!-- 출고중 -->
-        <div class="tile violet">
-          <div class="tile-row">
-            <div class="meta">
-              <div class="t-title">출고중</div>
-              <div class="t-num" id="kpiProgress">211건</div>
-            </div>
-            <div class="ico">
-              <!-- truck -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <rect x="1" y="3" width="13" height="13" rx="2" ry="2"/>
-                <path d="M16 8h3l4 4v4h-7z"/>
-                <circle cx="5.5" cy="18.5" r="1.5"/>
-                <circle cx="18.5" cy="18.5" r="1.5"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        <!-- 출고완료 -->
-        <div class="tile indigo">
-          <div class="tile-row">
-            <div class="meta">
-              <div class="t-title">출고완료</div>
-              <div class="t-num" id="kpiDone">221건</div>
-            </div>
-            <div class="ico">
-              <!-- check-circle -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <circle cx="12" cy="12" r="9"/>
-                <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> 	
-
-	<!-- 오류/알림 -->
-	<div class="card list-card">
-	  <div class="list-head">
-	    <h4 class="title">오류/알림</h4>
-	    <span class="badge">!</span>
-	  </div>
-
-	  <ul class="timeline" id="timeline">
-	  </ul>
-	</div>
-	</div>
-	</div>
-  </div>
+	
 </section>
 </main>
 <script>

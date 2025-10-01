@@ -22,6 +22,8 @@ request.setAttribute("active_transaction", "active");
   <meta name="_csrf_header" content="${_csrf.headerName}">
   <meta name="_csrf" content="${_csrf.token}">
 
+  
+  <main class="container">
   <h2>거래명세서</h2>
 
   <!-- 상단 검색 필터 -->
@@ -223,6 +225,5 @@ request.setAttribute("active_transaction", "active");
     };
   </script>
 
-</body>
-</html>
+</main>
 <%@ include file="../common/footer.jsp" %>

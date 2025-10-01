@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%request.setAttribute("pageTitle", "대시보드");%>
 <%request.setAttribute("active_main", "active");%>
@@ -9,107 +10,34 @@
 <main class="container">
 
 	<section class="grid-top">
-	  <div class="card big-card">
+		<div class="card card-wide">
+		  <div class="card-header">
+	
+		    <div class="chart-tabs" role="tablist" aria-label="매출 탭">
+		      <button type="button" class="chart-tab on" data-target="monthly" aria-selected="true">월 매출</button>
+		      <button type="button" class="chart-tab" data-target="yearly"  aria-selected="false">연 매출</button>
+		    </div>
+		  </div>
 
-	    <!-- 탭: 폴더 느낌 제거 -->
-		<div class="chart-tabs" role="tablist" aria-label="매출 탭">
-		  <button class="chart-tab active" role="tab" aria-selected="true" data-target="monthly">월 매출</button>
-		  <button class="chart-tab" role="tab" aria-selected="false" data-target="yearly">연 매출</button>
+		  <!-- 월 매출 -->
+		  <div class="chartbox on" id="sales-monthly" role="tabpanel" aria-label="월 매출">
+		    <canvas id="salesMonthlyChart" ></canvas>
+		  </div>
+
+		  <!-- 연 매출 -->
+		  <div class="chartbox" id="sales-yearly" role="tabpanel" aria-label="연 매출">
+		    <canvas id="salesYearlyChart"></canvas>
+		  </div>
 		</div>
 
-	    <!-- 월 매출 -->
-	    <div class="chart monthly active" role="tabpanel" aria-label="월 매출">
-	      <div class="barplot">
-	        <!-- 각 달: --h-main(파랑), --h-yoy(노랑/호버 시 오른쪽에 표시) -->
-	        <div class="col" style="--h-main:52%; --h-yoy:25%;">
-	          <div class="stack">
-	            <div class="bar main"></div>
-	            <div class="bar yoy"></div>
-	            <div class="yoy-chip">전년 월 대비</div>
-	          </div>
-	          <div class="label-month">1월</div>
-	        </div>
-	        <div class="col" style="--h-main:78%; --h-yoy:18%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">2월</div></div>
-	        <div class="col" style="--h-main:60%; --h-yoy:12%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">3월</div></div>
-	        <div class="col" style="--h-main:64%; --h-yoy:20%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">4월</div></div>
-	        <div class="col" style="--h-main:92%; --h-yoy:30%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">5월</div></div>
-	        <div class="col" style="--h-main:36%; --h-yoy:10%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">6월</div></div>
-	        <div class="col" style="--h-main:64%; --h-yoy:16%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">7월</div></div>
-	        <div class="col" style="--h-main:98%; --h-yoy:28%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">8월</div></div>
-	        <div class="col" style="--h-main:32%; --h-yoy:9%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">9월</div></div>
-	        <div class="col" style="--h-main:40%; --h-yoy:14%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">10월</div></div>
-	        <div class="col" style="--h-main:58%; --h-yoy:22%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">11월</div></div>
-	        <div class="col" style="--h-main:76%; --h-yoy:26%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">12월</div></div>
-	      </div>
-	    </div>
 
-	    <!-- 연 매출 -->
-	    <div class="chart yearly" role="tabpanel" aria-label="연 매출">
-	      <div class="barplot">
-	        <div class="col" style="--h-main:68%; --h-yoy:30%;">
-	          <div class="stack">
-	            <div class="bar main"></div>
-	            <div class="bar yoy"></div>
-	            <div class="yoy-chip">전년 대비</div>
-	          </div>
-	          <div class="label-month">2021</div>
-	        </div>
-	        <div class="col" style="--h-main:80%; --h-yoy:35%;">
-	          <div class="stack">
-	            <div class="bar main"></div>
-	            <div class="bar yoy"></div>
-	            <div class="yoy-chip">전년 대비</div>
-	          </div>
-	          <div class="label-month">2022</div>
-	        </div>
-	        <div class="col" style="--h-main:90%; --h-yoy:40%;">
-	          <div class="stack">
-	            <div class="bar main"></div>
-	            <div class="bar yoy"></div>
-	            <div class="yoy-chip">전년 대비</div>
-	          </div>
-	          <div class="label-month">2023</div>
-	        </div>
-	      </div>
-	    </div>
 
-	    <!-- 범례: 노란색 + 가운데 정렬 -->
-	    <div class="legend">
-	      <span class="dot"></span> 전년 월 대비
-	    </div>
-	  </div>
-	</section>
-
+	
+	
   <!-- 중간 2열 -->
   <section class="grid-mid">
 
-    <!-- 사용자 카드 -->
-	<div class="card profile-card">
-	  <div class="user">
-	    <!-- 프로필 이미지 -->
-	    <div class="avatar">
-	      <!-- 나중에 3D 아바타 PNG/SVG 또는 Canvas/WebGL 넣어도 됨 -->
-	     <img src="/images/3d-user.png" alt="3D User 이미지" class="avatar-img">
-	    </div>
-
-	    <!-- 유저 정보 -->
-	    <div class="meta">
-			<div style="font-weight:800;">
-			  ${user.name}님
-			</div>
-	    </div>
-       </div>
-
-	  <!-- 일정표 -->
-	  <div class="schedule">
-	    <div class="schedule-title">하루 일정표</div>
-	    <div class="schedule-row"><span>09:00 ~ 12:00</span><span class="muted">-</span></div>
-	    <div class="schedule-row"><span>12:00 ~ 13:30</span><span class="lunch">점심시간</span></div>
-	    <div class="schedule-row"><span>14:00 ~ 16:00</span><span class="muted">-</span></div>
-	    <div class="schedule-row"><span>16:00 ~ 18:00</span><span class="muted">-</span></div>
-	    <div class="schedule-row"><span>기타</span><span class="muted">-</span></div>
-	  </div>
-	</div>
+  
     <!-- 실시간 매출 현황 -->
     <div class="card linecard">
       <div class="title">
@@ -135,7 +63,7 @@
         </svg>
       </div>
     </div>
-  </section>
+
 
   <!-- 알림 -->
   <section class="alerts card">
@@ -159,54 +87,113 @@
    
 	  </div>
   </section>
+  </section>
 
 </main>
-<script src="<c:url value='/js/profileModal.js'/>"></script>
 
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="<c:url value='/js/profileModal.js'/>"></script>
 
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  // 탭 스위칭 (그대로 유지)
-  const tabs = document.querySelectorAll('.chart-tabs .chart-tab');
-  const panes = document.querySelectorAll('.chart');
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
-      tab.classList.add('active'); tab.setAttribute('aria-selected','true');
-      const target = tab.dataset.target; // 'monthly' | 'yearly'
-      panes.forEach(p => p.classList.remove('active'));
-      const pane = document.querySelector(`.chart.${target}`);
-      if (pane) pane.classList.add('active');
+(function(){
+  // ===== 데이터(예시) — 서버 값으로 교체만 하면 됩니다. =====
+  var monthLabels = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  var monthSales  = [12.1, 7.8, 2.9, 17.6, 21.8, 14.9, 22.0, 16.7, 9.6, 24.9, 8.8, 13.9]; // 막대: 월 매출
+  var monthYoY    = [7.4, 5.3, 3.7, 8.5, 12.0, 10.8, 18.8, 14.2, 11.6, 12.7, 9.9, 10.7];   // 라인: 전년 월 대비
+
+  var yearLabels  = ['2021','2022','2023'];
+  var yearSales   = [180, 210, 248];  // 막대: 연 매출(억원 예시)
+  var yearYoY     = [10, 12.5, 14.8]; // 라인: 전년 대비 증감(지표값)
+
+  // 공통 옵션(JSP 안전: 문자열 더하기)
+  function makeOptions(yTitle){
+    return {
+      responsive:true, maintainAspectRatio:false,
+      layout:{padding:{top:6,left:8,right:12,bottom:0}},
+      plugins:{
+        legend:{display:true,position:'bottom',labels:{boxWidth:18,boxHeight:8}},
+        tooltip:{
+          callbacks:{
+            label:function(ctx){
+              var v = ctx.parsed.y || 0;
+              // 단위 표기는 상황에 맞게 교체
+              return ctx.dataset.label + ': ' + Number(v).toLocaleString();
+            }
+          }
+        }
+      },
+      scales:{
+        x:{grid:{display:false},ticks:{color:'#8A93A3'}},
+        y:{
+          beginAtZero:true, grid:{color:'#EEF1F7'}, ticks:{color:'#8A93A3', precision:0},
+          title: yTitle ? {display:true,text:yTitle,color:'#8A93A3'} : undefined
+        }
+      }
+    };
+  }
+
+  function makeBarLineChart(canvas, labels, barData, lineData, yTitle){
+    var ctx = canvas.getContext('2d');
+    return new Chart(ctx, {
+      type:'bar',
+      data:{
+        labels: labels,
+        datasets:[
+          {
+            type:'bar',
+            label:'매출',
+            data: barData,
+            backgroundColor:'#5b7cff',
+            borderRadius:6,
+            barThickness:26
+          },
+          {
+            type:'line',
+            label:'전년 월 대비',
+            data: lineData,
+            borderColor:'#f4a63a',
+            pointBackgroundColor:'#f4a63a',
+            pointRadius:3,
+            tension:.35,
+            fill:false
+          }
+        ]
+      },
+      options: makeOptions(yTitle)
     });
+  }
+
+  // 차트 인스턴스
+  var monthlyChart = makeBarLineChart(
+    document.getElementById('salesMonthlyChart'), monthLabels, monthSales, monthYoY, ''
+  );
+  var yearlyChart = makeBarLineChart(
+    document.getElementById('salesYearlyChart'), yearLabels, yearSales, yearYoY, ''
+  );
+
+  // 탭 전환
+  var tabs = document.querySelectorAll('.chart-tab');
+  function showTab(key){
+    document.getElementById('sales-monthly').classList.toggle('on', key==='monthly');
+    document.getElementById('sales-yearly').classList.toggle('on',  key==='yearly');
+    tabs.forEach(function(t){
+      var on = (t.dataset.target===key);
+      t.classList.toggle('on', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    setTimeout(function(){
+      if(key==='monthly') monthlyChart.resize(); else yearlyChart.resize();
+    }, 30);
+  }
+  tabs.forEach(function(btn){
+    btn.addEventListener('click', function(){ showTab(btn.dataset.target); });
   });
-
-  // === 모달 ===
-  const modal   = document.getElementById('profile-modal');
-  const btnOpen = document.getElementById('btn-profile-edit');   // 홈 카드의 "회원수정" 버튼
-  const btnClose = document.getElementById('btn-profile-close');  // X 버튼
-  const btnCancel = document.getElementById('btn-cancel');        // 취소 버튼
-
-  if (btnOpen && modal) {
-    btnOpen.addEventListener('click', () => modal.classList.add('show'));
-  }
-  if (btnClose && modal) {
-    btnClose.addEventListener('click', () => modal.classList.remove('show'));
-  }
-  if (btnCancel && modal) {
-    btnCancel.addEventListener('click', () => modal.classList.remove('show'));
-  }
-  // 배경 클릭 시 닫기
-  if (modal) {
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) modal.classList.remove('show');
-    });
-  }
-});
+})();
 </script>
-<script src="<c:url value='/js/profileModal.js'/>"></script>
+
+
 <%@ include file="../common/footer.jsp" %>

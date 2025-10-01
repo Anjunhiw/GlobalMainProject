@@ -19,7 +19,7 @@ request.setAttribute("active_control", "active");
 <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
 
-<body>
+  <main class="container">
   <h2>비용/지출통제</h2>
 
   <!-- 검색 영역 -->
@@ -83,23 +83,8 @@ request.setAttribute("active_control", "active");
       </div>
     </div>
   </div>
-
-  <style>
-  .modal {
-    position: fixed;
-    z-index: 9999;
-    left: 0; top: 0; width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.4);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .modal-content {
-    background: #fff; padding: 20px; border-radius: 8px; min-width: 400px; max-width: 90vw;
-    max-height: 80vh; overflow-y: auto; position: relative;
-  }
-  .close {
-    position: absolute; right: 16px; top: 10px; font-size: 24px; cursor: pointer;
-  }
-  </style>
+</main>
+ 
 
   <script>
     document.getElementById('btnSearch')?.addEventListener('click', function (e) {

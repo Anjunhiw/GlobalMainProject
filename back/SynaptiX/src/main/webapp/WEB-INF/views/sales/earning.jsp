@@ -24,7 +24,7 @@ request.setAttribute("active_earning", "active");
 <meta name="_csrf_header" content="${_csrf.headerName}">
 <meta name="_csrf" content="${_csrf.token}">
 
-<body>
+<main class="container">
   <h2>매출</h2>
 
   <!-- 필터 -->
@@ -116,7 +116,7 @@ request.setAttribute("active_earning", "active");
     </div>
   </div>
 
-</body>
+
 
   <!-- 조회 버튼: 모달 AJAX 조회로 변경 -->
   <script>
@@ -218,6 +218,5 @@ request.setAttribute("active_earning", "active");
     };
   </script>
 
-
-</html>
+</main>
 <%@ include file="../common/footer.jsp" %>

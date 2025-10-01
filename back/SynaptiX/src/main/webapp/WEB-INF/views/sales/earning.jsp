@@ -62,7 +62,7 @@ request.setAttribute("active_earning", "active");
 
     <div class="btn-group">
       <button type="button" id="btnSearch" class="btn btn-primary">조회</button>
-	  <button type="button" class="btn btn-success" id="downloadExcel">엑셀 다운로드</button>
+      <button type="button" class="btn btn-success" id="downloadExcel">엑셀 다운로드</button>
     </div>
   </div>
 
@@ -134,6 +134,53 @@ request.setAttribute("active_earning", "active");
         .then(html => {
           document.getElementById('modalResults').innerHTML = html;
           document.getElementById('searchModal').style.display = 'flex';
+          // 팝업이 열릴 때마다 다운로드 버튼 이벤트 연결 (기존 이벤트 제거 후 재연결)
+          const excelBtn = document.getElementById('downloadExcelModal');
+          if (excelBtn) {
+            excelBtn.onclick = null; // 기존 이벤트 제거
+            excelBtn.addEventListener('click', function(e) {
+              e.preventDefault(); // 기본 동작 방지
+              var prodCode = document.getElementById('prodCode').value;
+              var prodName = document.getElementById('prodName').value;
+              var qc = document.getElementById('qc').value;
+              var startDate = document.getElementById('startDate').value;
+              var endDate = document.getElementById('endDate').value;
+              var csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
+              var headers = {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'X-CSRF-TOKEN': csrfToken
+              };
+              var params = new URLSearchParams();
+              if (prodCode) params.append('prodCode', prodCode);
+              if (prodName) params.append('prodName', prodName);
+              if (qc) params.append('qc', qc);
+              if (startDate) params.append('startDate', startDate);
+              if (endDate) params.append('endDate', endDate);
+              if (csrfToken) params.append('_csrf', csrfToken);
+              fetch('/sales/earning/excel-modal', {
+                method: 'POST',
+                headers: headers,
+                body: params.toString()
+              })
+              .then(response => {
+                if (!response.ok) throw new Error('엑셀 다운로드 실패');
+                return response.blob();
+              })
+              .then(blob => {
+                var url = window.URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = '매출_검색결과.csv';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+              })
+              .catch(() => {
+                alert('엑셀 다운로드 중 오류가 발생했습니다.');
+              });
+            });
+          }
         })
         .catch(() => {
           document.getElementById('modalResults').innerHTML = '<p style="color:red;">검색 결과를 불러오지 못했습니다.</p>';
@@ -168,48 +215,6 @@ request.setAttribute("active_earning", "active");
         .catch(() => {
           alert('엑셀 다운로드 중 오류가 발생했습니다.');
         });
-    };
-    // 모달 엑셀 다운로드
-    document.getElementById('downloadExcelModal').onclick = function() {
-      var prodCode = document.getElementById('prodCode').value;
-      var prodName = document.getElementById('prodName').value;
-      var qc = document.getElementById('qc').value;
-      var startDate = document.getElementById('startDate').value;
-      var endDate = document.getElementById('endDate').value;
-      var csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content;
-      var csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
-      var headers = {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-      };
-      if (csrfHeader && csrfToken) headers[csrfHeader] = csrfToken;
-      var params = new URLSearchParams();
-      if (prodCode) params.append('prodCode', prodCode);
-      if (prodName) params.append('prodName', prodName);
-      if (qc) params.append('qc', qc);
-      if (startDate) params.append('startDate', startDate);
-      if (endDate) params.append('endDate', endDate);
-      fetch('/sales/earning/excel-modal', {
-        method: 'POST',
-        headers: headers,
-        body: params.toString()
-      })
-      .then(response => {
-        if (!response.ok) throw new Error('엑셀 다운로드 실패');
-        return response.blob();
-      })
-      .then(blob => {
-        var url = window.URL.createObjectURL(blob);
-        var a = document.createElement('a');
-        a.href = url;
-        a.download = '매출_검색결과.xlsx';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        window.URL.revokeObjectURL(url);
-      })
-      .catch(() => {
-        alert('엑셀 다운로드 중 오류가 발생했습니다.');
-      });
     };
   </script>
 

@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<h3 style="display:inline-block;">검색 결과</h3>
+<button type="button" class="btn btn-success" id="downloadExcelModal" style="float:right; margin-bottom:10px;">엑셀 다운로드</button>
+<div style="max-height:400px; overflow-y:auto;">
 <table class="table">
   <thead>
     <tr>
@@ -35,3 +38,50 @@
     </c:if>
   </tbody>
 </table>
+</div>
+
+<script>
+	// 모달 엑셀 다운로드
+	    document.getElementById('downloadExcelModal').onclick = function() {
+	      var prodCode = document.getElementById('prodCode').value;
+	      var prodName = document.getElementById('prodName').value;
+	      var qc = document.getElementById('qc').value;
+	      var startDate = document.getElementById('startDate').value;
+	      var endDate = document.getElementById('endDate').value;
+	      var csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content;
+	      var csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
+	      var headers = {
+	        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+	      };
+	      if (csrfHeader && csrfToken) headers[csrfHeader] = csrfToken;
+	      var params = new URLSearchParams();
+	      if (prodCode) params.append('prodCode', prodCode);
+	      if (prodName) params.append('prodName', prodName);
+	      if (qc) params.append('qc', qc);
+	      if (startDate) params.append('startDate', startDate);
+	      if (endDate) params.append('endDate', endDate);
+	      fetch('/sales/earning/excel-modal', {
+	        method: 'POST',
+	        headers: headers,
+	        body: params.toString()
+	      })
+	      .then(response => {
+	        if (!response.ok) throw new Error('엑셀 다운로드 실패');
+	        return response.blob();
+	      })
+	      .then(blob => {
+	        var url = window.URL.createObjectURL(blob);
+	        var a = document.createElement('a');
+	        a.href = url;
+	        a.download = '매출_검색결과.csv';
+	        document.body.appendChild(a);
+	        a.click();
+	        a.remove();
+	        window.URL.revokeObjectURL(url);
+	      })
+	      .catch(() => {
+	        alert('엑셀 다운로드 중 오류가 발생했습니다.');
+	      });
+	    };
+
+</script>

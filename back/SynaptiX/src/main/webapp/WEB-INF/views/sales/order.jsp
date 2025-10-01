@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -173,27 +172,20 @@ request.setAttribute("active_order", "active");
           alert('엑셀 다운로드 중 오류가 발생했습니다.');
         });
     };
-    // 모달 엑셀 다운로드
+    // 모달 엑셀 다운로드 (GET 방식)
     document.getElementById('downloadExcelModal').onclick = function() {
       var prodCode = document.getElementById('prodCode').value;
       var prodName = document.getElementById('prodName').value;
       var orderDate = document.getElementById('orderDate').value;
       var status = document.getElementById('status').value;
-      var csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content;
-      var csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
-      var headers = {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-      };
-      if (csrfHeader && csrfToken) headers[csrfHeader] = csrfToken;
       var params = new URLSearchParams();
       if (prodCode) params.append('prodCode', prodCode);
       if (prodName) params.append('prodName', prodName);
       if (orderDate) params.append('orderDate', orderDate);
       if (status) params.append('status', status);
-      fetch('/sales/orders/excel-modal', {
-        method: 'POST',
-        headers: headers,
-        body: params.toString()
+      var url = '/sales/orders/excel-modal?' + params.toString();
+      fetch(url, {
+        method: 'GET'
       })
       .then(response => {
         if (!response.ok) throw new Error('엑셀 다운로드 실패');

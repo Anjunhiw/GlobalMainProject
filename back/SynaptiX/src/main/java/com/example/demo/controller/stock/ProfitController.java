@@ -31,7 +31,7 @@ public class ProfitController {
         return "stock/profit";
     }
 
-    @PostMapping("/profit/excel")
+    @GetMapping("/profit/excel")
     public void downloadProfitExcel(
         @RequestParam(value = "item_code", required = false) String itemCode,
         @RequestParam(value = "item_name", required = false) String itemName,

@@ -74,7 +74,7 @@ public class SalesController {
         workbook.close();
     }
 
-    @PostMapping("/sales/excel-modal")
+    @GetMapping("/sales/excel-modal")
     public void downloadSalesExcelModal(
             @RequestParam(required = false) String code,
             @RequestParam(required = false) String name,

@@ -17,7 +17,7 @@ request.setAttribute("active_mps", "active");
 <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
 
-<main class="container">
+<body>
   <h2>MPS</h2>
   <!-- 상단 검색/입력 필터 -->
   <div class="filter-smallq">
@@ -297,5 +297,6 @@ request.setAttribute("active_mps", "active");
       };
     });
   </script>
-</main>
+</body>
+</html>
 <%@ include file="../common/footer.jsp" %>

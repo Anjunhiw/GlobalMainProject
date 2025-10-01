@@ -11,8 +11,8 @@ request.setAttribute("active_profit", "active");
 <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
 
+<body>
 
-<main class ="container">
   <h2>이익관리</h2>
 
   <!-- 검색 폼 -->
@@ -109,7 +109,6 @@ request.setAttribute("active_profit", "active");
   <!-- CSRF를 JS에서 쓰기 위해 노출 -->
   <meta name="_csrf_header" content="${_csrf.headerName}">
   <meta name="_csrf"        content="${_csrf.token}">
-</main>
 
   <script>
     function downloadProfitExcel() {

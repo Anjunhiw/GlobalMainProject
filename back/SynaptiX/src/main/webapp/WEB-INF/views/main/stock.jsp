@@ -14,7 +14,7 @@
   <div class="card card-wide">
     <div class="card-header">
       <h4>
-        <fmt:formatDate value="<%= new java.util.Date() %>" pattern="MM/dd"/> 오늘
+        <fmt:formatDate value="<%= new java.util.Date() %>" pattern="MM/dd"/> (오늘)
       </h4>
     </div>
     <div class="card-body">

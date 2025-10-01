@@ -14,7 +14,7 @@ request.setAttribute("active_stl", "active");
   <meta name="_csrf_header" content="${_csrf.headerName}">
   <meta name="_csrf"        content="${_csrf.token}">
 
-<main class ="container">
+
   <h2>창고재고관리</h2>
 
   <div class="filter-smallb">
@@ -52,8 +52,7 @@ request.setAttribute("active_stl", "active");
     <div class="btn-group">
       <button type="button" class="btn btn-ee" onclick="openRegister()">등록</button>
       <button type="button" class="btn btn-primary" id="btn-search" onclick="searchData()">조회</button>
-		<a href="/stock/excel">
-	  <button type=button class="btn btn-success" id="">엑셀 다운로드</button>
+		<button type=button class="btn btn-success">엑셀 다운로드</button>
 	  </a>
     </div>
   </div>
@@ -305,7 +304,6 @@ request.setAttribute("active_stl", "active");
 	  </c:if>
 </table>
 </tbody>
-</main>
   <!-- stock.jsp 하단 script 일부만 발췌/수정 -->
   <script>
     // 등록 버튼: 등록 폼 페이지로 이동

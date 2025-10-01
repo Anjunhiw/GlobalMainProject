@@ -28,7 +28,7 @@ request.setAttribute("active_order", "active");
 <meta name="_csrf_header" content="${_csrf.headerName}">
 <meta name="_csrf" content="${_csrf.token}">
 
-<main class="container">
+<body>
 
   <h2>주문관리</h2>
 
@@ -215,6 +215,6 @@ request.setAttribute("active_order", "active");
     };
   </script>
 
-</main>
+</body>
 
 <%@ include file="../common/footer.jsp" %>

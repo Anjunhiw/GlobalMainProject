@@ -7,7 +7,7 @@ request.setAttribute("active_personal", "active");
 <%@ include file="../common/header.jsp" %>
 <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
-  <main class="container">
+<body>
   <h2>인사</h2>
 
   <!-- 필터 영역 -->
@@ -18,16 +18,7 @@ request.setAttribute("active_personal", "active");
     </div>
     <div class="field">
       <label>직급</label>
-      <!--<input type="text" id="position" name="position" value="${param.position}" placeholder="">-->
-	
-	  	<select id="position" name="position" value="${param.position}" style="height : 34px;" required>
-	  		<option value="인턴">인턴</option>
-	           <option value="사원">사원</option>
-	           <option value="대리">대리</option>
-	           <option value="과장">과장</option>
-	           <option value="차장">차장</option>
-	           <option value="부장">부장</option>
-	  </select>
+      <input type="text" id="position" name="position" value="${param.position}" placeholder="">
     </div>
     <div class="field">
       <label>이름</label>
@@ -91,7 +82,22 @@ request.setAttribute("active_personal", "active");
     </div>
   </div>
 
-
+  <style>
+  .modal {
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.4);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-content {
+    background: #fff; padding: 20px; border-radius: 8px; min-width: 400px; max-width: 90vw;
+    max-height: 80vh; overflow-y: auto; position: relative;
+  }
+  .close {
+    position: absolute; right: 16px; top: 10px; font-size: 24px; cursor: pointer;
+  }
+  </style>
 
   <script>
     document.getElementById('btn-search')?.addEventListener('click', function (e) {
@@ -153,5 +159,6 @@ request.setAttribute("active_personal", "active");
       });
     });
   </script>
-</main>
+</body>
+</html>
 <%@ include file="../common/footer.jsp" %>

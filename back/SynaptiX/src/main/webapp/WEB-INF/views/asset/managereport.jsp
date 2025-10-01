@@ -20,8 +20,6 @@ request.setAttribute("active_mr", "active");
 <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
 
-
-<main class="container">
   <h2>경영보고서</h2>
 
   <!-- 검색 영역 -->
@@ -139,5 +137,6 @@ request.setAttribute("active_mr", "active");
       window.location.href = '/fund/report/excel';
     });
   </script>
-</main>
+</body>
+</html>
 <%@ include file="../common/footer.jsp" %>

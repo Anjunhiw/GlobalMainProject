@@ -24,7 +24,7 @@ request.setAttribute("active_qc", "active");
 <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
 
-<main class="container">
+<body>
 
   <h2>QC 검사 결과 조회</h2>
 
@@ -282,5 +282,6 @@ request.setAttribute("active_qc", "active");
       });
     };
   </script>
-</main>
+</body>
+</html>
 <%@ include file="../common/footer.jsp" %>

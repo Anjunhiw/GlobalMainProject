@@ -46,11 +46,11 @@
       <div class="grid two">
         <div class="field">
           <label>부서</label>
-          <input type="text" name="dept" value="<c:out value='${user.dept}'/>">
+          <input type="text" name="dept" value="<c:out value='${user.dept}'/>" disabled>
         </div>
         <div class="field">
           <label>직급</label>
-          <input type="text" name="rank" value="<c:out value='${user.rank}'/>">
+          <input type="text" name="rank" value="<c:out value='${user.rank}'/>" disabled>
         </div>
       </div>
 

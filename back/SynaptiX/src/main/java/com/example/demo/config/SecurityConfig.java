@@ -31,7 +31,7 @@ public class SecurityConfig {
         http
             .authorizeRequests()
                 // 공개 페이지 모두 허용
-                .antMatchers("/login", "/register", "/findId", "/findPassword", "/home", "/home/**", "/mypage", "/mypage/**", "/css/**", "/js/**", "/images/**").permitAll()
+                .antMatchers("/login", "/register", "/findId", "/findPassword", "/useredit", "/home", "/home/**", "/mypage", "/mypage/**", "/css/**", "/js/**", "/images/**").permitAll()
                 // GET 요청은 모두 인증된 사용자에게 허용
                 .antMatchers(HttpMethod.GET, "/**").authenticated()
                 // POST 요청은 부서/직급별로 제한
@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/api/accounting/**").hasAuthority("DEPT_ACCOUNTING")
                 .antMatchers(HttpMethod.POST, "/api/audit/**").hasAuthority("DEPT_AUDIT")
                 .antMatchers(HttpMethod.POST, "/api/hr/**").hasAuthority("DEPT_HR")
-//                .antMatchers(HttpMethod.POST, "/api/main/**").hasAuthority("DEPT_MAIN")
+                //.antMatchers(HttpMethod.POST, "/api/main/**").hasAuthority("DEPT_MAIN")
                 // 직급별 POST 권한 (예시: RANK_WRITE, ROLE_ADMIN)
                 .antMatchers(HttpMethod.POST, "/api/**").hasAnyAuthority("RANK_WRITE", "ROLE_ADMIN")
                 // 관리자 전체 허용

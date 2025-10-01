@@ -170,7 +170,7 @@ request.setAttribute("active_earning", "active");
                 var url = window.URL.createObjectURL(blob);
                 var a = document.createElement('a');
                 a.href = url;
-                a.download = '매출_검색결과.csv';
+                a.download = '매출_검색결과.xlsx';
                 document.body.appendChild(a);
                 a.click();
                 a.remove();

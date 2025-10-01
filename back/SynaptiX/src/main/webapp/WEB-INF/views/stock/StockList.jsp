@@ -238,7 +238,6 @@ request.setAttribute("active_stl", "active");
         <button type="button" class="btn btn-sm btn-warning" onclick="openEditModal('${material.pk}', '원자재', this)">수정</button>
       </td> 
 	      <td> 
-
 	        <form action="/stock/delete" method="post" class="form-delete" onsubmit="return confirm('정말 삭제하시겠습니까?');">
                 <input type="hidden" name="pk" value="${material.pk}">
                 <input type="hidden" name="category" value="원자재">
@@ -260,10 +259,7 @@ request.setAttribute("active_stl", "active");
   </table>
 
   <h2>제품 재고 목록</h2>
-  
-  
-  
- 
+
   <table>
     <thead>
       <tr>

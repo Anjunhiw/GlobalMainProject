@@ -145,36 +145,27 @@ request.setAttribute("active_earning", "active");
               var qc = document.getElementById('qc').value;
               var startDate = document.getElementById('startDate').value;
               var endDate = document.getElementById('endDate').value;
-              var csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
-              var headers = {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                'X-CSRF-TOKEN': csrfToken
-              };
               var params = new URLSearchParams();
               if (prodCode) params.append('prodCode', prodCode);
               if (prodName) params.append('prodName', prodName);
               if (qc) params.append('qc', qc);
               if (startDate) params.append('startDate', startDate);
               if (endDate) params.append('endDate', endDate);
-              if (csrfToken) params.append('_csrf', csrfToken);
-              fetch('/sales/earning/excel-modal', {
-                method: 'POST',
-                headers: headers,
-                body: params.toString()
-              })
+              var url = '/sales/earning/excel-modal?' + params.toString();
+              fetch(url)
               .then(response => {
                 if (!response.ok) throw new Error('엑셀 다운로드 실패');
                 return response.blob();
               })
               .then(blob => {
-                var url = window.URL.createObjectURL(blob);
+                var downloadUrl = window.URL.createObjectURL(blob);
                 var a = document.createElement('a');
-                a.href = url;
+                a.href = downloadUrl;
                 a.download = '매출_검색결과.xlsx';
                 document.body.appendChild(a);
                 a.click();
                 a.remove();
-                window.URL.revokeObjectURL(url);
+                window.URL.revokeObjectURL(downloadUrl);
               })
               .catch(() => {
                 alert('엑셀 다운로드 중 오류가 발생했습니다.');

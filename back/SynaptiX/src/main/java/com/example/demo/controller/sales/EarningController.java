@@ -75,7 +75,7 @@ public class EarningController {
         workbook.close();
     }
 
-    @PostMapping("/sales/earning/excel-modal")
+    @GetMapping("/sales/earning/excel-modal")
     public void downloadEarningExcelModal(
             @RequestParam(required = false) String prodCode,
             @RequestParam(required = false) String prodName,

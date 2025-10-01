@@ -1,4 +1,4 @@
-	<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -115,19 +115,14 @@ request.setAttribute("active_profit", "active");
       const item_code = document.getElementById('code').value;
       const item_name = document.getElementById('name').value;
       const category = document.getElementById('category').value;
-      const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
-      const CSRF_TOKEN  = document.querySelector('meta[name="_csrf"]').content;
+      // GET 방식으로 파라미터를 쿼리스트링으로 전달
       const params = new URLSearchParams();
       if (item_code) params.append('item_code', item_code);
       if (item_name) params.append('item_name', item_name);
       if (category) params.append('category', category);
-      fetch('/profit/excel', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-          [CSRF_HEADER]: CSRF_TOKEN
-        },
-        body: params.toString()
+      const url = '/profit/excel?' + params.toString();
+      fetch(url, {
+        method: 'GET'
       })
       .then(response => {
         if (!response.ok) throw new Error('엑셀 다운로드 실패');

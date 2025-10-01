@@ -199,21 +199,15 @@ request.setAttribute("active_sale", "active");
       var name = document.getElementById('name').value;
       var outDate = document.getElementById('outDate').value;
       var category = document.getElementById('category').value;
-      var csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content;
-      var csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
-      var headers = {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-      };
-      if (csrfHeader && csrfToken) headers[csrfHeader] = csrfToken;
+      // GET 방식으로 파라미터를 쿼리스트링으로 전달
       var params = new URLSearchParams();
       if (code) params.append('code', code);
       if (name) params.append('name', name);
       if (outDate) params.append('outDate', outDate);
       if (category) params.append('category', category);
-      fetch('/sales/excel-modal', {
-        method: 'POST',
-        headers: headers,
-        body: params.toString()
+      var url = '/sales/excel-modal?' + params.toString();
+      fetch(url, {
+        method: 'GET'
       })
       .then(response => {
         if (!response.ok) throw new Error('엑셀 다운로드 실패');

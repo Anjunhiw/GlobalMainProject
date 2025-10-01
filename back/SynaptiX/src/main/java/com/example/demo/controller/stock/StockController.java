@@ -105,7 +105,7 @@ public class StockController {
         return "redirect:/stock";
     }
 
-    @PostMapping("/stock/search")
+    @GetMapping("/stock/search")
     public String searchStock(
         @RequestParam(value = "code", required = false) String code,
         @RequestParam(value = "name", required = false) String name,
@@ -227,7 +227,7 @@ public class StockController {
         workbook.close();
     }
 
-    @PostMapping("/stock/excel-modal")
+    @GetMapping("/stock/excel-modal")
     public void downloadExcelFromModal(
             @RequestParam(value = "code", required = false) String code,
             @RequestParam(value = "name", required = false) String name,

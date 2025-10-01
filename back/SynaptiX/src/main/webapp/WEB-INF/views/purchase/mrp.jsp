@@ -16,7 +16,7 @@ request.setAttribute("active_mrp", "active");
 <%@ include file="../common/header.jsp" %>
 <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
-<body>
+  <main class="container">
   <h2>MRP</h2>
 
   <!-- 검색 영역 -->
@@ -184,6 +184,5 @@ request.setAttribute("active_mrp", "active");
       });
     });
   </script>
-</body>
-</html>
+</main>
 <%@ include file="../common/footer.jsp" %>

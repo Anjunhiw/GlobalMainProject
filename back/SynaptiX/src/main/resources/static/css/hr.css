@@ -1,5 +1,5 @@
 .hr-wrap{
-  max-width:1160px; margin:20px auto 40px; padding:0 50px;
+  max-width:1580px; margin:20px auto 40px; padding:0 20px;
 }
 .row{ display:grid; gap:18px; grid-template-columns:1.5fr 1.5fr ; margin-top:18px; }
 .card{ background:#fff; border-radius:14px; box-shadow:0 10px 20px rgba(31,45,61,.06); padding:15px  }

@@ -16,7 +16,10 @@ request.setAttribute("active_pch", "active");
 <%@ include file="../common/header.jsp" %>
 <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
-<body>
+ 
+
+
+ <main class="container">
   <h2>구매/입고</h2>
 
   <!-- 검색 영역 -->
@@ -183,7 +186,6 @@ request.setAttribute("active_pch", "active");
       });
     });
   </script>
-</body>
-</html>
+</main>
 
 <%@ include file="../common/footer.jsp" %>

@@ -15,7 +15,7 @@
 
 /* 페이지 배경 */
 body{
-  margin:0; background:var(--bg); color:var(--ink); font-family:var(--ui);
+  margin:0; background:var(--bg); color:var(--ink); 
 }
 .tab:not(.active){
   filter:saturate(.85) brightness(.98);
@@ -31,10 +31,10 @@ body{
 /* 상단 네비 */
 .nav{
   position:sticky; top:0; z-index:10;
-  backdrop-filter: blur(6px);
-  background: linear-gradient(180deg, rgba(255,255,255,.65), rgba(255,255,255,.25));
+  background: #fff;
   border-bottom: 1px solid rgba(0,0,0,.04);
   border-bottom:none; 
+  font-family:var(--ui);
 }
 .tab:nth-child(2):not(.active){ background:linear-gradient(180deg,#AFD9FF,rgb(193, 220, 255));color:#fff; }
 .tab:nth-child(3):not(.active){ background:linear-gradient(180deg,rgb(130, 176, 255),rgb(89, 168, 255)); color:#fff;}
@@ -42,7 +42,7 @@ body{
 .tab:nth-child(5):not(.active){ background:linear-gradient(180deg,rgb(0, 73, 196),rgb(0, 50, 132));color:#fff; }
 .tab:nth-child(6):not(.active){ background:linear-gradient(180deg,rgb(0, 39, 98),rgb(0, 7, 19)); color:#fff; }
 .nav .top{
-  max-width:1180px; margin:0 auto; padding:16px 20px 0;
+  max-width:1580px; margin:0 auto; padding:16px 20px 0;
   display:flex; align-items:center; gap:14px; flex-wrap:wrap;
 }
 .brand{ font-weight:800; letter-spacing:.2px; }
@@ -55,8 +55,8 @@ body{
   display:inline-flex;
   align-items:center;
   height:46px;              /* 실제 탭 높이 */
-  padding:0 22px;
-  margin-left:-18px;        /* 포개기 */
+  padding:0 25px;
+  margin-left:0px;        /* 포개기 */
   border-radius:18px 18px 0 0;  /* 상단 둥글게 */
   background:linear-gradient(180deg, #eaf2ff, #dbe6ff);
   color:#6b7aa6;
@@ -103,8 +103,9 @@ body{
 .tab:hover{ transform:translateY(-2px); opacity:.95; z-index:7; }
 
 .subtabs{
-  max-width:1180px; margin:10px auto 16px;
+  max-width:1550px; margin:10px auto 16px;
   padding:0 20px; display:flex; align-items:center; gap:18px;
+  font-family:"pretendard", system-ui, Roboto, sans-serif;
  
 }
 .subtabs .link{
@@ -146,16 +147,17 @@ body{
   flex-wrap: wrap;
   gap: 13px;
   margin-top: 16px;
-}
-.action {
-  font-size: 14px;
-  background: none;
-  border: none;
-  color: #444;
-  cursor: pointer;
-}
+  font-size: 16px;
+   background: none;
+   border: none;
+   color: #6b7280;      
+   cursor: pointer;
+   font-family:"pretendard", system-ui, Roboto, sans-serif;
+   }
+
 .action:hover {
   color: #2a3f93;
+  font-weight: 800;
 }
 .action form {
   display: inline;

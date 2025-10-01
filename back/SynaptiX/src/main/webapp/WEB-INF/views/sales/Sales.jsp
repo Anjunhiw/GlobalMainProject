@@ -24,7 +24,7 @@ request.setAttribute("active_sale", "active");
 <meta name="_csrf_header" content="${_csrf.headerName}">
 <meta name="_csrf" content="${_csrf.token}">
 
-<body>
+<main class="container">
 
   <h2>판매/출고</h2>
 
@@ -234,8 +234,7 @@ request.setAttribute("active_sale", "active");
       });
     };
   </script>
-</body>
-</html>
+</main>
 
 
 <%@ include file="../common/footer.jsp" %>

@@ -11,7 +11,9 @@ request.setAttribute("active_bom", "active");
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
 
 
-<h2>BOM</h2>
+<main class ="container">
+
+	<h2>BOM</h2>
 
 <div class="filters">
   <div class="field">
@@ -50,6 +52,9 @@ request.setAttribute("active_bom", "active");
 <br/>
 <!-- CSRF -->
 <input type="hidden" id="csrfToken" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+
+
 <script>
   var csrfHeader = "${_csrf.headerName}";
   var csrfToken  = "${_csrf.token}";
@@ -229,7 +234,7 @@ request.setAttribute("active_bom", "active");
 <!-- 검색 결과 표시 영역 -->
 <div id="bomResultBody">
 <!-- 기존 테이블 영역을 여기에 옮기면 Ajax로 갱신 가능 -->
-<table border="1">
+<table class="table">
   <tr>
     <th>제품코드</th>
     <th>생산제품명</th>
@@ -265,6 +270,7 @@ request.setAttribute("active_bom", "active");
   </c:if>
 </table>
 </div>
+</main>
 
 <script>
   function openBomEditModal(productId, materialId, materialAmount) {

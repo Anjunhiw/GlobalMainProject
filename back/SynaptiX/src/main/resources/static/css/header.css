@@ -46,7 +46,14 @@ body{
   display:flex; align-items:center; gap:14px; flex-wrap:wrap;
 }
 .brand{ font-weight:800; letter-spacing:.2px; }
+img{
+	max-width: 1920px;
+	width: 120px;
+	height: 120px;
+	padding: 10 20 8px;
+	position: absolute;
 
+}
 .tabbar{
   display:flex; gap:10px; flex-wrap:wrap; margin-left:8px;
 }
@@ -82,7 +89,16 @@ body{
 
 /* 첫 탭은 음수 마진 제거 */
 .tab:first-child{ margin-left:0; }
-
+.user-name{
+	margin-left : auto;
+	color:#8a93a3;
+	font-size: 12px;
+	padding: 5px;
+	font-weight: 600;
+}
+.mypagegroup{
+	margin-left: auto;
+}
 /* 깊이감: 겹칠 때 경계 부드럽게 */
 .tab::after{
   content:"";
@@ -103,7 +119,7 @@ body{
 .tab:hover{ transform:translateY(-2px); opacity:.95; z-index:7; }
 
 .subtabs{
-  max-width:1550px; margin:10px auto 16px;
+  max-width:1580px; margin:10px auto 16px;
   padding:0 20px; display:flex; align-items:center; gap:18px;
   font-family:"pretendard", system-ui, Roboto, sans-serif;
  
@@ -153,6 +169,7 @@ body{
    color: #6b7280;      
    cursor: pointer;
    font-family:"pretendard", system-ui, Roboto, sans-serif;
+  
    }
 
 .action:hover {
@@ -163,6 +180,7 @@ body{
   display: inline;
   margin: 0;
   padding: 0;
+  margin-left: auto;
 }
 
 

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+	<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
@@ -96,11 +96,11 @@ request.setAttribute("active_mrp", "active");
     <div class="modal-content">
       <span class="close" id="closeModal">&times;</span>
       <h3>검색 결과</h3>
+	  <div style="text-align:right; float:right; margin-bottom:10px;">
+        <button type="button" id="btnModalExcel" class="btn btn-success">엑셀 다운로드</button>
+      </div>
       <div id="modalResults">
         <!-- AJAX results will be injected here -->
-      </div>
-      <div style="text-align:right; margin-top:10px;">
-        <button type="button" id="btnModalExcel" class="btn btn-info">엑셀 다운로드</button>
       </div>
     </div>
   </div>

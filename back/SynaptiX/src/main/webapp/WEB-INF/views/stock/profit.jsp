@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+	<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -99,10 +99,10 @@ request.setAttribute("active_profit", "active");
     <div class="modal-content">
       <span class="close" onclick="closeModal()" aria-label="닫기">&times;</span>
       <h3 id="modalTitle">검색 결과</h3>
-      <div id="modalResultBody"><!-- Ajax 결과 테이블이 여기에 표시 --></div>
-      <div style="text-align:right; margin-top:10px;">
-        <button type="button" class="btn btn-info" onclick="downloadExcelFromModal()">엑셀 다운로드</button>
+	  <div style="text-align:right; margin-top:10px;">
+        <button type="button" class="btn btn-success" style="float:right; margin-bottom:10px;" onclick="downloadExcelFromModal()">엑셀 다운로드</button>
       </div>
+	  <div id="modalResultBody"><!-- Ajax 결과 테이블이 여기에 표시 --></div>
     </div>
   </div>
 

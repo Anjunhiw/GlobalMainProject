@@ -150,7 +150,7 @@ request.setAttribute("active_bom", "active");
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = '검색결과_BOM.xlsx';
+        a.download = 'BOM_result.xlsx';
         document.body.appendChild(a);
         a.click();
         a.remove();
@@ -221,11 +221,8 @@ request.setAttribute("active_bom", "active");
   <div class="modal-content" style="min-width:900px;max-width:95vw;">
     <span class="close" onclick="closeBomResultModal()" aria-label="닫기">&times;</span>
     <h3 id="bomResultModalTitle">검색 결과</h3>
+	<button type="button" class="btn btn-success" id="btnModalExcel" style="float:right; margin-bottom:10px;">엑셀 다운로드</button>
     <div id="bomResultBodyModal"></div>
-    <div class="btn-group" style="margin-top:12px;">
-      <button type="button" class="btn btn-success" id="btnModalExcel">엑셀 다운로드</button>
-      <button type="button" class="btn btn-secondary" onclick="closeBomResultModal()">닫기</button>
-    </div>
   </div>
 </div>
 

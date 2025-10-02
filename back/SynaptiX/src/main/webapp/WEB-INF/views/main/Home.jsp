@@ -13,69 +13,36 @@
 
 	    <!-- 탭: 폴더 느낌 제거 -->
 		<div class="chart-tabs" role="tablist" aria-label="매출 탭">
-		  <button class="chart-tab active" role="tab" aria-selected="true" data-target="monthly">월 매출</button>
+		  <button class="chart-tab active" role="tab" aria-selected="true" data-target="quarterly">분기별 매출</button>
 		  <button class="chart-tab" role="tab" aria-selected="false" data-target="yearly">연 매출</button>
 		</div>
 
-	    <!-- 월 매출 -->
-	    <div class="chart monthly active" role="tabpanel" aria-label="월 매출">
+	    <!-- 분기별 매출 (이전: 월 매출) -->
+	    <div class="chart quarterly active" role="tabpanel" aria-label="분기별 매출">
 	      <div class="barplot">
-	        <!-- 각 달: --h-main(파랑), --h-yoy(노랑/호버 시 오른쪽에 표시) -->
-	        <div class="col" style="--h-main:52%; --h-yoy:25%;">
-	          <div class="stack">
-	            <div class="bar main"></div>
-	            <div class="bar yoy"></div>
-	            <div class="yoy-chip">전년 월 대비</div>
+	        <c:forEach var="item" items="${monthlySales}">
+	          <div class="col" style="--h-main:${item.sales}%; --h-yoy:${item.yoy}%;">
+	            <div class="stack">
+	              <div class="bar main"></div>
+	              <div class="bar yoy"></div>
+	              <div class="yoy-chip">전년 분기 대비</div>
+	            </div>
+	            <div class="label-month">${item.month}분기</div>
 	          </div>
-	          <div class="label-month">1월</div>
-	        </div>
-	        <div class="col" style="--h-main:78%; --h-yoy:18%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">2월</div></div>
-	        <div class="col" style="--h-main:60%; --h-yoy:12%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">3월</div></div>
-	        <div class="col" style="--h-main:64%; --h-yoy:20%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">4월</div></div>
-	        <div class="col" style="--h-main:92%; --h-yoy:30%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">5월</div></div>
-	        <div class="col" style="--h-main:36%; --h-yoy:10%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">6월</div></div>
-	        <div class="col" style="--h-main:64%; --h-yoy:16%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">7월</div></div>
-	        <div class="col" style="--h-main:98%; --h-yoy:28%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">8월</div></div>
-	        <div class="col" style="--h-main:32%; --h-yoy:9%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">9월</div></div>
-	        <div class="col" style="--h-main:40%; --h-yoy:14%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">10월</div></div>
-	        <div class="col" style="--h-main:58%; --h-yoy:22%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">11월</div></div>
-	        <div class="col" style="--h-main:76%; --h-yoy:26%;"><div class="stack"><div class="bar main"></div><div class="bar yoy"></div><div class="yoy-chip">전년 월 대비</div></div><div class="label-month">12월</div></div>
+	        </c:forEach>
 	      </div>
 	    </div>
 
 	    <!-- 연 매출 -->
 	    <div class="chart yearly" role="tabpanel" aria-label="연 매출">
-	      <div class="barplot">
-	        <div class="col" style="--h-main:68%; --h-yoy:30%;">
-	          <div class="stack">
-	            <div class="bar main"></div>
-	            <div class="bar yoy"></div>
-	            <div class="yoy-chip">전년 대비</div>
-	          </div>
-	          <div class="label-month">2021</div>
-	        </div>
-	        <div class="col" style="--h-main:80%; --h-yoy:35%;">
-	          <div class="stack">
-	            <div class="bar main"></div>
-	            <div class="bar yoy"></div>
-	            <div class="yoy-chip">전년 대비</div>
-	          </div>
-	          <div class="label-month">2022</div>
-	        </div>
-	        <div class="col" style="--h-main:90%; --h-yoy:40%;">
-	          <div class="stack">
-	            <div class="bar main"></div>
-	            <div class="bar yoy"></div>
-	            <div class="yoy-chip">전년 대비</div>
-	          </div>
-	          <div class="label-month">2023</div>
-	        </div>
+	      <div class="barplot" id="yearly-barplot">
+	        <!-- JS에서 동적으로 생성 -->
 	      </div>
 	    </div>
 
 	    <!-- 범례: 노란색 + 가운데 정렬 -->
 	    <div class="legend">
-	      <span class="dot"></span> 전년 월 대비
+	      <span class="dot"></span> 전년 분기 대비
 	    </div>
 	  </div>
 	</section>
@@ -171,17 +138,22 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // 탭 스위칭 (그대로 유지)
+  // 탭 스위칭 (방어 코드 포함)
   const tabs = document.querySelectorAll('.chart-tabs .chart-tab');
   const panes = document.querySelectorAll('.chart');
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
-      tab.classList.add('active'); tab.setAttribute('aria-selected','true');
-      const target = tab.dataset.target; // 'monthly' | 'yearly'
-      panes.forEach(p => p.classList.remove('active'));
-      const pane = document.querySelector(`.chart.${target}`);
-      if (pane) pane.classList.add('active');
+      const target = tab.dataset.target;
+      // quarterly, yearly만 허용
+      if (target === 'quarterly' || target === 'yearly') {
+        const pane = document.querySelector(`.chart.${target}`);
+        if (pane) {
+          panes.forEach(p => p.classList.remove('active'));
+          pane.classList.add('active');
+        }
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+        tab.classList.add('active'); tab.setAttribute('aria-selected','true');
+      }
     });
   });
 
@@ -206,6 +178,84 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.target === modal) modal.classList.remove('show');
     });
   }
+});
+
+// DART API에서 2020~2024년 연매출 데이터 받아서 차트에 표시
+const yearlyBarplot = document.getElementById('yearly-barplot');
+const years = [2020, 2021, 2022, 2023, 2024];
+Promise.all(years.map(year =>
+  fetch(`/api/dart/finance?year=${year}`)
+    .then(res => res.json())
+    .then(data => {
+      // 매출액 데이터만 추출
+      const sales = data.list.find(item => item.account_nm === "매출액");
+      return { year, sales };
+    })
+)).then(results => {
+  results.forEach((item, idx) => {
+    // sales 값이 없으면 0 처리
+    const salesValue = item.sales ? item.sales.amount : 0;
+    // 막대 높이(%) 계산 (예시: 최대값 기준)
+    const maxSales = Math.max(...results.map(r => r.sales ? r.sales.amount : 0));
+    const height = maxSales ? (salesValue / maxSales * 100) : 0;
+    // DOM 생성
+    const col = document.createElement('div');
+    col.className = 'col';
+    col.style.setProperty('--h-main', `${height}%`);
+    col.innerHTML = `
+      <div class=\"stack\">
+        <div class=\"bar main\"></div>
+        <div class=\"yoy-chip\">매출액</div>
+      </div>
+      <div class=\"label-month\">${item.year}</div>
+    `;
+    yearlyBarplot.appendChild(col);
+  });
+});
+
+// DART API에서 받아온 매출액 데이터 콘솔 출력 (2020~2024)
+const yearsForConsole = [2020, 2021, 2022, 2023, 2024];
+Promise.all(yearsForConsole.map(year =>
+  fetch(`/api/dart/finance?year=${year}`)
+    .then(res => res.json())
+    .then(data => {
+      const sales = data.list.filter(item => item.account_nm === "매출액");
+      return { year, sales };
+    })
+)).then(results => {
+  console.log('연도별 매출액 데이터:', results);
+});
+
+// 2024년 분기별 매출액 콘솔 출력 (quarter, requested_code 값 명확하게, 디버그용 전체 객체도 출력)
+const quarterCodes = [
+  { quarter: '1', code: '11013' },
+  { quarter: '2', code: '11012' },
+  { quarter: '3', code: '11014' },
+  { quarter: '4', code: '11011' }
+];
+Promise.all(quarterCodes.map(q =>
+  fetch(`/api/dart/finance?year=2024&reprt_code=${q.code}`)
+    .then(res => res.json())
+    .then(data => {
+      const sales = data.list.find(item => item.account_nm === "매출액");
+      // 디버그: q, sales, data 모두 출력
+      return {
+        quarter: q.quarter,
+        requested_code: q.code,
+        response_code: sales ? sales.reprt_code : '없음',
+        amount: sales ? sales.thstrm_amount : '데이터 없음',
+        salesObj: sales,
+        requestObj: q,
+        rawData: data
+      };
+    })
+)).then(results => {
+  results.forEach(item => {
+    console.log(`2024년 ${item.quarter}분기 (요청 reprt_code=${item.requested_code}, 응답 reprt_code=${item.response_code}) 매출액:`, item.amount);
+    console.log('requestObj:', item.requestObj);
+    console.log('salesObj:', item.salesObj);
+    console.log('rawData:', item.rawData);
+  });
 });
 </script>
 <script src="<c:url value='/js/profileModal.js'/>"></script>

@@ -1,11 +1,14 @@
 package com.example.demo;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 public class DartAccount {
     private String rcept_no;
     private String corp_code;
     private String bsns_year;
     private String reprt_code;
     private String account_nm;
+    @JsonDeserialize(using = CommaToLongDeserializer.class)
     private long thstrm_amount;
 
     public String getRcept_no() { return rcept_no; }

@@ -15,7 +15,12 @@ public class DartApiController {
     }
 
     @GetMapping("/api/dart/finance")
-    public DartResponse getFinance(@RequestParam(defaultValue = "2023") String year) {
-        return dartApiService.getFinancialData(year);
+    public DartResponse getFinance(@RequestParam(defaultValue = "2023") String year,
+                                   @RequestParam(required = false) String reprt_code) {
+        if (reprt_code != null && !reprt_code.isEmpty()) {
+            return dartApiService.getFinancialData(year, reprt_code);
+        } else {
+            return dartApiService.getFinancialData(year);
+        }
     }
 }

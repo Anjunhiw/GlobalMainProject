@@ -16,11 +16,11 @@ public class DartApiService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public DartResponse getFinancialData(String year) {
+    public DartResponse getFinancialData(String year, String reprtCode) {
         String url = "https://opendart.fss.or.kr/api/fnlttSinglAcnt.json?crtfc_key=" + apiKey
             + "&corp_code=" + corpCode
             + "&bsns_year=" + year
-            + "&reprt_code=11011";
+            + "&reprt_code=" + reprtCode;
         try {
             return restTemplate.getForObject(url, DartResponse.class);
         } catch (RestClientException e) {
@@ -30,5 +30,10 @@ public class DartApiService {
             errorResponse.setList(null);
             return errorResponse;
         }
+    }
+
+    // 기존 메서드도 유지 (연매출 등에서 사용)
+    public DartResponse getFinancialData(String year) {
+        return getFinancialData(year, "11011");
     }
 }

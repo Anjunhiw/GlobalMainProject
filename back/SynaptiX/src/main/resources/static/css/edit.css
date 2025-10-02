@@ -1,22 +1,14 @@
 
-.auth-container{
-  min-height: calc(100vh - 120px);
-  display:flex; align-items:center; justify-content:center;
-  background:#f3f6fb;
-  padding:34px 16px;
-}
-.auth-card{
-  width:100%; max-width:720px;
-  background:#fff; border-radius:16px;
-  box-shadow:0 12px 28px rgba(20,30,60,.08);
-  padding:28px 26px 24px;
-}
+
+
 .auth-title{
-  margin:0; font-size:1.5rem; font-weight:800; color:#1f2a44; letter-spacing:-0.2px;
+  margin:0 auto;
+   font-size:1.5rem; 
+   font-weight:800; 
+   color:#1f2a44; 
+   letter-spacing:-0.2px;
 }
-.auth-sub{
-  margin:4px 0 20px; font-size:.95rem; color:#6b7280;
-}
+
 
 /* 아바타 */
 .avatar-row{
@@ -40,14 +32,13 @@
 
 /* 폼 */
 .auth-form{ width:100%; }
-.grid{ display:grid; gap:14px; }
-.grid.two{ grid-template-columns: 1fr 1fr; }
+
 @media (max-width: 720px){
   .grid.two{ grid-template-columns: 1fr; }
 }
 
-.field{ display:flex; flex-direction:column; gap:6px; }
-.field label{ font-size:.92rem; color:#374151; font-weight:600; }
+.field{ display:flex; flex-direction:column; gap:6px; margin-bottom: 20px; }
+
 .field input, .field select{
   appearance:none; -webkit-appearance:none;
   width:100%; padding:10px 12px;

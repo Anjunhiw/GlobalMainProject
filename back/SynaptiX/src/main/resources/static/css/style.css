@@ -2,18 +2,25 @@
   --ui-font: 'Pretendard', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
 
+.ment{
+	margin : 130px;
+	
+	color : rgb(82, 89, 105);
+}
 /* ===== 페이지 배경 & 가운데 정렬 ===== */
 .form-page,
 .login-page,
 .register-page,
 .findid-page,
-.pwfind-page {
+.pwfind-page,
+.auth-container {
   min-height: 100vh;
   display: grid;
   place-items: center;
   background: #EEF0FF;
   font-family: var(--ui-font);
   color: #111;
+  
 }
 
 /* ===== 카드 공통 ===== */
@@ -21,7 +28,8 @@
 .login-container,
 .register-container,
 .findid-container,
-.pwfind-card {
+.pwfind-card,
+.auth-card {
   background: #fff;
   padding: 36px 32px 28px;
   border-radius: 20px;
@@ -35,22 +43,27 @@
 .login-container h2,
 .register-container h2,
 .findid-container h2,
-.pwfind-title {
+.pwfind-title,
+.auth-card h1 {
   font-size: 24px;
   font-weight: 800;
   text-align: center;
   margin-bottom: 28px;
   color: #222;
 }
-
+.auth-sub{
+  margin:4px 0 20px; font-size:.95rem; color:#6b7280;
+  text-align: center;
+}
 /* ===== 라벨 ===== */
 .form-label,
 .login-container label,
 .register-container label,
 .findid-container label,
-.pwfind-label {
+.pwfind-label,
+.grid-two label {
   display: block;
-  margin: 12px 0 6px;
+  margin: 35px 0 8px;
   font-size: 12px;
   font-weight: 500;
   color: #555;

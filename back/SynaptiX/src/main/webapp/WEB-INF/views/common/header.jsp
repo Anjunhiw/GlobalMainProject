@@ -7,6 +7,8 @@
 
 
 	<header class="nav">
+		<img src ="/images/Logo.png" onclick="location.href='/home'"></img>
+		
 	  <div class="top">
 	    
 	    <div class="tabbar">
@@ -18,6 +20,8 @@
 	      <div class="tab${active_asset eq 'active' ? ' active' : ''}" onclick="location.href='/managereport'">경리회계</div>
 	      <div class="tab${active_personal eq 'active' ? ' active' : ''}" onclick="location.href='/hrm'">인사 / 급여</div>
 	    </div>
+	
+		<a class="user-name">@${user.name}님 환영합니다</a>
 	  </div>
 
 	  <div class="subtabs">
@@ -56,16 +60,19 @@
 		<c:if test="${not empty active_personal}">
 		    <a class="link active" href="/hrm">인사관리</a>
 		</c:if>
+		
+		<div class ="mypagegroup">
 	    <div class="edit" title="회원정보수정">
 			<a class="link" href="/useredit">마이페이지</a>
-	    </div>
+		  </div>
+		</div>
 	
 		<form action="/logout" method="post">
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-							<button type="submit" class="action">로그아웃</button>
-				  </form>
-		
-	  </div>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				<button type="submit" class="action">로그아웃</button>
+	  </form>
+	
+	  
 	</header>
 	<c:if test="${_csrf != null}">
 <script>

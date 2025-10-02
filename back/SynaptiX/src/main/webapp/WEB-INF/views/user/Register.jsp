@@ -41,9 +41,21 @@
         <label for="email">이메일</label>
         <input type="email" id="email" name="email" placeholder="이메일을 적어주세요" required>
 
-        <label for="dept">부서</label>
-        <input type="text" id="dept" name="dept" placeholder="본인의 부서를 적어주세요" required>
-
+		<label for="dept">부서</label>
+			<select id="dept" name="dept" required>
+				<option value="인사">인사팀</option>
+		        <option value="물류">물류팀</option>
+		        <option value="영업">영업팀</option>
+		        <option value="회계">회계팀</option>
+		        <option value="재무">재무팀</option>
+		        <option value="생산">생산팀</option>
+				<option value="생산관리">생산관리팀</option>
+				<option value="기술개발">기술개발팀</option>
+				<option value="개발">개발팀</option>
+				<option value="이사회">이사회</option>
+		</select>
+		
+		
         <label for="rank">직급</label>
 		<select id="rank" name="rank" required>
 			<option value="인턴">인턴</option>

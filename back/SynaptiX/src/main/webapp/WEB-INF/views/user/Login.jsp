@@ -9,6 +9,7 @@
 <body class="login-page">
     <div class="login-container">
         <h2>로그인</h2>
+		<a class ="ment">SynaptiX 사이트에 로그인 해주세요.</a>
         <form action="${pageContext.request.contextPath}/login" method="post">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <label for="id" class="styleID">아이디</label>

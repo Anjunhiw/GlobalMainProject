@@ -11,8 +11,8 @@ request.setAttribute("active_profit", "active");
 <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
 
+<body>
 
-<main class ="container">
   <h2>이익관리</h2>
 
   <!-- 검색 폼 -->
@@ -99,36 +99,30 @@ request.setAttribute("active_profit", "active");
     <div class="modal-content">
       <span class="close" onclick="closeModal()" aria-label="닫기">&times;</span>
       <h3 id="modalTitle">검색 결과</h3>
-      <div id="modalResultBody"><!-- Ajax 결과 테이블이 여기에 표시 --></div>
-      <div style="text-align:right; margin-top:10px;">
-        <button type="button" class="btn btn-info" onclick="downloadExcelFromModal()">엑셀 다운로드</button>
+	  <div style="text-align:right; margin-top:10px;">
+        <button type="button" class="btn btn-success" style="float:right; margin-bottom:10px;" onclick="downloadExcelFromModal()">엑셀 다운로드</button>
       </div>
+	  <div id="modalResultBody"><!-- Ajax 결과 테이블이 여기에 표시 --></div>
     </div>
   </div>
 
   <!-- CSRF를 JS에서 쓰기 위해 노출 -->
   <meta name="_csrf_header" content="${_csrf.headerName}">
   <meta name="_csrf"        content="${_csrf.token}">
-</main>
 
   <script>
     function downloadProfitExcel() {
       const item_code = document.getElementById('code').value;
       const item_name = document.getElementById('name').value;
       const category = document.getElementById('category').value;
-      const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
-      const CSRF_TOKEN  = document.querySelector('meta[name="_csrf"]').content;
+      // GET 방식으로 파라미터를 쿼리스트링으로 전달
       const params = new URLSearchParams();
       if (item_code) params.append('item_code', item_code);
       if (item_name) params.append('item_name', item_name);
       if (category) params.append('category', category);
-      fetch('/profit/excel', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-          [CSRF_HEADER]: CSRF_TOKEN
-        },
-        body: params.toString()
+      const url = '/profit/excel?' + params.toString();
+      fetch(url, {
+        method: 'GET'
       })
       .then(response => {
         if (!response.ok) throw new Error('엑셀 다운로드 실패');

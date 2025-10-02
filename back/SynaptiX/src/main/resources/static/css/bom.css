@@ -17,7 +17,7 @@
 .filter-small{
 	display:flex; flex-wrap:wrap; align-items:flex-end; gap:40px;
 	 margin:18px 0 8px;
-
+	 margin-left:450px;
 	 
 }
 .filter-small .field{display:flex; flex-direction:column; gap:6px; min-width:180px}
@@ -52,7 +52,7 @@ input[type="number"]{
 .filter-smalli{
 	display:flex; flex-wrap:wrap; align-items:flex-end; gap:24px;
 	 margin:18px 0 8px;
-
+	 margin-left:450px;
 	 
 }
 .filter-smalli .field{display:flex; flex-direction:column; gap:6px; min-width:180px}
@@ -72,7 +72,7 @@ input[type="number"]{
 .filter-smalll{
 	display:flex; flex-wrap:wrap; align-items:flex-end; gap:24px;
 	 margin:18px 0 8px;
-
+	 margin-left:350px;
 	 
 }
 .filter-smalll .field{display:flex; flex-direction:column; gap:6px; min-width:180px}
@@ -92,7 +92,7 @@ input[type="number"]{
 .filter-smally{
 	display:flex; flex-wrap:wrap; align-items:flex-end; gap:54px;
 	 margin:18px 0 8px;
-	 margin-left:580px;
+	 margin-left:650px;
 	 
 }
 .filter-smally .field{display:flex; flex-direction:column; gap:6px; min-width:180px}
@@ -111,7 +111,7 @@ input[type="number"]{
 .filter-smallq{
 	display:flex; flex-wrap:wrap; align-items:flex-end; gap:54px;
 	 margin:18px 0 8px;
-	 margin-left:380px;
+	 margin-left:550px;
 	 
 }
 .filter-smallq .field{display:flex; flex-direction:column; gap:6px; min-width:180px}
@@ -129,9 +129,9 @@ input[type="number"]{
 }
 
 .filter-smallb{
-	display:flex; flex-wrap:wrap; align-items:flex-end; gap:54px;	
+	display:flex; flex-wrap:wrap; align-items:flex-end; gap:54px;
 	 margin:18px 0 8px;
-
+	 margin-left:250px;
 	 
 }
 .filter-smallb .field{display:flex; flex-direction:column; gap:6px; min-width:180px}

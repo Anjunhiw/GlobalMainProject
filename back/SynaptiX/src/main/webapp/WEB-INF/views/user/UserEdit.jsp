@@ -38,6 +38,14 @@
 
 
         <div class="field">
+          <label>부서</label>
+          <input type="text" name="dept" value="<c:out value='${user.dept}'/>" disabled>
+        </div>
+        <div class="field">
+          <label>직급</label>
+          <input type="text" name="rank" value="<c:out value='${user.rank}'/>" disabled>
+        </div>
+      </div>
     		<label for="dept">부서</label>
 				<select id="dept" name="dept"  value="<c:out value='${user.dept}'/>"required>
 					<option value="인사">인사팀</option>

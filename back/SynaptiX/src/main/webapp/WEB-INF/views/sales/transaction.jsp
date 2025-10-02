@@ -22,8 +22,6 @@ request.setAttribute("active_transaction", "active");
   <meta name="_csrf_header" content="${_csrf.headerName}">
   <meta name="_csrf" content="${_csrf.token}">
 
-  
-  <main class="container">
   <h2>거래명세서</h2>
 
   <!-- 상단 검색 필터 -->
@@ -107,12 +105,13 @@ request.setAttribute("active_transaction", "active");
     <div class="modal-content">
       <span class="close" id="closeModal">&times;</span>
       <h3>검색 결과</h3>
+	  <div style="text-align:right; float:right; margin-bottom:10px;">
+        <button type="button" class="btn btn-success" id="downloadExcelModal">엑셀 다운로드</button>
+      </div>
       <div id="modalResults">
         <!-- AJAX results will be injected here -->
       </div>
-      <div style="text-align:right; margin-top:10px;">
-        <button type="button" class="btn btn-info" id="downloadExcelModal">엑셀 다운로드</button>
-      </div>
+      
     </div>
   </div>
 
@@ -225,5 +224,6 @@ request.setAttribute("active_transaction", "active");
     };
   </script>
 
-</main>
+</body>
+</html>
 <%@ include file="../common/footer.jsp" %>

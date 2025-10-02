@@ -17,7 +17,7 @@ request.setAttribute("active_mps", "active");
 <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
 
-<main class="container">
+<body>
   <h2>MPS</h2>
   <!-- 상단 검색/입력 필터 -->
   <div class="filter-smallq">
@@ -64,11 +64,12 @@ request.setAttribute("active_mps", "active");
   <!-- 조회 모달 -->
   <div id="searchMpsModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); z-index:9999; align-items:center; justify-content:center;">
     <div style="background:#fff; padding:30px; border-radius:8px; min-width:500px; position:relative; max-height:80vh; overflow:auto;">
-      <h4>MPS 조회 결과</h4>
+		<span class="close" id="closeSearchModal"aria-label="닫기">&times;</span>
+		<h4>MPS 조회 결과</h4>
+		<button type="button" class="btn btn-success" id="downloadExcelModal" style="float:right; margin-bottom:10px;">엑셀 다운로드</button>
       <div id="searchMpsResult">
         <!-- 검색 결과 테이블이 여기에 동적으로 렌더링됩니다. -->
       </div>
-        <button type="button" class="btn btn-secondary" id="closeSearchModal">닫기</button>
       </div>
     </div>
   </div>
@@ -296,5 +297,6 @@ request.setAttribute("active_mps", "active");
       };
     });
   </script>
-</main>
+</body>
+</html>
 <%@ include file="../common/footer.jsp" %>

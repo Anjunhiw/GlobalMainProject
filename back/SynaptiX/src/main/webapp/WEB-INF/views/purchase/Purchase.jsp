@@ -16,10 +16,7 @@ request.setAttribute("active_pch", "active");
 <%@ include file="../common/header.jsp" %>
 <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
- 
-
-
- <main class="container">
+<body>
   <h2>구매/입고</h2>
 
   <!-- 검색 영역 -->
@@ -96,12 +93,13 @@ request.setAttribute("active_pch", "active");
     <div class="modal-content">
       <span class="close" id="closeModal">&times;</span>
       <h3>검색 결과</h3>
+	  <div style="text-align:right; float:right; margin-bottom:10px;">
+	    <button type="button" id="btnModalExcel" class="btn btn-success">엑셀 다운로드</button>
+	  </div>
       <div id="modalResults">
         <!-- AJAX results will be injected here -->
       </div>
-      <div style="text-align:right; margin-top:10px;">
-        <button type="button" id="btnModalExcel" class="btn btn-info">엑셀 다운로드</button>
-      </div>
+
     </div>
   </div>
 
@@ -185,6 +183,7 @@ request.setAttribute("active_pch", "active");
       });
     });
   </script>
-</main>
+</body>
+</html>
 
 <%@ include file="../common/footer.jsp" %>

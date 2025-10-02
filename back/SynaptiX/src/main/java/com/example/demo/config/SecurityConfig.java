@@ -31,19 +31,19 @@ public class SecurityConfig {
         http
             .authorizeRequests()
                 // 공개 페이지 모두 허용
-                .antMatchers("/login", "/register", "/findId", "/findPassword", "/home", "/home/**", "/mypage", "/mypage/**", "/css/**", "/js/**", "/images/**").permitAll()
+                .antMatchers("/login", "/register", "/findId", "/findPassword", "/useredit", "/home", "/home/**", "/mypage", "/mypage/**", "/css/**", "/js/**", "/images/**").permitAll()
                 // GET 요청은 모두 인증된 사용자에게 허용
                 .antMatchers(HttpMethod.GET, "/**").authenticated()
-                // POST 요청은 부서/직급별로 제한
-                .antMatchers(HttpMethod.POST, "/api/asset/**").hasAuthority("DEPT_STOCK")
-                .antMatchers(HttpMethod.POST, "/api/production/**").hasAuthority("DEPT_PRODUCTION")
-                .antMatchers(HttpMethod.POST, "/api/sales/**").hasAuthority("DEPT_SALES")
-                .antMatchers(HttpMethod.POST, "/api/accounting/**").hasAuthority("DEPT_ACCOUNTING")
-                .antMatchers(HttpMethod.POST, "/api/audit/**").hasAuthority("DEPT_AUDIT")
-                .antMatchers(HttpMethod.POST, "/api/hr/**").hasAuthority("DEPT_HR")
-//                .antMatchers(HttpMethod.POST, "/api/main/**").hasAuthority("DEPT_MAIN")
+                // POST 요청은 부서/직급별로 제한 
+                .antMatchers(HttpMethod.POST, "/stock/**").access("hasAuthority('DEPT_STOCK') and hasAuthority('RANK_WRITE')")
+                .antMatchers(HttpMethod.POST, "/product/**").access("hasAuthority('DEPT_PRODUCTION') and hasAuthority('RANK_WRITE')")
+                .antMatchers(HttpMethod.POST, "/sales/**").access("hasAuthority('DEPT_SALES') and hasAuthority('RANK_WRITE')")
+                .antMatchers(HttpMethod.POST, "/purchase/**").access("hasAuthority('DEPT_ACCOUNTING') and hasAuthority('RANK_WRITE')")
+                .antMatchers(HttpMethod.POST, "/asset/**").access("hasAuthority('DEPT_AUDIT') and hasAuthority('RANK_WRITE')")
+                .antMatchers(HttpMethod.POST, "/personal/**").access("hasAuthority('DEPT_HR') and hasAuthority('RANK_WRITE')")
+                //.antMatchers(HttpMethod.POST, "/main/**").access("hasAuthority('DEPT_MAIN') and hasAuthority('RANK_WRITE')")
                 // 직급별 POST 권한 (예시: RANK_WRITE, ROLE_ADMIN)
-                .antMatchers(HttpMethod.POST, "/api/**").hasAnyAuthority("RANK_WRITE", "ROLE_ADMIN")
+                .antMatchers(HttpMethod.POST, "/**").hasAnyAuthority("RANK_WRITE", "ROLE_ADMIN")
                 // 관리자 전체 허용
                 .antMatchers("/**").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()

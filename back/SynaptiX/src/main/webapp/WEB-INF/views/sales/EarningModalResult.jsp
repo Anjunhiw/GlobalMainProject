@@ -12,8 +12,8 @@
       <th>판매일자</th>
       <th>제품명</th>
       <th>판매수량</th>
+      <th>단가</th>
       <th>판매금액</th>
-      <th>원가</th>
       <th>순이익</th>
       <th>재고량</th>
     </tr>
@@ -73,7 +73,7 @@
 	        var url = window.URL.createObjectURL(blob);
 	        var a = document.createElement('a');
 	        a.href = url;
-	        a.download = '매출_검색결과.csv';
+	        a.download = '매출_검색결과.xlsx';
 	        document.body.appendChild(a);
 	        a.click();
 	        a.remove();

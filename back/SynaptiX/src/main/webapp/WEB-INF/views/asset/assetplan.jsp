@@ -16,7 +16,7 @@ request.setAttribute("active_asp", "active");
 <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
 
-  <main class="container">
+<body>
   <h2>자금계획</h2>
 
   <!-- 검색 영역 -->
@@ -72,15 +72,32 @@ request.setAttribute("active_asp", "active");
     <div class="modal-content">
       <span class="close" id="closeModal">&times;</span>
       <h3>검색 결과</h3>
+	  <div style="text-align:right; float:right; margin-bottom:10px;">
+        <button type="button" id="btnModalExcel" class="btn btn-success">엑셀 다운로드</button>
+      </div>
       <div id="modalResults">
         <!-- AJAX results will be injected here -->
       </div>
-      <div style="text-align:right; margin-top:10px;">
-        <button type="button" id="btnModalExcel" class="btn btn-info">엑셀 다운로드</button>
-      </div>
+      
     </div>
   </div>
 
+  <style>
+  .modal {
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.4);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-content {
+    background: #fff; padding: 20px; border-radius: 8px; min-width: 400px; max-width: 90vw;
+    max-height: 80vh; overflow-y: auto; position: relative;
+  }
+  .close {
+    position: absolute; right: 16px; top: 10px; font-size: 24px; cursor: pointer;
+  }
+  </style>
 
   <script>
     document.getElementById('btnSearch')?.addEventListener('click', function (e) {
@@ -168,5 +185,6 @@ request.setAttribute("active_asp", "active");
       });
     });
   </script>
-</main>
+</body>
+</html>
 <%@ include file="../common/footer.jsp" %>

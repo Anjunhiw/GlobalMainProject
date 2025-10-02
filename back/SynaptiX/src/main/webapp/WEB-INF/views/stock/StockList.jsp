@@ -14,7 +14,7 @@ request.setAttribute("active_stl", "active");
   <meta name="_csrf_header" content="${_csrf.headerName}">
   <meta name="_csrf"        content="${_csrf.token}">
 
-<main class ="container">
+
   <h2>창고재고관리</h2>
 
   <div class="filter-smallb">
@@ -52,8 +52,7 @@ request.setAttribute("active_stl", "active");
     <div class="btn-group">
       <button type="button" class="btn btn-ee" onclick="openRegister()">등록</button>
       <button type="button" class="btn btn-primary" id="btn-search" onclick="searchData()">조회</button>
-		<a href="/stock/excel">
-	  <button type=button class="btn btn-success" id="">엑셀 다운로드</button>
+		<button type=button class="btn btn-success">엑셀 다운로드</button>
 	  </a>
     </div>
   </div>
@@ -64,10 +63,11 @@ request.setAttribute("active_stl", "active");
     <div class="modal-content">
       <span class="close" onclick="closeModal()" aria-label="닫기">&times;</span>
       <h3 id="modalTitle">검색 결과</h3>
-      <div id="modalResultBody"><!-- Ajax 결과 테이블이 여기에 표시 --></div>
-      <div style="text-align:right; margin-top:10px;">
-        <button type="button" class="btn btn-info" onclick="downloadExcelFromModal()">엑셀 다운로드</button>
+	  <div style="text-align:right; margin-top:10px;">
+        <button type="button" class="btn btn-success" style="float:right; margin-bottom:10px;" onclick="downloadExcelFromModal()">엑셀 다운로드</button>
       </div>
+      <div id="modalResultBody"><!-- Ajax 결과 테이블이 여기에 표시 --></div>
+      
     </div>
   </div>
 
@@ -238,7 +238,6 @@ request.setAttribute("active_stl", "active");
         <button type="button" class="btn btn-sm btn-warning" onclick="openEditModal('${material.pk}', '원자재', this)">수정</button>
       </td> 
 	      <td> 
-
 	        <form action="/stock/delete" method="post" class="form-delete" onsubmit="return confirm('정말 삭제하시겠습니까?');">
                 <input type="hidden" name="pk" value="${material.pk}">
                 <input type="hidden" name="category" value="원자재">
@@ -260,10 +259,7 @@ request.setAttribute("active_stl", "active");
   </table>
 
   <h2>제품 재고 목록</h2>
-  
-  
-  
- 
+
   <table>
     <thead>
       <tr>
@@ -304,7 +300,6 @@ request.setAttribute("active_stl", "active");
 	  </c:if>
 </table>
 </tbody>
-</main>
   <!-- stock.jsp 하단 script 일부만 발췌/수정 -->
   <script>
     // 등록 버튼: 등록 폼 페이지로 이동
@@ -395,23 +390,16 @@ request.setAttribute("active_stl", "active");
       const model = document.getElementById('model').value;
       const category = document.getElementById('category').value;
       const searchName = document.getElementById('searchName').value;
-      const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
-      const CSRF_TOKEN  = document.querySelector('meta[name="_csrf"]').content;
-
+      // GET 방식으로 파라미터를 쿼리스트링으로 조합
       const params = new URLSearchParams();
       if (code) params.append('code', code);
       if (name) params.append('name', name);
       if (model) params.append('model', model);
       if (category) params.append('category', category);
       if (searchName) params.append('searchName', searchName);
-
-      fetch('/stock/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-          [CSRF_HEADER]: CSRF_TOKEN
-        },
-        body: params.toString()
+      const url = '/stock/search?' + params.toString();
+      fetch(url, {
+        method: 'GET'
       })
       .then(res => res.text())
       .then(html => {
@@ -429,9 +417,45 @@ request.setAttribute("active_stl", "active");
       document.getElementById('resultModal').style.display = 'none';
     }
 
-    // 검색 버튼 이벤트 연결
+    // 첫페이지 엑셀 다운로드 (GET 방식)
+    function downloadStockExcel() {
+      const code = document.getElementById('code').value;
+      const name = document.getElementById('name').value;
+      const model = document.getElementById('model').value;
+      const category = document.getElementById('category').value;
+      const searchName = document.getElementById('searchName').value;
+      const params = new URLSearchParams();
+      if (code) params.append('code', code);
+      if (name) params.append('name', name);
+      if (model) params.append('model', model);
+      if (category) params.append('category', category);
+      if (searchName) params.append('searchName', searchName);
+      const url = '/stock/excel?' + params.toString();
+      fetch(url, {
+        method: 'GET'
+      })
+      .then(response => {
+        if (!response.ok) throw new Error('엑셀 다운로드 실패');
+        return response.blob();
+      })
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = '재고목록.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch(() => {
+        alert('엑셀 다운로드 중 오류가 발생했습니다.');
+      });
+    }
+
+    // btn-group에 엑셀 다운로드 버튼 이벤트 연결
     document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('btn-search').addEventListener('click', searchData);
+      document.querySelector('.btn-group .btn-success').addEventListener('click', downloadStockExcel);
     });
 
 	// 모달 결과 주입 뒤에 호출
@@ -475,22 +499,17 @@ request.setAttribute("active_stl", "active");
       const model = document.getElementById('model').value;
       const category = document.getElementById('category').value;
       const searchName = document.getElementById('searchName').value;
-      const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
-      const CSRF_TOKEN  = document.querySelector('meta[name="_csrf"]').content;
+      // GET 방식으로 파라미터를 쿼리스트링으로 조합
       const params = new URLSearchParams();
       if (code) params.append('code', code);
       if (name) params.append('name', name);
       if (model) params.append('model', model);
       if (category) params.append('category', category);
       if (searchName) params.append('searchName', searchName);
-      // 엑셀 다운로드 요청
-      fetch('/stock/excel-modal', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-          [CSRF_HEADER]: CSRF_TOKEN
-        },
-        body: params.toString()
+      const url = '/stock/excel-modal?' + params.toString();
+      // GET 방식으로 fetch
+      fetch(url, {
+        method: 'GET'
       })
       .then(response => {
         if (!response.ok) throw new Error('엑셀 다운로드 실패');

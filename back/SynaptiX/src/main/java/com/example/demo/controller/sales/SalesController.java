@@ -74,7 +74,7 @@ public class SalesController {
         workbook.close();
     }
 
-    @PostMapping("/sales/excel-modal")
+    @GetMapping("/sales/excel-modal")
     public void downloadSalesExcelModal(
             @RequestParam(required = false) String code,
             @RequestParam(required = false) String name,
@@ -82,6 +82,12 @@ public class SalesController {
             @RequestParam(required = false) String category,
             HttpServletResponse response
     ) throws IOException {
+        System.out.println("[DEBUG] SalesController /sales/excel-modal 진입");
+        org.springframework.security.core.Authentication auth = org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("[DEBUG] 인증 객체: " + auth);
+        if (auth != null) {
+            System.out.println("[DEBUG] 권한 목록: " + auth.getAuthorities());
+        }
         List<Sales> salesList = salesService.searchSales(code, name, outDate, category);
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("판매출고검색결과");

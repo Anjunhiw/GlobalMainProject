@@ -1,0 +1,16 @@
+period,category,metric,value,unit,source
+2024Q1,balance,assets,470.8998,조원,IR_PDF
+2024Q1,balance,equity,371.9161,조원,IR_PDF
+2024Q1,balance,liabilities,98.9837,조원,IR_PDF
+2024Q2,balance,assets,485.7577,조원,IR_PDF
+2024Q2,balance,equity,383.5267,조원,IR_PDF
+2024Q2,balance,liabilities,102.231,조원,IR_PDF
+2024Q4,balance,assets,514.532,조원,IR_PDF
+2024Q4,balance,equity,402.1921,조원,IR_PDF
+2024Q4,balance,liabilities,112.3399,조원,IR_PDF
+2025Q1,balance,assets,516.3767,조원,IR_PDF
+2025Q1,balance,equity,406.6143,조원,IR_PDF
+2025Q1,balance,liabilities,109.7624,조원,IR_PDF
+2025Q2,balance,assets,504.8752,조원,IR_PDF
+2025Q2,balance,equity,399.562,조원,IR_PDF
+2025Q2,balance,liabilities,105.3132,조원,IR_PDF

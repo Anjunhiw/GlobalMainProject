@@ -1,7 +1,7 @@
 .alerts-wrap{
-  max-width:1580px;
+  max-width:1160px;
   margin:20px auto 40px;
-  padding:0 20px;
+  padding:0 18px;
 
 }
 .row { display: grid; gap: 18px; margin-bottom: 18px; }

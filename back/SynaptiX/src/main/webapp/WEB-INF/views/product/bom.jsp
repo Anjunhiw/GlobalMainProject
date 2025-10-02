@@ -11,9 +11,7 @@ request.setAttribute("active_bom", "active");
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
 
 
-<main class ="container">
-
-	<h2>BOM</h2>
+<h2>BOM</h2>
 
 <div class="filters">
   <div class="field">
@@ -52,9 +50,6 @@ request.setAttribute("active_bom", "active");
 <br/>
 <!-- CSRF -->
 <input type="hidden" id="csrfToken" name="${_csrf.parameterName}" value="${_csrf.token}" />
-
-
-
 <script>
   var csrfHeader = "${_csrf.headerName}";
   var csrfToken  = "${_csrf.token}";
@@ -155,7 +150,7 @@ request.setAttribute("active_bom", "active");
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = '검색결과_BOM.xlsx';
+        a.download = 'BOM_result.xlsx';
         document.body.appendChild(a);
         a.click();
         a.remove();
@@ -226,18 +221,15 @@ request.setAttribute("active_bom", "active");
   <div class="modal-content" style="min-width:900px;max-width:95vw;">
     <span class="close" onclick="closeBomResultModal()" aria-label="닫기">&times;</span>
     <h3 id="bomResultModalTitle">검색 결과</h3>
+	<button type="button" class="btn btn-success" id="btnModalExcel" style="float:right; margin-bottom:10px;">엑셀 다운로드</button>
     <div id="bomResultBodyModal"></div>
-    <div class="btn-group" style="margin-top:12px;">
-      <button type="button" class="btn btn-info" id="btnModalExcel">엑셀 다운로드</button>
-      <button type="button" class="btn btn-secondary" onclick="closeBomResultModal()">닫기</button>
-    </div>
   </div>
 </div>
 
 <!-- 검색 결과 표시 영역 -->
 <div id="bomResultBody">
 <!-- 기존 테이블 영역을 여기에 옮기면 Ajax로 갱신 가능 -->
-<table class="table">
+<table border="1">
   <tr>
     <th>제품코드</th>
     <th>생산제품명</th>
@@ -273,7 +265,6 @@ request.setAttribute("active_bom", "active");
   </c:if>
 </table>
 </div>
-</main>
 
 <script>
   function openBomEditModal(productId, materialId, materialAmount) {

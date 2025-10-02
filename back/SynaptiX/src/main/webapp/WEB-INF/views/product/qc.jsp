@@ -24,7 +24,7 @@ request.setAttribute("active_qc", "active");
 <link rel="stylesheet" href="<c:url value='/css/stock.css?v=1'/>">
 <link rel="stylesheet" href="<c:url value='/css/bom.css?v=1'/>">
 
-<main class="container">
+<body>
 
   <h2>QC 검사 결과 조회</h2>
 
@@ -131,13 +131,13 @@ request.setAttribute("active_qc", "active");
   <!-- 조회 결과 모달 -->
   <div id="qcSearchModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); z-index:9999; align-items:center; justify-content:center;">
     <div style="background:#fff; padding:30px; border-radius:8px; min-width:600px; position:relative; max-height:80vh; overflow:auto;">
-      <h4>QC 검사 결과</h4>
+		<span class="close" onclick="closeQcSearchModal()" aria-label="닫기">&times;</span>
+		<h4>QC 검사 결과</h4>
+		<div class="btn-group" style="float:right; margin-bottom:10px;">
+          <button type="button" class="btn btn-success" id="downloadExcelModal" >엑셀 다운로드</button>
+      	</div>
       <div id="qcSearchResult">
         <!-- 검색 결과 테이블이 여기에 동적으로 렌더링됩니다. -->
-      </div>
-      <div class="btn-group" style="margin-top:15px;">
-        <button type="button" class="btn btn-info" id="downloadExcelModal">엑셀 다운로드</button>
-        <button type="button" class="btn btn-secondary" onclick="closeQcSearchModal()">닫기</button>
       </div>
     </div>
   </div>
@@ -282,5 +282,6 @@ request.setAttribute("active_qc", "active");
       });
     };
   </script>
-</main>
+</body>
+</html>
 <%@ include file="../common/footer.jsp" %>

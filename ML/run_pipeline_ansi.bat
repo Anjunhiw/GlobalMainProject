@@ -65,8 +65,8 @@ call :run "%SCRIPTS%\02a_fetch_dart_final.py"         "%LOGS%\02a_dart.log"
 call :run "%SCRIPTS%\02b_fetch_odcloudkr_api_final.py" "%LOGS%\02b_public.log"
 
 echo [Step 3] Dataset Build ...
-call :run "%SCRIPTS%\01d_ir_dataset_final.py"         "%LOGS%\03_01d.log"
-call :run "%SCRIPTS%\03b_build_ml_dataset_final.py"   "%LOGS%\03_build.log"
+call :run "%SCRIPTS%\03a_ir_dataset_final.py"         "%LOGS%\03a_ird.log"
+call :run "%SCRIPTS%\03b_build_ml_dataset_final.py"   "%LOGS%\03b_build.log"
 
 echo [Step 4] EDA ...
 call :run "%SCRIPTS%\04_eda_final.py"                 "%LOGS%\04_eda.log"

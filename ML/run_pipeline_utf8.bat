@@ -1,150 +1,135 @@
 ﻿﻿@echo off
+REM =========================================================
+REM  GMP_ML Pipeline Runner (UTF-8, BOM) - with guidance
+REM =========================================================
 chcp 65001 >nul
-setlocal enableextensions
+title [GMP_ML] Starting pipeline...
 
-rem ============================================================
-rem  GMP_ML Pipeline Runner (UTF-8, Korean messages)
-rem ============================================================
-
-title GMP_ML 파이프라인 실행기
-echo [GMP_ML] 파이프라인 실행을 시작합니다...
-echo 이 창을 닫지 마세요. 로그와 출력물이 안내됩니다.
-echo ------------------------------------------------------------
-
-rem ---- 폴더 경로 ----
+setlocal ENABLEDELAYEDEXECUTION
 set "ROOT=%~dp0"
 set "SCRIPTS=%ROOT%scripts"
 set "REPORTS=%ROOT%reports"
-if not exist "%REPORTS%" mkdir "%REPORTS%" >nul 2>&1
-if not exist "%REPORTS%\logs" mkdir "%REPORTS%\logs" >nul 2>&1
-if not exist "%REPORTS%\figures" mkdir "%REPORTS%\figures" >nul 2>&1
+set "LOGS=%REPORTS%\logs"
+set "FIGS=%REPORTS%\figures"
 
-rem ---- Python 탐지 ----
-call :detect_python
+if not exist "%REPORTS%" mkdir "%REPORTS%"
+if not exist "%LOGS%" mkdir "%LOGS%"
+if not exist "%FIGS%" mkdir "%FIGS%"
 
-if not defined PY_EXE (
-  echo [INFO] 현재 Python 3.x 이 설치되어 있지 않습니다.
-  set /p ANS=winget 으로 Python을 설치하시겠습니까? [Y/N]: 
-  if /i "%ANS%"=="Y" (
-    echo [INFO] winget으로 Python 설치를 진행합니다...
-    winget install --id Python.Python.3.13 ^
-      --silent --accept-package-agreements --accept-source-agreements
-    call :detect_python
-    if not defined PY_EXE (
-      if exist "%LocalAppData%\Microsoft\WindowsApps\python.exe" (
-        set "PY_EXE=%LocalAppData%\Microsoft\WindowsApps\python.exe"
-      )
-    )
-  ) else (
-    echo [FATAL] Python이 없어 종료합니다.
-    goto :end_fail
+echo ---------------------------------------------------------
+echo [INFO] 본 창을 닫지 마세요. 진행상황/로그를 안내합니다.
+echo [INFO] 결과물은 "%REPORTS%" 아래에 저장됩니다.
+echo ---------------------------------------------------------
+
+REM ---------- 환경 스냅샷 ----------
+(
+  echo ==== ENV SNAPSHOT ====
+  date /t & time /t
+  ver
+  echo.
+  echo [PATH]
+  echo %PATH%
+  echo.
+  echo [where python]
+  where python
+  echo.
+  echo [where py]
+  where py
+) > "%LOGS%\00_env.txt" 2>&1
+
+REM ---------- Python 탐색 ----------
+set "PY_CMD="
+REM 우선 py -3 우선 사용
+py -3 --version >nul 2>&1 && set "PY_CMD=py -3"
+if not defined PY_CMD (
+  python --version >nul 2>&1 && set "PY_CMD=python"
+)
+
+if not defined PY_CMD (
+  echo [INFO] 이 PC에는 Python 3.x 가 없습니다.
+  set /p CONFIRM="[Q] winget 으로 지금 설치할까요? (Y/N): "
+  if /I not "%CONFIRM%"=="Y" (
+    echo [FATAL] Python 미설치 상태로 종료합니다.
+    pause & exit /b 1
   )
+
+  echo [INFO] winget 으로 Python 3 설치를 시도합니다...
+  winget --version >nul 2>&1 || (
+    echo [FATAL] winget 이 사용 불가합니다. 수동 설치가 필요합니다.
+    start "" https://www.python.org/downloads/windows/
+    pause & exit /b 1
+  )
+
+  winget install -e --id Python.Python.3.13 --source winget --accept-package-agreements --accept-source-agreements
+  if errorlevel 1 (
+    echo [FATAL] winget 설치 중 오류가 발생했습니다.
+    start "" https://www.python.org/downloads/windows/
+    pause & exit /b 1
+  )
+
+  REM 새 PATH 반영을 위해 셸 재시작 유도
+  echo [INFO] Python 설치가 완료되었습니다. 새 콘솔에서 다시 실행해주세요.
+  echo [HINT] 현재 창을 닫고 배치 파일을 다시 더블클릭하세요.
+  pause & exit /b 0
 )
 
-if not defined PY_EXE (
-  echo [FATAL] 여전히 Python을 찾을 수 없습니다.
-  echo 다음을 확인하세요:
-  echo   1) 설정 → 앱 → 앱 실행 별칭: python.exe, python3.exe 켜기
-  echo   2) 관리자 권한으로 이 배치 실행
-  echo   3) https://www.python.org/downloads/windows/ 에서 수동 설치
-  pause
-  goto :end_fail
-)
+REM ---------- Python 버전 출력 ----------
+for /f "tokens=*" %%V in ('%PY_CMD% --version') do set "PY_VER=%%V"
+echo [OK] Python detected: %PY_CMD%  (%PY_VER%)
 
-echo [OK] Python 경로: %PY_EXE%
-for /f "usebackq delims=" %%V in (`"%PY_EXE%" -c "import sys;print(sys.version)"`) do set "PY_VER=%%V"
-echo [OK] Python 버전: %PY_VER%
+REM ---------- pip 최신화 및 의존성 설치 ----------
+echo [STEP] pip 업데이트 중...
+%PY_CMD% -m pip install --upgrade pip  1>>"%LOGS%\01_pip.log" 2>&1
 
-rem ---- pip 및 패키지 확인 ----
-echo.
-echo [STEP] pip 및 필수 라이브러리 확인...
-"%PY_EXE%" -m ensurepip --upgrade >nul 2>&1
-"%PY_EXE%" -m pip install --upgrade pip >nul 2>&1
-
-set "REQ=%ROOT%requirements.txt"
-if exist "%REQ%" (
-  echo [INFO] requirements.txt 기반 패키지 설치...
-  "%PY_EXE%" -m pip install -r "%REQ%"
+if exist "%ROOT%requirements.txt" (
+  echo [STEP] requirements.txt 의존성 설치/확인 중...
+  %PY_CMD% -m pip install -r "%ROOT%requirements.txt"  1>>"%LOGS%\02_requirements.log" 2>&1
 ) else (
-  echo [WARN] requirements.txt 파일이 없습니다. 패키지 설치 건너뜀.
+  echo [WARN] requirements.txt 를 찾지 못했습니다. (건너뜀)
 )
 
-rem ---- 파이프라인 실행 ----
-echo.
-echo [STEP] 전체 파이프라인 실행...
-echo   로그 폴더   : %REPORTS%\logs
-echo   그림 폴더   : %REPORTS%\figures
-echo   결과 CSV   : %REPORTS%
-echo ------------------------------------------------------------
+REM ---------- 공통 안내 ----------
+echo ---------------------------------------------------------
+echo [DATA] 입력:   data\raw 및 외부 소스(DART/Public/ERP)
+echo [OUT ] 출력:   reports\  (logs, figures, csv 등)
+echo ---------------------------------------------------------
 
-call :runit "[1단계] IR 파싱 - 2020" "%PY_EXE%" "%SCRIPTS%\01_parse_ir_2020_final.py"   "%REPORTS%\logs\01_ir_2020.log"
-call :runit "[1단계] IR 파싱 - 2022" "%PY_EXE%" "%SCRIPTS%\01_parse_ir_2022_final.py"   "%REPORTS%\logs\01_ir_2022.log"
-call :runit "[1단계] IR 파싱 - 2024" "%PY_EXE%" "%SCRIPTS%\01_parse_ir_2024_final.py"   "%REPORTS%\logs\01_ir_2024.log"
-call :runit "[1단계] IR 파싱 - 2025" "%PY_EXE%" "%SCRIPTS%\01_parse_ir_2025_final.py"   "%REPORTS%\logs\01_ir_2025.log"
+REM ---------- STEP 1 : IR Parsing ----------
+echo [Step 1] IR Parsing
+%PY_CMD% "%SCRIPTS%\01_parse_ir_2020_final.py"   1>>"%LOGS%\01_ir_2020.log"  2>&1
+%PY_CMD% "%SCRIPTS%\01_parse_ir_2022_final.py"   1>>"%LOGS%\01_ir_2022.log"  2>&1
+%PY_CMD% "%SCRIPTS%\01_parse_ir_2024_final.py"   1>>"%LOGS%\01_ir_2024.log"  2>&1
+%PY_CMD% "%SCRIPTS%\01_parse_ir_2025_final.py"   1>>"%LOGS%\01_ir_2025.log"  2>&1
 
-call :runit "[2단계] 외부 데이터 (DART)"   "%PY_EXE%" "%SCRIPTS%\02a_fetch_dart_final.py"         "%REPORTS%\logs\02a_dart.log"
-call :runit "[2단계] 외부 데이터 (공공)"   "%PY_EXE%" "%SCRIPTS%\02b_fetch_odcloudkr_api_final.py" "%REPORTS%\logs\02b_public.log"
+REM ---------- STEP 2 : External ----------
+echo [Step 2] External (DART/Public/ERP)
+%PY_CMD% "%SCRIPTS%\02a_fetch_dart_final.py"             1>>"%LOGS%\02a_dart.log"     2>&1
+%PY_CMD% "%SCRIPTS%\02b_fetch_odcloudkr_api_final.py"    1>>"%LOGS%\02b_public.log"   2>&1
+REM (ERP 연동 스크립트가 있다면 여기에 추가)
 
-call :runit "[3단계] 데이터셋 빌드 - IR"    "%PY_EXE%" "%SCRIPTS%\03a_ir_dataset_final.py"         "%REPORTS%\logs\03_01d.log"
-call :runit "[3단계] 데이터셋 빌드 - ML"    "%PY_EXE%" "%SCRIPTS%\03b_build_ml_dataset_final.py"   "%REPORTS%\logs\03_build.log"
+REM ---------- STEP 3 : Dataset Build ----------
+echo [Step 3] Dataset Build
+%PY_CMD% "%SCRIPTS%\03a_ir_dataset_final.py"         1>>"%LOGS%\03a_ir_dataset.log"    2>&1
+%PY_CMD% "%SCRIPTS%\03b_build_ml_dataset_final.py"   1>>"%LOGS%\03b_build_ml.log"      2>&1
 
-call :runit "[4단계] EDA 실행"              "%PY_EXE%" "%SCRIPTS%\04_eda_final.py"                "%REPORTS%\logs\04_eda.log"
+REM ---------- STEP 4 : EDA ----------
+echo [Step 4] EDA
+%PY_CMD% "%SCRIPTS%\04_eda_final.py"                 1>>"%LOGS%\04_eda.log"            2>&1
 
-call :runit "[5단계] 학습"                  "%PY_EXE%" "%SCRIPTS%\05a_train_baseline_final.py"    "%REPORTS%\logs\05a_train.log"
-call :runit "[5단계] 예측"                  "%PY_EXE%" "%SCRIPTS%\05b_train_next_final.py"        "%REPORTS%\logs\05b_predict.log"
+REM ---------- STEP 5 : Train & Predict ----------
+echo [Step 5] Train & Predict
+%PY_CMD% "%SCRIPTS%\05a_train_baseline_final.py"     1>>"%LOGS%\05a_train.log"         2>&1
+%PY_CMD% "%SCRIPTS%\05b_train_next_final.py"         1>>"%LOGS%\05b_predict.log"       2>&1
 
-call :runit "[6단계] 시각화"                "%PY_EXE%" "%SCRIPTS%\06_visualize_predictions_final.py" "%REPORTS%\logs\06_viz.log"
+REM ---------- STEP 6 : Visualization ----------
+echo [Step 6] Visualization
+%PY_CMD% "%SCRIPTS%\06_visualize_predictions_final.py"  1>>"%LOGS%\06_viz.log"        2>&1
 
-echo.
-echo ===================== 요약 =====================
-echo 로그 파일:
-echo   %REPORTS%\logs\*.log
-echo 결과 파일:
-echo   %REPORTS%\next_quarter_predictions.csv
-echo   %REPORTS%\oof_*.csv
-echo 그림:
-echo   %REPORTS%\figures\*.png
-echo ================================================
-echo 완료되었습니다.
+echo ---------------------------------------------------------
+echo [DONE] 파이프라인 완료.
+echo [OPEN] 로그:    "%LOGS%"
+echo [OPEN] 그림:    "%FIGS%"
+echo [OPEN] 예측CSV: "%REPORTS%\next_quarter_predictions.csv"
+echo ---------------------------------------------------------
 pause
-goto :eof
-
-rem --------------------- 헬퍼 함수 ---------------------
-
-:runit
-if not "%~1"=="" echo %~1
-echo 실행: %~3
-if not exist "%~dp4" mkdir "%~dp4" >nul 2>&1
-"%~2" "%~3"  1>>"%~4"  2>&1
-if errorlevel 1 (
-  echo [WARN] 오류 발생, 로그 확인: %~4
-) else (
-  echo [OK] 완료. 로그: %~4
-)
-echo.
-exit /b
-
-:detect_python
-set "PY_EXE="
-for %%V in (3.13 3.12 3.11 3.10 3.9) do (
-  for /f "tokens=2,*" %%A in ('reg query "HKCU\Software\Python\PythonCore\%%V\InstallPath" /ve 2^>nul ^| findstr /i "REG_SZ"') do (
-    if exist "%%B\python.exe" set "PY_EXE=%%B\python.exe"
-  )
-  if not defined PY_EXE (
-    for /f "tokens=2,*" %%A in ('reg query "HKLM\Software\Python\PythonCore\%%V\InstallPath" /ve 2^>nul ^| findstr /i "REG_SZ"') do (
-      if exist "%%B\python.exe" set "PY_EXE=%%B\python.exe"
-    )
-  )
-  if defined PY_EXE goto :dp_found
-)
-where python >nul 2>nul && for /f "delims=" %%P in ('where python') do (
-  set "PY_EXE=%%P"
-  goto :dp_found
-)
-where py >nul 2>nul && ( set "PY_EXE=py -3" & goto :dp_found )
-:dp_found
-exit /b
-
-:end_fail
 endlocal
-exit /b 1

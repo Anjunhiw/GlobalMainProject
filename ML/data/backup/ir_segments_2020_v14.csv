@@ -1,0 +1,41 @@
+﻿period,segment_code,segment_name_en,lineage_group,metric,value,scope,unit
+2020Q1,CE,Consumer Electronics,Consumer&Mobile,op_profit,0.45,,조원
+2020Q1,CE,Consumer Electronics,Consumer&Mobile,revenue,10.3,,조원
+2020Q1,DS,Device Solutions,Semiconductor,op_profit,3.72,,조원
+2020Q1,DS,Device Solutions,Semiconductor,revenue,24.13,,조원
+2020Q1,Harman,Harman,Harman,op_profit,-0.19,,조원
+2020Q1,Harman,Harman,Harman,revenue,2.1,,조원
+2020Q1,IM,IT & Mobile communications,Consumer&Mobile,op_profit,2.65,,조원
+2020Q1,IM,IT & Mobile communications,Consumer&Mobile,revenue,26.0,,조원
+2020Q1,Total,Total,Total,op_profit,6.45,,조원
+2020Q1,Total,Total,Total,revenue,55.33,,조원
+2020Q2,CE,Consumer Electronics,Consumer&Mobile,op_profit,0.73,,조원
+2020Q2,CE,Consumer Electronics,Consumer&Mobile,revenue,10.17,,조원
+2020Q2,DS,Device Solutions,Semiconductor,op_profit,5.74,,조원
+2020Q2,DS,Device Solutions,Semiconductor,revenue,25.05,,조원
+2020Q2,Harman,Harman,Harman,op_profit,-0.09,,조원
+2020Q2,Harman,Harman,Harman,revenue,1.54,,조원
+2020Q2,IM,IT & Mobile communications,Consumer&Mobile,op_profit,1.95,,조원
+2020Q2,IM,IT & Mobile communications,Consumer&Mobile,revenue,20.75,,조원
+2020Q2,Total,Total,Total,op_profit,8.15,,조원
+2020Q2,Total,Total,Total,revenue,52.97,,조원
+2020Q3,CE,Consumer Electronics,Consumer&Mobile,op_profit,1.56,,조원
+2020Q3,CE,Consumer Electronics,Consumer&Mobile,revenue,14.09,,조원
+2020Q3,DS,Device Solutions,Semiconductor,op_profit,6.04,,조원
+2020Q3,DS,Device Solutions,Semiconductor,revenue,25.93,,조원
+2020Q3,Harman,Harman,Harman,op_profit,0.15,,조원
+2020Q3,Harman,Harman,Harman,revenue,2.62,,조원
+2020Q3,IM,IT & Mobile communications,Consumer&Mobile,op_profit,4.45,,조원
+2020Q3,IM,IT & Mobile communications,Consumer&Mobile,revenue,30.49,,조원
+2020Q3,Total,Total,Total,op_profit,12.35,,조원
+2020Q3,Total,Total,Total,revenue,66.96,,조원
+2020Q4,CE,Consumer Electronics,Consumer&Mobile,op_profit,0.82,,조원
+2020Q4,CE,Consumer Electronics,Consumer&Mobile,revenue,13.61,,조원
+2020Q4,DS,Device Solutions,Semiconductor,op_profit,5.63,,조원
+2020Q4,DS,Device Solutions,Semiconductor,revenue,27.92,,조원
+2020Q4,Harman,Harman,Harman,op_profit,0.18,,조원
+2020Q4,Harman,Harman,Harman,revenue,2.92,,조원
+2020Q4,IM,IT & Mobile communications,Consumer&Mobile,op_profit,2.42,,조원
+2020Q4,IM,IT & Mobile communications,Consumer&Mobile,revenue,22.34,,조원
+2020Q4,Total,Total,Total,op_profit,9.05,,조원
+2020Q4,Total,Total,Total,revenue,61.55,,조원

@@ -1,0 +1,17 @@
+period,metric,value_trillion,source,explain
+2023Q1,op_profit,0.64,IR_PDF,text_parser|period:2023Q1
+2023Q1,revenue,63.75,IR_PDF,text_parser|period:2023Q1
+2023Q2,op_profit,0.67,IR_PDF,text_parser|period:2023Q2
+2023Q2,revenue,60.01,IR_PDF,text_parser|period:2023Q2
+2023Q3,op_profit,2.43,IR_PDF,text_parser|period:2023Q3
+2023Q3,revenue,67.4,IR_PDF,text_parser|period:2023Q3
+2023Q4,op_profit,2.8,IR_PDF,text_parser|period:2023Q4
+2023Q4,revenue,67.8,IR_PDF,text_parser|period:2023Q4
+2024Q1,op_profit,6.61,IR_PDF,text_parser|period:2024Q1
+2024Q1,revenue,71.92,IR_PDF,text_parser|period:2024Q1
+2024Q2,op_profit,10.44,IR_PDF,text_parser|period:2024Q2
+2024Q2,revenue,74.07,IR_PDF,text_parser|period:2024Q2
+2024Q3,op_profit,9.2,IR_PDF,text_parser|period:2024Q3
+2024Q3,revenue,79.1,IR_PDF,text_parser|period:2024Q3
+2024Q4,op_profit,6.5,IR_PDF,text_parser|period:2024Q4
+2024Q4,revenue,75.8,IR_PDF,text_parser|period:2024Q4

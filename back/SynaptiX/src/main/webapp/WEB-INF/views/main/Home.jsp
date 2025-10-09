@@ -3,7 +3,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%request.setAttribute("pageTitle", "대시보드");%>
 <%request.setAttribute("active_main", "active");%>
-<%request.setAttribute("active_mains", "sales	");%>
+<%request.setAttribute("active_mains", "sales");%>
 <link rel="stylesheet" href="/css/home.css?v=7">
 <%@ include file="../common/header.jsp" %>
 
@@ -14,19 +14,19 @@
 		  <div class="card-header">
 	
 		    <div class="chart-tabs" role="tablist" aria-label="매출 탭">
-		      <button type="button" class="chart-tab on" data-target="monthly" aria-selected="true">월 매출</button>
+		      <button type="button" class="chart-tab on" data-target="quarterly" aria-selected="true">분기 매출</button>
 		      <button type="button" class="chart-tab" data-target="yearly"  aria-selected="false">연 매출</button>
 		    </div>
 		  </div>
 
-		  <!-- 월 매출 -->
-		  <div class="chartbox on" id="sales-monthly" role="tabpanel" aria-label="월 매출">
-		    <canvas id="salesMonthlyChart" ></canvas>
+		  <!-- 분기 매출 -->
+		  <div class="chartbox on" id="sales-quarterly" role="tabpanel" aria-label="분기 매출">
+		    <canvas id="salesQuarterlyChart" height="320"></canvas>
 		  </div>
 
 		  <!-- 연 매출 -->
 		  <div class="chartbox" id="sales-yearly" role="tabpanel" aria-label="연 매출">
-		    <canvas id="salesYearlyChart"></canvas>
+		    <canvas id="salesYearlyChart" height="440"></canvas>
 		  </div>
 		</div>
 
@@ -99,98 +99,263 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
-(function(){
-  // ===== 데이터(예시) — 서버 값으로 교체만 하면 됩니다. =====
-  var monthLabels = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
-  var monthSales  = [12.1, 7.8, 2.9, 17.6, 21.8, 14.9, 22.0, 16.7, 9.6, 24.9, 8.8, 13.9]; // 막대: 월 매출
-  var monthYoY    = [7.4, 5.3, 3.7, 8.5, 12.0, 10.8, 18.8, 14.2, 11.6, 12.7, 9.9, 10.7];   // 라인: 전년 월 대비
-
-  var yearLabels  = ['2021','2022','2023'];
-  var yearSales   = [180, 210, 248];  // 막대: 연 매출(억원 예시)
-  var yearYoY     = [10, 12.5, 14.8]; // 라인: 전년 대비 증감(지표값)
-
-  // 공통 옵션(JSP 안전: 문자열 더하기)
-  function makeOptions(yTitle){
-    return {
-      responsive:true, maintainAspectRatio:false,
-      layout:{padding:{top:6,left:8,right:12,bottom:0}},
-      plugins:{
-        legend:{display:true,position:'bottom',labels:{boxWidth:18,boxHeight:8}},
-        tooltip:{
-          callbacks:{
-            label:function(ctx){
-              var v = ctx.parsed.y || 0;
-              // 단위 표기는 상황에 맞게 교체
-              return ctx.dataset.label + ': ' + Number(v).toLocaleString();
-            }
+// ===== 차트 옵션 및 생성 함수: 최상단에 선언 =====
+function makeOptions(yTitle){
+  return {
+    responsive:true, maintainAspectRatio:false,
+    layout:{padding:{top:6,left:8,right:12,bottom:0}},
+    plugins:{
+      legend:{display:true,position:'bottom',labels:{boxWidth:18,boxHeight:8}},
+      tooltip:{
+        callbacks:{
+          label:function(ctx){
+            var v = ctx.parsed.y || 0;
+            return ctx.dataset.label + ': ' + Number(v).toLocaleString();
           }
-        }
-      },
-      scales:{
-        x:{grid:{display:false},ticks:{color:'#8A93A3'}},
-        y:{
-          beginAtZero:true, grid:{color:'#EEF1F7'}, ticks:{color:'#8A93A3', precision:0},
-          title: yTitle ? {display:true,text:yTitle,color:'#8A93A3'} : undefined
         }
       }
-    };
-  }
+    },
+    scales:{
+      x:{grid:{display:false},ticks:{color:'#8A93A3'}},
+      y:{
+        beginAtZero:true, grid:{color:'#EEF1F7'}, ticks:{color:'#8A93A3', precision:0, maxTicksLimit:10},
+        title: yTitle ? {display:true,text:yTitle,color:'#8A93A3'} : undefined
+      }
+    }
+  };
+}
+function makeBarLineChart(canvas, labels, barData, lineData, yTitle){
+  var ctx = canvas.getContext('2d');
+  return new Chart(ctx, {
+    type:'bar',
+    data:{
+      labels: labels,
+      datasets:[
+        {
+          type:'bar',
+          label:'매출',
+          data: barData,
+          backgroundColor:'#5b7cff',
+          borderRadius:6,
+          barThickness:26
+        },
+        {
+          type:'line',
+          label:'전년 분기 대비',
+          data: lineData,
+          borderColor:'#f4a63a',
+          pointBackgroundColor:'#f4a63a',
+          pointRadius:3,
+          tension:.35,
+          fill:false
+        }
+      ]
+    },
+    options: makeOptions(yTitle)
+  });
+}
 
-  function makeBarLineChart(canvas, labels, barData, lineData, yTitle){
-    var ctx = canvas.getContext('2d');
-    return new Chart(ctx, {
-      type:'bar',
-      data:{
-        labels: labels,
-        datasets:[
-          {
-            type:'bar',
-            label:'매출',
-            data: barData,
-            backgroundColor:'#5b7cff',
-            borderRadius:6,
-            barThickness:26
-          },
-          {
-            type:'line',
-            label:'전년 월 대비',
-            data: lineData,
-            borderColor:'#f4a63a',
-            pointBackgroundColor:'#f4a63a',
-            pointRadius:3,
-            tension:.35,
-            fill:false
+// 2022, 2023년 분기별 매출총이익 DART API에서 받아와 차트에 반영 (누적값 → 실제 분기값, 전년 대비 증감률 포함)
+(function(){
+  const quarters = [
+    { code: "11013", name: "1분기" },
+    { code: "11012", name: "2분기" },
+    { code: "11014", name: "3분기" },
+    { code: "11011", name: "4분기" }
+  ];
+  let quarterLabels = quarters.map(q => q.name);
+  let cumulativeSales2022 = [0, 0, 0, 0]; // 2022년 누적값
+  let cumulativeSales2023 = [0, 0, 0, 0]; // 2023년 누적값
+  let cumulativeSales2024 = [0, 0, 0, 0]; // 2024년 누적값
+  let quarterSales2023 = [0, 0, 0, 0];    // 2023년 실제 분기별 값
+  let quarterSales2024 = [0, 0, 0, 0];    // 2024년 실제 분기별 값
+  let quarterYoY = [0, 0, 0, 0];          // 전년 대비 증감률(%)
+
+  // 2022, 2023년 분기별 매출총이익 누적값 받아오기
+  Promise.all([
+    // 2023년
+    ...quarters.map((q, idx) =>
+      fetch('/home/dart/data?bsnsYear=2023&reprtCode=' + q.code)
+        .then(res => res.json())
+        .then(data => {
+          if (data.list && Array.isArray(data.list)) {
+            let item = data.list.find(i => i.account_nm === "매출총이익");
+            if (item && item.thstrm_amount) {
+              cumulativeSales2023[idx] = parseFloat(item.thstrm_amount.replace(/,/g, ''));
+            }
           }
-        ]
-      },
-      options: makeOptions(yTitle)
+        })
+        .catch(() => { cumulativeSales2023[idx] = 0; })
+    ),
+    // 2024년
+    ...quarters.map((q, idx) =>
+      fetch('/home/dart/data?bsnsYear=2024&reprtCode=' + q.code)
+        .then(res => res.json())
+        .then(data => {
+          if (data.list && Array.isArray(data.list)) {
+            let item = data.list.find(i => i.account_nm === "매출총이익");
+            if (item && item.thstrm_amount) {
+              cumulativeSales2024[idx] = parseFloat(item.thstrm_amount.replace(/,/g, ''));
+            }
+          }
+        })
+        .catch(() => { cumulativeSales2024[idx] = 0; })
+    )
+  ]).then(() => {
+    // 누적값 → 실제 분기별 값으로 변환 (1~3분기는 그대로, 4분기만 누적값에서 1~3분기 빼기)
+    for (let i = 0; i < 3; i++) {
+      quarterSales2023[i] = cumulativeSales2023[i];
+      quarterSales2024[i] = cumulativeSales2024[i];
+    }
+    quarterSales2023[3] = cumulativeSales2023[3] - cumulativeSales2023[2] - cumulativeSales2023[1] - cumulativeSales2023[0];
+    quarterSales2024[3] = cumulativeSales2024[3] - cumulativeSales2024[2] - cumulativeSales2024[1] - cumulativeSales2024[0];
+
+    // 데이터 확인용 콘솔 출력
+    console.log('quarterSales2023:', quarterSales2023);
+    console.log('quarterSales2024:', quarterSales2024);
+
+    // 전년분기대비 그래프에 전년도 값(quarterSales2023) 사용
+    var quarterlyChart = makeBarLineChart(
+      document.getElementById('salesQuarterlyChart'), quarterLabels, quarterSales2024, quarterSales2023, ''
+    );
+    // 탭 전환
+    var tabs = document.querySelectorAll('.chart-tab');
+    function showTab(key){
+      document.getElementById('sales-quarterly').classList.toggle('on', key==='quarterly');
+      document.getElementById('sales-yearly').classList.toggle('on',  key==='yearly');
+      tabs.forEach(function(t){
+        var on = (t.dataset.target===key);
+        t.classList.toggle('on', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      setTimeout(function(){
+        if(key==='quarterly') {
+          quarterlyChart.resize();
+        } else {
+          yearlyChart.resize();
+        }
+      }, 30);
+    }
+    tabs.forEach(function(btn){
+      btn.addEventListener('click', function(){ showTab(btn.dataset.target); });
+    });
+  });
+
+  // 연 매출 차트: 2020~2024 데이터로 변경
+  var yearLabels  = ['2020','2021','2022','2023','2024'];
+  var yearSales   = [0, 0, 0, 0, 0];  // 2020~2024 연 매출 데이터 (API에서 받아올 값)
+  var yearYoY     = [0, 0, 0, 0, 0];  // 2020~2024 전년 대비 증감(지표값, 필요시 계산)
+
+  // 2020~2024 연 매출 데이터 API 호출 및 차트 반영
+  Promise.all([
+    ...[2020,2021,2022,2023,2024].map((year, idx) =>
+      fetch('/home/dart/data?bsnsYear=' + year + '&reprtCode=11011')
+        .then(res => res.json())
+        .then(data => {
+          if (data.list && Array.isArray(data.list)) {
+            let item = data.list.find(i => i.account_nm === "매출총이익");
+            if (item && item.thstrm_amount) {
+              yearSales[idx] = parseFloat(item.thstrm_amount.replace(/,/g, ''));
+            }
+          }
+        })
+        .catch(() => { yearSales[idx] = 0; })
+    )
+  ]).then(() => {
+    // 필요시 증감률 계산 (주석처리)
+    // for (let i = 1; i < yearSales.length; i++) {
+    //   if (yearSales[i-1] > 0) {
+    //     yearYoY[i] = ((yearSales[i] - yearSales[i-1]) / yearSales[i-1]) * 100;
+    //   } else {
+    //     yearYoY[i] = 0;
+    //   }
+    // }
+    // 데이터 확인용 콘솔 출력
+    console.log('yearSales:', yearSales);
+    // 연 매출 차트 생성 (전년도분기 그래프 제거, 바 그래프만 표시)
+    yearlyChart = new Chart(
+      document.getElementById('salesYearlyChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: yearLabels,
+          datasets: [
+            {
+              label: '매출',
+              data: yearSales,
+              backgroundColor: '#5b7cff',
+              borderRadius: 6,
+              barThickness: 26
+            }
+          ]
+        },
+        options: makeOptions('')
+      }
+    );
+  });
+})();
+
+// DART API 데이터 프론트 콘솔 출력 (2019~2023 각 분기별 매출총이익, 정렬된 순서로 출력)
+function fetchDartData(bsnsYear, reprtCode, quarterName) {
+  let url = '/home/dart/data?bsnsYear=' + bsnsYear + '&reprtCode=' + reprtCode;
+  return fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      let result = {
+        year: bsnsYear,
+        quarter: quarterName,
+        reprtCode: reprtCode,
+        item: null,
+        raw: data
+      };
+      if (data.list && Array.isArray(data.list)) {
+        data.list.forEach(item => {
+          if (item.account_nm === "매출총이익") {
+            result.item = item;
+          }
+        });
+      }
+      return result;
+    })
+    .catch(err => {
+      return {
+        year: bsnsYear,
+        quarter: quarterName,
+        reprtCode: reprtCode,
+        item: null,
+        error: err
+      };
+    });
+}
+
+// 2019~2023년 각 분기 반복 호출, 결과 정렬 후 출력
+(function(){
+  const quarters = [
+    { code: "11013", name: "1분기" },
+    { code: "11012", name: "2분기" },
+    { code: "11014", name: "3분기" },
+    { code: "11011", name: "4분기" }
+  ];
+  let promises = [];
+  for (let year = 2019; year <= 2023; year++) {
+    quarters.forEach(q => {
+      promises.push(fetchDartData(year.toString(), q.code, q.name));
     });
   }
-
-  // 차트 인스턴스
-  var monthlyChart = makeBarLineChart(
-    document.getElementById('salesMonthlyChart'), monthLabels, monthSales, monthYoY, ''
-  );
-  var yearlyChart = makeBarLineChart(
-    document.getElementById('salesYearlyChart'), yearLabels, yearSales, yearYoY, ''
-  );
-
-  // 탭 전환
-  var tabs = document.querySelectorAll('.chart-tab');
-  function showTab(key){
-    document.getElementById('sales-monthly').classList.toggle('on', key==='monthly');
-    document.getElementById('sales-yearly').classList.toggle('on',  key==='yearly');
-    tabs.forEach(function(t){
-      var on = (t.dataset.target===key);
-      t.classList.toggle('on', on);
-      t.setAttribute('aria-selected', on ? 'true' : 'false');
+  Promise.all(promises).then(results => {
+    // 연도 오름차순, 분기 순서대로 정렬
+    results.sort((a, b) => {
+      if (a.year !== b.year) return a.year - b.year;
+      return quarters.findIndex(q => q.name === a.quarter) - quarters.findIndex(q => q.name === b.quarter);
     });
-    setTimeout(function(){
-      if(key==='monthly') monthlyChart.resize(); else yearlyChart.resize();
-    }, 30);
-  }
-  tabs.forEach(function(btn){
-    btn.addEventListener('click', function(){ showTab(btn.dataset.target); });
+    results.forEach(r => {
+      if (r.item) {
+        console.log(`[${r.year} ${r.quarter} 매출총이익]`, r.item);
+      } else if (r.error) {
+        console.error(`[DART API 오류 ${r.year} ${r.quarter}]`, r.error);
+      } else {
+        console.log(`[${r.year} ${r.quarter}] 매출총이익 데이터 없음`, r.raw);
+      }
+    });
   });
 })();
 </script>

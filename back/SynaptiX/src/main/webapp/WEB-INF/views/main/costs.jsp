@@ -12,17 +12,18 @@
 
   <div class="card card-wide">
     <div class="card-header">
-      <div class="tab-switch">
-		<button class="chart-tab active" role="tab" aria-selected="true" data-target="monthly">월 매출</button>
-		  <button class="chart-tab" role="tab" aria-selected="false" data-target="yearly">연 매출</button>
+      <div class="chart-tabs" role="tablist" aria-label="비용 탭">
+        <button type="button" class="chart-tab on" data-target="quarterly" aria-selected="true">분기 비용</button>
+        <button type="button" class="chart-tab" data-target="annual" aria-selected="false">연 비용</button>
       </div>
     </div>
-    <div class="card-body">
-      <canvas id="monthlyChart" height="110"></canvas>
-      <div class="legend">
-        <span><i class="lg lg-bar"></i> 물품 판매량</span>
-        <span><i class="lg lg-line"></i> 전년 월 대비</span>
-      </div>
+    <!-- 분기 비용 -->
+    <div class="chartbox on" id="costs-quarterly" role="tabpanel" aria-label="분기 비용">
+      <canvas id="costsQuarterlyChart" height="320"></canvas>
+    </div>
+    <!-- 연 비용 -->
+    <div class="chartbox" id="costs-annual" role="tabpanel" aria-label="연 비용">
+      <canvas id="costsAnnualChart" height="440"></canvas>
     </div>
   </div>
 
@@ -108,120 +109,189 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
-  /* =========================
-   *  차트 데이터 (서버 바인딩 가능)
-   * ========================= */
-  const labels = ${labelsJson != null ? labelsJson : "['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']"};
-  const seriesNow  = ${seriesNowJson  != null ? seriesNowJson  : "[12, 8, 3, 18, 22, 15, 23, 17, 10, 25, 9, 14]"};
-  const seriesPrev = ${seriesPrevJson != null ? seriesPrevJson : "[8, 6, 4, 9, 12, 11, 19, 14, 12, 13, 10, 11]"};
-
-  /* ===========
-   * 월 차트
-   * =========== */
-  var monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
-  var monthlyChart = new Chart(monthlyCtx, {
-    type: 'bar',
-    data: {
-      labels: labels,
-      datasets: [
-        { label: '올핸 판매량', data: seriesNow,  backgroundColor: '#5b7cff', borderRadius: 6, barThickness: 24 },
-        { label: '전년 월 대비', data: seriesPrev, type: 'line', borderColor: '#f4a63a', tension: 0.35, pointRadius: 3, fill: false }
-      ]
-    },
-    options: {
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { grid: { display: false } },
-        y: { grid: { color: '#f1f5f9' }, ticks: { beginAtZero: true, precision: 0 } }
-      }
-    }
-  });
-
-  /* =========================
-   *  탭(월/연) 버튼 동작 (데모)
-   * ========================= */
-  document.querySelectorAll('.tab-switch .chart-tab').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      document.querySelectorAll('.tab-switch .chart-tab').forEach(function(b){ b.classList.remove('active'); });
-      btn.classList.add('active');
-      // 필요 시 여기서 데이터 교체하여 차트 업데이트
-      // monthlyChart.data.datasets[0].data = ...
-      // monthlyChart.update();
-    });
-  });
-
-  /* =========================
-   *  달력 렌더링 (이번 달)
-   * ========================= */
-  (function renderCalendar(){
-    var today = new Date();
-    var y = today.getFullYear();
-    var m = today.getMonth(); // 0~11
-    var first = new Date(y, m, 1);
-    var last  = new Date(y, m + 1, 0);
-
-    // 월(월요일) 시작 기준 오프셋: (일=0 → 6, 월=1 → 0, ...)
-    var startOffset = (first.getDay() + 6) % 7;
-    var total = startOffset + last.getDate();
-    var rows = Math.ceil(total / 7);
-
-    var titleEl = document.getElementById('calTitle');
-    if (titleEl) {
-      titleEl.innerText = (m + 1) + '월';
-    }
-
-    var tbody = document.querySelector('#calendar tbody');
-    if (!tbody) return;
-
-    var html = '';
-    var day = 1 - startOffset;
-    for (var r = 0; r < rows; r++) {
-      html += '<tr>';
-      for (var c = 0; c < 7; c++, day++) {
-        if (day < 1 || day > last.getDate()) {
-          html += '<td class="muted"> </td>';
-        } else {
-          html += '<td>' + day + '</td>';
+// ===== 차트 옵션 및 생성 함수: Home.jsp와 동일하게 선언 =====
+function makeOptions(yTitle){
+  return {
+    responsive:true, maintainAspectRatio:false,
+    layout:{padding:{top:6,left:8,right:12,bottom:0}},
+    plugins:{
+      legend:{display:true,position:'bottom',labels:{boxWidth:18,boxHeight:8}},
+      tooltip:{
+        callbacks:{
+          label:function(ctx){
+            var v = ctx.parsed.y || 0;
+            return ctx.dataset.label + ': ' + Number(v).toLocaleString();
+          }
         }
       }
-      html += '</tr>';
-    }
-    tbody.innerHTML = html;
-  })();
-
-  /* =========================
-   *  메모/비용 버튼 (데모)
-   * ========================= */
-  var memoBtn = document.getElementById('memoSave');
-  if (memoBtn) {
-    memoBtn.addEventListener('click', function () {
-      var memoInput = document.getElementById('memoInput');
-      var text = memoInput ? memoInput.value : '';
-      alert('메모 저장(샘플) : ' + text);
-    });
-  }
-
-  var costBtn = document.getElementById('costAdd');
-  if (costBtn) {
-    costBtn.addEventListener('click', function () {
-      var tEl = document.getElementById('costTitle');
-      var aEl = document.getElementById('costAmount');
-      var t = tEl ? tEl.value : '';
-      var a = aEl ? aEl.value : '';
-      if (!t || !a) {
-        alert('제목/금액을 입력하세요.');
-        return;
+    },
+    scales:{
+      x:{grid:{display:false},ticks:{color:'#8A93A3'}},
+      y:{
+        beginAtZero:true, grid:{color:'#EEF1F7'}, ticks:{color:'#8A93A3', precision:0, maxTicksLimit:10},
+        title: yTitle ? {display:true,text:yTitle,color:'#8A93A3'} : undefined
       }
-      var formatted = Number(a).toLocaleString();
-      alert('등록(샘플)\n제목: ' + t + '\n금액: ₩' + formatted);
+    }
+  };
+}
+function makeBarLineChart(canvas, labels, barData, lineData, yTitle){
+  var ctx = canvas.getContext('2d');
+  return new Chart(ctx, {
+    type:'bar',
+    data:{
+      labels: labels,
+      datasets:[
+        {
+          type:'bar',
+          label:'비용',
+          data: barData,
+          backgroundColor:'#5b7cff',
+          borderRadius:6,
+          barThickness:26
+        },
+        {
+          type:'line',
+          label:'전년 분기 대비',
+          data: lineData,
+          borderColor:'#f4a63a',
+          pointBackgroundColor:'#f4a63a',
+          pointRadius:3,
+          tension:.35,
+          fill:false
+        }
+      ]
+    },
+    options: makeOptions(yTitle)
+  });
+}
+
+// ===== DART API 판관비 데이터 받아와서 차트 생성 및 탭 전환 =====
+(function(){
+  const quarters = [
+    { code: "11013", name: "1분기" },
+    { code: "11012", name: "2분기" },
+    { code: "11014", name: "3분기" },
+    { code: "11011", name: "4분기" }
+  ];
+  let quarterLabels = quarters.map(q => q.name);
+  let cumulativeCosts2023 = [0, 0, 0, 0];
+  let cumulativeCosts2024 = [0, 0, 0, 0];
+  let quarterCosts2023 = [0, 0, 0, 0];
+  let quarterCosts2024 = [0, 0, 0, 0];
+  let quarterlyChart = null;
+  let annualChart = null;
+
+  Promise.all([
+    // 2023년 분기별
+    ...quarters.map((q, idx) =>
+      fetch('/home/dart/data?bsnsYear=2023&reprtCode=' + q.code)
+        .then(res => res.json())
+        .then(data => {
+          if (data.list && Array.isArray(data.list)) {
+            let item = data.list.find(i => i.account_nm === "판매비와관리비");
+            if (item && item.thstrm_amount) {
+              cumulativeCosts2023[idx] = parseFloat(item.thstrm_amount.replace(/,/g, ''));
+            }
+          }
+        })
+        .catch(() => { cumulativeCosts2023[idx] = 0; })
+    ),
+    // 2024년 분기별
+    ...quarters.map((q, idx) =>
+      fetch('/home/dart/data?bsnsYear=2024&reprtCode=' + q.code)
+        .then(res => res.json())
+        .then(data => {
+          if (data.list && Array.isArray(data.list)) {
+            let item = data.list.find(i => i.account_nm === "판매비와관리비");
+            if (item && item.thstrm_amount) {
+              cumulativeCosts2024[idx] = parseFloat(item.thstrm_amount.replace(/,/g, ''));
+            }
+          }
+        })
+        .catch(() => { cumulativeCosts2024[idx] = 0; })
+    )
+  ]).then(() => {
+    for (let i = 0; i < 3; i++) {
+      quarterCosts2023[i] = cumulativeCosts2023[i];
+      quarterCosts2024[i] = cumulativeCosts2024[i];
+    }
+    quarterCosts2023[3] = cumulativeCosts2023[3] - cumulativeCosts2023[2] - cumulativeCosts2023[1] - cumulativeCosts2023[0];
+    quarterCosts2024[3] = cumulativeCosts2024[3] - cumulativeCosts2024[2] - cumulativeCosts2024[1] - cumulativeCosts2024[0];
+    // 데이터 확인용 콘솔 출력
+    console.log('2023년 분기별 판매비와관리비:', quarterCosts2023);
+    console.log('2024년 분기별 판매비와관리비:', quarterCosts2024);
+    // 차트 생성 (데이터 준비된 후)
+    quarterlyChart = makeBarLineChart(
+      document.getElementById('costsQuarterlyChart'),
+      quarterLabels,
+      quarterCosts2024,
+      quarterCosts2023,
+      ''
+    );
+    // 연비용(2020~2024) 판관비 데이터 처리 및 차트 생성
+    var yearLabels = ['2020','2021','2022','2023','2024'];
+    var yearCosts = [0, 0, 0, 0, 0];
+    Promise.all([
+      ...[2020,2021,2022,2023,2024].map((year, idx) =>
+        fetch('/home/dart/data?bsnsYear=' + year + '&reprtCode=11011')
+          .then(res => res.json())
+          .then(data => {
+            if (data.list && Array.isArray(data.list)) {
+              let item = data.list.find(i => i.account_nm === "판매비와관리비");
+              if (item && item.thstrm_amount) {
+                yearCosts[idx] = parseFloat(item.thstrm_amount.replace(/,/g, ''));
+              }
+            }
+          })
+          .catch(() => { yearCosts[idx] = 0; })
+      )
+    ]).then(() => {
+      // 데이터 확인용 콘솔 출력
+      console.log('2020~2024년 연간 판관비:', yearCosts);
+      // 연비용 차트 생성 (Home.jsp와 동일하게)
+      annualChart = new Chart(
+        document.getElementById('costsAnnualChart').getContext('2d'), {
+          type: 'bar',
+          data: {
+            labels: yearLabels,
+            datasets: [
+              {
+                label: '연간 판관비',
+                data: yearCosts,
+                backgroundColor: '#5b7cff',
+                borderRadius: 6,
+                barThickness: 26
+              }
+            ]
+          },
+          options: makeOptions('')
+        }
+      );
     });
-  }
+    // 탭 전환 기능 (Home.jsp와 동일)
+    var tabs = document.querySelectorAll('.chart-tab');
+    function showTab(key){
+      document.getElementById('costs-quarterly').classList.toggle('on', key==='quarterly');
+      document.getElementById('costs-annual').classList.toggle('on',  key==='annual');
+      tabs.forEach(function(t){
+        var on = (t.dataset.target===key);
+        t.classList.toggle('on', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      setTimeout(function(){
+        if(key==='quarterly' && quarterlyChart) {
+          quarterlyChart.resize();
+        }
+        if(key==='annual' && annualChart) {
+          annualChart.resize();
+        }
+      }, 30);
+    }
+    tabs.forEach(function(btn){
+      btn.addEventListener('click', function(){ showTab(btn.dataset.target); });
+    });
+  });
+})();
 </script>
 
 <%@ include file="../common/footer.jsp" %>
-
-
-
-
-
-

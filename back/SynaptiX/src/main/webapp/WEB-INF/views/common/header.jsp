@@ -34,7 +34,8 @@
 			  <a class="link ${active_mains eq 'alert' ? 'active' : ''}" href="<c:url value='/home/alert'/>">알림영역</a>
 		</c:if>
 		<c:if test="${not empty active_stock}">
-			<a class="link ${active_stl}" href="/stock">재고</a>
+			<a class="link ${active_mtr}" href="/stock/material">원자재 재고</a>
+			<a class="link ${active_prod}" href="/stock/product">제품 재고</a>
 			<a class="link ${active_profit}" href="/profit">이익관리</a>
 		</c:if>
 		<c:if test="${not empty active_product}">

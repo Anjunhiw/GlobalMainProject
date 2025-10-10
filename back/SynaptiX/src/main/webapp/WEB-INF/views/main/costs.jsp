@@ -14,7 +14,7 @@
     <div class="card-header">
       <div class="chart-tabs" role="tablist" aria-label="비용 탭">
         <button type="button" class="chart-tab on" data-target="quarterly" aria-selected="true">분기 비용</button>
-        <button type="button" class="chart-tab" data-target="annual" aria-selected="false">연 비용</button>
+        <button type="button" class="chart-tab" data-target="yearly" aria-selected="false">연 비용</button>
       </div>
     </div>
     <!-- 분기 비용 -->
@@ -22,8 +22,8 @@
       <canvas id="costsQuarterlyChart" height="320"></canvas>
     </div>
     <!-- 연 비용 -->
-    <div class="chartbox" id="costs-annual" role="tabpanel" aria-label="연 비용">
-      <canvas id="costsAnnualChart" height="440"></canvas>
+    <div class="chartbox" id="costs-yearly" role="tabpanel" aria-label="연 비용">
+      <canvas id="costsYearlyChart" height="440"></canvas>
     </div>
   </div>
 
@@ -179,7 +179,7 @@ function makeBarLineChart(canvas, labels, barData, lineData, yTitle){
   let quarterCosts2023 = [0, 0, 0, 0];
   let quarterCosts2024 = [0, 0, 0, 0];
   let quarterlyChart = null;
-  let annualChart = null;
+  let yearlyChart = null;
 
   Promise.all([
     // 2023년 분기별
@@ -249,14 +249,14 @@ function makeBarLineChart(canvas, labels, barData, lineData, yTitle){
       // 데이터 확인용 콘솔 출력
       console.log('2020~2024년 연간 판관비:', yearCosts);
       // 연비용 차트 생성 (Home.jsp와 동일하게)
-      annualChart = new Chart(
-        document.getElementById('costsAnnualChart').getContext('2d'), {
+      yearlyChart = new Chart(
+        document.getElementById('costsYearlyChart').getContext('2d'), {
           type: 'bar',
           data: {
             labels: yearLabels,
             datasets: [
               {
-                label: '연간 판관비',
+                label: '비용',
                 data: yearCosts,
                 backgroundColor: '#5b7cff',
                 borderRadius: 6,
@@ -272,7 +272,7 @@ function makeBarLineChart(canvas, labels, barData, lineData, yTitle){
     var tabs = document.querySelectorAll('.chart-tab');
     function showTab(key){
       document.getElementById('costs-quarterly').classList.toggle('on', key==='quarterly');
-      document.getElementById('costs-annual').classList.toggle('on',  key==='annual');
+      document.getElementById('costs-yearly').classList.toggle('on',  key==='yearly');
       tabs.forEach(function(t){
         var on = (t.dataset.target===key);
         t.classList.toggle('on', on);
@@ -282,8 +282,8 @@ function makeBarLineChart(canvas, labels, barData, lineData, yTitle){
         if(key==='quarterly' && quarterlyChart) {
           quarterlyChart.resize();
         }
-        if(key==='annual' && annualChart) {
-          annualChart.resize();
+        if(key==='yearly' && yearlyChart) {
+          yearlyChart.resize();
         }
       }, 30);
     }

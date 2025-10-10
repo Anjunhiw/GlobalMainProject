@@ -113,4 +113,51 @@ public class StockService {
         workbook.write(os);
         workbook.close();
     }
+    // 제품만 엑셀 생성
+    public void writeProductExcel(List<ProductDTO> products, java.io.OutputStream os) throws java.io.IOException {
+        org.apache.poi.ss.usermodel.Workbook workbook = new org.apache.poi.xssf.usermodel.XSSFWorkbook();
+        org.apache.poi.ss.usermodel.Sheet sheet = workbook.createSheet("제품목록");
+        int rowIdx = 0;
+        org.apache.poi.ss.usermodel.Row header = sheet.createRow(rowIdx++);
+        String[] headers = {"품목코드", "제품명", "카테고리", "모델명", "규격", "단가", "재고수량", "재고금액"};
+        for (int i = 0; i < headers.length; i++) header.createCell(i).setCellValue(headers[i]);
+        for (ProductDTO p : products) {
+            org.apache.poi.ss.usermodel.Row row = sheet.createRow(rowIdx++);
+            row.createCell(0).setCellValue("prd2025" + (p.getPk() < 10 ? "0" + p.getPk() : p.getPk()));
+            row.createCell(1).setCellValue(p.getName());
+            row.createCell(2).setCellValue(p.getCategory());
+            row.createCell(3).setCellValue(p.getModel());
+            row.createCell(4).setCellValue(p.getSpecification());
+            row.createCell(5).setCellValue(p.getPrice());
+            row.createCell(6).setCellValue(p.getStock());
+            row.createCell(7).setCellValue(p.getAmount());
+        }
+        for (int i = 0; i < headers.length; i++) sheet.autoSizeColumn(i);
+        workbook.write(os);
+        workbook.close();
+    }
+
+    // 원자재만 엑셀 생성
+    public void writeMaterialExcel(List<MaterialDTO> materials, java.io.OutputStream os) throws java.io.IOException {
+        org.apache.poi.ss.usermodel.Workbook workbook = new org.apache.poi.xssf.usermodel.XSSFWorkbook();
+        org.apache.poi.ss.usermodel.Sheet sheet = workbook.createSheet("원자재목록");
+        int rowIdx = 0;
+        org.apache.poi.ss.usermodel.Row header = sheet.createRow(rowIdx++);
+        String[] headers = {"품목코드", "품목명", "카테고리", "규격", "단위", "단가", "재고수량", "재고금액"};
+        for (int i = 0; i < headers.length; i++) header.createCell(i).setCellValue(headers[i]);
+        for (MaterialDTO m : materials) {
+            org.apache.poi.ss.usermodel.Row row = sheet.createRow(rowIdx++);
+            row.createCell(0).setCellValue("mtr2025" + (m.getPk() < 10 ? "0" + m.getPk() : m.getPk()));
+            row.createCell(1).setCellValue(m.getName());
+            row.createCell(2).setCellValue(m.getCategory());
+            row.createCell(3).setCellValue(m.getSpecification());
+            row.createCell(4).setCellValue(m.getUnit());
+            row.createCell(5).setCellValue(m.getPrice());
+            row.createCell(6).setCellValue(m.getStock());
+            row.createCell(7).setCellValue(m.getAmount());
+        }
+        for (int i = 0; i < headers.length; i++) sheet.autoSizeColumn(i);
+        workbook.write(os);
+        workbook.close();
+    }
 }

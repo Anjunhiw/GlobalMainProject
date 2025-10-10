@@ -226,11 +226,10 @@ request.setAttribute("active_bom", "active");
   <div class="modal-content" style="min-width:900px;max-width:95vw;">
     <span class="close" onclick="closeBomResultModal()" aria-label="닫기">&times;</span>
     <h3 id="bomResultModalTitle">검색 결과</h3>
-    <div id="bomResultBodyModal"></div>
-    <div class="btn-group" style="margin-top:12px;">
-      <button type="button" class="btn btn-info" id="btnModalExcel">엑셀 다운로드</button>
-      <button type="button" class="btn btn-secondary" onclick="closeBomResultModal()">닫기</button>
+	<div class="btn-group" style="float:right; margin-bottom:10px;">
+      <button type="button" class="btn btn-success" id="btnModalExcel">엑셀 다운로드</button>
     </div>
+    <div id="bomResultBodyModal"></div>
   </div>
 </div>
 

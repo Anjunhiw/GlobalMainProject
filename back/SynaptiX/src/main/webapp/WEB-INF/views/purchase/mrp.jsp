@@ -96,11 +96,11 @@ request.setAttribute("active_mrp", "active");
     <div class="modal-content">
       <span class="close" id="closeModal">&times;</span>
       <h3>검색 결과</h3>
+	  <div class="btn-group" style="float:right; margin-bottom:10px;">
+        <button type="button" class="btn btn-success" id="btnModalExcel">엑셀 다운로드</button>
+      </div>
       <div id="modalResults">
         <!-- AJAX results will be injected here -->
-      </div>
-      <div style="text-align:right; margin-top:10px;">
-        <button type="button" id="btnModalExcel" class="btn btn-info">엑셀 다운로드</button>
       </div>
     </div>
   </div>

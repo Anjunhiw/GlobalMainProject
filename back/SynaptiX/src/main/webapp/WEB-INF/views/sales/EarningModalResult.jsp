@@ -2,9 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<h3 style="display:inline-block;">검색 결과</h3>
-<button type="button" class="btn btn-success" id="downloadExcelModal" style="float:right; margin-bottom:10px;">엑셀 다운로드</button>
-<div style="max-height:400px; overflow-y:auto;">
 <table class="table">
   <thead>
     <tr>

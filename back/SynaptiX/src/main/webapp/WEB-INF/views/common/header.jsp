@@ -13,7 +13,7 @@
 	    
 	    <div class="tabbar">
 		  <div class="tab${active_main eq 'active' ? ' active' : ''}" onclick="location.href='/home'">메인</div>
-	      <div class="tab${active_stock eq 'active' ? ' active' : ''}" onclick="location.href='/stock'">재고 / 유통</div>
+	      <div class="tab${active_stock eq 'active' ? ' active' : ''}" onclick="location.href='/stock/material'">재고 / 유통</div>
 	      <div class="tab${active_product eq 'active' ? ' active' : ''}" onclick="location.href='/bom'">생산 / 제조</div>
 	      <div class="tab${active_sales eq 'active' ? ' active' : ''}" onclick="location.href='/sales'">영업 / 판매</div>
 	      <div class="tab${active_purchase eq 'active' ? ' active' : ''}" onclick="location.href='/purchase'">구매</div>

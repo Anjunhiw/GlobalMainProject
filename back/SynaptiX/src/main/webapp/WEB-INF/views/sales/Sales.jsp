@@ -116,6 +116,9 @@ request.setAttribute("active_sale", "active");
     <div class="modal-content">
       <span class="close" id="closeModal">&times;</span>
       <h3>검색 결과</h3>
+	  <div class="btn-group" style="float:right; margin-bottom:10px;">
+          <button type="button" class="btn btn-success" id="btnModalExcel">엑셀 다운로드</button>
+      </div>
       <div id="modalResults">
         <!-- AJAX results will be injected here -->
       </div>

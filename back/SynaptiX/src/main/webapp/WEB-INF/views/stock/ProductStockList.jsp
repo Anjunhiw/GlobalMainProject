@@ -186,6 +186,26 @@ request.setAttribute("active_prod", "active");
       </c:if>
     </tbody>
   </table>
+  <!-- 페이징 UI -->
+  <div class="pagination">
+    <c:set var="totalPages" value="${(totalCount / size) + (totalCount % size > 0 ? 1 : 0)}" />
+    <c:if test="${totalPages > 1}">
+      <ul class="paging-list">
+        <c:if test="${page > 0}">
+          <li><a href="?page=${page - 1}&size=${size}">이전</a></li>
+        </c:if>
+        <c:forEach var="i" begin="0" end="${totalPages - 1}">
+          <li>
+            <a href="?page=${i}&size=${size}" class="${i == page ? 'active' : ''}">${i + 1}</a>
+          </li>
+        </c:forEach>
+        <c:if test="${page < totalPages - 1}">
+          <li><a href="?page=${page + 1}&size=${size}">다음</a></li>
+        </c:if>
+      </ul>
+      <span class="paging-info">총 ${totalCount}건, ${page + 1}/${totalPages}페이지</span>
+    </c:if>
+  </div>
 </main>
 <script>
 // 등록 버튼: 등록 폼 모달 열기
@@ -345,6 +365,34 @@ function downloadExcelFromModal() {
     max-height: 400px;
     overflow-y: auto;
     margin-bottom: 10px;
+  }
+  .pagination {
+    margin-top: 20px;
+    text-align: center;
+  }
+  .paging-list {
+    list-style: none;
+    padding: 0;
+    display: inline-block;
+  }
+  .paging-list li {
+    display: inline;
+    margin: 0 5px;
+  }
+  .paging-list a {
+    text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid #007bff;
+    color: #007bff;
+    border-radius: 4px;
+  }
+  .paging-list a.active {
+    background-color: #007bff;
+    color: white;
+  }
+  .paging-info {
+    margin-left: 10px;
+    vertical-align: super;
   }
 </style>
 <%@ include file="../common/footer.jsp" %>

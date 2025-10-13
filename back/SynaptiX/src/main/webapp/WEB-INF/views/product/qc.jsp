@@ -226,7 +226,9 @@ request.setAttribute("active_qc", "active");
 
     // QC 전체 리스트 엑셀 다운로드
     document.getElementById('downloadExcel').onclick = function() {
-      fetch('/qc/excel')
+      fetch('/qc/excel', {
+        method: 'GET'
+      })
         .then(response => {
           if (!response.ok) throw new Error('엑셀 다운로드 실패');
           return response.blob();
@@ -235,7 +237,7 @@ request.setAttribute("active_qc", "active");
           var url = window.URL.createObjectURL(blob);
           var a = document.createElement('a');
           a.href = url;
-          a.download = 'QC_전체리스트.xlsx';
+          a.download = 'QC_Result.xlsx';
           document.body.appendChild(a);
           a.click();
           a.remove();
@@ -246,22 +248,20 @@ request.setAttribute("active_qc", "active");
         });
     };
     // QC 조회 모달 엑셀 다운로드
-    document.getElementById('downloadExcelModal').onclick = function() {
+    document.getElementById('btnModalExcel').onclick = function() {
       var dateFrom = document.getElementById('dateFrom').value;
       var dateTo = document.getElementById('dateTo').value;
       var prodName = document.getElementById('prodName').value;
       var category = document.getElementById('category').value;
-      var csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content;
-      var csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
-      var headers = {
-        'Content-Type': 'application/json'
-      };
-      if (csrfHeader && csrfToken) headers[csrfHeader] = csrfToken;
-      var body = JSON.stringify({ dateFrom, dateTo, prodName, category });
-      fetch('/qc/excel-modal', {
-        method: 'POST',
-        headers: headers,
-        body: body
+      var params = new URLSearchParams();
+      if (dateFrom) params.append('dateFrom', dateFrom);
+      if (dateTo) params.append('dateTo', dateTo);
+      if (prodName) params.append('prodName', prodName);
+      if (category) params.append('category', category);
+      var url = '/qc/excel-modal';
+      if (params.toString()) url += '?' + params.toString();
+      fetch(url, {
+        method: 'GET'
       })
       .then(response => {
         if (!response.ok) throw new Error('엑셀 다운로드 실패');
@@ -271,7 +271,7 @@ request.setAttribute("active_qc", "active");
         var url = window.URL.createObjectURL(blob);
         var a = document.createElement('a');
         a.href = url;
-        a.download = 'QC_검색결과.xlsx';
+        a.download = 'QC_result.xlsx';
         document.body.appendChild(a);
         a.click();
         a.remove();

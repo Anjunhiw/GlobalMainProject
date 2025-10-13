@@ -5,7 +5,7 @@
   <thead>
     <tr>
       <th>품목코드</th><th>제품명</th><th>모델명</th><th>규격</th>
-      <th>단가</th><th>재고수량</th><th>재고금액</th><th>수정</th><th>삭제</th>
+      <th>단가</th><th>재고수량</th><th>재고금액</th>
     </tr>
   </thead>
   <tbody>
@@ -18,12 +18,6 @@
         <td><fmt:formatNumber value="${product.price}"  type="number" groupingUsed="true"/></td>
         <td><fmt:formatNumber value="${product.stock}"  type="number" maxFractionDigits="0" groupingUsed="true"/></td>
         <td><fmt:formatNumber value="${product.amount}" type="number" maxFractionDigits="0" groupingUsed="true"/></td>
-        <td>
-          <button type="button" class="btn btn-sm btn-warning" onclick="openEditModal('${product.pk}', this)">수정</button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-sm btn-danger btn-del" data-pk="${product.pk}">삭제</button>
-        </td>
       </tr>
     </c:forEach>
     <c:if test="${empty products}">

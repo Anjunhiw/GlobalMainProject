@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -173,45 +172,35 @@ request.setAttribute("active_order", "active");
           alert('엑셀 다운로드 중 오류가 발생했습니다.');
         });
     };
-    // 모달 엑셀 다운로드
-    document.getElementById('downloadExcelModal').onclick = function() {
+    // 모달 엑셀 다운로드 (GET 방식으로 변경)
+    document.getElementById('btnModalExcel').onclick = function() {
       var prodCode = document.getElementById('prodCode').value;
       var prodName = document.getElementById('prodName').value;
       var orderDate = document.getElementById('orderDate').value;
       var status = document.getElementById('status').value;
-      var csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content;
-      var csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
-      var headers = {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-      };
-      if (csrfHeader && csrfToken) headers[csrfHeader] = csrfToken;
       var params = new URLSearchParams();
       if (prodCode) params.append('prodCode', prodCode);
       if (prodName) params.append('prodName', prodName);
       if (orderDate) params.append('orderDate', orderDate);
       if (status) params.append('status', status);
-      fetch('/sales/orders/excel-modal', {
-        method: 'POST',
-        headers: headers,
-        body: params.toString()
-      })
-      .then(response => {
-        if (!response.ok) throw new Error('엑셀 다운로드 실패');
-        return response.blob();
-      })
-      .then(blob => {
-        var url = window.URL.createObjectURL(blob);
-        var a = document.createElement('a');
-        a.href = url;
-        a.download = '주문관리_검색결과.xlsx';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        window.URL.revokeObjectURL(url);
-      })
-      .catch(() => {
-        alert('엑셀 다운로드 중 오류가 발생했습니다.');
-      });
+      fetch('/sales/orders/excel-modal?' + params.toString())
+        .then(response => {
+          if (!response.ok) throw new Error('엑셀 다운로드 실패');
+          return response.blob();
+        })
+        .then(blob => {
+          var url = window.URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = '주문관리_검색결과.xlsx';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          window.URL.revokeObjectURL(url);
+        })
+        .catch(() => {
+          alert('엑셀 다운로드 중 오류가 발생했습니다.');
+        });
     };
   </script>
 

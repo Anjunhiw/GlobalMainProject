@@ -22,8 +22,7 @@
             p.Name AS productName,
             td.Sales AS quantity,
             td.Earning AS earning,
-            p.price AS price,
-            p.category AS category
+            p.price AS price
         FROM `transaction_details` td
         INNER JOIN product p ON td.ProductId = p.pk
         <where>
@@ -34,10 +33,7 @@
                 AND p.Name LIKE CONCAT('%', #{name}, '%')
             </if>
             <if test="outDate != null and outDate != ''">
-                AND td.Date = #{outDate}
-            </if>
-            <if test="category != null and category != ''">
-                AND p.category = #{category}
+                AND DATE_FORMAT(td.Date, '%Y-%m-%d') LIKE CONCAT('%', #{outDate}, '%')
             </if>
         </where>
         ORDER BY td.Date DESC

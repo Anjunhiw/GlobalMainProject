@@ -57,17 +57,17 @@ public class BOMController {
         return result;
     }
 
-    @PostMapping("/search")
-    public String searchBOM(@RequestBody java.util.Map<String, String> params, Model model) {
-        String code = params.getOrDefault("code", null);
-        String name = params.getOrDefault("name", null);
-        // 카테고리는 입력만 받고 실제 검색 조건에는 반영하지 않음
-        String modelCode = params.getOrDefault("model", null);
-        String materialName = params.getOrDefault("materialName", null);
-        List<BOMDTO> bomList = bomService.searchBOM(code, name, null, modelCode, materialName);
+    @GetMapping("/search")
+    public String searchBOM(@RequestParam(value = "code", required = false) String code,
+                           @RequestParam(value = "name", required = false) String name,
+                           @RequestParam(value = "category", required = false) String category,
+                           @RequestParam(value = "model", required = false) String modelCode,
+                           @RequestParam(value = "materialName", required = false) String materialName,
+                           Model model) {
+        List<BOMDTO> bomList = bomService.searchBOM(code, name, category, modelCode, materialName);
+        model.addAttribute("bomList", bomList);
         List<ProductDTO> productList = stockService.getAllProducts();
         List<MaterialDTO> materialList = stockService.getAllMaterials();
-        model.addAttribute("bomList", bomList);
         model.addAttribute("productList", productList);
         model.addAttribute("materialList", materialList);
         return "fragments/bom_search_result";

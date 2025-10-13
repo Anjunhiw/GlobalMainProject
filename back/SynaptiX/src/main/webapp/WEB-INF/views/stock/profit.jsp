@@ -17,30 +17,32 @@ request.setAttribute("active_profit", "active");
 
   <!-- 검색 폼 -->
   <form method="get" action="/profit">
+    <input type="hidden" name="page" value="${page}" />
+    <input type="hidden" name="size" value="${size}" />
     <div class="filter-smallq">
       <div class="field">
         <label for="code">품목코드</label>
-        <input type="text" id="code" name="code" placeholder="예: A-1001">
+        <input type="text" id="code" name="item_code" placeholder="예: A-1001" value="${param.item_code}" />
       </div>
       <div class="field">
         <label for="name">품목명</label>
-        <input type="text" id="name" name="name" placeholder="예: 모터">
+        <input type="text" id="name" name="item_name" placeholder="예: 모터" value="${param.item_name}" />
       </div>
       <div class="field">
         <label for="category">카테고리</label>
-		<div class="select-wrap">
-        <select id="category" name="category">
-          <option value="">전체</option>
-          <option value="제품">제품</option>
-          <option value="원자재">원자재</option>
-        </select>
+        <div class="select-wrap">
+          <select id="category" name="category">
+            <option value="" ${empty param.category ? 'selected' : ''}>전체</option>
+            <option value="제품" ${param.category == '제품' ? 'selected' : ''}>제품</option>
+            <option value="원자재" ${param.category == '원자재' ? 'selected' : ''}>원자재</option>
+          </select>
+        </div>
       </div>
-	  </div>
       <div class="btn-group">
         <button type="submit" class="btn btn-primary">조회</button>
-		<div >
-		  <button type="button" class="btn btn-success" onclick="downloadProfitExcel()">엑셀 다운로드</button>
-		</div>
+        <div>
+          <button type="button" class="btn btn-success" onclick="downloadProfitExcel()">엑셀 다운로드</button>
+        </div>
       </div>
     </div>
   </form>
@@ -93,6 +95,26 @@ request.setAttribute("active_profit", "active");
       </c:if>
     </tbody>
   </table>
+  <!-- 페이징 UI -->
+  <div class="pagination">
+    <c:set var="totalPages" value="${(totalCount / size) + (totalCount % size > 0 ? 1 : 0)}" />
+    <c:if test="${totalPages > 1}">
+      <ul class="paging-list">
+        <c:if test="${page > 0}">
+          <li><a href="?page=${page - 1}&size=${size}&item_code=${param.item_code}&item_name=${param.item_name}&category=${param.category}">이전</a></li>
+        </c:if>
+        <c:forEach var="i" begin="0" end="${totalPages - 1}">
+          <li>
+            <a href="?page=${i}&size=${size}&item_code=${param.item_code}&item_name=${param.item_name}&category=${param.category}" class="${i == page ? 'active' : ''}">${i + 1}</a>
+          </li>
+        </c:forEach>
+        <c:if test="${page < totalPages - 1}">
+          <li><a href="?page=${page + 1}&size=${size}&item_code=${param.item_code}&item_name=${param.item_name}&category=${param.category}">다음</a></li>
+        </c:if>
+      </ul>
+      <span class="paging-info">총 ${totalCount}건, ${page + 1}/${totalPages}페이지</span>
+    </c:if>
+  </div>
 
   <!-- 검색 결과 모달 -->
   <div id="resultModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" style="display:none;">
@@ -116,19 +138,13 @@ request.setAttribute("active_profit", "active");
       const item_code = document.getElementById('code').value;
       const item_name = document.getElementById('name').value;
       const category = document.getElementById('category').value;
-      const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
-      const CSRF_TOKEN  = document.querySelector('meta[name="_csrf"]').content;
       const params = new URLSearchParams();
       if (item_code) params.append('item_code', item_code);
       if (item_name) params.append('item_name', item_name);
       if (category) params.append('category', category);
-      fetch('/profit/excel', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-          [CSRF_HEADER]: CSRF_TOKEN
-        },
-        body: params.toString()
+      const url = '/profit/excel?' + params.toString();
+      fetch(url, {
+        method: 'GET'
       })
       .then(response => {
         if (!response.ok) throw new Error('엑셀 다운로드 실패');
@@ -152,19 +168,13 @@ request.setAttribute("active_profit", "active");
       const item_code = document.getElementById('code').value;
       const item_name = document.getElementById('name').value;
       const category = document.getElementById('category').value;
-      const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
-      const CSRF_TOKEN  = document.querySelector('meta[name="_csrf"]').content;
       const params = new URLSearchParams();
       if (item_code) params.append('item_code', item_code);
       if (item_name) params.append('item_name', item_name);
       if (category) params.append('category', category);
-      fetch('/profit/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-          [CSRF_HEADER]: CSRF_TOKEN
-        },
-        body: params.toString()
+      const url = '/profit/search?' + params.toString();
+      fetch(url, {
+        method: 'GET'
       })
       .then(res => res.text())
       .then(html => {
@@ -182,19 +192,13 @@ request.setAttribute("active_profit", "active");
       const item_code = document.getElementById('code').value;
       const item_name = document.getElementById('name').value;
       const category = document.getElementById('category').value;
-      const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
-      const CSRF_TOKEN  = document.querySelector('meta[name="_csrf"]').content;
       const params = new URLSearchParams();
       if (item_code) params.append('item_code', item_code);
       if (item_name) params.append('item_name', item_name);
       if (category) params.append('category', category);
-      fetch('/profit/excel-modal', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-          [CSRF_HEADER]: CSRF_TOKEN
-        },
-        body: params.toString()
+      const url = '/profit/excel-modal?' + params.toString();
+      fetch(url, {
+        method: 'GET'
       })
       .then(response => {
         if (!response.ok) throw new Error('엑셀 다운로드 실패');
@@ -232,6 +236,36 @@ request.setAttribute("active_profit", "active");
       max-height: 400px;
       overflow-y: auto;
       margin-bottom: 10px;
+    }
+    .pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .paging-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      gap: 5px;
+    }
+    .paging-list li {
+      display: inline;
+    }
+    .paging-list a {
+      text-decoration: none;
+      padding: 8px 12px;
+      border: 1px solid #007bff;
+      color: #007bff;
+      border-radius: 4px;
+    }
+    .paging-list a.active {
+      background-color: #007bff;
+      color: white;
+    }
+    .paging-info {
+      font-size: 14px;
+      color: #555;
     }
   </style>
 

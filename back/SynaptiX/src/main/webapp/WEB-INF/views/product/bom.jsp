@@ -107,13 +107,10 @@ request.setAttribute("active_bom", "active");
     const name = document.getElementById('name').value;
     const category = document.getElementById('category').value;
     const model = document.getElementById('model').value;
-    fetch('/bom/search', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        [csrfHeader]: csrfToken
-      },
-      body: JSON.stringify({ code, name, category, model })
+    const materialName = document.getElementById('model').value;
+    const params = new URLSearchParams({ code, name, category, model, materialName });
+    fetch('/bom/search?' + params.toString(), {
+      method: 'GET'
     })
     .then(res => res.text())
     .then(html => {
@@ -155,7 +152,7 @@ request.setAttribute("active_bom", "active");
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = '검색결과_BOM.xlsx';
+        a.download = 'BOM_result.xlsx';
         document.body.appendChild(a);
         a.click();
         a.remove();

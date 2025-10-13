@@ -2,6 +2,7 @@ package com.example.demo.service.stock;
 
 import com.example.demo.model.MaterialDTO;
 import com.example.demo.model.ProductDTO;
+import com.example.demo.model.PageResult;
 import com.example.demo.mapper.stock.StockMapper;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -159,5 +160,24 @@ public class StockService {
         for (int i = 0; i < headers.length; i++) sheet.autoSizeColumn(i);
         workbook.write(os);
         workbook.close();
+    }
+
+    public PageResult<MaterialDTO> getPagedMaterials(int page, int size) {
+        int offset = page * size;
+        List<MaterialDTO> materials = mapper.selectAllMaterialsPaged(offset, size);
+        int totalCount = mapper.countAllMaterials();
+        return new PageResult<>(materials, totalCount, page, size);
+    }
+    public PageResult<MaterialDTO> searchMaterialsByNamePaged(String name, int page, int size) {
+        int offset = page * size;
+        List<MaterialDTO> materials = mapper.selectMaterialsByNamePaged(name, offset, size);
+        int totalCount = mapper.countMaterialsByName(name);
+        return new PageResult<>(materials, totalCount, page, size);
+    }
+    public PageResult<ProductDTO> getPagedProducts(int page, int size) {
+        int offset = page * size;
+        List<ProductDTO> products = mapper.selectAllProductsPaged(offset, size);
+        int totalCount = mapper.countAllProducts();
+        return new PageResult<>(products, totalCount, page, size);
     }
 }

@@ -138,7 +138,7 @@ request.setAttribute("active_earning", "active");
           document.getElementById('modalResults').innerHTML = html;
           document.getElementById('searchModal').style.display = 'flex';
           // 팝업이 열릴 때마다 다운로드 버튼 이벤트 연결 (기존 이벤트 제거 후 재연결)
-          const excelBtn = document.getElementById('downloadExcelModal');
+          const excelBtn = document.getElementById('btnModalExcel');
           if (excelBtn) {
             excelBtn.onclick = null; // 기존 이벤트 제거
             excelBtn.addEventListener('click', function(e) {
@@ -148,23 +148,13 @@ request.setAttribute("active_earning", "active");
               var qc = document.getElementById('qc').value;
               var startDate = document.getElementById('startDate').value;
               var endDate = document.getElementById('endDate').value;
-              var csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
-              var headers = {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                'X-CSRF-TOKEN': csrfToken
-              };
               var params = new URLSearchParams();
               if (prodCode) params.append('prodCode', prodCode);
               if (prodName) params.append('prodName', prodName);
               if (qc) params.append('qc', qc);
               if (startDate) params.append('startDate', startDate);
               if (endDate) params.append('endDate', endDate);
-              if (csrfToken) params.append('_csrf', csrfToken);
-              fetch('/sales/earning/excel-modal', {
-                method: 'POST',
-                headers: headers,
-                body: params.toString()
-              })
+              fetch('/sales/earning/excel-modal?' + params.toString())
               .then(response => {
                 if (!response.ok) throw new Error('엑셀 다운로드 실패');
                 return response.blob();
@@ -173,7 +163,7 @@ request.setAttribute("active_earning", "active");
                 var url = window.URL.createObjectURL(blob);
                 var a = document.createElement('a');
                 a.href = url;
-                a.download = '매출_검색결과.csv';
+                a.download = '매출_검색결과.xlsx';
                 document.body.appendChild(a);
                 a.click();
                 a.remove();

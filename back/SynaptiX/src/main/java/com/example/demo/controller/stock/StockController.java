@@ -2,6 +2,7 @@
 package com.example.demo.controller.stock;
 
 import com.example.demo.model.MaterialDTO;
+import com.example.demo.model.PageResult;
 import com.example.demo.model.ProductDTO;
 import com.example.demo.service.stock.StockService;
 import org.apache.poi.ss.usermodel.*;
@@ -30,41 +31,16 @@ public class StockController {
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "model", required = false) String model,
             @RequestParam(value = "category", required = false) String category,
+            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "15") int size,
             Model mv
     ) {
-        List<MaterialDTO> materials;
-        List<ProductDTO> products;
-
-        boolean filtered = (code != null && !code.isBlank())
-                || (name != null && !name.isBlank())
-                || (model != null && !model.isBlank())
-                || (category != null && !category.isBlank());
-
-        if (!filtered) {
-            materials = service.getAllMaterials();
-            products  = service.getAllProducts();
-        } else {
-            if ("원자재".equals(category)) {
-                materials = service.searchMaterialsByName(name == null ? "" : name);
-                products  = List.of();
-            } else if ("제품".equals(category)) {
-                products  = service.searchProductsByName(name == null ? "" : name);
-                materials = List.of();
-            } else {
-                materials = service.searchMaterialsByName(name == null ? "" : name);
-                products  = service.searchProductsByName(name == null ? "" : name);
-            }
-        }
-
-        mv.addAttribute("materials", materials);
-        mv.addAttribute("products", products);
-        mv.addAttribute("q_code", code);
-        mv.addAttribute("q_name", name);
-        mv.addAttribute("q_model", model);
-        mv.addAttribute("q_category", category);
-        mv.addAttribute("active_stock", "active");
-
-        return "stock/StockList";
+        PageResult<com.example.demo.model.MaterialDTO> materialPage = service.getPagedMaterials(page, size);
+        mv.addAttribute("materials", materialPage.getContent());
+        mv.addAttribute("totalCount", materialPage.getTotalCount());
+        mv.addAttribute("page", materialPage.getPage());
+        mv.addAttribute("size", materialPage.getSize());
+        return "stock/MaterialStockList";
     }
 
     // 수정 폼 이동
@@ -279,10 +255,15 @@ public class StockController {
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "specification", required = false) String specification,
             @RequestParam(value = "unit", required = false) String unit,
+            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "15") int size,
             Model mv
     ) {
-        List<MaterialDTO> materials = service.searchMaterials(code, name, null, "원자재");
-        mv.addAttribute("materials", materials);
+        PageResult<MaterialDTO> materialPage = service.getPagedMaterials(page, size);
+        mv.addAttribute("materials", materialPage.getContent());
+        mv.addAttribute("totalCount", materialPage.getTotalCount());
+        mv.addAttribute("page", materialPage.getPage());
+        mv.addAttribute("size", materialPage.getSize());
         mv.addAttribute("q_code", code);
         mv.addAttribute("q_name", name);
         mv.addAttribute("q_specification", specification);
@@ -298,11 +279,15 @@ public class StockController {
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "model", required = false) String model,
             @RequestParam(value = "specification", required = false) String specification,
+            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "15") int size,
             Model mv
     ) {
-        // category를 null로 넘겨 전체 조회
-        List<ProductDTO> products = service.searchProducts(code, name, model, null);
-        mv.addAttribute("products", products);
+        PageResult<ProductDTO> productPage = service.getPagedProducts(page, size);
+        mv.addAttribute("products", productPage.getContent());
+        mv.addAttribute("totalCount", productPage.getTotalCount());
+        mv.addAttribute("page", productPage.getPage());
+        mv.addAttribute("size", productPage.getSize());
         mv.addAttribute("q_code", code);
         mv.addAttribute("q_name", name);
         mv.addAttribute("q_model", model);

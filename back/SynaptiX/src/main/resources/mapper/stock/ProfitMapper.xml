@@ -37,4 +37,50 @@
             -->
         </where>
     </select>
+
+    <select id="selectProfitListPaged" resultType="map">
+        SELECT
+            CONCAT('prod2025', p.pk) AS code,
+            p.Name AS name,
+            td.Sales AS salesQty,
+            p.Price AS salesPrice,
+            td.Earning AS salesAmount,
+            m.Price AS costPrice,
+            pu.Cost AS costAmount,
+            (p.Price - m.Price) AS profitUnit,
+            (td.Earning - pu.Cost) AS profitAmount,
+            CASE WHEN td.Earning = 0 THEN 0
+                 ELSE ROUND((td.Earning - pu.Cost) / td.Earning * 100, 2)
+            END AS profitRate
+        FROM transaction_details td
+        JOIN purchase pu ON td.Date = pu.Date
+        JOIN product p ON td.ProductId = p.pk
+        JOIN material m ON pu.MaterialId = m.pk
+        <where>
+            <if test="itemCode != null and itemCode != ''">
+                AND CONCAT('prod2025', p.pk) LIKE CONCAT('%', #{itemCode}, '%')
+            </if>
+            <if test="itemName != null and itemName != ''">
+                AND p.Name LIKE CONCAT('%', #{itemName}, '%')
+            </if>
+        </where>
+        ORDER BY td.Date DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="countProfitList" resultType="int">
+        SELECT COUNT(*)
+        FROM transaction_details td
+        JOIN purchase pu ON td.Date = pu.Date
+        JOIN product p ON td.ProductId = p.pk
+        JOIN material m ON pu.MaterialId = m.pk
+        <where>
+            <if test="itemCode != null and itemCode != ''">
+                AND CONCAT('prod2025', p.pk) LIKE CONCAT('%', #{itemCode}, '%')
+            </if>
+            <if test="itemName != null and itemName != ''">
+                AND p.Name LIKE CONCAT('%', #{itemName}, '%')
+            </if>
+        </where>
+    </select>
 </mapper>

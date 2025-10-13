@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,17 +29,20 @@ public class SalesController {
         return "sales/Sales";
     }
 
-    @GetMapping("/sales/outbound")
+    @GetMapping("/sales/search")
     public String searchSales(
             @RequestParam(required = false) String code,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String outDate,
-            @RequestParam(required = false) String category,
             Model model,
             HttpServletRequest request
     ) {
-        List<Sales> salesList = salesService.searchSales(code, name, outDate, category);
+        List<Sales> salesList = salesService.searchSales(code, name, outDate);
         model.addAttribute("salesList", salesList);
+        // 오늘 날짜(today) 추가
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        String today = sdf.format(new java.util.Date());
+        model.addAttribute("today", today);
         // AJAX 요청이면 fragment만 반환
         if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
             return "sales/SalesModalResult";
@@ -74,15 +78,14 @@ public class SalesController {
         workbook.close();
     }
 
-    @PostMapping("/sales/excel-modal")
+    @GetMapping("/sales/excel-modal")
     public void downloadSalesExcelModal(
             @RequestParam(required = false) String code,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String outDate,
-            @RequestParam(required = false) String category,
             HttpServletResponse response
     ) throws IOException {
-        List<Sales> salesList = salesService.searchSales(code, name, outDate, category);
+        List<Sales> salesList = salesService.searchSales(code, name, outDate);
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("판매출고검색결과");
         int rowIdx = 0;
@@ -105,6 +108,16 @@ public class SalesController {
         response.setHeader("Content-Disposition", "attachment; filename=판매출고_검색결과.xlsx");
         workbook.write(response.getOutputStream());
         workbook.close();
+    }
+
+    @GetMapping("/sales/search/json")
+    @ResponseBody
+    public List<Sales> searchSalesJson(
+            @RequestParam(required = false) String code,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String outDate
+    ) {
+        return salesService.searchSales(code, name, outDate);
     }
 
     // 숫자 여부 체크 유틸

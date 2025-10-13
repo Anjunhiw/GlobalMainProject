@@ -5,7 +5,6 @@ import com.example.demo.service.product.MPSService;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -62,7 +61,7 @@ public class MPSController {
         return "product/MpsSearchResult";
     }
 
-    @PostMapping("/excel-modal")
+    @GetMapping("/excel-modal")
     public void downloadExcelFromModal(@RequestParam(value = "prodCode", required = false) String prodCode,
                                        @RequestParam(value = "prodName", required = false) String prodName,
                                        HttpServletResponse response) throws IOException {

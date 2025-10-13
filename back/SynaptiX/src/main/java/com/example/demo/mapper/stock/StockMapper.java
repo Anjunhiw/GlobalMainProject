@@ -21,4 +21,10 @@ public interface StockMapper {
     void deleteProduct(int pk);
     void insertMaterial(com.example.demo.model.MaterialDTO dto);
     void insertProduct(com.example.demo.model.ProductDTO dto);
+    List<MaterialDTO> selectAllMaterialsPaged(int offset, int limit);
+    int countAllMaterials();
+    List<MaterialDTO> selectMaterialsByNamePaged(String name, int offset, int limit);
+    int countMaterialsByName(String name);
+    List<ProductDTO> selectAllProductsPaged(int offset, int limit);
+    int countAllProducts();
 }

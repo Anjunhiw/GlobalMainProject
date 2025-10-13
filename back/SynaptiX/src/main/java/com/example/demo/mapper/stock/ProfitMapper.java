@@ -7,4 +7,6 @@ import java.util.Map;
 @Mapper
 public interface ProfitMapper {
     List<Map<String, Object>> selectProfitList(String itemCode, String itemName, String category);
+    List<Map<String, Object>> selectProfitListPaged(String itemCode, String itemName, String category, int offset, int limit);
+    int countProfitList(String itemCode, String itemName, String category);
 }

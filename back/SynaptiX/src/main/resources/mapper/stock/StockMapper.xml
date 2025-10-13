@@ -92,4 +92,32 @@
         INSERT INTO product (Category, Name, Model, Specification, Price, Stock, Amount)
         VALUES (#{category}, #{name}, #{model}, #{specification}, #{price}, #{stock}, #{amount})
     </insert>
+    <select id="selectAllMaterialsPaged" resultType="com.example.demo.model.MaterialDTO">
+        SELECT pk, Category AS category, Name AS name, Specification AS specification, Unit AS unit, Price AS price, Stock AS stock, Amount AS amount
+        FROM material
+        ORDER BY pk DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+    <select id="countAllMaterials" resultType="int">
+        SELECT COUNT(*) FROM material
+    </select>
+    <select id="selectMaterialsByNamePaged" resultType="com.example.demo.model.MaterialDTO">
+        SELECT pk, Category AS category, Name AS name, Specification AS specification, Unit AS unit, Price AS price, Stock AS stock, Amount AS amount
+        FROM material
+        WHERE Name LIKE CONCAT('%', #{name}, '%')
+        ORDER BY pk DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+    <select id="countMaterialsByName" resultType="int">
+        SELECT COUNT(*) FROM material WHERE Name LIKE CONCAT('%', #{name}, '%')
+    </select>
+    <select id="selectAllProductsPaged" resultType="com.example.demo.model.ProductDTO">
+        SELECT pk, Category AS category, Name AS name, Model AS model, Specification AS specification, Price AS price, Stock AS stock, Amount AS amount
+        FROM product
+        ORDER BY pk DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+    <select id="countAllProducts" resultType="int">
+        SELECT COUNT(*) FROM product
+    </select>
 </mapper>

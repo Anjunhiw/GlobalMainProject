@@ -74,13 +74,12 @@ public class QCController {
         workbook.close();
     }
 
-    @PostMapping("/excel-modal")
-    public void downloadExcelFromModal(@RequestBody java.util.Map<String, String> params,
+    @GetMapping("/excel-modal")
+    public void downloadExcelFromModal(@RequestParam(value = "dateFrom", required = false) String dateFrom,
+                                       @RequestParam(value = "dateTo", required = false) String dateTo,
+                                       @RequestParam(value = "prodName", required = false) String prodName,
+                                       @RequestParam(value = "category", required = false) String category,
                                        HttpServletResponse response) throws IOException {
-        String dateFrom = params.get("dateFrom");
-        String dateTo = params.get("dateTo");
-        String prodName = params.get("prodName");
-        String category = params.get("category");
         java.util.List<QCDTO> list = qcService.searchQC(dateFrom, dateTo, prodName, category);
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("QC검색결과");

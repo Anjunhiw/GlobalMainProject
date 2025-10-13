@@ -239,23 +239,16 @@ request.setAttribute("active_mps", "active");
         .catch(() => alert('수정 중 오류 발생'));
       };
       // 조회 모달 엑셀 다운로드
-      document.getElementById('downloadExcelModal').onclick = function() {
+      document.getElementById('btnModalExcel').onclick = function() {
         var prodCode = document.getElementById('prodCode').value;
         var prodName = document.getElementById('prodName').value;
         var params = new URLSearchParams();
         if (prodCode) params.append('prodCode', prodCode);
         if (prodName) params.append('prodName', prodName);
-        // CSRF 토큰 추가
-        var csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content;
-        var csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
-        var headers = {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        };
-        if (csrfHeader && csrfToken) headers[csrfHeader] = csrfToken;
-        fetch('/mps/excel-modal', {
-          method: 'POST',
-          headers: headers,
-          body: params.toString()
+        var url = '/mps/excel-modal';
+        if (params.toString()) url += '?' + params.toString();
+        fetch(url, {
+          method: 'GET'
         })
         .then(response => {
           if (!response.ok) throw new Error('엑셀 다운로드 실패');
@@ -277,7 +270,9 @@ request.setAttribute("active_mps", "active");
       };
       // 전체 리스트 엑셀 다운로드
       document.getElementById('downloadExcel').onclick = function() {
-        fetch('/mps/excel')
+        fetch('/mps/excel', {
+          method: 'GET'
+        })
           .then(response => {
             if (!response.ok) throw new Error('엑셀 다운로드 실패');
             return response.blob();

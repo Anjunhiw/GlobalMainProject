@@ -25,13 +25,20 @@ public class ProfitController {
         @RequestParam(value = "item_code", required = false) String itemCode,
         @RequestParam(value = "item_name", required = false) String itemName,
         @RequestParam(value = "category", required = false) String category,
+        @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+        @RequestParam(value = "size", required = false, defaultValue = "10") int size,
         Model model) {
-        List<Map<String, Object>> profitList = profitMapper.selectProfitList(itemCode, itemName, category);
+        int offset = page * size;
+        List<Map<String, Object>> profitList = profitMapper.selectProfitListPaged(itemCode, itemName, category, offset, size);
+        int totalCount = profitMapper.countProfitList(itemCode, itemName, category);
         model.addAttribute("profitList", profitList);
+        model.addAttribute("totalCount", totalCount);
+        model.addAttribute("page", page);
+        model.addAttribute("size", size);
         return "stock/profit";
     }
 
-    @PostMapping("/profit/excel")
+    @GetMapping("/profit/excel")
     public void downloadProfitExcel(
         @RequestParam(value = "item_code", required = false) String itemCode,
         @RequestParam(value = "item_name", required = false) String itemName,
@@ -65,7 +72,7 @@ public class ProfitController {
         workbook.close();
     }
 
-    @PostMapping("/profit/search")
+    @GetMapping("/profit/search")
     public String searchProfit(
         @RequestParam(value = "item_code", required = false) String itemCode,
         @RequestParam(value = "item_name", required = false) String itemName,
@@ -73,11 +80,12 @@ public class ProfitController {
         Model model
     ) {
         List<Map<String, Object>> profitList = profitMapper.selectProfitList(itemCode, itemName, category);
+        System.out.println("[DEBUG] profitList size: " + (profitList != null ? profitList.size() : "null"));
         model.addAttribute("profitList", profitList);
         return "stock/ProfitSearchResult";
     }
 
-    @PostMapping("/profit/excel-modal")
+    @GetMapping("/profit/excel-modal")
     public void downloadExcelFromModal(
         @RequestParam(value = "item_code", required = false) String itemCode,
         @RequestParam(value = "item_name", required = false) String itemName,

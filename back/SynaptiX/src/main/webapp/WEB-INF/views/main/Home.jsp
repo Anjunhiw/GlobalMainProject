@@ -156,7 +156,7 @@ function makeBarLineChart(canvas, labels, barData, lineData, yTitle){
 }
 
 // 2022, 2023년 분기별 매출총이익 DART API에서 받아와 차트에 반영 (누적값 → 실제 분기값, 전년 대비 증감률 포함)
-(function(){
+<!--(function(){
   const quarters = [
     { code: "11013", name: "1분기" },
     { code: "11012", name: "2분기" },
@@ -293,9 +293,10 @@ function makeBarLineChart(canvas, labels, barData, lineData, yTitle){
     );
   });
 })();
+-->
 
 // DART API 데이터 프론트 콘솔 출력 (2019~2023 각 분기별 매출총이익, 정렬된 순서로 출력)
-function fetchDartData(bsnsYear, reprtCode, quarterName) {
+<!--function fetchDartData(bsnsYear, reprtCode, quarterName) {
   let url = '/home/dart/data?bsnsYear=' + bsnsYear + '&reprtCode=' + reprtCode;
   return fetch(url)
     .then(res => res.json())
@@ -325,10 +326,10 @@ function fetchDartData(bsnsYear, reprtCode, quarterName) {
         error: err
       };
     });
-}
+}-->
 
 // 2019~2023년 각 분기 반복 호출, 결과 정렬 후 출력
-(function(){
+<!--(function(){
   const quarters = [
     { code: "11013", name: "1분기" },
     { code: "11012", name: "2분기" },
@@ -357,7 +358,7 @@ function fetchDartData(bsnsYear, reprtCode, quarterName) {
       }
     });
   });
-})();
+})();-->
 </script>
 
 

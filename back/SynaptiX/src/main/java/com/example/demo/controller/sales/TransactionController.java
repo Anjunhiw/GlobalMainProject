@@ -74,7 +74,7 @@ public class TransactionController {
         workbook.close();
     }
 
-    @PostMapping("/transaction/excel-modal")
+    @GetMapping("/transaction/excel-modal")
     public void downloadTransactionExcelModal(
             @RequestParam(required = false) String prodCode,
             @RequestParam(required = false) String prodName,

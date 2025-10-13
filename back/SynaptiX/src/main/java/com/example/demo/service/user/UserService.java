@@ -89,4 +89,31 @@ public class UserService {
 //        }
     }
 
+    /**
+     * Change password for a user. Returns null if success, or error message if failed.
+     */
+    public String changePassword(String userId, String currentPassword, String newPassword, String confirmPassword) {
+        UserDTO user = userMapper.findByUserId(userId);
+        if (user == null) {
+            return "User not found.";
+        }
+        // Check current password
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            return "Current password is incorrect.";
+        }
+        // Validate new password
+        if (newPassword == null || newPassword.length() < 8) {
+            return "New password must be at least 8 characters.";
+        }
+        if (!newPassword.equals(confirmPassword)) {
+            return "New password and confirmation do not match.";
+        }
+        // Optionally add more password policy checks here
+        // Update password
+        boolean updated = updatePassword(userId, newPassword);
+        if (!updated) {
+            return "Failed to update password.";
+        }
+        return null; // Success
+    }
 }

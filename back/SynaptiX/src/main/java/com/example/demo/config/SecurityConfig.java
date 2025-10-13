@@ -31,7 +31,7 @@ public class SecurityConfig {
         http
             .authorizeRequests()
                 // 공개 페이지 모두 허용
-                .antMatchers("/login", "/register", "/findId", "/findPassword", "/home", "/home/**", "/mypage", "/mypage/**", "/css/**", "/js/**", "/images/**").permitAll()
+                .antMatchers("/login", "/register", "/findId", "/findPassword", "/useredit", "/home", "/home/**", "/mypage", "/mypage/**", "/css/**", "/js/**", "/images/**").permitAll()
                 // GET 요청은 모두 인증된 사용자에게 허용
                 .antMatchers(HttpMethod.GET, "/**").authenticated()
                 // POST 요청은 부서/직급별로 제한

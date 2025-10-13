@@ -1,119 +1,167 @@
-period,scope,segment,metric,value,unit,source
-2023Q1,segment,Harman,op_profit,0.13,조원,IR_PDF
-2023Q1,segment,Harman,revenue,3.17,조원,IR_PDF
-2023Q1,segment,MX,revenue,30.74,조원,IR_PDF
-2023Q1,segment,MX_NW,op_profit,3.94,조원,IR_PDF
-2023Q1,segment,MX_NW,revenue,31.82,조원,IR_PDF
-2023Q1,segment,Memory,revenue,8.92,조원,IR_PDF
-2023Q1,segment,SDC,op_profit,0.78,조원,IR_PDF
-2023Q1,segment,SDC,revenue,6.61,조원,IR_PDF
-2023Q1,segment,VD,revenue,7.43,조원,IR_PDF
-2023Q1,segment,consolidated_total,op_profit,0.64,조원,IR_PDF
-2023Q1,segment,consolidated_total,revenue,63.75,조원,IR_PDF
-2023Q2,segment,Harman,op_profit,0.25,조원,IR_PDF
-2023Q2,segment,Harman,revenue,3.5,조원,IR_PDF
-2023Q2,segment,MX,revenue,24.61,조원,IR_PDF
-2023Q2,segment,Memory,revenue,8.97,조원,IR_PDF
-2023Q2,segment,SDC,op_profit,0.84,조원,IR_PDF
-2023Q2,segment,SDC,revenue,6.48,조원,IR_PDF
-2023Q2,segment,VD,revenue,7.25,조원,IR_PDF
-2023Q2,segment,VD_DA,op_profit,0.74,조원,IR_PDF
-2023Q2,segment,VD_DA,revenue,14.39,조원,IR_PDF
-2023Q2,segment,consolidated_total,op_profit,0.67,조원,IR_PDF
-2023Q2,segment,consolidated_total,revenue,60.01,조원,IR_PDF
-2023Q3,segment,Harman,op_profit,0.45,조원,IR_PDF
-2023Q3,segment,Harman,revenue,3.8,조원,IR_PDF
-2023Q3,segment,MX,revenue,29.25,조원,IR_PDF
-2023Q3,segment,Memory,revenue,10.53,조원,IR_PDF
-2023Q3,segment,SDC,op_profit,1.94,조원,IR_PDF
-2023Q3,segment,SDC,revenue,8.22,조원,IR_PDF
-2023Q3,segment,VD,revenue,7.32,조원,IR_PDF
-2023Q3,segment,VD_DA,op_profit,0.38,조원,IR_PDF
-2023Q3,segment,VD_DA,revenue,13.71,조원,IR_PDF
-2023Q3,segment,consolidated_total,op_profit,2.43,조원,IR_PDF
-2023Q3,segment,consolidated_total,revenue,67.4,조원,IR_PDF
-2023Q4,segment,DS,revenue,21.7,조원,IR_PDF
-2023Q4,segment,DX,op_profit,2.6,조원,IR_PDF
-2023Q4,segment,DX,revenue,39.5,조원,IR_PDF
-2023Q4,segment,Harman,op_profit,0.3,조원,IR_PDF
-2023Q4,segment,Harman,revenue,3.9,조원,IR_PDF
-2023Q4,segment,MX,revenue,24.0,조원,IR_PDF
-2023Q4,segment,MX_NW,op_profit,2.7,조원,IR_PDF
-2023Q4,segment,MX_NW,revenue,25.0,조원,IR_PDF
-2023Q4,segment,Memory,revenue,15.7,조원,IR_PDF
-2023Q4,segment,SDC,op_profit,2.0,조원,IR_PDF
-2023Q4,segment,SDC,revenue,9.7,조원,IR_PDF
-2023Q4,segment,VD,revenue,8.4,조원,IR_PDF
-2023Q4,segment,VD_DA,revenue,14.3,조원,IR_PDF
-2023Q4,segment,consolidated_total,op_profit,2.8,조원,IR_PDF
-2023Q4,segment,consolidated_total,revenue,67.8,조원,IR_PDF
-2023Y,segment,DS,revenue,3.0,조원,IR_PDF
-2023Y,segment,DX,op_profit,1.1,조원,IR_PDF
-2023Y,segment,DX,revenue,10.0,조원,IR_PDF
-2023Y,segment,Harman,op_profit,0.04,조원,IR_PDF
-2023Y,segment,Harman,revenue,11.0,조원,IR_PDF
-2023Y,segment,MX,revenue,17.0,조원,IR_PDF
-2023Y,segment,MX_NW,op_profit,0.7,조원,IR_PDF
-2023Y,segment,MX_NW,revenue,15.0,조원,IR_PDF
-2023Y,segment,Memory,revenue,3.0,조원,IR_PDF
-2023Y,segment,SDC,op_profit,0.6,조원,IR_PDF
-2023Y,segment,SDC,revenue,2.0,조원,IR_PDF
-2023Y,segment,VD,revenue,13.0,조원,IR_PDF
-2023Y,segment,VD_DA,revenue,2.0,조원,IR_PDF
-2023Y,segment,consolidated_total,op_profit,2.7,조원,IR_PDF
-2023Y,segment,consolidated_total,revenue,4.0,조원,IR_PDF
-2024Q1,segment,Harman,op_profit,0.24,조원,IR_PDF
-2024Q1,segment,Harman,revenue,3.2,조원,IR_PDF
-2024Q1,segment,MX,revenue,32.79,조원,IR_PDF
-2024Q1,segment,MX_NW,op_profit,3.51,조원,IR_PDF
-2024Q1,segment,MX_NW,revenue,33.53,조원,IR_PDF
-2024Q1,segment,Memory,revenue,17.49,조원,IR_PDF
-2024Q1,segment,SDC,op_profit,0.34,조원,IR_PDF
-2024Q1,segment,SDC,revenue,5.39,조원,IR_PDF
-2024Q1,segment,VD,revenue,7.23,조원,IR_PDF
-2024Q1,segment,VD_DA,op_profit,0.53,조원,IR_PDF
-2024Q1,segment,VD_DA,revenue,13.48,조원,IR_PDF
-2024Q1,segment,consolidated_total,op_profit,6.61,조원,IR_PDF
-2024Q1,segment,consolidated_total,revenue,71.92,조원,IR_PDF
-2024Q2,segment,Harman,op_profit,0.32,조원,IR_PDF
-2024Q2,segment,Harman,revenue,3.62,조원,IR_PDF
-2024Q2,segment,MX,revenue,26.64,조원,IR_PDF
-2024Q2,segment,Memory,revenue,21.74,조원,IR_PDF
-2024Q2,segment,SDC,op_profit,1.01,조원,IR_PDF
-2024Q2,segment,SDC,revenue,7.65,조원,IR_PDF
-2024Q2,segment,VD,revenue,7.54,조원,IR_PDF
-2024Q2,segment,VD_DA,op_profit,0.49,조원,IR_PDF
-2024Q2,segment,VD_DA,revenue,14.42,조원,IR_PDF
-2024Q2,segment,consolidated_total,op_profit,10.44,조원,IR_PDF
-2024Q2,segment,consolidated_total,revenue,74.07,조원,IR_PDF
-2024Q3,segment,DS,revenue,29.3,조원,IR_PDF
-2024Q3,segment,DX,op_profit,3.4,조원,IR_PDF
-2024Q3,segment,DX,revenue,45.0,조원,IR_PDF
-2024Q3,segment,Harman,op_profit,0.4,조원,IR_PDF
-2024Q3,segment,Harman,revenue,3.5,조원,IR_PDF
-2024Q3,segment,MX,revenue,30.0,조원,IR_PDF
-2024Q3,segment,MX_NW,op_profit,2.8,조원,IR_PDF
-2024Q3,segment,MX_NW,revenue,30.5,조원,IR_PDF
-2024Q3,segment,Memory,revenue,22.3,조원,IR_PDF
-2024Q3,segment,SDC,op_profit,1.5,조원,IR_PDF
-2024Q3,segment,SDC,revenue,8.0,조원,IR_PDF
-2024Q3,segment,VD,revenue,7.6,조원,IR_PDF
-2024Q3,segment,VD_DA,op_profit,0.53,조원,IR_PDF
-2024Q3,segment,VD_DA,revenue,14.1,조원,IR_PDF
-2024Q3,segment,consolidated_total,op_profit,9.2,조원,IR_PDF
-2024Q3,segment,consolidated_total,revenue,79.1,조원,IR_PDF
-2024Q4,segment,DS,revenue,30.1,조원,IR_PDF
-2024Q4,segment,DX,op_profit,2.3,조원,IR_PDF
-2024Q4,segment,DX,revenue,40.5,조원,IR_PDF
-2024Q4,segment,Harman,op_profit,0.4,조원,IR_PDF
-2024Q4,segment,Harman,revenue,3.9,조원,IR_PDF
-2024Q4,segment,MX,revenue,25.0,조원,IR_PDF
-2024Q4,segment,MX_NW,op_profit,2.1,조원,IR_PDF
-2024Q4,segment,MX_NW,revenue,25.8,조원,IR_PDF
-2024Q4,segment,Memory,revenue,23.0,조원,IR_PDF
-2024Q4,segment,SDC,op_profit,0.9,조원,IR_PDF
-2024Q4,segment,SDC,revenue,8.1,조원,IR_PDF
-2024Q4,segment,VD,revenue,8.6,조원,IR_PDF
-2024Q4,segment,VD_DA,revenue,14.4,조원,IR_PDF
-2024Q4,segment,consolidated_total,op_profit,6.5,조원,IR_PDF
-2024Q4,segment,consolidated_total,revenue,75.8,조원,IR_PDF
+period,segment_code,segment_name_en,lineage_group,metric,value,scope,unit,source
+2023FY,DS,Device Solutions,Semiconductor,op_profit,1.0,segment,조원,IR_PDF
+2023FY,DX,Device eXperience,Consumer&Mobile,op_profit,1.1,segment,조원,IR_PDF
+2023FY,DX,Device eXperience,Consumer&Mobile,revenue,10.0,segment,조원,IR_PDF
+2023FY,Harman,Harman,Harman,op_profit,0.04,segment,조원,IR_PDF
+2023FY,Harman,Harman,Harman,revenue,11.0,segment,조원,IR_PDF
+2023FY,MX,Mobile eXperience,Consumer&Mobile,revenue,17.0,segment,조원,IR_PDF
+2023FY,MX_NW,MX & Network,Consumer&Mobile,op_profit,0.7,segment,조원,IR_PDF
+2023FY,MX_NW,MX & Network,Consumer&Mobile,revenue,15.0,segment,조원,IR_PDF
+2023FY,Memory,Memory,Semiconductor,revenue,3.0,segment,조원,IR_PDF
+2023FY,SDC,Samsung Display,Display,op_profit,0.6,segment,조원,IR_PDF
+2023FY,SDC,Samsung Display,Display,revenue,2.0,segment,조원,IR_PDF
+2023FY,Total,Total,Total,op_profit,2.7,segment,조원,IR_PDF
+2023FY,Total,Total,Total,revenue,4.0,segment,조원,IR_PDF
+2023FY,VD,Visual Display,Consumer&Mobile,revenue,13.0,segment,조원,IR_PDF
+2023FY,VD_DA,VD & DA,Consumer&Mobile,op_profit,0.4,segment,조원,IR_PDF
+2023FY,VD_DA,VD & DA,Consumer&Mobile,revenue,2.0,segment,조원,IR_PDF
+2023Q1,DS,Device Solutions,Semiconductor,op_profit,-4.58,segment,조원,IR_PDF
+2023Q1,DS,Device Solutions,Semiconductor,revenue,13.73,segment,조원,IR_PDF
+2023Q1,DX,Device eXperience,Consumer&Mobile,op_profit,4.21,segment,조원,IR_PDF
+2023Q1,DX,Device eXperience,Consumer&Mobile,revenue,46.22,segment,조원,IR_PDF
+2023Q1,Harman,Harman,Harman,op_profit,0.13,segment,조원,IR_PDF
+2023Q1,Harman,Harman,Harman,revenue,3.17,segment,조원,IR_PDF
+2023Q1,MX,Mobile eXperience,Consumer&Mobile,revenue,30.74,segment,조원,IR_PDF
+2023Q1,MX_NW,MX & Network,Consumer&Mobile,op_profit,3.94,segment,조원,IR_PDF
+2023Q1,MX_NW,MX & Network,Consumer&Mobile,revenue,31.82,segment,조원,IR_PDF
+2023Q1,Memory,Memory,Semiconductor,revenue,8.92,segment,조원,IR_PDF
+2023Q1,SDC,Samsung Display,Display,op_profit,0.78,segment,조원,IR_PDF
+2023Q1,SDC,Samsung Display,Display,revenue,6.61,segment,조원,IR_PDF
+2023Q1,Total,Total,Total,op_profit,0.64,segment,조원,IR_PDF
+2023Q1,Total,Total,Total,revenue,63.75,segment,조원,IR_PDF
+2023Q1,VD,Visual Display,Consumer&Mobile,revenue,7.43,segment,조원,IR_PDF
+2023Q1,VD_DA,VD & Home Appliances,Consumer&Mobile,op_profit,0.19,segment,조원,IR_PDF
+2023Q1,VD_DA,VD & Home Appliances,Consumer&Mobile,revenue,14.08,segment,조원,IR_PDF
+2023Q2,DS,Device Solutions,Semiconductor,op_profit,-4.36,segment,조원,IR_PDF
+2023Q2,DS,Device Solutions,Semiconductor,revenue,14.73,segment,조원,IR_PDF
+2023Q2,DX,Device eXperience,Consumer&Mobile,op_profit,3.83,segment,조원,IR_PDF
+2023Q2,DX,Device eXperience,Consumer&Mobile,revenue,40.21,segment,조원,IR_PDF
+2023Q2,Harman,Harman,Harman,op_profit,0.25,segment,조원,IR_PDF
+2023Q2,Harman,Harman,Harman,revenue,3.5,segment,조원,IR_PDF
+2023Q2,MX,Mobile eXperience,Consumer&Mobile,op_profit,3.04,segment,조원,IR_PDF
+2023Q2,MX,Mobile eXperience,Consumer&Mobile,revenue,24.61,segment,조원,IR_PDF
+2023Q2,Memory,Memory,Semiconductor,revenue,8.97,segment,조원,IR_PDF
+2023Q2,SDC,Samsung Display,Display,op_profit,0.84,segment,조원,IR_PDF
+2023Q2,SDC,Samsung Display,Display,revenue,6.48,segment,조원,IR_PDF
+2023Q2,Total,Total,Total,op_profit,0.67,segment,조원,IR_PDF
+2023Q2,Total,Total,Total,revenue,60.01,segment,조원,IR_PDF
+2023Q2,VD,Visual Display,Consumer&Mobile,revenue,7.25,segment,조원,IR_PDF
+2023Q2,VD_DA,VD & DA,Consumer&Mobile,op_profit,0.74,segment,조원,IR_PDF
+2023Q2,VD_DA,VD & DA,Consumer&Mobile,revenue,14.39,segment,조원,IR_PDF
+2023Q3,DS,Device Solutions,Semiconductor,op_profit,-3.75,segment,조원,IR_PDF
+2023Q3,DS,Device Solutions,Semiconductor,revenue,16.44,segment,조원,IR_PDF
+2023Q3,DX,Device eXperience,Consumer&Mobile,op_profit,3.73,segment,조원,IR_PDF
+2023Q3,DX,Device eXperience,Consumer&Mobile,revenue,44.02,segment,조원,IR_PDF
+2023Q3,Harman,Harman,Harman,op_profit,0.45,segment,조원,IR_PDF
+2023Q3,Harman,Harman,Harman,revenue,3.8,segment,조원,IR_PDF
+2023Q3,MX,Mobile eXperience,Consumer&Mobile,op_profit,3.3,segment,조원,IR_PDF
+2023Q3,MX,Mobile eXperience,Consumer&Mobile,revenue,29.25,segment,조원,IR_PDF
+2023Q3,Memory,Memory,Semiconductor,revenue,10.53,segment,조원,IR_PDF
+2023Q3,SDC,Samsung Display,Display,op_profit,1.94,segment,조원,IR_PDF
+2023Q3,SDC,Samsung Display,Display,revenue,8.22,segment,조원,IR_PDF
+2023Q3,Total,Total,Total,op_profit,2.43,segment,조원,IR_PDF
+2023Q3,Total,Total,Total,revenue,67.4,segment,조원,IR_PDF
+2023Q3,VD,Visual Display,Consumer&Mobile,revenue,7.32,segment,조원,IR_PDF
+2023Q3,VD_DA,VD & DA,Consumer&Mobile,op_profit,0.38,segment,조원,IR_PDF
+2023Q3,VD_DA,VD & DA,Consumer&Mobile,revenue,13.71,segment,조원,IR_PDF
+2023Q4,DS,Device Solutions,Semiconductor,op_profit,-2.2,segment,조원,IR_PDF
+2023Q4,DS,Device Solutions,Semiconductor,revenue,21.69,segment,조원,IR_PDF
+2023Q4,DX,Device eXperience,Consumer&Mobile,op_profit,2.6,segment,조원,IR_PDF
+2023Q4,DX,Device eXperience,Consumer&Mobile,revenue,39.5,segment,조원,IR_PDF
+2023Q4,Harman,Harman,Harman,op_profit,0.3,segment,조원,IR_PDF
+2023Q4,Harman,Harman,Harman,revenue,3.9,segment,조원,IR_PDF
+2023Q4,MX,Mobile eXperience,Consumer&Mobile,revenue,24.0,segment,조원,IR_PDF
+2023Q4,MX_NW,MX & Network,Consumer&Mobile,op_profit,2.7,segment,조원,IR_PDF
+2023Q4,MX_NW,MX & Network,Consumer&Mobile,revenue,25.0,segment,조원,IR_PDF
+2023Q4,Memory,Memory,Semiconductor,revenue,15.7,segment,조원,IR_PDF
+2023Q4,SDC,Samsung Display,Display,op_profit,2.0,segment,조원,IR_PDF
+2023Q4,SDC,Samsung Display,Display,revenue,9.7,segment,조원,IR_PDF
+2023Q4,Total,Total,Total,op_profit,2.8,segment,조원,IR_PDF
+2023Q4,Total,Total,Total,revenue,67.8,segment,조원,IR_PDF
+2023Q4,VD,Visual Display,Consumer&Mobile,revenue,8.4,segment,조원,IR_PDF
+2023Q4,VD_DA,VD & DA,Consumer&Mobile,op_profit,-0.1,segment,조원,IR_PDF
+2023Q4,VD_DA,VD & DA,Consumer&Mobile,revenue,14.3,segment,조원,IR_PDF
+2024FY,DS,Device Solutions,Semiconductor,op_profit,5.0,segment,조원,IR_PDF
+2024FY,DX,Device eXperience,Consumer&Mobile,op_profit,0.3,segment,조원,IR_PDF
+2024FY,DX,Device eXperience,Consumer&Mobile,revenue,2.0,segment,조원,IR_PDF
+2024FY,Harman,Harman,Harman,op_profit,0.05,segment,조원,IR_PDF
+2024FY,Harman,Harman,Harman,revenue,0.04,segment,조원,IR_PDF
+2024FY,MX,Mobile eXperience,Consumer&Mobile,revenue,4.0,segment,조원,IR_PDF
+2024FY,MX_NW,MX & Network,Consumer&Mobile,op_profit,0.6,segment,조원,IR_PDF
+2024FY,MX_NW,MX & Network,Consumer&Mobile,revenue,3.0,segment,조원,IR_PDF
+2024FY,Memory,Memory,Semiconductor,revenue,46.0,segment,조원,IR_PDF
+2024FY,SDC,Samsung Display,Display,op_profit,1.1,segment,조원,IR_PDF
+2024FY,SDC,Samsung Display,Display,revenue,16.0,segment,조원,IR_PDF
+2024FY,Total,Total,Total,op_profit,3.7,segment,조원,IR_PDF
+2024FY,Total,Total,Total,revenue,12.0,segment,조원,IR_PDF
+2024FY,VD,Visual Display,Consumer&Mobile,revenue,2.0,segment,조원,IR_PDF
+2024FY,VD_DA,VD & DA,Consumer&Mobile,op_profit,0.2,segment,조원,IR_PDF
+2024FY,VD_DA,VD & DA,Consumer&Mobile,revenue,1.0,segment,조원,IR_PDF
+2024Q1,DS,Device Solutions,Semiconductor,op_profit,1.91,segment,조원,IR_PDF
+2024Q1,DS,Device Solutions,Semiconductor,revenue,23.14,segment,조원,IR_PDF
+2024Q1,DX,Device eXperience,Consumer&Mobile,op_profit,4.07,segment,조원,IR_PDF
+2024Q1,DX,Device eXperience,Consumer&Mobile,revenue,47.29,segment,조원,IR_PDF
+2024Q1,Harman,Harman,Harman,op_profit,0.24,segment,조원,IR_PDF
+2024Q1,Harman,Harman,Harman,revenue,3.2,segment,조원,IR_PDF
+2024Q1,MX,Mobile eXperience,Consumer&Mobile,op_profit,3.51,segment,조원,IR_PDF
+2024Q1,MX,Mobile eXperience,Consumer&Mobile,revenue,32.79,segment,조원,IR_PDF
+2024Q1,MX_NW,MX & Network,Consumer&Mobile,op_profit,3.51,segment,조원,IR_PDF
+2024Q1,MX_NW,MX & Network,Consumer&Mobile,revenue,33.53,segment,조원,IR_PDF
+2024Q1,Memory,Memory,Semiconductor,revenue,17.49,segment,조원,IR_PDF
+2024Q1,SDC,Samsung Display,Display,op_profit,0.34,segment,조원,IR_PDF
+2024Q1,SDC,Samsung Display,Display,revenue,5.39,segment,조원,IR_PDF
+2024Q1,Total,Total,Total,op_profit,6.61,segment,조원,IR_PDF
+2024Q1,Total,Total,Total,revenue,71.92,segment,조원,IR_PDF
+2024Q1,VD,Visual Display,Consumer&Mobile,revenue,7.23,segment,조원,IR_PDF
+2024Q1,VD_DA,VD & DA,Consumer&Mobile,op_profit,0.53,segment,조원,IR_PDF
+2024Q1,VD_DA,VD & DA,Consumer&Mobile,revenue,13.48,segment,조원,IR_PDF
+2024Q2,DS,Device Solutions,Semiconductor,op_profit,6.45,segment,조원,IR_PDF
+2024Q2,DS,Device Solutions,Semiconductor,revenue,28.56,segment,조원,IR_PDF
+2024Q2,DX,Device eXperience,Consumer&Mobile,op_profit,2.72,segment,조원,IR_PDF
+2024Q2,DX,Device eXperience,Consumer&Mobile,revenue,42.07,segment,조원,IR_PDF
+2024Q2,Harman,Harman,Harman,op_profit,0.32,segment,조원,IR_PDF
+2024Q2,Harman,Harman,Harman,revenue,3.62,segment,조원,IR_PDF
+2024Q2,MX,Mobile eXperience,Consumer&Mobile,op_profit,2.23,segment,조원,IR_PDF
+2024Q2,MX,Mobile eXperience,Consumer&Mobile,revenue,26.64,segment,조원,IR_PDF
+2024Q2,Memory,Memory,Semiconductor,revenue,21.74,segment,조원,IR_PDF
+2024Q2,SDC,Samsung Display,Display,op_profit,1.01,segment,조원,IR_PDF
+2024Q2,SDC,Samsung Display,Display,revenue,7.65,segment,조원,IR_PDF
+2024Q2,Total,Total,Total,op_profit,10.44,segment,조원,IR_PDF
+2024Q2,Total,Total,Total,revenue,74.07,segment,조원,IR_PDF
+2024Q2,VD,Visual Display,Consumer&Mobile,revenue,7.54,segment,조원,IR_PDF
+2024Q2,VD_DA,VD & DA,Consumer&Mobile,op_profit,0.49,segment,조원,IR_PDF
+2024Q2,VD_DA,VD & DA,Consumer&Mobile,revenue,14.42,segment,조원,IR_PDF
+2024Q3,DS,Device Solutions,Semiconductor,op_profit,3.9,segment,조원,IR_PDF
+2024Q3,DS,Device Solutions,Semiconductor,revenue,29.27,segment,조원,IR_PDF
+2024Q3,DX,Device eXperience,Consumer&Mobile,op_profit,3.4,segment,조원,IR_PDF
+2024Q3,DX,Device eXperience,Consumer&Mobile,revenue,45.0,segment,조원,IR_PDF
+2024Q3,Harman,Harman,Harman,op_profit,0.4,segment,조원,IR_PDF
+2024Q3,Harman,Harman,Harman,revenue,3.5,segment,조원,IR_PDF
+2024Q3,MX,Mobile eXperience,Consumer&Mobile,op_profit,2.82,segment,조원,IR_PDF
+2024Q3,MX,Mobile eXperience,Consumer&Mobile,revenue,30.0,segment,조원,IR_PDF
+2024Q3,MX_NW,MX & Network,Consumer&Mobile,op_profit,2.8,segment,조원,IR_PDF
+2024Q3,MX_NW,MX & Network,Consumer&Mobile,revenue,30.5,segment,조원,IR_PDF
+2024Q3,Memory,Memory,Semiconductor,revenue,22.3,segment,조원,IR_PDF
+2024Q3,SDC,Samsung Display,Display,op_profit,1.5,segment,조원,IR_PDF
+2024Q3,SDC,Samsung Display,Display,revenue,8.0,segment,조원,IR_PDF
+2024Q3,Total,Total,Total,op_profit,9.2,segment,조원,IR_PDF
+2024Q3,Total,Total,Total,revenue,79.1,segment,조원,IR_PDF
+2024Q3,VD,Visual Display,Consumer&Mobile,revenue,7.6,segment,조원,IR_PDF
+2024Q3,VD_DA,VD & DA,Consumer&Mobile,op_profit,0.5,segment,조원,IR_PDF
+2024Q3,VD_DA,VD & DA,Consumer&Mobile,revenue,14.1,segment,조원,IR_PDF
+2024Q4,DS,Device Solutions,Semiconductor,op_profit,2.9,segment,조원,IR_PDF
+2024Q4,DX,Device eXperience,Consumer&Mobile,op_profit,2.3,segment,조원,IR_PDF
+2024Q4,DX,Device eXperience,Consumer&Mobile,revenue,40.5,segment,조원,IR_PDF
+2024Q4,Harman,Harman,Harman,op_profit,0.4,segment,조원,IR_PDF
+2024Q4,Harman,Harman,Harman,revenue,3.9,segment,조원,IR_PDF
+2024Q4,MX,Mobile eXperience,Consumer&Mobile,revenue,25.0,segment,조원,IR_PDF
+2024Q4,MX_NW,MX & Network,Consumer&Mobile,op_profit,2.1,segment,조원,IR_PDF
+2024Q4,MX_NW,MX & Network,Consumer&Mobile,revenue,25.8,segment,조원,IR_PDF
+2024Q4,Memory,Memory,Semiconductor,revenue,23.0,segment,조원,IR_PDF
+2024Q4,SDC,Samsung Display,Display,op_profit,0.9,segment,조원,IR_PDF
+2024Q4,SDC,Samsung Display,Display,revenue,8.1,segment,조원,IR_PDF
+2024Q4,Total,Total,Total,op_profit,6.5,segment,조원,IR_PDF
+2024Q4,Total,Total,Total,revenue,75.8,segment,조원,IR_PDF
+2024Q4,VD,Visual Display,Consumer&Mobile,revenue,8.6,segment,조원,IR_PDF
+2024Q4,VD_DA,VD & DA,Consumer&Mobile,op_profit,0.2,segment,조원,IR_PDF
+2024Q4,VD_DA,VD & DA,Consumer&Mobile,revenue,14.4,segment,조원,IR_PDF

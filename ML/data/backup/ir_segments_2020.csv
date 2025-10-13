@@ -1,81 +1,81 @@
 ﻿period,segment_code,segment_name_en,lineage_group,metric,value,scope,unit,source
-2019Q1,CE,Consumer Electronics,Consumer&Mobile,op_profit,0.51,,조원,2020_1Q_conference_kor.pdf#p03
-2019Q1,CE,Consumer Electronics,Consumer&Mobile,revenue,10.17,,조원,2020_1Q_conference_kor.pdf#p03
-2019Q1,DS,Device Solutions,Semiconductor,op_profit,3.54,,조원,2020_1Q_conference_kor.pdf#p03
-2019Q1,DS,Device Solutions,Semiconductor,revenue,20.62,,조원,2020_1Q_conference_kor.pdf#p03
-2019Q1,Harman,Harman,Harman,op_profit,0.01,,조원,2020_1Q_conference_kor.pdf#p03
-2019Q1,Harman,Harman,Harman,revenue,2.19,,조원,2020_1Q_conference_kor.pdf#p03
-2019Q1,IM,IT & Mobile communications,Consumer&Mobile,op_profit,2.27,,조원,2020_1Q_conference_kor.pdf#p03
-2019Q1,IM,IT & Mobile communications,Consumer&Mobile,revenue,27.2,,조원,2020_1Q_conference_kor.pdf#p03
-2019Q1,Total,Total,Total,op_profit,6.23,,조원,2020_1Q_conference_kor.pdf#p03
-2019Q1,Total,Total,Total,revenue,52.39,,조원,2020_1Q_conference_kor.pdf#p03
-2019Q2,CE,Consumer Electronics,Consumer&Mobile,op_profit,0.69,,조원,2020_2Q_conference_kor.pdf#p03
-2019Q2,CE,Consumer Electronics,Consumer&Mobile,revenue,11.21,,조원,2020_2Q_conference_kor.pdf#p03
-2019Q2,DS,Device Solutions,Semiconductor,op_profit,4.15,,조원,2020_2Q_conference_kor.pdf#p03
-2019Q2,DS,Device Solutions,Semiconductor,revenue,23.53,,조원,2020_2Q_conference_kor.pdf#p03
-2019Q2,Harman,Harman,Harman,op_profit,0.09,,조원,2020_2Q_conference_kor.pdf#p03
-2019Q2,Harman,Harman,Harman,revenue,2.52,,조원,2020_2Q_conference_kor.pdf#p03
-2019Q2,IM,IT & Mobile communications,Consumer&Mobile,op_profit,1.56,,조원,2020_2Q_conference_kor.pdf#p03
-2019Q2,IM,IT & Mobile communications,Consumer&Mobile,revenue,25.86,,조원,2020_2Q_conference_kor.pdf#p03
-2019Q2,Total,Total,Total,op_profit,6.6,,조원,2020_2Q_conference_kor.pdf#p03
-2019Q2,Total,Total,Total,revenue,56.13,,조원,2020_2Q_conference_kor.pdf#p03
-2019Q3,CE,Consumer Electronics,Consumer&Mobile,op_profit,0.52,,조원,2020_3Q_conference_kor.pdf#p03
-2019Q3,CE,Consumer Electronics,Consumer&Mobile,revenue,11.07,,조원,2020_3Q_conference_kor.pdf#p03
-2019Q3,DS,Device Solutions,Semiconductor,op_profit,4.24,,조원,2020_3Q_conference_kor.pdf#p03
-2019Q3,DS,Device Solutions,Semiconductor,revenue,26.64,,조원,2020_3Q_conference_kor.pdf#p03
-2019Q3,Harman,Harman,Harman,op_profit,0.1,,조원,2020_3Q_conference_kor.pdf#p03
-2019Q3,Harman,Harman,Harman,revenue,2.63,,조원,2020_3Q_conference_kor.pdf#p03
-2019Q3,IM,IT & Mobile communications,Consumer&Mobile,op_profit,2.92,,조원,2020_3Q_conference_kor.pdf#p03
-2019Q3,IM,IT & Mobile communications,Consumer&Mobile,revenue,29.25,,조원,2020_3Q_conference_kor.pdf#p03
-2019Q3,Total,Total,Total,op_profit,7.78,,조원,2020_3Q_conference_kor.pdf#p03
-2019Q3,Total,Total,Total,revenue,62.0,,조원,2020_3Q_conference_kor.pdf#p03
-2019Q4,CE,Consumer Electronics,Consumer&Mobile,op_profit,0.79,,조원,2020_1Q_conference_kor.pdf#p03
-2019Q4,CE,Consumer Electronics,Consumer&Mobile,revenue,12.87,,조원,2020_1Q_conference_kor.pdf#p03
-2019Q4,DS,Device Solutions,Semiconductor,op_profit,3.66,,조원,2020_1Q_conference_kor.pdf#p03
-2019Q4,DS,Device Solutions,Semiconductor,revenue,24.74,,조원,2020_1Q_conference_kor.pdf#p03
-2019Q4,Harman,Harman,Harman,op_profit,0.12,,조원,2020_1Q_conference_kor.pdf#p03
-2019Q4,Harman,Harman,Harman,revenue,2.73,,조원,2020_1Q_conference_kor.pdf#p03
-2019Q4,IM,IT & Mobile communications,Consumer&Mobile,op_profit,2.52,,조원,2020_1Q_conference_kor.pdf#p03
-2019Q4,IM,IT & Mobile communications,Consumer&Mobile,revenue,24.95,,조원,2020_1Q_conference_kor.pdf#p03
-2019Q4,Total,Total,Total,op_profit,7.16,,조원,2020_1Q_conference_kor.pdf#p03
-2019Q4,Total,Total,Total,revenue,59.88,,조원,2020_1Q_conference_kor.pdf#p03
-2020Q1,CE,Consumer Electronics,Consumer&Mobile,op_profit,0.45,,조원,2020_1Q_conference_kor.pdf#p03
-2020Q1,CE,Consumer Electronics,Consumer&Mobile,revenue,10.3,,조원,2020_1Q_conference_kor.pdf#p03
-2020Q1,DS,Device Solutions,Semiconductor,op_profit,3.72,,조원,2020_1Q_conference_kor.pdf#p03
-2020Q1,DS,Device Solutions,Semiconductor,revenue,24.13,,조원,2020_1Q_conference_kor.pdf#p03
-2020Q1,Harman,Harman,Harman,op_profit,-0.19,,조원,2020_1Q_conference_kor.pdf#p03
-2020Q1,Harman,Harman,Harman,revenue,2.1,,조원,2020_1Q_conference_kor.pdf#p03
-2020Q1,IM,IT & Mobile communications,Consumer&Mobile,op_profit,2.65,,조원,2020_1Q_conference_kor.pdf#p03
-2020Q1,IM,IT & Mobile communications,Consumer&Mobile,revenue,26.0,,조원,2020_1Q_conference_kor.pdf#p03
-2020Q1,Total,Total,Total,op_profit,6.45,,조원,2020_1Q_conference_kor.pdf#p03
-2020Q1,Total,Total,Total,revenue,55.33,,조원,2020_1Q_conference_kor.pdf#p03
-2020Q2,CE,Consumer Electronics,Consumer&Mobile,op_profit,0.73,,조원,2020_2Q_conference_kor.pdf#p03
-2020Q2,CE,Consumer Electronics,Consumer&Mobile,revenue,10.17,,조원,2020_2Q_conference_kor.pdf#p03
-2020Q2,DS,Device Solutions,Semiconductor,op_profit,5.74,,조원,2020_2Q_conference_kor.pdf#p03
-2020Q2,DS,Device Solutions,Semiconductor,revenue,25.05,,조원,2020_2Q_conference_kor.pdf#p03
-2020Q2,Harman,Harman,Harman,op_profit,-0.09,,조원,2020_2Q_conference_kor.pdf#p03
-2020Q2,Harman,Harman,Harman,revenue,1.54,,조원,2020_2Q_conference_kor.pdf#p03
-2020Q2,IM,IT & Mobile communications,Consumer&Mobile,op_profit,1.95,,조원,2020_2Q_conference_kor.pdf#p03
-2020Q2,IM,IT & Mobile communications,Consumer&Mobile,revenue,20.75,,조원,2020_2Q_conference_kor.pdf#p03
-2020Q2,Total,Total,Total,op_profit,8.15,,조원,2020_2Q_conference_kor.pdf#p03
-2020Q2,Total,Total,Total,revenue,52.97,,조원,2020_2Q_conference_kor.pdf#p03
-2020Q3,CE,Consumer Electronics,Consumer&Mobile,op_profit,1.56,,조원,2020_3Q_conference_kor.pdf#p03
-2020Q3,CE,Consumer Electronics,Consumer&Mobile,revenue,14.09,,조원,2020_3Q_conference_kor.pdf#p03
-2020Q3,DS,Device Solutions,Semiconductor,op_profit,6.04,,조원,2020_3Q_conference_kor.pdf#p03
-2020Q3,DS,Device Solutions,Semiconductor,revenue,25.93,,조원,2020_3Q_conference_kor.pdf#p03
-2020Q3,Harman,Harman,Harman,op_profit,0.15,,조원,2020_3Q_conference_kor.pdf#p03
-2020Q3,Harman,Harman,Harman,revenue,2.62,,조원,2020_3Q_conference_kor.pdf#p03
-2020Q3,IM,IT & Mobile communications,Consumer&Mobile,op_profit,4.45,,조원,2020_3Q_conference_kor.pdf#p03
-2020Q3,IM,IT & Mobile communications,Consumer&Mobile,revenue,30.49,,조원,2020_3Q_conference_kor.pdf#p03
-2020Q3,Total,Total,Total,op_profit,12.35,,조원,2020_3Q_conference_kor.pdf#p03
-2020Q3,Total,Total,Total,revenue,66.96,,조원,2020_3Q_conference_kor.pdf#p03
-2020Q4,CE,Consumer Electronics,Consumer&Mobile,op_profit,0.82,,조원,2020_4Q_conference_kor.pdf#p03
-2020Q4,CE,Consumer Electronics,Consumer&Mobile,revenue,13.61,,조원,2020_4Q_conference_kor.pdf#p03
-2020Q4,DS,Device Solutions,Semiconductor,op_profit,5.63,,조원,2020_4Q_conference_kor.pdf#p03
-2020Q4,DS,Device Solutions,Semiconductor,revenue,27.92,,조원,2020_4Q_conference_kor.pdf#p03
-2020Q4,Harman,Harman,Harman,op_profit,0.18,,조원,2020_4Q_conference_kor.pdf#p03
-2020Q4,Harman,Harman,Harman,revenue,2.92,,조원,2020_4Q_conference_kor.pdf#p03
-2020Q4,IM,IT & Mobile communications,Consumer&Mobile,op_profit,2.42,,조원,2020_4Q_conference_kor.pdf#p03
-2020Q4,IM,IT & Mobile communications,Consumer&Mobile,revenue,22.34,,조원,2020_4Q_conference_kor.pdf#p03
-2020Q4,Total,Total,Total,op_profit,9.05,,조원,2020_4Q_conference_kor.pdf#p03
-2020Q4,Total,Total,Total,revenue,61.55,,조원,2020_4Q_conference_kor.pdf#p03
+2019Q1,CE,Consumer Electronics,Consumer&Mobile,op_profit,0.51,segment,조원,2020_1Q_conference_kor.pdf#p03
+2019Q1,CE,Consumer Electronics,Consumer&Mobile,revenue,10.17,segment,조원,2020_1Q_conference_kor.pdf#p03
+2019Q1,DS,Device Solutions,Semiconductor,op_profit,3.54,segment,조원,2020_1Q_conference_kor.pdf#p03
+2019Q1,DS,Device Solutions,Semiconductor,revenue,20.62,segment,조원,2020_1Q_conference_kor.pdf#p03
+2019Q1,Harman,Harman,Harman,op_profit,0.01,segment,조원,2020_1Q_conference_kor.pdf#p03
+2019Q1,Harman,Harman,Harman,revenue,2.19,segment,조원,2020_1Q_conference_kor.pdf#p03
+2019Q1,IM,IT & Mobile communications,Consumer&Mobile,op_profit,2.27,segment,조원,2020_1Q_conference_kor.pdf#p03
+2019Q1,IM,IT & Mobile communications,Consumer&Mobile,revenue,27.2,segment,조원,2020_1Q_conference_kor.pdf#p03
+2019Q1,Total,Total,Total,op_profit,6.23,segment,조원,2020_1Q_conference_kor.pdf#p03
+2019Q1,Total,Total,Total,revenue,52.39,segment,조원,2020_1Q_conference_kor.pdf#p03
+2019Q2,CE,Consumer Electronics,Consumer&Mobile,op_profit,0.69,segment,조원,2020_2Q_conference_kor.pdf#p03
+2019Q2,CE,Consumer Electronics,Consumer&Mobile,revenue,11.21,segment,조원,2020_2Q_conference_kor.pdf#p03
+2019Q2,DS,Device Solutions,Semiconductor,op_profit,4.15,segment,조원,2020_2Q_conference_kor.pdf#p03
+2019Q2,DS,Device Solutions,Semiconductor,revenue,23.53,segment,조원,2020_2Q_conference_kor.pdf#p03
+2019Q2,Harman,Harman,Harman,op_profit,0.09,segment,조원,2020_2Q_conference_kor.pdf#p03
+2019Q2,Harman,Harman,Harman,revenue,2.52,segment,조원,2020_2Q_conference_kor.pdf#p03
+2019Q2,IM,IT & Mobile communications,Consumer&Mobile,op_profit,1.56,segment,조원,2020_2Q_conference_kor.pdf#p03
+2019Q2,IM,IT & Mobile communications,Consumer&Mobile,revenue,25.86,segment,조원,2020_2Q_conference_kor.pdf#p03
+2019Q2,Total,Total,Total,op_profit,6.6,segment,조원,2020_2Q_conference_kor.pdf#p03
+2019Q2,Total,Total,Total,revenue,56.13,segment,조원,2020_2Q_conference_kor.pdf#p03
+2019Q3,CE,Consumer Electronics,Consumer&Mobile,op_profit,0.52,segment,조원,2020_3Q_conference_kor.pdf#p03
+2019Q3,CE,Consumer Electronics,Consumer&Mobile,revenue,11.07,segment,조원,2020_3Q_conference_kor.pdf#p03
+2019Q3,DS,Device Solutions,Semiconductor,op_profit,4.24,segment,조원,2020_3Q_conference_kor.pdf#p03
+2019Q3,DS,Device Solutions,Semiconductor,revenue,26.64,segment,조원,2020_3Q_conference_kor.pdf#p03
+2019Q3,Harman,Harman,Harman,op_profit,0.1,segment,조원,2020_3Q_conference_kor.pdf#p03
+2019Q3,Harman,Harman,Harman,revenue,2.63,segment,조원,2020_3Q_conference_kor.pdf#p03
+2019Q3,IM,IT & Mobile communications,Consumer&Mobile,op_profit,2.92,segment,조원,2020_3Q_conference_kor.pdf#p03
+2019Q3,IM,IT & Mobile communications,Consumer&Mobile,revenue,29.25,segment,조원,2020_3Q_conference_kor.pdf#p03
+2019Q3,Total,Total,Total,op_profit,7.78,segment,조원,2020_3Q_conference_kor.pdf#p03
+2019Q3,Total,Total,Total,revenue,62.0,segment,조원,2020_3Q_conference_kor.pdf#p03
+2019Q4,CE,Consumer Electronics,Consumer&Mobile,op_profit,0.79,segment,조원,2020_1Q_conference_kor.pdf#p03
+2019Q4,CE,Consumer Electronics,Consumer&Mobile,revenue,12.87,segment,조원,2020_1Q_conference_kor.pdf#p03
+2019Q4,DS,Device Solutions,Semiconductor,op_profit,3.66,segment,조원,2020_1Q_conference_kor.pdf#p03
+2019Q4,DS,Device Solutions,Semiconductor,revenue,24.74,segment,조원,2020_1Q_conference_kor.pdf#p03
+2019Q4,Harman,Harman,Harman,op_profit,0.12,segment,조원,2020_1Q_conference_kor.pdf#p03
+2019Q4,Harman,Harman,Harman,revenue,2.73,segment,조원,2020_1Q_conference_kor.pdf#p03
+2019Q4,IM,IT & Mobile communications,Consumer&Mobile,op_profit,2.52,segment,조원,2020_1Q_conference_kor.pdf#p03
+2019Q4,IM,IT & Mobile communications,Consumer&Mobile,revenue,24.95,segment,조원,2020_1Q_conference_kor.pdf#p03
+2019Q4,Total,Total,Total,op_profit,7.16,segment,조원,2020_1Q_conference_kor.pdf#p03
+2019Q4,Total,Total,Total,revenue,59.88,segment,조원,2020_1Q_conference_kor.pdf#p03
+2020Q1,CE,Consumer Electronics,Consumer&Mobile,op_profit,0.45,segment,조원,2020_1Q_conference_kor.pdf#p03
+2020Q1,CE,Consumer Electronics,Consumer&Mobile,revenue,10.3,segment,조원,2020_1Q_conference_kor.pdf#p03
+2020Q1,DS,Device Solutions,Semiconductor,op_profit,3.72,segment,조원,2020_1Q_conference_kor.pdf#p03
+2020Q1,DS,Device Solutions,Semiconductor,revenue,24.13,segment,조원,2020_1Q_conference_kor.pdf#p03
+2020Q1,Harman,Harman,Harman,op_profit,-0.19,segment,조원,2020_1Q_conference_kor.pdf#p03
+2020Q1,Harman,Harman,Harman,revenue,2.1,segment,조원,2020_1Q_conference_kor.pdf#p03
+2020Q1,IM,IT & Mobile communications,Consumer&Mobile,op_profit,2.65,segment,조원,2020_1Q_conference_kor.pdf#p03
+2020Q1,IM,IT & Mobile communications,Consumer&Mobile,revenue,26.0,segment,조원,2020_1Q_conference_kor.pdf#p03
+2020Q1,Total,Total,Total,op_profit,6.45,segment,조원,2020_1Q_conference_kor.pdf#p03
+2020Q1,Total,Total,Total,revenue,55.33,segment,조원,2020_1Q_conference_kor.pdf#p03
+2020Q2,CE,Consumer Electronics,Consumer&Mobile,op_profit,0.73,segment,조원,2020_2Q_conference_kor.pdf#p03
+2020Q2,CE,Consumer Electronics,Consumer&Mobile,revenue,10.17,segment,조원,2020_2Q_conference_kor.pdf#p03
+2020Q2,DS,Device Solutions,Semiconductor,op_profit,5.74,segment,조원,2020_2Q_conference_kor.pdf#p03
+2020Q2,DS,Device Solutions,Semiconductor,revenue,25.05,segment,조원,2020_2Q_conference_kor.pdf#p03
+2020Q2,Harman,Harman,Harman,op_profit,-0.09,segment,조원,2020_2Q_conference_kor.pdf#p03
+2020Q2,Harman,Harman,Harman,revenue,1.54,segment,조원,2020_2Q_conference_kor.pdf#p03
+2020Q2,IM,IT & Mobile communications,Consumer&Mobile,op_profit,1.95,segment,조원,2020_2Q_conference_kor.pdf#p03
+2020Q2,IM,IT & Mobile communications,Consumer&Mobile,revenue,20.75,segment,조원,2020_2Q_conference_kor.pdf#p03
+2020Q2,Total,Total,Total,op_profit,8.15,segment,조원,2020_2Q_conference_kor.pdf#p03
+2020Q2,Total,Total,Total,revenue,52.97,segment,조원,2020_2Q_conference_kor.pdf#p03
+2020Q3,CE,Consumer Electronics,Consumer&Mobile,op_profit,1.56,segment,조원,2020_3Q_conference_kor.pdf#p03
+2020Q3,CE,Consumer Electronics,Consumer&Mobile,revenue,14.09,segment,조원,2020_3Q_conference_kor.pdf#p03
+2020Q3,DS,Device Solutions,Semiconductor,op_profit,6.04,segment,조원,2020_3Q_conference_kor.pdf#p03
+2020Q3,DS,Device Solutions,Semiconductor,revenue,25.93,segment,조원,2020_3Q_conference_kor.pdf#p03
+2020Q3,Harman,Harman,Harman,op_profit,0.15,segment,조원,2020_3Q_conference_kor.pdf#p03
+2020Q3,Harman,Harman,Harman,revenue,2.62,segment,조원,2020_3Q_conference_kor.pdf#p03
+2020Q3,IM,IT & Mobile communications,Consumer&Mobile,op_profit,4.45,segment,조원,2020_3Q_conference_kor.pdf#p03
+2020Q3,IM,IT & Mobile communications,Consumer&Mobile,revenue,30.49,segment,조원,2020_3Q_conference_kor.pdf#p03
+2020Q3,Total,Total,Total,op_profit,12.35,segment,조원,2020_3Q_conference_kor.pdf#p03
+2020Q3,Total,Total,Total,revenue,66.96,segment,조원,2020_3Q_conference_kor.pdf#p03
+2020Q4,CE,Consumer Electronics,Consumer&Mobile,op_profit,0.82,segment,조원,2020_4Q_conference_kor.pdf#p03
+2020Q4,CE,Consumer Electronics,Consumer&Mobile,revenue,13.61,segment,조원,2020_4Q_conference_kor.pdf#p03
+2020Q4,DS,Device Solutions,Semiconductor,op_profit,5.63,segment,조원,2020_4Q_conference_kor.pdf#p03
+2020Q4,DS,Device Solutions,Semiconductor,revenue,27.92,segment,조원,2020_4Q_conference_kor.pdf#p03
+2020Q4,Harman,Harman,Harman,op_profit,0.18,segment,조원,2020_4Q_conference_kor.pdf#p03
+2020Q4,Harman,Harman,Harman,revenue,2.92,segment,조원,2020_4Q_conference_kor.pdf#p03
+2020Q4,IM,IT & Mobile communications,Consumer&Mobile,op_profit,2.42,segment,조원,2020_4Q_conference_kor.pdf#p03
+2020Q4,IM,IT & Mobile communications,Consumer&Mobile,revenue,22.34,segment,조원,2020_4Q_conference_kor.pdf#p03
+2020Q4,Total,Total,Total,op_profit,9.05,segment,조원,2020_4Q_conference_kor.pdf#p03
+2020Q4,Total,Total,Total,revenue,61.55,segment,조원,2020_4Q_conference_kor.pdf#p03

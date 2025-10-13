@@ -1,11 +1,4 @@
 period,category,metric,value,unit,source
-2023FY,cashflow,cash_begin,115.23,조원,IR_PDF
-2023FY,cashflow,cash_change,-22.82,조원,IR_PDF
-2023FY,cashflow,cash_end,92.41,조원,IR_PDF
-2023FY,cashflow,cff,-8.59,조원,IR_PDF
-2023FY,cashflow,cfi,-59.49,조원,IR_PDF
-2023FY,cashflow,cfo,44.13,조원,IR_PDF
-2023FY,cashflow,net_cash,79.72,조원,IR_PDF
 2023Q1,cashflow,cash_begin,115.23,조원,IR_PDF
 2023Q1,cashflow,cash_change,-7.04,조원,IR_PDF
 2023Q1,cashflow,cash_end,108.18,조원,IR_PDF
@@ -30,6 +23,13 @@ period,category,metric,value,unit,source
 2023Q4,cashflow,cff,0.13,조원,IR_PDF
 2023Q4,cashflow,cfi,-18.87,조원,IR_PDF
 2023Q4,cashflow,cfo,19.94,조원,IR_PDF
+2023Y,cashflow,cash_begin,115.23,조원,IR_PDF
+2023Y,cashflow,cash_change,-22.82,조원,IR_PDF
+2023Y,cashflow,cash_end,92.41,조원,IR_PDF
+2023Y,cashflow,cff,-8.59,조원,IR_PDF
+2023Y,cashflow,cfi,-59.49,조원,IR_PDF
+2023Y,cashflow,cfo,44.13,조원,IR_PDF
+2023Y,cashflow,net_cash,79.72,조원,IR_PDF
 2024Q1,cashflow,cash_begin,92.41,조원,IR_PDF
 2024Q1,cashflow,cash_change,4.99,조원,IR_PDF
 2024Q1,cashflow,cash_end,97.39,조원,IR_PDF

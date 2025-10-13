@@ -51,6 +51,7 @@ def add_lineage_group_features(wide: pd.DataFrame, seg_long: pd.DataFrame) -> pd
 
 BASE = Path(__file__).resolve().parent.parent
 RAW  = BASE / "data" / "raw"
+BACKUP = BASE / "data" / "backup"
 OUT  = BASE / "data" / "processed"
 OUT_WIDE = OUT / "wide"
 OUT_LONG = OUT / "long"
@@ -128,17 +129,28 @@ def _read_csv(path: Path, expect_cols=None) -> pd.DataFrame:
 def load_family(prefix: str) -> pd.DataFrame:
     """
     RAW 디렉토리에서 prefix로 시작하는 모든 CSV 파일(예: ir_quarter_2022.csv, ir_quarter.csv)을 읽어 병합합니다.
+    - data/raw에 파일이 없으면 data/backup에서 가져옵니다.
     - 연도별 파일과 통합 파일을 모두 로드하여 합친 후 중복을 제거합니다.
     - 스키마를 표준화하고(예: value 컬럼 통일) 불필요한 컬럼을 제거합니다.
     """
-    files = list(RAW.glob(f"{prefix}_*.csv")) + [RAW / f"{prefix}.csv"]
-    files = [p for p in files if p.exists()]
-    if not files:
-        print(f"[WARN] not found: {prefix}*")
+    potential_files = sorted(set(list(RAW.glob(f"{prefix}_*.csv")) + [RAW / f"{prefix}.csv"]))
+    
+    files_to_load = []
+    for p_raw in potential_files:
+        if p_raw.exists():
+            files_to_load.append(p_raw)
+        else:
+            p_backup = BACKUP / p_raw.name
+            if p_backup.exists():
+                print(f"[INFO] Using backup for {p_raw.name}")
+                files_to_load.append(p_backup)
+
+    if not files_to_load:
+        print(f"[WARN] not found: {prefix}* in raw or backup")
         return pd.DataFrame()
 
     frames = []
-    for p in sorted(set(files)):
+    for p in files_to_load:
         try:
             df = _read_csv(p)
             if not df.empty:

@@ -10,6 +10,8 @@
 - 모든 시각화 결과는 reports/figures/ 디렉토리에 이미지 파일로 저장됩니다.
 """
 import pandas as pd
+import matplotlib
+matplotlib.use('Agg') #창을 띄우지 않도록 변경
 import matplotlib.pyplot as plt
 import seaborn as sns
 import platform

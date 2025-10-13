@@ -187,7 +187,6 @@ reports/
 scripts/deprecated/
 scripts/legacy/
 ## output
-*.docx
 *.md
 
 # End of https://www.toptal.com/developers/gitignore/api/python

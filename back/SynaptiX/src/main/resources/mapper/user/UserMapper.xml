@@ -15,7 +15,8 @@
     </select>
 
     <select id="selectAllUsers" resultType="com.example.demo.model.UserDTO">
-        SELECT 
+        SELECT
+        	pk, 
             ID AS userId,
             Password AS password,
             Name AS name,
@@ -63,7 +64,8 @@
     </update>
 
     <select id="searchUsers" resultType="com.example.demo.model.UserDTO">
-        SELECT 
+        SELECT
+            pk,
             ID AS userId,
             Password AS password,
             Name AS name,

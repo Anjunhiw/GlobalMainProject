@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 public class UserDTO {
+	private Integer pk;
     private String userId;
     private String password;
     private String name;
@@ -11,6 +12,15 @@ public class UserDTO {
     private String rank;
     private String birth;
 
+    public Integer getPk() {
+		return pk;
+	}
+    
+	public void setPk(Integer pk) {
+		this.pk = pk;
+	}
+    
+    
     public String getUserId() {
         return userId;
     }

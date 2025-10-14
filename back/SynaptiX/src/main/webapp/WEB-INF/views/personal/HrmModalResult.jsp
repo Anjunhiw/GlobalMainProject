@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <table class="table">
   <thead>
     <tr>
@@ -18,7 +17,7 @@
   <tbody>
     <c:forEach var="emp" items="${employees}">
       <tr>
-        <td>${emp.userId}</td>
+        <td><fmt:formatNumber value="${emp.pk}" pattern="000000"/></td>
         <td>${emp.name}</td>
         <td>"${emp.birth}"</td>
         <td>${emp.email}</td>

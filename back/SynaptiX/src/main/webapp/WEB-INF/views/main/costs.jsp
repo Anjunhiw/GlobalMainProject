@@ -6,6 +6,82 @@
 <%request.setAttribute("active_main", "active");%>
 <%request.setAttribute("active_mains", "costs");%>
 <link rel="stylesheet" href="/css/home.css?v=7">
+<style>
+/* ===== 캘린더 디자인 개선 ===== */
+.calendar {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #f8fafd;
+  box-shadow: 0 1px 4px rgba(90,110,130,0.07);
+  border-radius: 10px;
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+.calendar th, .calendar td {
+  width: 14.28%;
+  height: 38px;
+  text-align: center;
+  border: none;
+  position: relative;
+}
+.calendar th {
+  background: #eaf0fa;
+  color: #5b7cff;
+  font-weight: 600;
+  border-bottom: 1px solid #e0e6ed;
+  letter-spacing: 1px;
+}
+.calendar td {
+  background: #fff;
+  color: #222;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+  border-radius: 6px;
+}
+.calendar td.today {
+  background: #5b7cff;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(91,124,255,0.08);
+}
+.calendar td.sun, .calendar th.sun {
+  color: #f44a4a;
+}
+.calendar td:hover:not(.today) {
+  background: #eaf0fa;
+  color: #5b7cff;
+}
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.cal-title {
+  font-size: 1.15em;
+  font-weight: 600;
+  color: #3a4a6b;
+  letter-spacing: 1px;
+  padding: 0 8px;
+}
+.cal-nav-btn {
+  background: #eaf0fa;
+  border: none;
+  color: #5b7cff;
+  font-size: 1.3em;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.cal-nav-btn:hover {
+  background: #5b7cff;
+  color: #fff;
+}
+</style>
 <%@ include file="../common/header.jsp" %>
 <main class="container">
 <section class="dashboard-grid">
@@ -29,13 +105,19 @@
 
   <!-- 달력 카드 -->
   <div class="card">
-    <div class="card-header"><h4 id="calTitle">5월</h4></div>
+    <div class="card-header">
+      <div class="calendar-nav">
+        <button class="cal-nav-btn" id="prevMonthBtn">‹</button>
+        <span class="cal-title" id="calTitle"></span>
+        <button class="cal-nav-btn" id="nextMonthBtn">›</button>
+      </div>
+    </div>
     <div class="card-body">
       <table class="calendar" id="calendar">
         <thead>
           <tr><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th><th class="sun">SUN</th></tr>
         </thead>
-        <tbody><!-- JS가 채움 --></tbody>
+        <tbody id="calendarBody"><!-- JS가 채움 --></tbody>
       </table>
 
       <div class="note-box">
@@ -107,6 +189,7 @@
 </section>
 
 
+<!-- 기존 모든 <script> 태그 주석 처리 -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
 // ===== 차트 옵션 및 생성 함수: Home.jsp와 동일하게 선언 =====
@@ -291,6 +374,78 @@ function makeBarLineChart(canvas, labels, barData, lineData, yTitle){
       btn.addEventListener('click', function(){ showTab(btn.dataset.target); });
     });
   });
+})();
+
+// ===== 캘린더 기능 추가 =====
+(function(){
+  const calendarBody = document.getElementById('calendarBody');
+  const calTitle = document.getElementById('calTitle');
+  const prevBtn = document.getElementById('prevMonthBtn');
+  const nextBtn = document.getElementById('nextMonthBtn');
+
+  let today = new Date();
+  let currentYear = today.getFullYear();
+  let currentMonth = today.getMonth(); // 0-indexed
+
+  function renderCalendar(year, month) {
+    // month: 0-indexed
+    calTitle.textContent = year + '년 ' + (month+1) + '월';
+    calendarBody.innerHTML = '';
+    let firstDay = new Date(year, month, 1);
+    let lastDay = new Date(year, month+1, 0);
+    let startDay = firstDay.getDay(); // 0: Sunday, 1: Monday, ...
+    // Adjust startDay to Monday=0, Sunday=6
+    startDay = (startDay === 0) ? 6 : startDay - 1;
+    let totalDays = lastDay.getDate();
+    let row = document.createElement('tr');
+    // Fill empty cells before first day
+    for(let i=0; i<startDay; i++) {
+      let cell = document.createElement('td');
+      row.appendChild(cell);
+    }
+    for(let date=1; date<=totalDays; date++) {
+      let cell = document.createElement('td');
+      cell.textContent = date;
+      // Highlight today
+      if(year === today.getFullYear() && month === today.getMonth() && date === today.getDate()) {
+        cell.classList.add('today');
+      }
+      // Sunday class
+      let cellDay = (startDay + date - 1) % 7;
+      if(cellDay === 6) cell.classList.add('sun');
+      row.appendChild(cell);
+      if(cellDay === 6 && date !== totalDays) {
+        calendarBody.appendChild(row);
+        row = document.createElement('tr');
+      }
+    }
+    // Fill empty cells after last day
+    let lastCellDay = (startDay + totalDays - 1) % 7;
+    if(lastCellDay !== 6) {
+      for(let i=lastCellDay+1; i<=6; i++) {
+        let cell = document.createElement('td');
+        row.appendChild(cell);
+      }
+    }
+    calendarBody.appendChild(row);
+  }
+
+  function changeMonth(diff) {
+    currentMonth += diff;
+    if(currentMonth < 0) {
+      currentMonth = 11;
+      currentYear--;
+    } else if(currentMonth > 11) {
+      currentMonth = 0;
+      currentYear++;
+    }
+    renderCalendar(currentYear, currentMonth);
+  }
+
+  prevBtn.addEventListener('click', function(){ changeMonth(-1); });
+  nextBtn.addEventListener('click', function(){ changeMonth(1); });
+
+  renderCalendar(currentYear, currentMonth);
 })();
 </script>
 

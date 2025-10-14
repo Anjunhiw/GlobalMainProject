@@ -15,7 +15,8 @@
     </select>
 
     <select id="selectAllUsers" resultType="com.example.demo.model.UserDTO">
-        SELECT 
+        SELECT
+        	pk, 
             ID AS userId,
             Password AS password,
             Name AS name,
@@ -49,8 +50,22 @@
         WHERE ID = #{userId}
     </update>
 
+    <update id="updateUser" parameterType="com.example.demo.model.UserDTO">
+        UPDATE member
+        SET 
+            Name = #{name},
+            Email = #{email},
+            Dept = #{dept},
+            Rank = #{rank},
+            Birth = #{birth},
+            Years = #{years},
+            Salary = #{salary}
+        WHERE ID = #{userId}
+    </update>
+
     <select id="searchUsers" resultType="com.example.demo.model.UserDTO">
-        SELECT 
+        SELECT
+            pk,
             ID AS userId,
             Password AS password,
             Name AS name,

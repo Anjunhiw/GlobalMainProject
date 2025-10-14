@@ -114,7 +114,7 @@ def extract_page_text(pdf_path: Path, page_no_1idx: int) -> str:
 # ────────────────────────────────────────────────────────────────────────────────
 # 1. 전사 실적 파싱
 # ────────────────────────────────────────────────────────────────────────────────
-RE_REV_LABEL = re.compile(r"^(매\s*출(액)?(!\s*원가|\s*총))|Revenue", re.I)
+RE_REV_LABEL = re.compile(r"^(매\s*출(액)?)(?!\s*(?:원가|총))|Revenue", re.I)
 RE_OP_LABEL = re.compile(r"(영\s*업\s*이\s*익|Operating\s*Profit|^OP$|\bOP\b)", re.I)
 RE_GPROFIT = re.compile(r"(매\s*출\s*총\s*이\s*익|Gross\s*Profit)", re.I)
 RE_OP_MARGINLN = re.compile(r"(영\s*업\s*이\s*익\s*률|이\s*익\s*률|마\s*진|op\s*margin|operating\s*margin|margin|ratio|rate|opm)", re.I)
@@ -190,7 +190,7 @@ def _align_numbers_to_periods(nums: List[float], periods: List[str], metric: str
 
     # 디버깅을 위해 점수 계산 과정을 CSV 파일로 저장
     try:
-        out_path = DBG_DIR / f"align_debug_{metric}_{dbg_id}.csv"
+        out_path = DBG_DIR / f"align_debug_{{metric}}_{dbg_id}.csv"
         with open(out_path, "w", newline="", encoding="utf-8-sig") as f:
             writer = csv.DictWriter(f, fieldnames=dbg_rows[0].keys())
             writer.writeheader()
@@ -208,7 +208,7 @@ def extract_consolidated_table_wide(pdf_path: Path) -> List[Dict[str, Any]]:
     def normalize_header_period(h: str) -> Optional[str]:
         """'1Q'25'와 같은 헤더를 '2025Q1' 형식으로 표준화합니다."""
         if not h: return None
-        m = re.search(r"(?P<q>[1-4])\\s*Q\\s*'?(?P<y>\\d{2})", h)
+        m = re.search(r"(?P<q>[1-4])\s*Q\s*'?(?P<y>\d{2})", h)
         if m:
             return f"20{m.group('y')}Q{m.group('q')}"
         return None
@@ -226,7 +226,7 @@ def extract_consolidated_table_wide(pdf_path: Path) -> List[Dict[str, Any]]:
 
                 # 1. 헤더 탐지: '1Q'25' 같은 패턴으로 기간 헤더를 찾습니다.
                 for i, line in enumerate(lines):
-                    q_strings = re.findall(r"[1-4]\\s*Q\\s*'?(?:\\d{2})", line)
+                    q_strings = re.findall(r"[1-4]\s*Q\s*'?(?:\d{2})", line)
                     if len(q_strings) >= 2:
                         period_headers = [p for p in (normalize_header_period(q) for q in q_strings) if p]
                         header_line_idx = i
@@ -236,7 +236,7 @@ def extract_consolidated_table_wide(pdf_path: Path) -> List[Dict[str, Any]]:
 
                 # 2. 헤더 보강: 헤더가 두 줄에 걸쳐 있을 수 있으므로 다음 라인도 확인하여 헤더를 보강합니다.
                 if header_line_idx >= 0 and header_line_idx + 1 < len(lines):
-                    more_q = re.findall(r"[1-4]\\s*Q\\s*'?(?:\\d{2})", lines[header_line_idx + 1])
+                    more_q = re.findall(r"[1-4]\s*Q\s*'?(?:\d{2})", lines[header_line_idx + 1])
                     extra = [p for p in (normalize_header_period(q) for q in more_q) if p]
                     seen = set(period_headers)
                     for p in extra:
@@ -316,28 +316,28 @@ def parse_quarterly_data(pdf_path: Path) -> List[Dict]:
 # 2. 부문별 실적 파싱 (v3: 계층 구조 인식)
 # ────────────────────────────────────────────────────────────────────────────────
 
-SEGMENT_TITLE_PAT = re.compile(r"사업부문별\\s*매출\\s*(?:및|과)\\s*영업이익")
-SEGMENT_HEADER_Q_RE = re.compile(r"([1-4])\\s*Q\\s*'?(?:\\d{2}|\\d{4})", re.I)
+SEGMENT_TITLE_PAT = re.compile(r"사업부문별\s*매출\s*(?:및|과)\s*영업이익")
+SEGMENT_HEADER_Q_RE = re.compile(r"([1-4])\s*Q\s*'?(\d{2}|\d{4})", re.I)
 
 SEG_KO_PATTERNS = [
-    (r"^\\s*-\s*mx\\s*.*$", "MX", "Mobile eXperience", "Consumer&Mobile"),
-    (r"^\\s*-\s*vd\\s*.*$", "VD", "Visual Display", "Consumer&Mobile"),
-    (r"mx\\s*/\\s*네트워크", "MX_NW", "MX & Network", "Consumer&Mobile"),
+    (r"^\s*-\s*mx\s*.*$", "MX", "Mobile eXperience", "Consumer&Mobile"),
+    (r"^\s*-\s*vd\s*.*$", "VD", "Visual Display", "Consumer&Mobile"),
+    (r"mx\s*/\s*네트워크", "MX_NW", "MX & Network", "Consumer&Mobile"),
     (r"mx.*network", "MX_NW", "MX & Network", "Consumer&Mobile"),
     (r"vd.*da", "VD_DA", "VD & DA", "Consumer&Mobile"),
     (r"vd.*가전", "VD_DA", "VD & Home Appliances", "Consumer&Mobile"),
-    (r"^\\s*dx\\s*.*$", "DX", "Device eXperience", "Consumer&Mobile"),
-    (r"^\\s*ce\\s*부문\\s*.*$", "CE", "Consumer Electronics", "Consumer&Mobile"),
-    (r"^\\s*im\\s*부문\\s*.*$", "IM", "IT & Mobile communications", "Consumer&Mobile"),
-    (r"^\\s*ds\\s*부문\\s*.*$", "DS", "Device Solutions", "Semiconductor"),
-    (r"^(harman|하만)\\s*.*$",   "Harman", "Harman", "Harman"),
+    (r"^\s*dx\s*.*$", "DX", "Device eXperience", "Consumer&Mobile"),
+    (r"^\s*ce\s*부문\s*.*$", "CE", "Consumer Electronics", "Consumer&Mobile"),
+    (r"^\s*im\s*부문\s*.*$", "IM", "IT & Mobile communications", "Consumer&Mobile"),
+    (r"^\s*ds\s*부문\s*.*$", "DS", "Device Solutions", "Semiconductor"),
+    (r"^(harman|하만)\s*.*$",   "Harman", "Harman", "Harman"),
     (r"메모리|Memory", "Memory", "Memory", "Semiconductor"),
-    (r"^\\s*network(s)?\\s*.*$", "Network", "Network", "Consumer&Mobile"),
-    (r"^\\s*dp\\s*부문\\s*.*$", "DP", "Display Panel", "Display"),
-    (r"\\bMX\\b", "MX", "Mobile eXperience", "Consumer&Mobile"),
-    (r"\\bVD\\b", "VD", "Visual Display", "Consumer&Mobile"),
-    (r"\\bSDC\\b", "SDC", "Samsung Display", "Display"),
-    (r"^\\s*총(액|합|계)\\s*.*$", "Total", "Total", "Total")
+    (r"^\s*network(s)?\s*.*$", "Network", "Network", "Consumer&Mobile"),
+    (r"^\s*dp\s*부문\s*.*$", "DP", "Display Panel", "Display"),
+    (r"\bMX\b", "MX", "Mobile eXperience", "Consumer&Mobile"),
+    (r"\bVD\b", "VD", "Visual Display", "Consumer&Mobile"),
+    (r"\bSDC\b", "SDC", "Samsung Display", "Display"),
+    (r"^\s*총(액|합|계)\s*.*$", "Total", "Total", "Total")
 ]
 
 def translate_segment_as_reported(s: str):
@@ -433,7 +433,7 @@ def parse_segments(pdf_path: Path) -> List[Dict]:
 # ────────────────────────────────────────────────────────────────────────────────
 # 3. 별첨 재무/현금흐름 파싱
 # ────────────────────────────────────────────────────────────────────────────────
-NUM_RE_C = r"(?:\\(\\s*[-−–—]?\\s*[\\d,]+(?:\\.\\d+)?\\s*\\)|△\\s*[\\d,]+(?:\\.\\d+)?|[-−–—]?\\s*[\\d,]+(?:\\.\\d+)?)"
+NUM_RE_C = r"(?:\(\s*[-−–—]?\s*[\d,]+(?:\.\d+)?\s*\)|△\s*[\d,]+(?:\.\d+)?|[-−–—]?\s*[\d,]+(?:\.\d+)?)"
 
 def to_trillion_from_eok(tok: str) -> Optional[float]:
     """'억원' 단위를 '조원' 단위로 변환합니다."""
@@ -446,7 +446,7 @@ def to_trillion_direct(tok: str) -> Optional[float]:
 
 def extract_numbers_from_line(line: str, converter) -> List[float]:
     """라인에서 숫자들을 추출하고 단위를 변환합니다."""
-    num_and_maybe_percent_re = rf"({NUM_RE_C})\\s*(%|％)?"
+    num_and_maybe_percent_re = rf"({NUM_RE_C})\s*(%|％)?"
     tokens = re.findall(num_and_maybe_percent_re, clean_spaces(line))
     numbers = []
     for num_str, percent in tokens:
@@ -460,14 +460,14 @@ def parse_annex_headers(text: str) -> List[str]:
     lines = text.splitlines()
     best_line_tokens = []
     header_patterns = [
-        re.compile(r"'?(?P<y>\\d{2})\\s*\\.\\s*(?P<q>[1-4])Q"),
-        re.compile(r"(?P<q>[1-4])Q\\s*말\\s*'?(?P<y>\\d{2})"),
-        re.compile(r"(?P<q>[1-4])Q\\s*'?(?P<y>\\d{2})"),
-        re.compile(r"'?(?P<y>\\d{2})\\s*년말?"),
-        re.compile(r"\\b(?P<y>20\\d{2})\\b"),
+        re.compile(r"'?(?P<y>\d{2})\s*\.\s*(?P<q>[1-4])Q"),
+        re.compile(r"(?P<q>[1-4])Q\s*말\s*'?(?P<y>\d{2})"),
+        re.compile(r"(?P<q>[1-4])Q\s*'?(?P<y>\d{2})"),
+        re.compile(r"'?(?P<y>\d{2})\s*년말?"),
+        re.compile(r"\b(?P<y>20\d{2})\b"),
     ]
     for line in lines[:8]:
-        if len(re.findall(r'\\d', line)) > 15: continue
+        if len(re.findall(r'\d', line)) > 15: continue
         current_line_tokens = [m for pat in header_patterns for m in pat.finditer(clean_spaces(line))]
         if len(current_line_tokens) > len(best_line_tokens): best_line_tokens = current_line_tokens
     if not best_line_tokens: return []
@@ -481,10 +481,10 @@ def parse_annex_headers(text: str) -> List[str]:
             periods.append(f"{year}Q{q_str}" if q_str else f"{year}Y")
     return periods
 
-LAB_ASSETS = re.compile(r"(?<!\\w)자\\s*산\\s*계\\b", re.I)
-LAB_LIABS = re.compile(r"(?<!\\w)부\\s*채\\b(?!.*자\\s*본\\s*계)", re.I)
-LAB_EQU = re.compile(r"(?<!\\w)자\\s*본\\b(?!.*계)", re.I)
-LAB_LIAEQT = re.compile(r"(?<!\\w)부\\s*채\\s*와\\s*자\\s*본\\s*계\\b", re.I)
+LAB_ASSETS = re.compile(r"(?<!\w)자\s*산\s*계\b", re.I)
+LAB_LIABS = re.compile(r"(?<!\w)부\s*채\b(?!.*자\s*본\s*계)", re.I)
+LAB_EQU = re.compile(r"(?<!\w)자\s*본\b(?!.*계)", re.I)
+LAB_LIAEQT = re.compile(r"(?<!\w)부\s*채\s*와\s*자\s*본\s*계\b", re.I)
 BAL_BLACKLIST = re.compile(r"(매출채권|재고자산|투자자산|현금및현금성자산|유동자산|비유동자산|유동부채|비유동부채|유형자산|무형자산|이익잉여금)", re.I)
 
 def parse_balance(pdf_path: Path) -> List[Dict]:
@@ -514,8 +514,9 @@ def parse_balance(pdf_path: Path) -> List[Dict]:
     process_metric("equity", LAB_EQU, BAL_BLACKLIST)
     return rows
 
-CFS_LEFT_LABELS = {"cfo": [r"영업활동(?:으로\\s*인한)?\\s*현금흐름"], "cfi": [r"투자활동(?:으로\\s*인한)?\\s*현금흐름"], "cff": [r"재무활동(?:으로\\s*인한)?\\s*현금흐름"], "cash_begin": [r"기초\\s*현금"], "cash_end": [r"기말\\s*현금"], "cash_change": [r"현금\\s*증감"]}
-RIGHT_NETCASH_TITLE = re.compile(r"순\\s*현금\\s*현황", re.I)
+CFS_LEFT_LABELS = {"cfo": [r"영업활동(?:으로\s*인한)?\s*현금흐름"], "cfi": [r"투자활동(?:으로\s*인한)?\s*현금흐름"], "cff": [r"재무활동(?:으로\s*인한)?\s*현금흐름"], "cash_begin": [r"기초\s*현금"], "cash_end": [r"기말\s*현금"], "cash_change": [r"현금\s*증감"]}
+RIGHT_NETCASH_TITLE = re.compile(r"순\s*현금\s*현황", re.I)
+
 
 def parse_cashflow(pdf_path: Path) -> List[Dict]:
     """PDF에서 현금흐름표 데이터를 파싱합니다."""
@@ -543,7 +544,7 @@ def parse_cashflow(pdf_path: Path) -> List[Dict]:
             if metric_found: break
         if metric_found: continue
         if not got["net_cash"] and RIGHT_NETCASH_TITLE.search(text):
-            if re.search(r"^순\\s*현금\\b", s, re.I):
+            if re.search(r"^순\s*현금\b", s, re.I):
                 numbers = extract_numbers_from_line(s, to_trillion_direct)
                 for i, v in enumerate(numbers):
                     if i < len(periods): rows.append({"period": periods[i], "category": "cashflow", "metric": "net_cash", "value": v, "unit": "조원", "source": "IR_PDF"})

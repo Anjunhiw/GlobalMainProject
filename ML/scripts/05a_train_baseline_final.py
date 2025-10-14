@@ -26,9 +26,10 @@ import re
 warnings.filterwarnings("ignore", category=UserWarning)
 
 # --- 경로 및 상수 설정 ---
-DATA_WIDE = Path("data/final/ml_dataset_wide.csv")
-OUT_DIR   = Path("models");  OUT_DIR.mkdir(parents=True, exist_ok=True)
-REPORTS   = Path("reports"); REPORTS.mkdir(parents=True, exist_ok=True)
+BASE_DIR = Path(__file__).resolve().parent.parent # ML/
+DATA_WIDE = BASE_DIR / "data" / "final" / "ml_dataset_wide.csv"
+OUT_DIR   = BASE_DIR / "models";  OUT_DIR.mkdir(parents=True, exist_ok=True)
+REPORTS   = BASE_DIR / "reports"; REPORTS.mkdir(parents=True, exist_ok=True)
 
 # --- 모델 설정 ---
 TARGETS = ["revenue", "op_profit"] # 예측 대상 변수

@@ -14,14 +14,20 @@ BASE  = Path(__file__).resolve().parent.parent
 PROC  = BASE / "data" / "processed"
 EXT   = BASE / "data" / "external"
 FINAL = BASE / "data" / "final"
+BACKUP = BASE / "data" / "backup"
 FINAL.mkdir(parents=True, exist_ok=True)
 
 # ---------- 공통 유틸 ----------
 def read_csv_safe(p: Path, **kwargs) -> pd.DataFrame:
-    """CSV 파일을 안전하게 읽어 DataFrame으로 반환합니다. 파일이 없거나 오류 발생 시 빈 DataFrame을 반환합니다."""
+    """CSV 파일을 안전하게 읽어 DataFrame으로 반환합니다. 파일이 없으면 backup에서 찾고, 그래도 없으면 빈 DataFrame을 반환합니다."""
     if not p.exists():
-        print(f"[WARN] not found: {p}")
-        return pd.DataFrame()
+        backup_p = BACKUP / p.name
+        if backup_p.exists():
+            print(f"[INFO] '{p.name}' not found, using backup.")
+            p = backup_p
+        else:
+            print(f"[WARN] not found: {p} (no backup available)")
+            return pd.DataFrame()
     try:
         return pd.read_csv(p, **kwargs)
     except Exception as e:

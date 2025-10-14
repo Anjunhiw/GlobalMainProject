@@ -57,7 +57,7 @@ request.setAttribute("active_personal", "active");
     <tbody>
       <c:forEach var="emp" items="${employees}">
         <tr>
-          <td>${emp.userId}</td>
+          <td><fmt:formatNumber value="${emp.pk}" pattern="000000"/></td>
           <td>${emp.name}</td>
           <td>"${emp.birth}"</td>
           <td>${emp.email}</td>

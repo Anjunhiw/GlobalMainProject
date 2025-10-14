@@ -1,4 +1,4 @@
--- --------------------------------------------------------
+product-- --------------------------------------------------------
 -- 호스트:                          127.0.0.1
 -- 서버 버전:                        11.7.2-MariaDB - mariadb.org binary distribution
 -- 서버 OS:                        Win64
@@ -192,4 +192,4 @@ CREATE TABLE IF NOT EXISTS `transaction_details` (
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
-globalmainproj_01purchaseproduct
+globalmainproj_01

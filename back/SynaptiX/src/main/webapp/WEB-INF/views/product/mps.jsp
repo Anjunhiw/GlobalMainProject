@@ -114,7 +114,7 @@ request.setAttribute("active_mps", "active");
   <div id="editMpsModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); z-index:9999; align-items:center; justify-content:center;">
     <div style="background:#fff; padding:30px; border-radius:8px; min-width:350px; position:relative;">
       <h4>MPS 수정</h4>
-      <form id="editMpsForm">
+      <form id="editMpsForm" class="form-rows">
         <input type="hidden" name="pk" id="editPk">
         <div class="field">
           <label>제품ID</label>

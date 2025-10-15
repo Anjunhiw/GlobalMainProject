@@ -79,7 +79,7 @@ request.setAttribute("active_pch", "active");
           <td><fmt:formatNumber value="${p.price}"/></td>
           <td class="text-right"><fmt:formatNumber value="${p.purchase}" type="number" groupingUsed="true"/></td>
           <td class="text-right"><fmt:formatNumber value="${p.cost}" type="number" groupingUsed="true"/></td>
-		  <td><fmt:formatDate value="${p.date}" pattern="yyyy-MM-dd"/></td>
+		  <td>${p.date}</td>
 		  <td><fmt:formatNumber value="${p.stock}" type="number" groupingUsed="true"/></td>
 		  <td><fmt:formatNumber value="${p.amount}" type="number" groupingUsed="true"/></td>
         </tr>

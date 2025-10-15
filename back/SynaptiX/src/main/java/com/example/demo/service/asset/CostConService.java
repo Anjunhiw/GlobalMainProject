@@ -13,8 +13,8 @@ public class CostConService {
     @Autowired
     private CostConMapper costConMapper;
 
-    public List<PurchaseDTO> getCostConList(String startDate, String endDate, String materialName) {
-        return costConMapper.selectCostConList(startDate, endDate, materialName);
+    public List<PurchaseDTO> getCostConList(String startDate, String endDate, String mtrName) {
+        return costConMapper.selectCostConList(startDate, endDate, mtrName);
     }
 
     public List<PurchaseDTO> searchCostConList(Map<String, Object> params) {

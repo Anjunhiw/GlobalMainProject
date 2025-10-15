@@ -7,7 +7,7 @@ public class PurchaseDTO {
 	private int MaterialId;
 	private Integer Cost;
 	private Float Purchase;
-	private Date Date;
+	private String Date;
 	private String materialName;
 	
 	private int stock; // 구매량
@@ -57,11 +57,11 @@ public class PurchaseDTO {
 		Purchase = purchase;
 	}
 	
-	public Date getDate() {
+	public String getDate() {
 		return Date;
 	}
 	
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		Date = date;
 	}
 

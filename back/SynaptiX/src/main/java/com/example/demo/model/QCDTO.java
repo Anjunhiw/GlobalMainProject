@@ -9,7 +9,7 @@ public class QCDTO {
 	private String name;
 	private String model;
 	private String specification;
-	private java.util.Date period;
+	private String period;
 	
 	public QCDTO() {}
 	
@@ -43,6 +43,6 @@ public class QCDTO {
 	public void setModel(String model) { this.model = model; }
 	public String getSpecification() { return specification; }
 	public void setSpecification(String specification) { this.specification = specification; }
-	public java.util.Date getPeriod() { return period; }
-	public void setPeriod(java.util.Date period) { this.period = period; }
+	public String getPeriod() { return period; }
+	public void setPeriod(String period) { this.period = period; }
 }

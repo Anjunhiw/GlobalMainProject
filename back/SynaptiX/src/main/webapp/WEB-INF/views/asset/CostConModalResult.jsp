@@ -15,7 +15,7 @@
   <tbody>
     <c:forEach var="cost" items="${costList}">
       <tr>
-        <td><fmt:formatDate value="${cost.date}" pattern="yyyy-MM-dd"/></td>
+        <td>${cost.date}</td>
         <td>${cost.materialName}</td>
         <td><fmt:formatNumber value="${cost.purchase}"/></td>
         <td><fmt:formatNumber value="${cost.price}"/></td>

@@ -6,7 +6,7 @@
         <result property="name" column="name" />
         <result property="model" column="model" />
         <result property="specification" column="specification" />
-        <result property="period" column="period" />
+        <result property="period" column="period"  javaType="java.lang.String"/>
         <result property="mpsId" column="mpsId" />
         <result property="passed" column="passed" jdbcType="TINYINT" javaType="boolean" />
     </resultMap>

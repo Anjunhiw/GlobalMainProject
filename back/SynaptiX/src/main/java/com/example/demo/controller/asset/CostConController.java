@@ -52,6 +52,10 @@ public class CostConController {
                                   @RequestParam(value = "endDate", required = false) String endDate,
                                   @RequestParam(value = "mtrName", required = false) String mtrName,
                                   HttpServletResponse response) throws IOException {
+        // 전체 데이터 다운로드: 파라미터를 빈 값으로 설정
+        startDate = "";
+        endDate = "";
+        mtrName = "";
         List<PurchaseDTO> costList = costConService.getCostConList(startDate, endDate, mtrName);
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("비용지출내역");

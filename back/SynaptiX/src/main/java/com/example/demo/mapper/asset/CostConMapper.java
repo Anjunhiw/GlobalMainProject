@@ -11,7 +11,7 @@ public interface CostConMapper {
     List<PurchaseDTO> selectCostConList(
         @Param("startDate") String startDate,
         @Param("endDate") String endDate,
-        @Param("materialName") String materialName
+        @Param("mtrName") String mtrName
     );
 
     List<PurchaseDTO> searchCostConList(java.util.Map<String, Object> params);

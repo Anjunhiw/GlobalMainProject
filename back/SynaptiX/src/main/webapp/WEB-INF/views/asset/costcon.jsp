@@ -57,7 +57,7 @@ request.setAttribute("active_control", "active");
     <tbody>
       <c:forEach var="cost" items="${costList}">
         <tr>
-          <td><fmt:formatDate value="${cost.date}" pattern="yyyy-MM-dd"/></td>
+          <td>${cost.date}</td>
           <td>${cost.materialName}</td>
           <td><fmt:formatNumber value="${cost.purchase}"/></td>
           <td><fmt:formatNumber value="${cost.price}"/></td>
@@ -132,7 +132,7 @@ request.setAttribute("active_control", "active");
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = '비용지출내역.xlsx';
+        a.download = 'costcon_result.xlsx';
         document.body.appendChild(a);
         a.click();
         a.remove();
@@ -161,7 +161,7 @@ request.setAttribute("active_control", "active");
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = '검색결과_비용지출내역.xlsx';
+        a.download = 'constcon_result.xlsx';
         document.body.appendChild(a);
         a.click();
         a.remove();

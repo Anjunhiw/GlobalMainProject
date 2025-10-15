@@ -1,10 +1,8 @@
 package com.example.demo.model;
 
-import java.util.Date;
-
 public class AssetPlanDTO {
     private int pk;
-    private Date date;
+    private String date;
     private int productId;
     private String productName;
     private int price;
@@ -13,8 +11,8 @@ public class AssetPlanDTO {
     // getter, setter
     public int getPk() { return pk; }
     public void setPk(int pk) { this.pk = pk; }
-    public Date getDate() { return date; }
-    public void setDate(Date date) { this.date = date; }
+    public String getDate() { return date; }
+    public void setDate(String date) { this.date = date; }
     public int getProductId() { return productId; }
     public void setProductId(int productId) { this.productId = productId; }
     public String getProductName() { return productName; }

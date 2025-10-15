@@ -15,7 +15,7 @@
   <tbody>
     <c:forEach var="plan" items="${assetPlans}">
       <tr>
-        <td><fmt:formatDate value="${plan.date}" pattern="yyyy-MM-dd"/></td>
+        <td>${plan.date}</td>
         <td>${plan.productName}</td>
         <td class="text-right"><fmt:formatNumber value="${plan.price}" type="number"/></td>
         <td class="text-right"><fmt:formatNumber value="${plan.amount}" type="number"/></td>

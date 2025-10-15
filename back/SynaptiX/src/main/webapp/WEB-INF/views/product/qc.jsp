@@ -86,7 +86,7 @@ request.setAttribute("active_qc", "active");
           <td>${qc.name}</td>
           <td>${qc.model}</td>
 		  <td>${qc.specification}</td>
-          <td><fmt:formatDate value="${qc.period}" pattern="yyyy-MM-dd"/></td>
+          <td>${qc.period}</td>
           <td>
             <c:choose>
               <c:when test="${qc.passed}">합격</c:when>

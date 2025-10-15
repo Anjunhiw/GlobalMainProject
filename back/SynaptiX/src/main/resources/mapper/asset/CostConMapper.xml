@@ -20,8 +20,8 @@
       <if test="endDate != null and endDate != ''">
         AND p.date &lt;= #{endDate}
       </if>
-      <if test="materialName != null and materialName != ''">
-        AND m.name LIKE CONCAT('%', #{materialName}, '%')
+      <if test="mtrName != null and mtrName != ''">
+        AND m.name LIKE CONCAT('%', #{mtrName}, '%')
       </if>
     </where>
     ORDER BY p.date DESC

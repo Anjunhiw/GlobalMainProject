@@ -196,8 +196,8 @@ request.setAttribute("active_bom", "active");
 <div id="bomEditModal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="bomEditModalTitle">
   <div class="modal-content">
     <span class="close" onclick="closeBomEditModal()" aria-label="닫기">&times;</span>
-    <h3 id="bomEditModalTitle">BOM 수정</h3>
-    <form id="bomEditForm">
+    <h3 id="bomEditModalTitle" >BOM 수정</h3>
+    <form id="bomEditForm" class="form-rows">
       <div class="field">
         <label>제품ID</label>
         <input type="number" id="editProductId" name="productId" readonly>

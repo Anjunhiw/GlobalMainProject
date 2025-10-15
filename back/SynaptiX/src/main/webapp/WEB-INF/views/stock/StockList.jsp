@@ -303,6 +303,27 @@ request.setAttribute("active_stl", "active");
 	    <tr><td colspan="11">제품 데이터가 없습니다.</td></tr>
 	  </c:if>
 </table>
+<div class="pagination">
+    <c:set var="totalPages" value="${(totalCount / size) + (totalCount % size > 0 ? 1 : 0)}" />
+    <c:if test="${totalPages > 1}">
+      <ul class="paging-list">
+        <c:if test="${page > 0}">
+          <li><a href="?page=${page - 1}&size=${size}">이전</a></li>
+        </c:if>
+        <c:forEach var="i" begin="0" end="${totalPages - 1}">
+          <li>
+            <a href="?page=${i}&size=${size}" class="${i == page ? 'active' : ''}">${i + 1}</a>
+          </li>
+        </c:forEach>
+        <c:if test="${page < totalPages - 1}">
+          <li><a href="?page=${page + 1}&size=${size}">다음</a></li>
+        </c:if>
+      </ul>
+      <span class="paging-info">총 ${totalCount}건</span>
+    </c:if>
+  </div>
+
+
 </tbody>
 </main>
   <!-- stock.jsp 하단 script 일부만 발췌/수정 -->

@@ -219,7 +219,7 @@ request.setAttribute("active_mtr", "active");
           <li><a href="?page=${page + 1}&size=${size}">다음</a></li>
         </c:if>
       </ul>
-      <span class="paging-info">총 ${totalCount}건, ${page + 1}/${totalPages}페이지</span>
+      <span class="paging-info">총 ${totalCount}건</span>
     </c:if>
   </div>
 </main>
@@ -378,47 +378,5 @@ function downloadExcelFromModal() {
   });
 }
 </script>
-<style>
-  #resultModal .modal-content {
-    max-width: 800px;
-    max-height: 80vh;
-    display: flex;
-    flex-direction: column;
-  }
-  #modalResultBody {
-    max-height: 400px;
-    overflow-y: auto;
-    margin-bottom: 10px;
-  }
-  .pagination {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-  }
-  .paging-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    gap: 5px;
-  }
-  .paging-list li {
-    display: inline;
-  }
-  .paging-list a {
-    text-decoration: none;
-    padding: 8px 12px;
-    border: 1px solid #007bff;
-    color: #007bff;
-    border-radius: 4px;
-  }
-  .paging-list a.active {
-    background-color: #007bff;
-    color: white;
-  }
-  .paging-info {
-    font-size: 14px;
-    color: #555;
-  }
-</style>
+
 <%@ include file="../common/footer.jsp" %>

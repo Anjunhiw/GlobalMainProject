@@ -237,7 +237,45 @@ select{
     margin-top: 0;
     margin-bottom: 0;
 }
-
+#resultModal .modal-content {
+  max-width: 800px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+#modalResultBody {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+.paging-list {
+  list-style: none;
+  padding: 0;
+  display: inline-block;
+}
+.paging-list li {
+  display: inline;
+  margin: 0 5px;
+}
+.paging-list a {
+  text-decoration: none;
+  padding: 8px 12px;
+  border: 1px solid #007bff;
+  color: #007bff;
+  border-radius: 4px;
+}
+.paging-list a.active {
+  background-color: #007bff;
+  color: white;
+}
+.paging-info {
+  margin-left: 10px;
+  vertical-align: super;
+}
 /* 반응형 살짝 */
 @media (max-width: 960px) {
   .filters { grid-template-columns: repeat(2, minmax(0,1fr)); }

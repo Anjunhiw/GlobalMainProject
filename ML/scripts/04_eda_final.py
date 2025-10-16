@@ -46,7 +46,7 @@ except FileNotFoundError:
     print(f"[ERROR] 데이터 파일을 찾을 수 없습니다: {DATA_PATH}")
     exit()
 
-# --- 정렬을 위한 პერიოდ 키 함수 ---
+# --- 정렬을 위한 period 키 함수 ---
 def _period_key(s: str):
     """'2024Q1', '2024FY' 같은 문자열을 정렬 가능한 튜플로 변환합니다."""
     s = str(s)
